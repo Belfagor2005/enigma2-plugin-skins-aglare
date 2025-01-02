@@ -1,0 +1,1 @@
+4.7#https://raw.githubusercontent.com/levi-45/enigma2-plugin-skins-aglare/refs/heads/main/usr.tar#

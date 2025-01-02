@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin>
+    <!-- *************************************** -->
+    <!-- Levi45EmuKeysUpdater                  * -->
+    <!-- *************************************** -->
+    <screen name="Levi45EmuKeysUpdater" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="EmuKeys Updater">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <!-- <panel name="ScreenTemplateAllColorButtons_menu" /> -->
+        <panel name="pigscreen885"/>
+        <!-- <panel name="bLogo" /> -->
+        <widget source="list" render="Listbox" position="59,102" size="837,891" font="Regular; 34" itemHeight="50" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049">
+            <convert type="StringList"/>
+        </widget>
+
+        <widget name="labstatus" position="1018,606" size="842,189" font="Regular; 26" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
+        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1" />
+    </screen>
+    <!-- ************* CAM Manager ************* -->
+    <screen name="Manager" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Cams Manager">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <!-- <panel name="bLogo" /> -->
+        <widget name="infocam" position="1021,936" size="858,68" font="Regular; 22" halign="center" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="7"/>
+        <widget name="info" position="44,602" size="855,382" font="Regular; 26" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
+        <!-- <widget name="list" position="59,102" size="837,395" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/> -->
+        <widget source="list" render="Listbox" position="56,161" size="840,430" scrollbarMode="showOnDemand" foregroundColor="#00a0a0a0" backgroundColorSelected="#00000000" enableWrapAround="1" transparent="1" zPosition="5">
+            <convert type="TemplatedMultiContent">
+                {"template": [
+                        MultiContentEntryPixmapAlphaTest(pos=(5, 0), size=(70, 40), png=1), # index 1 is the pixmap   
+                        MultiContentEntryText(pos=(95, 0), size=(500, 45), flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER, text=0, color=0x72d000, color_sel=0xffffff, backcolor_sel=0x0066cc), # index 0 is the text name,
+                        MultiContentEntryText(pos=(595, 0), size=(200, 45), flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER, text=2, color_sel=0xffffff, backcolor_sel=0x0066cc), # index 0 is the text name,
+                        <!-- MultiContentEntryText(pos=(595, 0), size=(200, 45), flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER, text=2, color=0x72d000, color_sel=0xffffff, backcolor_sel=0x0066cc), # index 0 is the text name, -->
+
+                    ],
+                 "fonts": [gFont("Regular", 34)],
+                 "itemHeight": 50
+                }
+            </convert>
+        </widget>
+        <eLabel name="" position="1675,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
+        <eLabel name="" position="1376,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="0"/>
+        <eLabel name="" position="1438,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="1"/>
+        <eLabel name="" position="1614,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
+        <eLabel name="" position="1498,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="2"/>
+        <eLabel name="" position="1556,1016" size="52,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="8"/>
+        <eLabel name="" position="1734,1016" size="130,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="SECRET MENU"/>
+        <widget name="description" position="59,97" size="843,64" font="Regular; 32" halign="left" valign="center" foregroundColor="#002a79b8" backgroundColor="black" transparent="1" zPosition="5"/>
+    </screen>
+    <!-- *************************************** -->
+    <!--  NEW MANAGER                         * -->
+    <!-- *************************************** -->
+    <screen name="GetipklistLv" position="0,0" size="1920,1080" title="Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1" />
+        <!-- <panel name="bLogo" /> -->
+        <widget name="list" position="49,118" size="850,723" scrollbarMode="showOnDemand" font="Regular;32" itemHeight="50" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049"/>
+        <widget name="description" position="61,878" size="845,113" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
+    </screen>
+    <screen name="GetipklistLv2" position="0,0" size="1920,1080" title="Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="GetipklistLv"/>
+    </screen>
+    <screen name="InfoCfg" position="0,0" size="1920,1080" title="Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1" />
+        <!-- <panel name="bLogo" /> -->
+        <widget name="list" position="49,109" size="850,863" font="Regular;32" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" backgroundColor="#20000000"/>
+        <widget name="description" position="998,620" size="875,266" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
+    </screen>
+    <screen name="levi_config" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Addon Manager">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1" />
+        <!-- <panel name="bLogo" /> -->
+        <widget name="config" position="43,161" size="869,678" font="Regular;34" itemHeight="50" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
+        <widget name="info" position="997,608" size="884,81" font="Regular; 32" halign="left" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
+        <widget name="description" position="41,95" size="882,59" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
+    </screen>
+    <!-- *************************************** -->
+    <!-- Addon Manager                         * -->
+    <!-- *************************************** -->
+    <screen name="addonsupdatesScreen" position="0,0" size="1920,1080" title="Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1" />
+        <!-- <panel name="bLogo" /> -->
+        <widget name="text" position="49,109" size="850,863" font="Regular;32" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" backgroundColor="#20000000"/>
+    </screen>
+    <screen name="AboutScreen" position="0,0" size="1920,1080" title="Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="addonsupdatesScreen"/>
+    </screen>
+    <screen name="AddonsGroups" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Addon Manager">
+        <panel name="titletemp" />
+        <panel name="menutemp" />
+        <panel name="ScreenTemplateAllColorButtons_menu" />
+        <panel name="pigscreen885" />
+        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1" />
+        <!-- <panel name="bLogo" /> -->
+        <eLabel name="" position="1734,1016" size="55,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU" />
+        <widget name="info" position="39,107" size="884,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
+        <widget name="fspace" position="1016,571" size="841,50" font="Regular;24" halign="center" valign="center" foregroundColor="yellow" backgroundColor="mcolor4" transparent="0" zPosition="5" />
+        <!-- <widget name="statusgreen" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/status-on.png" alphatest="blend" position="1013,45" size="40,40" zPosition="5"/> -->
+        <!-- <widget name="statusred" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/status-off.png" alphatest="blend" position="1015,44" size="40,40" zPosition="5"/> -->
+        <!-- <widget name="status" position="1062,44" size="420,40" font="Regular; 40" foregroundColor="#ffb75b" backgroundColor="#101010" halign="left" transparent="1" zPosition="4"/> -->
+        <widget name="list" position="43,172" size="869,812" font="Regular;34" itemHeight="50" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1" />
+        <eLabel name="" position="997,630" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 30" text="" zPosition="1" />
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,634" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">MemTotal</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,662" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">MemTotal</convert>
+        </widget>
+        <eLabel name="" position="997,684" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1" />
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,688" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">HddInfo</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,716" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">HddInfo</convert>
+        </widget>
+        <eLabel name="" position="997,738" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1" />
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,742" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">FlashInfo</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,770" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">FlashInfo</convert>
+        </widget>
+        <eLabel name="" position="997,792" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 28" text="" zPosition="1" />
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,796" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">UsbInfo</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,824" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">UsbInfo</convert>
+        </widget>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,859" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareBoxInfo">Boxtype</convert>
+        </widget>
+        <eLabel name="" position="997,846" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1" />
+        <eLabel name="" position="997,900" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1" />
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,913" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareBoxInfo">CpuInfo</convert>
+        </widget>
+        <eLabel name="" position="997,954" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 18" zPosition="1" text="UP" />
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,967" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareBoxInfo">Upinfo</convert>
+        </widget>
+    </screen>
+    <!-- ************* AddonPackages************* -->
+    <screen name="AddonPackages" position="0,0" size="1920,1080" title="Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="AddonsGroups"/>
+    </screen>
+    <!-- ************* DailySetting************* -->
+    <screen name="DailySetting" position="0,0" size="1920,1080" title="Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="AddonsGroups"/>
+    </screen>
+    <!-- ************* NSS Panels ************* -->
+    <screen name="SatMenu" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="SatMenu">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1" />
+        <!-- <panel name="bLogo" /> -->
+        <widget source="list" render="Listbox" position="43,96" size="869,830" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1">
+            <convert type="TemplatedMultiContent">
+				{"template": [
+					MultiContentEntryText(pos = (90, 3), size = (700, 30), font=0, flags = RT_HALIGN_LEFT | RT_HALIGN_LEFT, text = 1),
+					MultiContentEntryText(pos = (100, 33), size = (640, 50), font=0, color=0x64ccfe, flags = RT_VALIGN_CENTER, text = 2),
+					MultiContentEntryPixmapAlphaTest(pos=(5, 1), size=(72, 72), png = 3),
+					],
+					"fonts": [gFont("Regular", 30)],
+					"itemHeight": 80
+				}
+			</convert>
+        </widget>
+        <widget source="conn" render="Label" position="33,941" size="878,64" font="Regular;32" halign="left" valign="center" foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
+        <eLabel name="" position="997,630" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 30" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,634" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">MemTotal</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,662" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">MemTotal</convert>
+        </widget>
+        <eLabel name="" position="997,684" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,688" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">HddInfo</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,716" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">HddInfo</convert>
+        </widget>
+        <eLabel name="" position="997,738" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,742" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">FlashInfo</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,770" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">FlashInfo</convert>
+        </widget>
+        <eLabel name="" position="997,792" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 28" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,796" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">UsbInfo</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,824" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">UsbInfo</convert>
+        </widget>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,859" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareBoxInfo">Boxtype</convert>
+        </widget>
+        <eLabel name="" position="997,846" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
+        <eLabel name="" position="997,900" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,913" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareBoxInfo">CpuInfo</convert>
+        </widget>
+        <eLabel name="" position="997,954" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 18" zPosition="1" text="UP"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,967" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareBoxInfo">Upinfo</convert>
+        </widget>
+    </screen>
+    <!-- *************************************** -->
+    <!--  MenuSat PANELS                           * -->
+    <!-- *************************************** -->
+    <screen name="MenuSat" position="0,0" size="1920,1080" title="MenuSat" backgroundColor="black" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="menulistpli"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="menudesc"/>
+        <panel name="menusep"/>
+        <panel name="pigscreen885"/>
+        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1" />
+        <!-- <panel name="bLogo" /> -->
+        <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
+        <eLabel name="" position="997,630" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="FA; 26" text="" zPosition="1"/>
+        <eLabel name="" position="997,630" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 30" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,634" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">MemTotal</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,662" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">MemTotal</convert>
+        </widget>
+        <eLabel name="" position="997,684" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,688" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">HddInfo</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,716" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">HddInfo</convert>
+        </widget>
+        <eLabel name="" position="997,738" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,742" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">FlashInfo</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,770" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">FlashInfo</convert>
+        </widget>
+        <eLabel name="" position="997,792" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 28" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,796" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">UsbInfo</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,824" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">UsbInfo</convert>
+        </widget>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,859" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareBoxInfo">Boxtype</convert>
+        </widget>
+        <eLabel name="" position="997,846" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
+        <eLabel name="" position="997,900" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,913" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareBoxInfo">CpuInfo</convert>
+        </widget>
+        <eLabel name="" position="997,954" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 18" zPosition="1" text="UP"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,967" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareBoxInfo">Upinfo</convert>
+        </widget>
+    </screen>
+    <!-- *************************************** -->
+    <!--  QuitMainloopScreen                   * -->
+    <!-- *************************************** -->    
+    <screen name="QuitMainloopScreen" position="0,0" size="1920,1080" backgroundColor="#ff000000" flags="wfNoBorder">
+        <ePixmap pixmap="sf/welcome.png" position="0,0" size="1920,1080" scale="1" alphatest="blend" zPosition="1" transparent="1"/>
+        <ePixmap pixmap="sf/logo.png" position="1670,924" size="220,132" scale="1" alphatest="blend" zPosition="2"/>
+        <widget name="text" position="78,12" size="1770,60" font="Regular; 50" halign="center" valign="center" backgroundColor="#ffffffff" foregroundColor="gold" zPosition="2"/>
+        <eLabel name="" position="7,957" size="321,121" font="Regular; 34" backgroundColor="background" text="Welcome to ...  Satellite-Forum.com @Lululla" zPosition="2" transparent="1" halign="center" foregroundColor="yellow"/>
+    </screen>
+    <!-- bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb -->
+    <screen name="Logo">
+        <ePixmap position="220,32" size="160,81" pixmap="sf/logo.png" alphatest="blend" transparent="1" zPosition="20"/>
+    </screen>
+    <screen name="bLogo">
+        <ePixmap position="1314,984" size="500,90" pixmap="sf/logo.png" alphatest="blend" transparent="1" zPosition="1"/>
+    </screen>
+    <!-- *************************************** -->
+    <!--  SetPiconPath Folder                              * -->
+    <!-- *************************************** -->
+    <screen name="SetPiconPath" position="0,0" size="1920,1080" title="Select path for Picons" backgroundColor="transparent" flags="wfNoBorder">
+        <widget name="target" position="997,607" size="885,180" font="Regular; 28" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
+        <panel name="pigscreen885"/>
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <widget name="filelist" position="40,100" size="890,900" font="Regular;34" itemHeight="50" transparent="1" itemCornerRadius="8" valign="center" sscrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
+        <!-- <panel name="bLogo" /> -->
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
+    </screen>
+    <screen name="piconPath" position="0,0" size="1920,1080" title="Select path for Picons" backgroundColor="transparent" flags="wfNoBorder">
+        <panel name="SetPiconPath"/>
+    </screen>
+</skin>
