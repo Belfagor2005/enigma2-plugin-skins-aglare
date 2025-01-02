@@ -1,9 +1,4 @@
 # enigma2-plugin-skins-aglare
 
-<img src="https://raw.githubusercontent.com/levi-45/Multicam/main/45950864.png">
+<img src="https://raw.githubusercontent.com/Belfagor2005/enigma2-plugin-skins-aglare/main/usr/share/enigma2/Aglare-FHD-PLI/picon_default.png?raw=true">
 
-Support on: 
-
-https://satellite-forum.com
-
-![](https://komarev.com/ghpvc/?username=levi-45)
