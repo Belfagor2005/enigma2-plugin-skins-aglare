@@ -762,16 +762,6 @@ class radiom80(Screen):
         description = ''
         djs = ''
         if a == 0:
-            # from requests.adapters import HTTPAdapter
-            # hdr = {"User-Agent": "Enigma2 - RadioM Plugin"}
-            # adapter = HTTPAdapter()
-            # http = requests.Session()
-            # http.mount("http://", adapter)
-            # http.mount("https://", adapter)
-            # r = http.get(self.url, headers=hdr, timeout=10, verify=False, stream=True)
-            # r.raise_for_status()
-            # if r.status_code == requests.codes.ok:
-                # y = r.json()
             data = titlesong2(self.url)
             if "error" in data:
                 print("Errore:", data["error"])
