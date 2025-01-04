@@ -4,9 +4,10 @@ SECTION = "base"
 PRIORITY = "required"
 LICENSE = "proprietary"
 
+require conf/license/license-gplv2.inc
+
 inherit gitpkgv allarch
 
-require conf/license/license-gplv2.inc
 
 SRCREV = "${AUTOREV}"
 PV = "1.2+git${SRCPV}"
