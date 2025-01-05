@@ -1,4 +1,3 @@
-
 <screen name="ChannelSelection" position="0,0" size="1920,1080" title="Channel Selection" backgroundColor="black" flags="wfNoBorder">
   <panel name="ScreenTemplateAllColorButtons_menu" />
   <panel name="timedate" />
@@ -23,8 +22,8 @@
     <convert type="EventName">Name</convert>
   </widget>
   <widget source="ServiceEvent" render="AglareEventListDisplay" position="1385,490" size="500,200" backgroundColor="buttonsc" column0="10,100,yellow,Regular,30,0,0" column1="110,370,white,Regular,30,1,1" primetimeoffset="0" rowHeight="40" transparent="1" zPosition="50">
-<convert type="AglareEventList">beginOnly=yes,primetime=yes,eventcount=5</convert>
-</widget>
+    <convert type="AglareEventList">beginOnly=yes,primetime=yes,eventcount=5</convert>
+  </widget>
   <widget source="session.VideoPicture" render="Pig" position="1386,120" zPosition="20" size="500,282" backgroundColor="transparent" transparent="0" cornerRadius="14" />
   <widget source="ServiceEvent" render="Label" position="1086,118" zPosition="1" size="290,32" font="Regular; 24" halign="center" backgroundColor="background" transparent="1" valign="center" noWrap="1">
     <convert type="AglareServName2">Provider</convert>
@@ -32,20 +31,20 @@
   <widget source="ServiceEvent" render="Label" position="897,170" zPosition="1" size="480,40" font="Regular; 28" halign="left" backgroundColor="background" transparent="1" valign="center">
     <convert type="AglareServName2">%O %F %p %Y %f</convert>
   </widget>
-  <eLabel name="" position="1094,36" size="52,28" text="SNR" font="Regular; 22" transparent="1" zPosition="5" backgroundColor="background" />
-  <eLabel name="" position="1094,70" size="52,28" text="AGC" font="Regular; 22" transparent="1" zPosition="5" backgroundColor="background" />
+  <eLabel name="" position="1094,38" size="52,28" text="SNR" font="Regular; 22" transparent="1" zPosition="5" backgroundColor="background" />
+  <eLabel name="" position="1094,72" size="52,28" text="AGC" font="Regular; 22" transparent="1" zPosition="5" backgroundColor="background" />
   <widget source="session.FrontendStatus" render="Label" position="1260,36" size="92,28" font="Regular; 22" backgroundColor="background" transparent="1" zPosition="23" valign="center" halign="left" foregroundColor="green">
     <convert type="FrontendInfo">SNR</convert>
   </widget>
   <widget source="session.FrontendStatus" render="Label" position="1260,70" size="64,28" font="Regular; 22" backgroundColor="background" transparent="1" zPosition="23" valign="center" halign="left" foregroundColor="green">
     <convert type="FrontendInfo">AGC</convert>
   </widget>
-  <widget render="Progress" position="1152,81" size="100,6" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="8" zPosition="7" backgroundColor="progbg">
-  <convert type="FrontendInfo">AGC</convert>
-</widget>
-  <widget render="Progress" position="1152,47" size="100,6" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="3" zPosition="99" backgroundColor="progbg">
-  <convert type="FrontendInfo">SNR</convert>
-</widget>
+  <widget render="Progress" position="1152,81" size="100,8" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="4" zPosition="7" backgroundColor="progbg">
+    <convert type="FrontendInfo">AGC</convert>
+  </widget>
+  <widget render="Progress" position="1152,47" size="100,8" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="4" zPosition="99" backgroundColor="progbg">
+    <convert type="FrontendInfo">SNR</convert>
+  </widget>
   <eLabel name="" position="31,30" size="791,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2" />
   <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK" />
   <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU" />
@@ -63,16 +62,16 @@
   <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="0" usedImage="backdrop" delayPic="200" position="840,300" size="240,130" zPosition="99" cornerRadius="14" />
   <widget source="ServiceEvent" render="xtraLogo" position="1116,300" size="240,130" zPosition="1" />
   <eLabel name="" position="826,720" size="1072,260" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2" />
-<widget source="ServiceEvent" render="xtraNextEvents" nextEvent="0" usedImage="poster" position="830,730" size="160,240" cornerRadius="20" zPosition="99" />
+  <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="0" usedImage="poster" position="830,730" size="160,240" cornerRadius="20" zPosition="99" />
   <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="1" usedImage="poster" position="1010,730" size="160,240" cornerRadius="20" zPosition="99" />
   <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="2" usedImage="poster" position="1190,730" size="160,240" cornerRadius="20" zPosition="99" />
   <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="3" usedImage="poster" position="1370,730" size="160,240" cornerRadius="20" zPosition="99" />
-<widget source="ServiceEvent" render="xtraNextEvents" nextEvent="4" usedImage="poster" position="1550,730" size="160,240" cornerRadius="20" zPosition="99" />
-<widget source="ServiceEvent" render="xtraNextEvents" nextEvent="5" usedImage="poster" position="1730,730" size="160,240" cornerRadius="20" zPosition="99" />
+  <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="4" usedImage="poster" position="1550,730" size="160,240" cornerRadius="20" zPosition="99" />
+  <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="5" usedImage="poster" position="1730,730" size="160,240" cornerRadius="20" zPosition="99" />
   <widget source="ServiceEvent" render="AglarePosterX" position="830,730" size="160,240" cornerRadius="20" zPosition="95" />
   <widget source="ServiceEvent" render="AglarePosterX" nexts="1" position="1010,730" size="160,240" cornerRadius="20" zPosition="95" />
   <widget source="ServiceEvent" render="AglarePosterX" nexts="2" position="1190,730" size="160,240" cornerRadius="20" zPosition="95" />
   <widget source="ServiceEvent" render="AglarePosterX" nexts="3" position="1370,730" size="160,240" cornerRadius="20" zPosition="95" />
-<widget source="ServiceEvent" render="AglarePosterX" nexts="4" position="1550,730" size="160,240" cornerRadius="20" zPosition="95" />
-<widget source="ServiceEvent" render="AglarePosterX" nexts="5" position="1730,730" size="160,240" cornerRadius="20" zPosition="95" />
+  <widget source="ServiceEvent" render="AglarePosterX" nexts="4" position="1550,730" size="160,240" cornerRadius="20" zPosition="95" />
+  <widget source="ServiceEvent" render="AglarePosterX" nexts="5" position="1730,730" size="160,240" cornerRadius="20" zPosition="95" />
 </screen>

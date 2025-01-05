@@ -14,9 +14,9 @@
         <abouth name="Aglare-FHD">
             author="MNASR"
             license="Open"
-            Support="OpenPLI, OBH and OpenVIX"
-            Version="4.6"
-            Release date="14/11/2024"
+            Support="OpenPLI, TeamBlue, OBH and OpenVIX"
+            Version="4.9"
+            Release date="05/01/2025"
             supporturl="www.linuxsat-support.com"
         </abouth>
     </copyright>
@@ -24,6 +24,12 @@
     <resolution xres="1920" yres="1080" bpp="32" />
   </output>
   <colors>
+    <color name="greeng1" value="#0038761d" />
+    <color name="greeng2" value="#00326a1a" />
+    <color name="greeng3" value="#002c5e17" />
+    <color name="redg1" value="#00771615" />
+    <color name="redg2" value="#006b1312" />
+    <color name="redg3" value="#005f1110" />
   <color name="black1" value="#00181818" />
   <color name="gold1" value="#20ffd700" />
   <color name="white1" value="#20ffffff" />
@@ -245,5 +251,4 @@
       <pixmap pos="bpBottomRight" filename="Aglare-FHD-PLI/window/b_br_shadow.png" />
     </borderset>
   </windowstyle>
-  <include filename="skin_templates.xml" />
-  <include filename="skin_sf.xml" />
+
