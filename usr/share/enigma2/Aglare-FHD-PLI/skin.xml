@@ -3548,7 +3548,6 @@ MultiContentEntryText(pos = (90, 42), size = (800, 40), font=1, flags = RT_HALIG
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="3menulist45"/>
-                                    
     </screen>
     <screen name="MyLanguageSelection" position="0,0" size="1920,1080" title="Language selection" backgroundColor="background" flags="wfNoBorder">
         <panel name="titletemp"/>
@@ -6425,7 +6424,6 @@ MultiContentEntryPixmapAlphaTest(pos = (8, 87), size = (0, 0), png = 5), # index
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="pigscreen885"/>
-                                        
         <widget name="list" position="36,98" size="890,900" itemHeight="60" transparent="1" font="Regular; 34" itemCornerRadius="10" scrollbarMode="showNever"/>
         <widget name="text" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
