@@ -26,7 +26,7 @@ import json
 import os
 import socket
 import sys
-from .Converlibr import convtext, quoteEventName
+from .AglareConverlibr import convtext, quoteEventName
 
 global cur_skin, my_cur_skin, tmdb_api
 PY3 = False

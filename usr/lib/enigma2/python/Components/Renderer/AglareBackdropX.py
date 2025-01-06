@@ -45,7 +45,7 @@ import sys
 import time
 import traceback
 import datetime
-from .Converlibr import convtext
+from .AglareConverlibr import convtext
 
 PY3 = False
 if sys.version_info[0] >= 3:
@@ -420,8 +420,8 @@ class AglareBackdropX(Renderer):
         self.nxts = 0
         self.path = path_folder  # + '/'
         self.canal = [None, None, None, None, None, None]
-        self.pstrNm = None
         self.oldCanal = None
+        self.pstrNm = None
         self.logdbg = None
         self.pstcanal = None
         self.timer = eTimer()
@@ -551,6 +551,7 @@ class AglareBackdropX(Renderer):
     def waitBackdrop(self):
         if self.instance:
             self.instance.hide()
+
         self.pstrNm = self.generatePosterPath()
         if not self.pstrNm:
             self.logPoster("[ERROR: waitPoster] Poster path is None")
@@ -560,11 +561,12 @@ class AglareBackdropX(Renderer):
         self.logBackdrop("[LOOP: waitBackdrop] " + self.pstrNm)
 
         while loop > 0:
-            if self.pstrNm and os.path.exists(self.pstrNm):
+            if os.path.exists(self.pstrNm):
                 found = True
                 break
             time.sleep(0.5)
             loop -= 1
+
         if found:
             self.timer.start(10, True)
 

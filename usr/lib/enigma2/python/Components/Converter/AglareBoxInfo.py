@@ -39,6 +39,7 @@ class AglareBoxInfo(Poll, Converter, object):
 	TimeInfo2 = 10
 	TimeInfo3 = 11
 	TimeInfo4 = 12
+	PythonVersion = 13
 
 	def __init__(self, type):
 		Converter.__init__(self, type)
@@ -57,7 +58,8 @@ class AglareBoxInfo(Poll, Converter, object):
 		'TimeInfo': self.TimeInfo,
 		'TimeInfo2': self.TimeInfo2,
 		'TimeInfo3': self.TimeInfo3,
-		'TimeInfo4': self.TimeInfo4}[type]
+		'TimeInfo4': self.TimeInfo4,
+		'PythonVersion': self.PythonVersion,}[type]
 
 	def imageinfo(self):
 		imageinfo = ''
@@ -127,6 +129,14 @@ class AglareBoxInfo(Poll, Converter, object):
 				software = ' : %s ' % software.strip()
 			return '%s%s' % (box, software)
 
+		elif self.type == self.PythonVersion:
+			pythonversion = ''
+			try:
+				from Components.About import about
+				pythonversion = about.getPythonVersionString() 
+			except ImportError:
+				pass
+			return '%s' % (pythonversion)
 		elif self.type == self.CpuInfo:
 			cpu_count = 0
 			info = cpu_speed = cpu_info = core = ''

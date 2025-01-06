@@ -47,7 +47,7 @@ import sys
 import time
 import traceback
 import datetime
-from .Converlibr import convtext
+from .AglareConverlibr import convtext
 
 PY3 = False
 if sys.version_info[0] >= 3:
@@ -561,7 +561,7 @@ class AglarePosterX(Renderer):
         found = False
         self.logPoster("[LOOP: waitPoster] " + self.pstrNm)
         while loop > 0:
-            if self.pstrNm and os.path.exists(self.pstrNm):
+            if os.path.exists(self.pstrNm):
                 found = True
                 break
             time.sleep(0.5)

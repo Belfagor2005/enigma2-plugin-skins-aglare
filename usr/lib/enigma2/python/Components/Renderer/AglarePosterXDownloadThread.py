@@ -19,7 +19,7 @@ import json
 from random import choice
 from requests import get, exceptions
 from twisted.internet.reactor import callInThread
-from .Converlibr import quoteEventName
+from .AglareConverlibr import quoteEventName
 
 
 try:
