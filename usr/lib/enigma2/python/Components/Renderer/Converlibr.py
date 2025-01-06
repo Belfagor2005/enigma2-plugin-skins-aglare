@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from re import sub, S, I, search, compile, DOTALL
+from re import sub, S, I, search, compile, DOTALL, escape
 from six import text_type
 from unicodedata import normalize
 import sys
@@ -123,7 +123,7 @@ def convtext(text=''):
         if text == '':
             print('text is an empty string')
         else:
-            text= str(text)
+            text = str(text)
             # print('original text:', text)
             # Converti tutto in minuscolo
             text = text.lower().rstrip()
@@ -254,7 +254,6 @@ def convtext(text=''):
                 text = sub(r'[Ss][0-9]+[Ee][0-9]+.*[a-zA-Z0-9_]+', '', text, flags=S | I)
             text = sub(r'\(.*\)', '', text).rstrip()  # remove episode number from series, like "series"
 
-
             # Rimozione pattern specifici
             text = sub(r'^\w{2}:', '', text)  # Rimuove "xx:" all'inizio
             text = sub(r'^\w{2}\|\w{2}\s', '', text)  # Rimuove "xx|xx" all'inizio
@@ -270,7 +269,6 @@ def convtext(text=''):
             text = sub(r'\sج\s*\d+', '', text)   # remove season number in arabic series
             text = sub(r'\sم\s*\d+', '', text)   # remove season number in arabic series
             # text = sub(r' +ح| +ج| +م', '', text)  # Rimuove numeri di episodi/serie in arabo
-
 
             # Rimozione di stringhe non valide
             bad_strings = [
