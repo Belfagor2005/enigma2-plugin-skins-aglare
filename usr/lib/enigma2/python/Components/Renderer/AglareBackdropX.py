@@ -45,7 +45,7 @@ import sys
 import time
 import traceback
 import datetime
-from .AglareConverlibr import convtext
+from .Converlibr import convtext
 
 PY3 = False
 if sys.version_info[0] >= 3:
@@ -565,7 +565,6 @@ class AglareBackdropX(Renderer):
                 break
             time.sleep(0.5)
             loop -= 1
-
         if found:
             self.timer.start(10, True)
 

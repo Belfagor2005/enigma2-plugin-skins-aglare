@@ -47,7 +47,7 @@ import sys
 import time
 import traceback
 import datetime
-from .AglareConverlibr import convtext
+from .Converlibr import convtext
 
 PY3 = False
 if sys.version_info[0] >= 3:
