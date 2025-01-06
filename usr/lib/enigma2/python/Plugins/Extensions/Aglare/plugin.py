@@ -221,7 +221,7 @@ config.plugins.Aglare.E2iplayerskins = ConfigSelection(default='OFF', choices=[
 
 
 def Plugins(**kwargs):
-    return PluginDescriptor(name='Levi45 Skin Setup', description=_('Customization tool for Aglare Skin'), where=PluginDescriptor.WHERE_PLUGINMENU, icon='plugin.png', fnc=main)
+    return PluginDescriptor(name='Skin Setup', description=_('Customization tool for Aglare Skin'), where=PluginDescriptor.WHERE_PLUGINMENU, icon='plugin.png', fnc=main)
 
 
 def main(session, **kwargs):
