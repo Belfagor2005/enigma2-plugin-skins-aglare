@@ -126,7 +126,7 @@ class AglareTemp(Poll, Converter):
 			s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 			s.connect((gw[2], 0))
 			ipaddr = s.getsockname()[0]
-		    return "%s" % ipaddr
+			return "%s" % ipaddr
 		if self.type == self.CPUSPEED:
 			try:
 				cpuspeed = 0

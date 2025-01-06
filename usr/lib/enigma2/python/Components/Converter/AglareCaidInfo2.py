@@ -451,7 +451,7 @@ class AglareCaidInfo2(Poll, Converter, object):
     def getCIdata(self, allVisible, showNameOfActive=True):
         # CI data
         CIstring = ""
-        appname = ""
+        # appname = ""
         if self.NUM_CI and self.NUM_CI > 0:
             if self.eDVBCIUIInstance:
                 for slot in range(self.NUM_CI):
