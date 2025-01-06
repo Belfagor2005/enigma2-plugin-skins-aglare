@@ -1,11 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import re
-from re import sub, S, I, search, compile
+from re import sub, S, I, search, compile, DOTALL
 from six import text_type
-import sys
 from unicodedata import normalize
+import sys
 
 
 try:
