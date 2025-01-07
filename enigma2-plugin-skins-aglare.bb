@@ -17,7 +17,7 @@ PR = "r0"
 
 SRC_URI = "git://github.com/Belfagor2005/enigma2-plugin-skins-aglare.git;protocol=https;branch=main"
 
-FILES_${PN} = "/usr"
+FILES_${PN} = "/usr/*"
 
 S = "${WORKDIR}/git"
 
