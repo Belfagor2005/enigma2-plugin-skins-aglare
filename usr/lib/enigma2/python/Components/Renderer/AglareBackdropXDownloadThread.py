@@ -19,6 +19,8 @@ import json
 from random import choice
 from requests import get, exceptions
 from twisted.internet.reactor import callInThread
+from requests.adapters import HTTPAdapter, Retry
+from requests.exceptions import RequestException
 from .Converlibr import quoteEventName
 
 
@@ -28,7 +30,6 @@ try:
 except ImportError:
     from httplib import HTTPConnection
     HTTPConnection.debuglevel = 0
-from requests.adapters import HTTPAdapter, Retry
 
 global my_cur_skin, srch
 
@@ -459,6 +460,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                                                             
                                                                                                                                                                                           
 
+                                
                     return True, "[SUCCESS url_backdrop: imdb] {} [{}-{}] => {} [{}/{}] => {} => {}".format(self.title_safe, chkType, year, imsg, idx_imdb, len_imdb, url_mimdb, url_backdrop)
             return False, "[SKIP : imdb] {} [{}-{}] => {} (No Entry found [{}])".format(self.title_safe, chkType, year, url_mimdb, len_imdb)
         except Exception as e:
@@ -698,26 +700,47 @@ class AglareBackdropXDownloadThread(threading.Thread):
                 os.remove(dwn_backdrop)
             return False, "[ERROR : google] {} [{}-{}] => {} => {} ({})".format(self.title_safe, chkType, year, url_google, url_backdrop, str(e))
 
-    def savebackdrop(self, url, callback):
+    def savebackdrop(self, url, file_path):
         print('000000000URLLLLL=', url)
-        print('000000000CALLBACK=', callback)
-        AGENTS = ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
-                  "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1",
-                  "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0",
-                  "Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1)",
-                  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edge/87.0.664.75",
-                  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"]
+        print('000000000FILE_PATH=', file_path)
+        AGENTS = [
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0",
+            "Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1)",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edge/87.0.664.75",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"
+        ]
         headers = {"User-Agent": choice(AGENTS)}
         try:
-            response = get(url.encode(), headers=headers, timeout=(3.05, 6))
+            response = requests.get(url, headers=headers, timeout=(3.05, 6))
             response.raise_for_status()
-
-            with open(callback, "wb") as local_file:
+            with open(file_path, "wb") as local_file:
                 local_file.write(response.content)
+        except RequestException as error:
+            print("ERROR in module 'download': %s" % str(error))
+        return file_path
 
-        except exceptions.RequestException as error:
-            print("ERROR in module 'download': %s" % (str(error)))
-        return callback
+    # def savebackdrop(self, url, callback):
+        # print('000000000URLLLLL=', url)
+        # print('000000000CALLBACK=', callback)
+        # AGENTS = ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
+                  # "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1",
+                  # "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0",
+                  # "Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1)",
+                  # "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edge/87.0.664.75",
+                  # "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"]
+        # headers = {"User-Agent": choice(AGENTS)}
+        # try:
+            # response = get(url.encode(), headers=headers, timeout=(3.05, 6))
+            # response.raise_for_status()
+
+            # with open(callback, "wb") as local_file:
+                # local_file.write(response.content)
+
+        # except exceptions.RequestException as error:
+            # print("ERROR in module 'download': %s" % (str(error)))
+        # return callback
 
     def resizebackdrop(self, dwn_backdrop):
         try:
