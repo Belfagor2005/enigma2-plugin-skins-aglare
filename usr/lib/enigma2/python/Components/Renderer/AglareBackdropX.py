@@ -564,7 +564,7 @@ class AglareBackdropX(Renderer):
         self.logBackdrop("[LOOP: waitPoster] " + self.pstrNm)
         while loop > 0:
             # if os.path.exists(self.pstrNm):
-            if self.pstrNm  # self.generatePosterPath:
+            if self.pstrNm:  # self.generatePosterPath:
                 found = True
                 break
             time.sleep(0.5)

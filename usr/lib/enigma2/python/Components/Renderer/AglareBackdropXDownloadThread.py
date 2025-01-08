@@ -17,7 +17,6 @@ import unicodedata
 import random
 import json
 from random import choice
-from requests import get, exceptions
 from twisted.internet.reactor import callInThread
 from requests.adapters import HTTPAdapter, Retry
 from requests.exceptions import RequestException
@@ -457,7 +456,6 @@ class AglareBackdropXDownloadThread(threading.Thread):
                     # # self.savebackdrop(dwn_backdrop, url_backdrop)
                     # if self.verifybackdrop(dwn_backdrop):
                         # self.resizebackdrop(dwn_backdrop)
-
 
                     return True, "[SUCCESS url_backdrop: imdb] {} [{}-{}] => {} [{}/{}] => {} => {}".format(self.title_safe, chkType, year, imsg, idx_imdb, len_imdb, url_mimdb, url_backdrop)
             return False, "[SKIP : imdb] {} [{}-{}] => {} (No Entry found [{}])".format(self.title_safe, chkType, year, url_mimdb, len_imdb)

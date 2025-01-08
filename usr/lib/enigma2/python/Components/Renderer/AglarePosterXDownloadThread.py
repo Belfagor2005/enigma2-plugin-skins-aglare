@@ -17,7 +17,6 @@ import unicodedata
 import random
 import json
 from random import choice
-from requests import get, exceptions
 from twisted.internet.reactor import callInThread
 from requests.adapters import HTTPAdapter, Retry
 from requests.exceptions import RequestException
