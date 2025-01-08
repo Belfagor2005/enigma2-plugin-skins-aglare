@@ -768,7 +768,7 @@ class AglarePosterXDownloadThread(threading.Thread):
                 url_poster = "https://{}".format(pl)
                 url_poster = re.sub(r"\\u003d", " = ", url_poster)
                 callInThread(self.savePoster, url_poster, dwn_poster)
-                
+
                 # self.savePoster(dwn_poster, url_poster)
                 if os.path.exists(dwn_poster):
                     # if self.verifyPoster(dwn_poster):
@@ -792,7 +792,7 @@ class AglarePosterXDownloadThread(threading.Thread):
             if os.path.exists(dwn_poster):
                 os.remove(dwn_poster)
             return False, "[ERROR : google] {} [{}-{}] => {} => {} ({})".format(self.title_safe, chkType, year, url_google, url_poster, str(e))
-        
+
     def savePoster(self, url, file_path):
         print('000000000URLLLLL=', url)
         print('000000000CALLBACK=', file_path)
@@ -810,7 +810,7 @@ class AglarePosterXDownloadThread(threading.Thread):
             response.raise_for_status()
             if "Nip/" in file_path:
                 file_path = re.sub(r'^Nip/', '', file_path)
-        with open(file_path, "wb") as local_file:
+            with open(file_path, "wb") as local_file:
                 local_file.write(response.content)
         except RequestException as error:
             print("ERROR in module 'download': %s" % str(error))
