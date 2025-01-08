@@ -179,6 +179,7 @@ class BackdropDB(AglareBackdropXDownloadThread):
         AglareBackdropXDownloadThread.__init__(self)
         self.logdbg = None
         self.pstcanal = None
+        self.pstrNm = None
 
     def run(self):
         self.logDB("[QUEUE] : Initialized")
@@ -269,6 +270,7 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
         AglareBackdropXDownloadThread.__init__(self)
         self.logdbg = None
         self.pstcanal = None
+        self.pstrNm = None
 
     def run(self):
         self.logAutoDB("[AutoDB] *** Initialized ***")
@@ -421,7 +423,7 @@ class AglareBackdropX(Renderer):
         self.path = path_folder  # + '/'
         self.canal = [None, None, None, None, None, None]
         self.oldCanal = None
-        self.pstrNm = None
+        self.pstrNm = None                          
         self.logdbg = None
         self.pstcanal = None
         self.timer = eTimer()
@@ -548,25 +550,46 @@ class AglareBackdropX(Renderer):
             self.instance.setScale(1)
             self.instance.show()
 
+
     def waitBackdrop(self):
         if self.instance:
             self.instance.hide()
-        self.pstrNm = self.generatePosterPath()
+        if self.pstrNm is None:
+            self.pstrNm = self.generatePosterPath()
         if not self.pstrNm:
-            self.logPoster("[ERROR: waitPoster] Poster path is None")
+            self.logBackdrop("[ERROR: waitBackdrop] Poster path is None")
             return
-        loop = 180  # Numero massimo di tentativi
+        loop = 180
         found = False
-        self.logBackdrop("[LOOP: waitBackdrop] " + self.pstrNm)
-
+        self.logBackdrop("[LOOP: waitPoster] " + self.pstrNm)
         while loop > 0:
-            if self.pstrNm and os.path.exists(self.pstrNm):
+            if os.path.exists(self.pstrNm):
                 found = True
                 break
             time.sleep(0.5)
             loop -= 1
         if found:
             self.timer.start(10, True)
+
+    # def waitBackdrop(self):
+        # if self.instance:
+            # self.instance.hide()
+        # self.pstrNm = self.generatePosterPath()
+        # if not self.pstrNm:
+            # self.logBackdrop("[ERROR: waitPoster] Poster path is None")
+            # return
+        # loop = 180  # Numero massimo di tentativi
+        # found = False
+        # self.logBackdrop("[LOOP: waitBackdrop] " + self.pstrNm)
+
+        # while loop > 0:
+            # if self.pstrNm and os.path.exists(self.pstrNm):
+                # found = True
+                # break
+            # time.sleep(0.5)
+            # loop -= 1
+        # if found:
+            # self.timer.start(10, True)
 
     def logBackdrop(self, logmsg):
         import traceback

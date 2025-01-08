@@ -181,6 +181,7 @@ class PosterDB(AglarePosterXDownloadThread):
         AglarePosterXDownloadThread.__init__(self)
         self.logdbg = None
         self.pstcanal = None
+        self.pstrNm = None
 
     def run(self):
         self.logDB("[QUEUE] : Initialized")
@@ -270,6 +271,7 @@ class PosterAutoDB(AglarePosterXDownloadThread):
         AglarePosterXDownloadThread.__init__(self)
         self.logdbg = None
         self.pstcanal = None
+        self.pstrNm = None
 
     def run(self):
         self.logAutoDB("[AutoDB] *** Initialized ***")
@@ -552,22 +554,43 @@ class AglarePosterX(Renderer):
     def waitPoster(self):
         if self.instance:
             self.instance.hide()
-
-        self.pstrNm = self.generatePosterPath()
+        if self.pstrNm is None:
+            self.pstrNm = self.generatePosterPath()
         if not self.pstrNm:
             self.logPoster("[ERROR: waitPoster] Poster path is None")
             return
-        loop = 180  # Numero massimo di tentativi
+        loop = 180
         found = False
         self.logPoster("[LOOP: waitPoster] " + self.pstrNm)
         while loop > 0:
-            if self.pstrNm and os.path.exists(self.pstrNm):
+            if os.path.exists(self.pstrNm):
                 found = True
                 break
             time.sleep(0.5)
             loop -= 1
         if found:
             self.timer.start(10, True)
+
+
+    # def waitPoster(self):
+        # if self.instance:
+            # self.instance.hide()
+
+        # self.pstrNm = self.generatePosterPath()
+        # if not self.pstrNm:
+            # self.logPoster("[ERROR: waitPoster] Poster path is None")
+            # return
+        # loop = 180  # Numero massimo di tentativi
+        # found = False
+        # self.logPoster("[LOOP: waitPoster] " + self.pstrNm)
+        # while loop > 0:
+            # if self.pstrNm and os.path.exists(self.pstrNm):
+                # found = True
+                # break
+            # time.sleep(0.5)
+            # loop -= 1
+        # if found:
+            # self.timer.start(10, True)
 
     def logPoster(self, logmsg):
         import traceback
