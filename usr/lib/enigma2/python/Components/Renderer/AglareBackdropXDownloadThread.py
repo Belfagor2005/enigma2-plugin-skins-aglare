@@ -17,6 +17,7 @@ import unicodedata
 import random
 import json
 from random import choice
+from requests import get, exceptions
 from twisted.internet.reactor import callInThread
 from requests.adapters import HTTPAdapter, Retry
 from requests.exceptions import RequestException
@@ -203,8 +204,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                     data = None
                 self.downloadData2(data)
                 return True, "Download avviato con successo"
-            else:
-                return False, f"Errore durante la ricerca su TMDb: {response.status_code}"
+            return False, "Errore durante la ricerca su TMDb"
         except Exception as e:
             print('Errore nella ricerca TMDb:', e)
             return False, "Errore durante la ricerca su TMDb"
@@ -241,7 +241,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                                 # if self.verifybackdrop(self.dwn_backdrop):
                                     # self.resizebackdrop(self.dwn_backdrop)
                             return True, "[SUCCESS poster: tmdb] title {} [poster{}-backdrop{}] => year{} => rating{} => showtitle{}".format(title, poster, backdrop, year, rating, show_title)
-                    return False, "[SKIP : tmdb] Not found"
+                return False, "[SKIP : tmdb] Not found"
             except Exception as e:
                 print('error=', e)
                 if os.path.exists(self.dwn_backdrop):
@@ -304,8 +304,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                             # if self.verifybackdrop(dwn_backdrop):
                                 # self.resizebackdrop(dwn_backdrop)
                             return True, "[SUCCESS backdrop: tvdb] {} [{}-{}] => {} => {} => {}".format(title, chkType, year, url_tvdbg, url_tvdb, url_backdrop)
-            else:
-                return False, "[SKIP : tvdb] {} [{}-{}] => {} (Not found)".format(self.title_safe, chkType, year, url_tvdbg)
+            return False, "[SKIP : tvdb] {} [{}-{}] => {} (Not found)".format(self.title_safe, chkType, year, url_tvdbg)
 
         except Exception as e:
             if os.path.exists(dwn_backdrop):
@@ -456,7 +455,6 @@ class AglareBackdropXDownloadThread(threading.Thread):
                     # # self.savebackdrop(dwn_backdrop, url_backdrop)
                     # if self.verifybackdrop(dwn_backdrop):
                         # self.resizebackdrop(dwn_backdrop)
-
                     return True, "[SUCCESS url_backdrop: imdb] {} [{}-{}] => {} [{}/{}] => {} => {}".format(self.title_safe, chkType, year, imsg, idx_imdb, len_imdb, url_mimdb, url_backdrop)
             return False, "[SKIP : imdb] {} [{}-{}] => {} (No Entry found [{}])".format(self.title_safe, chkType, year, url_mimdb, len_imdb)
         except Exception as e:
@@ -510,7 +508,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                             # if self.verifybackdrop(dwn_backdrop):
                                 # self.resizebackdrop(dwn_backdrop)
                             return True, "[SUCCESS url_backdrop: programmetv-google] {} [{}] => Found title : '{}' => {} => {} (initial size: {}) [{}]".format(title, chkType, get_title, url_ptv, url_backdrop, url_backdrop_size, ptv_id)
-                return False, "[SKIP : programmetv-google] {} [{}] => Not found [{}] => {}".format(self.title_safe, chkType, ptv_id, url_ptv)
+            return False, "[SKIP : programmetv-google] {} [{}] => Not found [{}] => {}".format(self.title_safe, chkType, ptv_id, url_ptv)
 
         except Exception as e:
             if os.path.exists(dwn_backdrop):
@@ -629,7 +627,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                     # if self.verifybackdrop(dwn_backdrop):
                         # self.resizebackdrop(dwn_backdrop)
                     return True, "[SUCCESS url_backdrop: molotov-google] {} ({}) [{}] => {} => {} => {}".format(self.title_safe, channel, chkType, imsg, url_mgoo, url_backdrop)
-                return False, "[SKIP : molotov-google] {} ({}) [{}] => {} => {} => {} (jpeg error)".format(self.title_safe, channel, chkType, imsg, url_mgoo, url_backdrop)
+                # return False, "[SKIP : molotov-google] {} ({}) [{}] => {} => {} => {} (jpeg error)".format(self.title_safe, channel, chkType, imsg, url_mgoo, url_backdrop)
             return False, "[SKIP : molotov-google] {} ({}) [{}] => {} => {}".format(self.title_safe, channel, chkType, imsg, url_mgoo)
         except Exception as e:
             if os.path.exists(dwn_backdrop):
@@ -697,8 +695,8 @@ class AglareBackdropXDownloadThread(threading.Thread):
             return False, "[ERROR : google] {} [{}-{}] => {} => {} ({})".format(self.title_safe, chkType, year, url_google, url_backdrop, str(e))
 
     def savebackdrop(self, url, file_path):
-        print('000000000URLLLLL=', url)
-        print('000000000FILE_PATH=', file_path)
+        print('savebackdrop URL=', url)
+        print('savebackdrop FILE_PATH=', file_path)
         AGENTS = [
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
             "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1",
@@ -711,13 +709,32 @@ class AglareBackdropXDownloadThread(threading.Thread):
         try:
             response = requests.get(url, headers=headers, timeout=(3.05, 6))
             response.raise_for_status()
-            if "Nip/" in file_path:
-                file_path = re.sub(r'^Nip/', '', file_path)
             with open(file_path, "wb") as local_file:
                 local_file.write(response.content)
         except RequestException as error:
             print("ERROR in module 'download': %s" % str(error))
         return file_path
+
+    # def savebackdrop(self, url, callback):
+        # print('000000000URLLLLL=', url)
+        # print('000000000CALLBACK=', callback)
+        # AGENTS = ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
+                  # "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1",
+                  # "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0",
+                  # "Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1)",
+                  # "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edge/87.0.664.75",
+                  # "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"]
+        # headers = {"User-Agent": choice(AGENTS)}
+        # try:
+            # response = get(url.encode(), headers=headers, timeout=(3.05, 6))
+            # response.raise_for_status()
+
+            # with open(callback, "wb") as local_file:
+                # local_file.write(response.content)
+
+        # except exceptions.RequestException as error:
+            # print("ERROR in module 'download': %s" % (str(error)))
+        # return callback
 
     def resizebackdrop(self, dwn_backdrop):
         try:

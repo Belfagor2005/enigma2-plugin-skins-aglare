@@ -181,7 +181,7 @@ class PosterDB(AglarePosterXDownloadThread):
         AglarePosterXDownloadThread.__init__(self)
         self.logdbg = None
         self.pstcanal = None
-        self.pstrNm = None
+        # self.pstrNm = None
 
     def run(self):
         self.logDB("[QUEUE] : Initialized")
@@ -271,7 +271,7 @@ class PosterAutoDB(AglarePosterXDownloadThread):
         AglarePosterXDownloadThread.__init__(self)
         self.logdbg = None
         self.pstcanal = None
-        self.pstrNm = None
+        # self.pstrNm = None
 
     def run(self):
         self.logAutoDB("[AutoDB] *** Initialized ***")
@@ -535,7 +535,7 @@ class AglarePosterX(Renderer):
 
     def generatePosterPath(self):
         """Genera il percorso completo per il poster."""
-        if self.canal and len(self.canal) > 5 and self.canal[5]:
+        if self.canal and len(self.canal) > 1 and self.canal[5]:
             pstcanal = convtext(self.canal[5])
             return os.path.join(self.path, str(pstcanal) + ".jpg")
         return None
@@ -544,8 +544,7 @@ class AglarePosterX(Renderer):
         if self.instance:
             self.instance.hide()
         self.pstrNm = self.generatePosterPath()
-        if self.pstrNm and os.path.exists(self.pstrNm):
-            print('showPoster----')
+        if self.pstrNm is not None:  # and os.path.exists(self.pstrNm):
             self.logPoster("[LOAD : showPoster] " + self.pstrNm)
             self.instance.setPixmap(loadJPG(self.pstrNm))
             self.instance.setScale(1)
@@ -554,43 +553,22 @@ class AglarePosterX(Renderer):
     def waitPoster(self):
         if self.instance:
             self.instance.hide()
-        if self.pstrNm is None:
-            self.pstrNm = self.generatePosterPath()
+        self.pstrNm = self.generatePosterPath()
         if not self.pstrNm:
             self.logPoster("[ERROR: waitPoster] Poster path is None")
             return
-        loop = 180
+        # self.timer.start(5, True)
+        loop = 180  # Numero massimo di tentativi
         found = False
         self.logPoster("[LOOP: waitPoster] " + self.pstrNm)
         while loop > 0:
-            # if os.path.exists(self.pstrNm):
-            if self.pstrNm:  # self.generatePosterPath:
+            if self.pstrNm is not None and os.path.exists(self.pstrNm):
                 found = True
                 break
             time.sleep(0.5)
             loop -= 1
         if found:
             self.timer.start(5, True)
-
-    # def waitPoster(self):
-        # if self.instance:
-            # self.instance.hide()
-
-        # self.pstrNm = self.generatePosterPath()
-        # if not self.pstrNm:
-            # self.logPoster("[ERROR: waitPoster] Poster path is None")
-            # return
-        # loop = 180  # Numero massimo di tentativi
-        # found = False
-        # self.logPoster("[LOOP: waitPoster] " + self.pstrNm)
-        # while loop > 0:
-            # if self.pstrNm and os.path.exists(self.pstrNm):
-                # found = True
-                # break
-            # time.sleep(0.5)
-            # loop -= 1
-        # if found:
-            # self.timer.start(10, True)
 
     def logPoster(self, logmsg):
         import traceback
