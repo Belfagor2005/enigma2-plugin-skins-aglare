@@ -135,6 +135,7 @@ def convtext(text=''):
                 ('superman & lois', 'superman e lois', 'set'),
                 ('lois & clark', 'superman e lois', 'set'),
                 ("una 44 magnum per", 'magnumxx', 'set'),
+                ("lupin iii", 'lupiniii', 'set'),
                 ('john q', 'johnq', 'set'),
                 # replace
                 ('1/2', 'mezzo', 'replace'),
@@ -313,6 +314,7 @@ def convtext(text=''):
             text = text.strip(' -')
             # Forzature finali
             text = text.replace('XXXXXX', '60')
+            text = text.replace('lupiniii', 'lupin iii')
             text = text.replace('magnumxx', "una 44 magnum per l ispettore")
             text = text.replace('amicimaria', 'amici di maria')
             text = text.replace('alessandroborgheseristoranti', 'alessandro borghese - 4 ristoranti')
