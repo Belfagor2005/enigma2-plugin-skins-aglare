@@ -458,6 +458,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                     # if self.verifybackdrop(dwn_backdrop):
                         # self.resizebackdrop(dwn_backdrop)
 
+
                     return True, "[SUCCESS url_backdrop: imdb] {} [{}-{}] => {} [{}/{}] => {} => {}".format(self.title_safe, chkType, year, imsg, idx_imdb, len_imdb, url_mimdb, url_backdrop)
             return False, "[SKIP : imdb] {} [{}-{}] => {} (No Entry found [{}])".format(self.title_safe, chkType, year, url_mimdb, len_imdb)
         except Exception as e:

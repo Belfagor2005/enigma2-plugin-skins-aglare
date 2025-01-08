@@ -423,7 +423,7 @@ class AglareBackdropX(Renderer):
         self.path = path_folder  # + '/'
         self.canal = [None, None, None, None, None, None]
         self.oldCanal = None
-        self.pstrNm = None                          
+        self.pstrNm = None
         self.logdbg = None
         self.pstcanal = None
         self.timer = eTimer()
@@ -563,13 +563,14 @@ class AglareBackdropX(Renderer):
         found = False
         self.logBackdrop("[LOOP: waitPoster] " + self.pstrNm)
         while loop > 0:
-            if os.path.exists(self.pstrNm):
+            # if os.path.exists(self.pstrNm):
+            if self.pstrNm  # self.generatePosterPath:
                 found = True
                 break
             time.sleep(0.5)
             loop -= 1
         if found:
-            self.timer.start(10, True)
+            self.timer.start(5, True)
 
     # def waitBackdrop(self):
         # if self.instance:

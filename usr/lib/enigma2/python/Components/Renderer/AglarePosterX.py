@@ -563,13 +563,14 @@ class AglarePosterX(Renderer):
         found = False
         self.logPoster("[LOOP: waitPoster] " + self.pstrNm)
         while loop > 0:
-            if os.path.exists(self.pstrNm):
+            # if os.path.exists(self.pstrNm):
+            if self.pstrNm  # self.generatePosterPath:
                 found = True
                 break
             time.sleep(0.5)
             loop -= 1
         if found:
-            self.timer.start(10, True)
+            self.timer.start(5, True)
 
 
     # def waitPoster(self):
