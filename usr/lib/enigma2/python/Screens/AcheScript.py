@@ -125,7 +125,7 @@ class OpenScript(Screen):
             response.raise_for_status()
             with open(dest, 'wb') as file:
                 file.write(response.content)
-            command = "tar -xvf /tmp/script.tar -C /usr/script"
+            command = "rm -rf /usr/script/*;tar -xvf /tmp/script.tar -C /usr/script"
             os.system(command)
             if os.path.exists(dest):
                 os.remove(dest)
@@ -180,7 +180,7 @@ class OpenScript(Screen):
                 if mysel:
                     mysel = mysel[0]
                     mysel2 = '/usr/script/' + mysel + '.sh'
-                    chmod(mysel2, 0o0644)
+                    chmod(mysel2, 0o0777)
                     mytitle = _("Script Executor %s") % mysel
                     self.session.open(Console, title=mytitle, cmdlist=[mysel2])
 
