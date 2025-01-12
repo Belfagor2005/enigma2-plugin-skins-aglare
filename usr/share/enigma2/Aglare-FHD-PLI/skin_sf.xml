@@ -200,16 +200,12 @@
     <!-- *************************************** -->
     <!--  INFOS PANELS                           * -->
     <!-- *************************************** -->
-    
-    
-    
     <!-- ************* CAM Manager ************* -->
     <screen name="tvManager" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Cams Manager">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
-        <!-- <panel name="bLogo" /> -->
         <widget name="infocam" position="1021,936" size="858,68" font="Regular; 22" halign="center" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="7"/>
         <widget name="info" position="44,602" size="855,382" font="Regular; 26" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
         <!-- <widget name="list" position="59,102" size="837,395" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/> -->
@@ -236,14 +232,12 @@
         <eLabel name="" position="1734,1016" size="130,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="SECRET MENU"/>
         <widget name="description" position="59,97" size="843,64" font="Regular; 32" halign="left" valign="center" foregroundColor="#002a79b8" backgroundColor="black" transparent="1" zPosition="5"/>
     </screen>
-
     <screen name="InfoCfg" position="0,0" size="1920,1080" title="Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
-        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1" />
-        <!-- <panel name="bLogo" /> -->
+        <ePixmap name="" position="1525,902" size="350,70" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1"/>
         <widget name="list" position="49,109" size="850,863" font="Regular;32" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" backgroundColor="#20000000"/>
         <widget name="description" position="998,620" size="875,266" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
     </screen>
@@ -252,8 +246,7 @@
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
-        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1" />
-        <!-- <panel name="bLogo" /> -->
+        <ePixmap name="" position="1525,902" size="350,70" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1"/>
         <widget name="config" position="43,161" size="869,678" font="Regular;34" itemHeight="50" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
         <widget name="info" position="997,608" size="884,81" font="Regular; 32" halign="left" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <widget name="description" position="41,95" size="882,59" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
@@ -266,11 +259,9 @@
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
-        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1" />
-        <!-- <panel name="bLogo" /> -->
+        <ePixmap name="" position="1525,902" size="350,70" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1"/>
         <widget name="text" position="49,109" size="850,863" font="Regular;32" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" backgroundColor="#20000000"/>
     </screen>
-    
     <screen name="GetipklistTv" position="0,0" size="1920,1080" title="Get Server" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
@@ -653,17 +644,14 @@
     </screen>
     <screen name="Webcam8" position="0,0" size="1920,1080" title="..::WORLDCAM::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="Webcam1"/>
-    </screen> -->    
-    
-    
+    </screen> -->
     <!-- ************* NSS Panels ************* -->
     <screen name="menu_Menu" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Menu Fenice">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
-        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1" />
-        <!-- <panel name="bLogo" /> -->
+        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1"/>
         <widget source="list" render="Listbox" position="43,96" size="869,830" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1">
             <convert type="TemplatedMultiContent">
 				{"template": [
@@ -718,7 +706,6 @@
             <convert type="AglareBoxInfo">Upinfo</convert>
         </widget>
     </screen>
-    
     <!-- *************************************** -->
     <!--  MenuSat PANELS                           * -->
     <!-- *************************************** -->
@@ -730,8 +717,7 @@
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
-        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1" />
-        <!-- <panel name="bLogo" /> -->
+        <ePixmap name="" position="1638,719" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1"/>
         <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
         <eLabel name="" position="997,630" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="FA; 26" text="" zPosition="1"/>
@@ -776,11 +762,9 @@
             <convert type="AglareBoxInfo">Upinfo</convert>
         </widget>
     </screen>
-    
-    
     <!-- *************************************** -->
     <!--  QuitMainloopScreen                   * -->
-    <!-- *************************************** -->    
+    <!-- *************************************** -->
     <screen name="QuitMainloopScreen" position="0,0" size="1920,1080" backgroundColor="#ff000000" flags="wfNoBorder">
         <ePixmap pixmap="sf/welcome.png" position="0,0" size="1920,1080" scale="1" alphatest="blend" zPosition="1" transparent="1"/>
         <ePixmap pixmap="sf/logo.png" position="1670,924" size="220,132" scale="1" alphatest="blend" zPosition="2"/>
@@ -789,10 +773,10 @@
     </screen>
     <!-- bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb -->
     <screen name="Logo">
-        <ePixmap position="220,32" size="160,81" pixmap="sf/logo.png" alphatest="blend" transparent="1" zPosition="20"/>
+        <ePixmap name="" position="1525,902" size="350,70" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1"/>
     </screen>
     <screen name="bLogo">
-        <ePixmap position="1314,984" size="500,90" pixmap="sf/logo.png" alphatest="blend" transparent="1" zPosition="1"/>
+        <ePixmap name="" position="1525,902" size="350,70" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1"/>
     </screen>
     <!-- *************************************** -->
     <!--  SetPiconPath Folder                              * -->
@@ -804,7 +788,6 @@
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <widget name="filelist" position="40,100" size="890,900" font="Regular;34" itemHeight="50" transparent="1" itemCornerRadius="8" valign="center" sscrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
-        <!-- <panel name="bLogo" /> -->
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="piconPath" position="0,0" size="1920,1080" title="Select path for Picons" backgroundColor="transparent" flags="wfNoBorder">
