@@ -6325,8 +6325,8 @@ MultiContentEntryPixmapAlphaBlend(pos = (10, 20), size = (80, 80), png = 2),
         <eLabel name="" position="1550,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU" />
         <eLabel name="" position="1690,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO" />
         <eLabel name="" position="1843,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP" />
-        <eLabel name="" position="1327,1018" size="80,52" halign="left" valign="center" transparent="1" font="Regular; 22" zPosition="1" text="City" />
-        <eLabel name="" position="1462,1018" size="80,52" halign="left" valign="center" transparent="1" font="Regular; 22" zPosition="1" text="Config" />
+        <eLabel name="" position="1327,1018" size="80,52" halign="left" valign="center" transparent="1" font="Regular; 22" zPosition="1" text="Config" />
+        <eLabel name="" position="1462,1018" size="80,52" halign="left" valign="center" transparent="1" font="Regular; 22" zPosition="1" text="City" />
         <eLabel name="" position="1607,1018" size="80,52" halign="left" valign="center" transparent="1" font="Regular; 22" zPosition="1" text="Maps" />
         <eLabel name="" position="1746,1018" size="96,52" halign="left" valign="center" transparent="1" font="Regular; 22" zPosition="1" text="Legend" />
         <ePixmap name="" position="1660,788" size="180,180" pixmap="main/ico/foreca.png" alphatest="on" zPosition="1" />
@@ -6338,18 +6338,21 @@ MultiContentEntryPixmapAlphaBlend(pos = (10, 20), size = (80, 80), png = 2),
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="Mlist" font="Regular;32" setPictScale="1" itemHeight="145" scrollbarMode="showNever" enableWrapAround="1" position="36,98" size="890,870" transparent="1"/>
+        <eLabel name="" position="1273,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK" />
+        <eLabel name="" position="1327,1018" size="80,52" halign="left" valign="center" transparent="1" font="Regular; 22" zPosition="1" text="Show" />
         <ePixmap name="" position="1660,788" size="180,180" pixmap="main/ico/foreca.png" alphatest="on" zPosition="1"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
     </screen>
     <screen name="CityPanel" title="Select a city" backgroundColor="background" flags="wfNoBorder" position="0,0" size="1920,1080">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="pigscreen885"/>
-        <widget name="Mlist" itemHeight="50" font="Regular; 30" enableWrapAround="1" position="36,98" size="890,900" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" valign="center"/>
-        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
-        <ePixmap name="" position="1660,788" size="180,180" pixmap="main/ico/foreca.png" alphatest="on" zPosition="1"/>
-        <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
+        <panel name="titletemp" />
+        <panel name="menutemp" />
+        <panel name="ScreenTemplateAllColorButtons_menu" />
+        <panel name="pigscreen885" />
+        <widget name="Mlist" itemHeight="50" font="Regular; 30" enableWrapAround="1" position="36,97" size="890,900" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" valign="center" />
+        <eLabel name="" position="1410,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="TXT" />
+        <eLabel name="" position="1462,1018" size="80,52" halign="left" valign="center" transparent="1" font="Regular; 22" zPosition="1" text="Search" />
+        <ePixmap name="" position="1660,788" size="180,180" pixmap="main/ico/foreca.png" alphatest="on" zPosition="1" />
+        <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180" />
     </screen>
     <screen name="FTPBrowser" position="0,0" size="1920,1080" title="FTPBrowser" backgroundColor="background" flags="wfNoBorder">
         <panel name="menutemp3"/>
