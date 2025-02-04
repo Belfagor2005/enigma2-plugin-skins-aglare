@@ -45,11 +45,9 @@ else:
     from urllib2 import Request
 
 
-version = '4.7'
+version = '5.2'
 my_cur_skin = False
 cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
-OAWeather = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('OAWeather'))
-weatherz = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('WeatherPlugin'))
 mvi = '/usr/share/'
 tmdb_skin = "%senigma2/%s/tmdbkey" % (mvi, cur_skin)
 tmdb_api = "3c3efcf47c3577558812bb9d64019d65"
@@ -149,8 +147,8 @@ config.plugins.Aglare.data2 = NoSave(ConfigOnOff(default=False))
 config.plugins.Aglare.api2 = NoSave(ConfigYesNo(default=False))  # NoSave(ConfigSelection(['-> Ok']))
 config.plugins.Aglare.txtapi2 = ConfigText(default=omdb_api, visible_width=50, fixed_size=False)
 config.plugins.Aglare.png = NoSave(ConfigYesNo(default=False))  # NoSave(ConfigSelection(['-> Ok']))
-config.plugins.Aglare.colorSelector = ConfigSelection(default='head', choices=[
-    ('head', _('Default')),
+config.plugins.Aglare.colorSelector = ConfigSelection(default='color0', choices=[
+    ('color0', _('Default')),
     ('color1', _('Black')),
     ('color2', _('Brown')),
     ('color3', _('Green')),
@@ -221,7 +219,7 @@ config.plugins.Aglare.E2iplayerskins = ConfigSelection(default='OFF', choices=[
 
 
 def Plugins(**kwargs):
-    return PluginDescriptor(name='Skin Setup', description=_('Customization tool for Aglare Skin'), where=PluginDescriptor.WHERE_PLUGINMENU, icon='plugin.png', fnc=main)
+    return PluginDescriptor(name='Setup Aglare', description=_('Customization tool for Aglare-FHD-PLI Skin'), where=PluginDescriptor.WHERE_PLUGINMENU, icon='plugin.png', fnc=main)
 
 
 def main(session, **kwargs):
@@ -241,15 +239,7 @@ def convert_image(image):
 
 
 class AglareSetup(ConfigListScreen, Screen):
-    skin = '''<screen name="AglareSetup" position="160,220" size="1600,680" title="Aglare-FHD Skin Controler" backgroundColor="back">
-              <eLabel font="Regular; 24" foregroundColor="#00ff4A3C" halign="center" position="20,620" size="120,40" text="Cancel" />
-              <eLabel font="Regular; 24" foregroundColor="#0056C856" halign="center" position="310,620" size="120,40" text="Save" />
-              <eLabel font="Regular; 24" foregroundColor="#00fbff3c" halign="center" position="600,620" size="120,40" text="Update" />
-              <eLabel font="Regular; 24" foregroundColor="#00403cff" halign="center" position="860,620" size="120,40" text="Info" />
-              <widget name="Preview" position="1057,146" size="498, 280" zPosition="1" />
-              <widget name="config" font="Regular; 24" itemHeight="50" position="5,5" scrollbarMode="showOnDemand" size="990,600" />
-              </screen>
-              '''
+    skin = '<screen name="AglareSetup" position="160,220" size="1600,680" title="Aglare-FHD Skin Controler" backgroundColor="back">  <eLabel font="Regular; 24" foregroundColor="#00ff4A3C" halign="center" position="20,620" size="120,40" text="Cancel" />  <eLabel font="Regular; 24" foregroundColor="#0056C856" halign="center" position="310,620" size="120,40" text="Save" />  <eLabel font="Regular; 24" foregroundColor="#00fbff3c" halign="center" position="600,620" size="120,40" text="Update" />  <eLabel font="Regular; 24" foregroundColor="#00403cff" halign="center" position="860,620" size="120,40" text="Info" />  <widget name="Preview" position="1057,146" size="498, 280" zPosition="1" /> <widget name="config" font="Regular; 24" itemHeight="50" position="5,5" scrollbarMode="showOnDemand" size="990,600" /></screen>'
 
     def __init__(self, session):
         self.version = '.Aglare-FHD-PLI'
@@ -266,39 +256,33 @@ class AglareSetup(ConfigListScreen, Screen):
         section = '--------------------------( SKIN APIKEY SETUP )-----------------------'
         list.append(getConfigListEntry(section))
         ConfigListScreen.__init__(self, list, session=self.session, on_change=self.changedEntry)
-        ConfigListScreen.__init__(self, list, session=self.session, on_change=self.changedEntry)
-        self['actions'] = ActionMap(
-            [
-                'OkCancelActions',
-                'InputBoxActions',
-                'HotkeyActions',
-                'VirtualKeyboardActions',
-                'MenuActions',
-                'NumberActions',
-                'InfoActions',
-                'ColorActions'
-            ],
-            {
-                'left': self.keyLeft,
-                'right': self.keyRight,
-                'down': self.keyDown,
-                'up': self.keyUp,
-                'red': self.keyExit,
-                'green': self.keySave,
-                'menu': self.Checkskin,
-                'yellow': self.checkforUpdate,
-                'showVirtualKeyboard': self.KeyText,
-                'ok': self.keyRun,
-                'info': self.info,
-                'blue': self.info,
-                '5': self.Checkskin,
-                'cancel': self.keyExit
-            },
-            -1
-        )
+        self['actions'] = ActionMap(['OkCancelActions',
+                                     'InputBoxActions',
+                                     'HotkeyActions'
+                                     'VirtualKeyboardActions',
+                                     'NumberActions',
+                                     'InfoActions',
+                                     'ColorActions'], {'left': self.keyLeft,
+                                                       'right': self.keyRight,
+                                                       'down': self.keyDown,
+                                                       'up': self.keyUp,
+                                                       'red': self.keyExit,
+                                                       'green': self.keySave,
+                                                       'yellow': self.checkforUpdate,
+                                                       'showVirtualKeyboard': self.KeyText,
+                                                       'ok': self.keyRun,
+                                                       'info': self.info,
+                                                       'blue': self.info,
+                                                       '5': self.Checkskin,
+                                                       'cancel': self.keyExit}, -1)
         self.createSetup()
         self.PicLoad = ePicLoad()
         self.Scale = AVSwitch().getFramebufferScale()
+        # try:
+            # self.PicLoad.PictureData.get().append(self.DecodePicture)
+        # except:
+            # self.PicLoad_conn = self.PicLoad.PictureData.connect(self.DecodePicture)
+        # self.onLayoutFinish.append(self.UpdateComponents)
         self.onLayoutFinish.append(self.ShowPicture)
         self.onLayoutFinish.append(self.__layoutFinished)
 
@@ -425,12 +409,9 @@ class AglareSetup(ConfigListScreen, Screen):
             print("keyError")
 
     def Checkskin(self):
-        self.session.openWithCallback(
-            self.Checkskin2,
-            MessageBox,
-            _("[Checkskin] This operation checks if the skin has its components (this is not guaranteed).\nDo you really want to continue?"),
-            MessageBox.TYPE_YESNO
-        )
+        self.session.openWithCallback(self.Checkskin2,
+                                      MessageBox, _("[Checkskin] This operation checks if the skin has its components (is not sure)..\nDo you really want to continue?"),
+                                      MessageBox.TYPE_YESNO)
 
     def Checkskin2(self, answer):
         if answer:
@@ -439,7 +420,7 @@ class AglareSetup(ConfigListScreen, Screen):
             check = checkskin.check_module_skin()
             try:
                 self.check_module_conn = self.check_module.timeout.connect(check)
-            except AttributeError:
+            except:
                 self.check_module.callback.append(check)
             self.check_module.start(100, True)
             self.openVi()
@@ -451,23 +432,32 @@ class AglareSetup(ConfigListScreen, Screen):
             self.session.open(File_Commander, user_log)
 
     def GetPicturePath(self):
+
         returnValue = self['config'].getCurrent()[1].value
-        PicturePath = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/default.png'
+        PicturePath = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/default.jpg'
         if not isinstance(returnValue, str):
             returnValue = PicturePath  # if fileExists(PicturePath) else ''
 
-        base_path = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/' + returnValue
-        png_path = base_path + '.png'
-        jpg_path = base_path + '.jpg'
-
-        if fileExists(png_path):
-            return convert_image(png_path)
-        elif fileExists(jpg_path):
-            return convert_image(jpg_path)
+        path = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/' + returnValue + '.jpg'
+        if fileExists(path):
+            return convert_image(path)
         else:
             return convert_image(PicturePath)
 
+    # def GetPicturePath(self):
+        # try:
+            # returnValue = self['config'].getCurrent()[1].value
+            # path = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/' + returnValue + '.jpg'
+            # if fileExists(path):
+                # return path
+            # else:
+                # return '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/default.jpg'
+        # except Exception as e:
+            # print('error GetPicturePath:', e)
+            # return '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/default.jpg'
+
     def UpdatePicture(self):
+        # self.PicLoad.PictureData.get().append(self.DecodePicture)
         self.onLayoutFinish.append(self.ShowPicture)
 
     def ShowPicture(self, data=None):
@@ -476,13 +466,43 @@ class AglareSetup(ConfigListScreen, Screen):
             if size.isNull():
                 size.setWidth(498)
                 size.setHeight(280)
+
             pixmapx = self.GetPicturePath()
             if not fileExists(pixmapx):
                 print("Immagine non trovata:", pixmapx)
                 return
             png = loadPic(pixmapx, size.width(), size.height(), 0, 0, 0, 1)
             self["Preview"].instance.setPixmap(png)
-            return
+            '''
+            # self.PicLoad.setPara([size.width(), size.height(), self.Scale[0], self.Scale[1], 0, 1, '#00000000'])
+            # pixmapx = self.GetPicturePath()
+            # if not fileExists(pixmapx):
+                # print("Immagine non trovata:", pixmapx)
+                # return
+            # if self.PicLoad.startDecode(pixmapx):
+                # print("Decodifica in corso:", pixmapx)
+                # self.PicLoad = ePicLoad()
+                # try:
+                    # self.PicLoad.PictureData.get().append(self.DecodePicture)
+                # except:
+                    # self.PicLoad_conn = self.PicLoad.PictureData.connect(self.DecodePicture)
+            # else:
+                # print("Errore di decodifica dell'immagine.")
+            # return
+            '''
+
+    # def ShowPicture(self, data=None):
+        # if self["Preview"].instance:
+            # width = 498
+            # height = 280
+            # self.PicLoad.setPara([width, height, self.Scale[0], self.Scale[1], 0, 1, "ff000000"])
+            # if self.PicLoad.startDecode(self.GetPicturePath()):
+                # self.PicLoad = ePicLoad()
+                # try:
+                    # self.PicLoad.PictureData.get().append(self.DecodePicture)
+                # except:
+                    # self.PicLoad_conn = self.PicLoad.PictureData.connect(self.DecodePicture)
+            # return
 
     def DecodePicture(self, PicInfo=None):
         ptr = self.PicLoad.getData()
@@ -495,26 +515,13 @@ class AglareSetup(ConfigListScreen, Screen):
         self.UpdatePicture()
 
     def info(self):
-        # aboutbox = self.session.open(MessageBox, _('Setup Aglare for Aglare-FHD-Pli v.%s') % version, MessageBox.TYPE_INFO)
-        message = (
-            "Aglare skin is created by Odem2014.\n"
-            "Users can fully customize their interface, and change layout,\n"
-            "colors, fonts, and screens to suit their preferences.\n"
-            "including the efficient PosterX component recoded by Lululla.\n\n"
-            "Supported Images: linuxsat-support.com\n"
-            "Aglare-FHD v.%s\n"
-            "-----------------\n"
-        ) % version
-        aboutbox = self.session.open(MessageBox, message, MessageBox.TYPE_INFO)
-        aboutbox.setTitle(_('Info Setup NSS Aglare'))
+        aboutbox = self.session.open(MessageBox, _('Setup Aglare for Aglare-FHD-Pli v.%s') % version, MessageBox.TYPE_INFO)
+        aboutbox.setTitle(_('Info...'))
 
     def removPng(self):
-        self.session.openWithCallback(
-            self.removPng2,
-            MessageBox,
-            _("[RemovePng] This operation will remove all PNG files from the device folder (Poster-Backdrop).\nDo you really want to continue?"),
-            MessageBox.TYPE_YESNO
-        )
+        self.session.openWithCallback(self.removPng2,
+                                      MessageBox, _("[RemovePng] This operation remove all png from folder device (Poster-Backdrop)..\nDo you really want to continue?"),
+                                      MessageBox.TYPE_YESNO)
 
     def removPng2(self, result):
         if result:
@@ -580,6 +587,11 @@ class AglareSetup(ConfigListScreen, Screen):
         self.item = self["config"].getCurrent()
         for x in self.onChangedEntry:
             x()
+        # try:
+            # if isinstance(self["config"].getCurrent()[1], ConfigOnOff) or isinstance(self["config"].getCurrent()[1], ConfigYesNo) or isinstance(self["config"].getCurrent()[1], ConfigSelection):
+                # self.createSetup()
+        # except Exception as e:
+            # print("Error in changedEntry:", e)
 
     def getCurrentValue(self):
         if self["config"].getCurrent() and len(self["config"].getCurrent()) > 0:
@@ -594,6 +606,12 @@ class AglareSetup(ConfigListScreen, Screen):
         return SetupSummary
 
     def keySave(self):
+        if not fileExists(self.skinFile + self.version):
+            for x in self['config'].list:
+                x[1].cancel()
+            self.close()
+            return
+
         for x in self['config'].list:
             if len(x) > 1:  # Check if x has at least two elements
                 x[1].save()
@@ -648,7 +666,7 @@ class AglareSetup(ConfigListScreen, Screen):
         try:
             fp = ''
             destr = '/tmp/aglarepliversion.txt'
-            req = Request('https://raw.githubusercontent.com/Belfagor2005/enigma2-plugin-skins-aglare/refs/heads/main/aglarepliversion.txt')
+            req = Request('https://raw.githubusercontent.com/popking159/skins/main/aglarepli/aglarepliversion.txt')
             req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
             fp = urlopen(req)
             fp = fp.read().decode('utf-8')
@@ -665,27 +683,17 @@ class AglareSetup(ConfigListScreen, Screen):
                     self.updateurl = url.strip()
                     cc.close()
                     if str(version_server) == str(version):
-                        message = "%s %s\n%s %s\n\n%s" % (
-                            _('Server version:'), version_server,
-                            _('Version installed:'), version,
-                            _('You have the current version Aglare!')
-                        )
+                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'), version_server,
+                                                          _('Version installed:'), version,
+                                                          _('You have the current version Aglare!'))
                         self.session.open(MessageBox, message, MessageBox.TYPE_INFO)
-
                     elif version_server > version:
-                        message = "%s %s\n%s %s\n\n%s" % (
-                            _('Server version:'), version_server,
-                            _('Version installed:'), version,
-                            _('The update is available!\n\nDo you want to run the update now?')
-                        )
+                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),  version_server,
+                                                          _('Version installed:'), version,
+                                                          _('The update is available!\n\nDo you want to run the update now?'))
                         self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
-
                     else:
-                        self.session.open(
-                            MessageBox,
-                            _('You have version %s!!!') % version,
-                            MessageBox.TYPE_ERROR
-                        )
+                        self.session.open(MessageBox, _('You have version %s!!!') % version, MessageBox.TYPE_ERROR)
         except Exception as e:
             print('error: ', str(e))
 
@@ -725,7 +733,7 @@ class AglareUpdater(Screen):
 
     def startUpdate(self):
         self['status'].setText(_('Downloading Aglare...'))
-        self.dlfile = '/tmp/aglare.tar'
+        self.dlfile = '/tmp/aglarepli.ipk'
         print('self.dlfile', self.dlfile)
         self.download = downloadWithProgress(self.updateurl, self.dlfile)
         self.download.addProgress(self.downloadProgress)
@@ -733,9 +741,9 @@ class AglareUpdater(Screen):
 
     def downloadFinished(self, string=''):
         self['status'].setText(_('Installing updates!'))
-        os.system('tar -xvf /tmp/aglare.tar -C /')
+        os.system('opkg install /tmp/aglarepli.ipk')
         os.system('sync')
-        os.system('rm -r /tmp/aglare.tar')
+        os.system('rm -r /tmp/aglarepli.ipk')
         os.system('sync')
         restartbox = self.session.openWithCallback(self.restartGUI, MessageBox, _('Aglare update was done!!!\nDo you want to restart the GUI now?'), MessageBox.TYPE_YESNO)
         restartbox.setTitle(_('Restart GUI now?'))

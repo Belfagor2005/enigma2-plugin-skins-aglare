@@ -21,7 +21,7 @@ from requests import get, exceptions
 from twisted.internet.reactor import callInThread
 from requests.adapters import HTTPAdapter, Retry
 from requests.exceptions import RequestException
-from .Converlibr import quoteEventName
+from .AglareConverlibr import quoteEventName
 
 
 try:

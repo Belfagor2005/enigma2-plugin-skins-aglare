@@ -1319,6 +1319,25 @@ class AglareAccess(Poll, Converter):
                 return open("/tmp/ucm_cam.info").read()
             except:
                 return None
+#  AlternativeSoftCamManager       
+        if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/AlternativeSoftCamManager"):
+            try:
+                if config.plugins.AltSoftcam.actcam.value:
+                    cam1 = config.plugins.AltSoftcam.actcam.value
+                    cam2 = cam1.split('@')[0]
+                    #cam1 = "%s" % cam2.split('@')[0]
+                elif os.path.exists("/tmp/.ncam/ncam.version"):
+                    cam1 = "ncam"
+                elif os.path.exists("/tmp/.oscam/oscam.version"):
+                    cam1 = "ncam"          
+                else:
+                    cam1 = "No Active CAM"
+                if not cam2:
+                    return cam1
+                else:
+                    return cam2
+            except:
+                pass
 # Others
         if serlist is not None:
             try:

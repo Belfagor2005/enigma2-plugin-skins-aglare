@@ -21,7 +21,7 @@ from requests import get, exceptions
 from twisted.internet.reactor import callInThread
 from requests.adapters import HTTPAdapter, Retry
 from requests.exceptions import RequestException
-from .Converlibr import quoteEventName
+from .AglareConverlibr import quoteEventName
 
 
 try:
@@ -130,17 +130,16 @@ def isMountedInRW(mount_point):
     return False
 
 
-path_folder = "/tmp/poster"
+path_folder = "/tmp/backdrop"
 if os.path.exists("/media/hdd"):
     if isMountedInRW("/media/hdd"):
-        path_folder = "/media/hdd/poster"
+        path_folder = "/media/hdd/backdrop"
 elif os.path.exists("/media/usb"):
     if isMountedInRW("/media/usb"):
-        path_folder = "/media/usb/poster"
+        path_folder = "/media/usb/backdrop"
 elif os.path.exists("/media/mmc"):
     if isMountedInRW("/media/mmc"):
-        path_folder = "/media/mmc/poster"
-
+        path_folder = "/media/mmc/backdrop"
 if not os.path.exists(path_folder):
     os.makedirs(path_folder)
 

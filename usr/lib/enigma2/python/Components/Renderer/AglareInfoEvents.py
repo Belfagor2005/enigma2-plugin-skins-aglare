@@ -24,7 +24,7 @@ import re
 import socket
 import sys
 import NavigationInstance
-from .Converlibr import convtext, quoteEventName
+from .AglareConverlibr import convtext, quoteEventName
 global my_cur_skin, path_folder
 
 my_cur_skin = False

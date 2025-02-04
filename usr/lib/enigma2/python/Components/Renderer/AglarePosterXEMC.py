@@ -24,7 +24,7 @@ import re
 import time
 import traceback
 
-from .Converlibr import convtext
+from .AglareConverlibr import convtext
 
 PY3 = False
 if sys.version_info[0] >= 3:
@@ -255,20 +255,22 @@ class AglarePosterXEMC(Renderer):
             self.instance.hide()
 
         self.pstrNm = self.generatePosterPath()
-        if self.pstrNm:
-            loop = 180
-            found = False
-            self.logPoster("[LOOP: waitPosterXEMC] " + self.pstrNm)
+        if not self.pstrNm:
+            self.logPoster("[ERROR: waitPoster] Poster path is None")
+            return
+        loop = 180
+        found = False
+        self.logPoster("[LOOP: waitPosterXEMC] " + self.pstrNm)
 
-            while loop > 0:
-                if os.path.exists(self.pstrNm):
-                    found = True
-                    break
-                time.sleep(0.5)
-                loop -= 1
+        while loop > 0:
+            if os.path.exists(self.pstrNm):
+                found = True
+                break
+            time.sleep(0.5)
+            loop -= 1
 
-            if found:
-                self.timer.start(10, True)
+        if found:
+            self.timer.start(10, True)
 
     def logPoster(self, logmsg):
         import traceback

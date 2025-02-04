@@ -38,7 +38,7 @@ def fileReadLines(filename, default=None, source=DEFAULT_MODULE_NAME, debug=Fals
 class File_Commander(Screen):
 
     skin = """
-        <screen name="File_Commander" position="40,80" size="1900,900" title="Satellite-forum - File Commander">
+        <screen name="File_Commander" position="40,80" size="1900,900" title="Linuxsat-support - File Commander">
             <widget name="list_head" position="8,10" size="1850,45" font="Regular;20" foregroundColor="#00fff000" />
             <widget name="filedata" scrollbarMode="showOnDemand" position="10,60" size="1850,750" itemHeight="50" />
             <widget name="key_red" position="100,840" size="260,25" transparent="1" font="Regular;20" />
@@ -56,7 +56,7 @@ class File_Commander(Screen):
         Screen.__init__(self, session)
         # HelpableScreen.__init__(self)
         self.file_name = file
-        title = "Satellite-forum - File Commander"
+        title = "Linuxsat-support - File Commander"
         self.list = []
         self["filedata"] = MenuList(self.list)
         self["actions"] = ActionMap(["WizardActions", "ColorActions", "DirectionActions"], {
