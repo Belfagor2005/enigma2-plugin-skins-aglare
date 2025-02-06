@@ -206,10 +206,12 @@
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
+        <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
+        <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
         <widget name="infocam" position="1018,608" size="858,68" font="Regular; 22" halign="center" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="7"/>
-        <widget name="info" position="44,602" size="855,382" font="Regular; 26" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
+        <widget name="info" position="60,610" size="850,382" font="Regular; 26" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
         <!-- <widget name="list" position="59,102" size="837,395" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/> -->
-        <widget source="list" render="Listbox" position="56,161" size="840,430" scrollbarMode="showOnDemand" foregroundColor="#00a0a0a0" backgroundColorSelected="#00000000" enableWrapAround="1" transparent="1" zPosition="5">
+        <widget source="list" render="Listbox" position="60,170" size="850,430" scrollbarMode="showOnDemand" foregroundColor="#00a0a0a0" backgroundColorSelected="#00000000" enableWrapAround="1" transparent="1" zPosition="5">
             <convert type="TemplatedMultiContent">
                 {"template": [
                         MultiContentEntryPixmapAlphaTest(pos=(5, 0), size=(70, 40), png=1), # index 1 is the pixmap   
@@ -230,7 +232,7 @@
         <eLabel name="" position="1498,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="2"/>
         <eLabel name="" position="1556,1016" size="52,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="8"/>
         <eLabel name="" position="1734,1016" size="130,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="SECRET MENU"/>
-        <widget name="description" position="59,97" size="843,64" font="Regular; 32" halign="left" valign="center" foregroundColor="#002a79b8" backgroundColor="black" transparent="1" zPosition="5"/>
+        <widget name="description" position="60,100" size="850,64" font="Regular; 32" halign="left" valign="center" foregroundColor="#002a79b8" backgroundColor="black" transparent="1" zPosition="5"/>
     </screen>
     <screen name="InfoCfg" position="0,0" size="1920,1080" title="Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
