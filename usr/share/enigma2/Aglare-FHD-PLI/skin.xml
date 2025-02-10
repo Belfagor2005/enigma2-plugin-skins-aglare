@@ -18,6 +18,7 @@
             Support="OpenPLI, TeamBlue, OBH and OpenVIX"
             Version="5.1"
             Release date="03/01/2025"
+
             supporturl="www.corvoboys.org"
         </abouth>
     </copyright>
@@ -3583,26 +3584,161 @@ MultiContentEntryText(pos = (80,0),size = (900,50),font=0,flags = RT_HALIGN_LEFT
         <widget name="list" position="15,200" size="1170,100" textOffset="10,6" itemHeight="50" font="Regular;30" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
         <applet type="onLayoutFinish">
 
+                               
 from enigma import eSize, ePoint
 orgwidth = self.instance.size().width()
 orgpos = self.instance.position()
+    
+                    
+                    
+                     
+                      
+                      
+                      
+               
+               
+     
+                                        
+                                          
 textsize = self["text"].getSize()
 textsize = (textsize[0] + 70, textsize[1] + 70)
+                                            
+
+             
+              
+
+             
+        
+                           
+                                        
+                                     
+                                                
 count = len(self.list)
+           
+            
+
 if count &gt; 13:
 	count = 13
+                             
+                         
+                      
 offset = 50 * count
+     
+               
+                             
+                                            
+     
+                                           
 wsizex = textsize[0] + 70
 wsizey = textsize[1] + offset + 10
+                                           
+                                        
+                                    
+                                                                                                                                                                                                    
+                                                                                                                                                              
+                                                                                                                                                          
+
+                                         
+                                                                                                                                       
+                                                                                                                                                                
+
+                                                                 
+                                                                                     
+                                             
+
 if (689 &gt; wsizex):
+                                               
 	wsizex = 689
+
 wsize = (wsizex, wsizey)
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      
+
+
+
+                 
+           
+
+
+
+
+
+                   
+
+
+
+
+
+
+                         
+                                  
+
+
+
+
+
+
+                     
+
+             
+
+                        
+
+
+
+
+
+
 self.instance.resize(eSize(*wsize))
+
+              
+                                 
 self["text"].instance.resize(eSize(*textsize))
+
+           
 listsize = (wsizex -20, 50 * count)
 self["list"].instance.move(ePoint(10, textsize[1]))
 self["list"].instance.resize(eSize(*listsize))
+
+               
 newwidth = wsize[0]
+                    
 self.instance.move(ePoint((1920-wsizex)//2, (1080-wsizey)//(count &gt; 7 and 2 or 3)))
 		</applet>
     </screen>
@@ -3613,26 +3749,198 @@ self.instance.move(ePoint((1920-wsizex)//2, (1080-wsizey)//(count &gt; 7 and 2 o
         <widget name="text" position="108,12" size="1077,152" font="Regular; 33" valign="top" halign="left" backgroundColor="background" foregroundColor="white"/>
         <widget name="list" position="14,199" size="1170,100" textOffset="10,6" itemHeight="50" font="Regular;30" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
         <applet type="onLayoutFinish">
+                                                                                       
+                               
 from enigma import eSize, ePoint
+
+
+
+                                          
+    
+                    
+                    
+                     
+                      
+                      
+                      
+               
+               
+
+
+                                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 orgwidth = self.instance.size().width()
 orgpos = self.instance.position()
 textsize = self["text"].getSize()
 textsize = (textsize[0] + 70, textsize[1] + 70)
+                                            
+
+             
+              
+
+             
+        
+                           
+                                        
+                                     
+                                                
 count = len(self.list)
+           
+            
+
 if count &gt; 13:
 	count = 13
+                             
+                         
+                      
 offset = 50 * count
+     
+               
+                             
+                                            
+     
+                                           
 wsizex = textsize[0] + 70
 wsizey = textsize[1] + offset + 10
+                                           
+                                        
+                                                                                                                                                                                
+                                                                                                                                                            
+                                                                                                                                                     
+                                                                                                                                                      
+
+                                         
+                                                                                                                                             
+                                                                                                                                 
+
+                                                                 
+                                                                                     
+                                             
+
 if (689 &gt; wsizex):
+                                               
 	wsizex = 689
+
 wsize = (wsizex, wsizey)
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      
+
+
+
+                 
+           
+
+
+
+
+
+                   
+
+
+
+
+
+
+                         
+                                  
+
+
+
+
+
+
+                     
+
+             
+
+                        
+
+
+
+
+
+
 self.instance.resize(eSize(*wsize))
+
+              
+                                 
 self["text"].instance.resize(eSize(*textsize))
+
+           
 listsize = (wsizex -20, 50 * count)
 self["list"].instance.move(ePoint(10, textsize[1]))
 self["list"].instance.resize(eSize(*listsize))
+
+               
 newwidth = wsize[0]
+                    
 self.instance.move(ePoint((1920-wsizex)//2, (1080-wsizey)//(count &gt; 7 and 2 or 3)))
 		</applet>
     </screen>
@@ -4938,6 +5246,7 @@ MultiContentEntryPixmapAlphaTest(pos = (5, 15), size = (51, 40), png = 2), # ind
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <eLabel backgroundColor="#fe0000" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
         <widget source="Redkey" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
+        <widget source="Greenkey" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="text" position="50,130" size="1822,534" font="Console; 24" text="text" transparent="1" zPosition="1" backgroundColor="background" valign="top" halign="left"/>
         <widget name="text2" position="50,841" size="1822,153" font="Console; 26" text="text2" foregroundColor="red" transparent="1" zPosition="1" valign="top" halign="left"/>
         <eLabel backgroundColor="mcolor3" cornerRadius="3" position="40,816" size="850,3" zPosition="99"/>
@@ -5459,6 +5768,9 @@ MultiContentEntryPixmapAlphaBlend(pos=(45, 14), size=(128, 77), png=6, flags = B
         <widget source="list" render="Listbox" position="60,450" size="850,400" transparent="1" itemHeight="50" itemCornerRadius="8">
             <convert type="TemplatedMultiContent">
                 {"template": [ MultiContentEntryText(pos = (0,0),size = (840,50),flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,text = 0) ],
+                                                                                                                                                                     
+                                                                                                          
+                  
                  "fonts": [gFont("Regular",36)],
                  "itemHeight": 50
                 }
@@ -6580,29 +6892,6 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
         <widget name="config" position="36,114" size="890,675" valign="center" itemHeight="45" font="Regular; 30" itemCornerRadius="10" enableWrapAround="1" transparent="1" zPosition="9" scrollbarSliderForegroundColor="mcolor5" scrollbarMode="showOnDemand"/>
         <widget name="description" position="36,950" size="890,50" font="Regular; 26" halign="left" valign="center" foregroundColor="white" transparent="1" zPosition="55"/>
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
-        <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
-    </screen>
-    <screen name="EGAMIBootImageChoose" position="fill" title="EGAMI Multiboot Image Choose" backgroundColor="transparent" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="pigscreen885"/>
-        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
-        <widget name="label10" position="36,110" size="700,50" font="Regular;34" backgroundColor="background" transparent="1" zPosition="1"/>
-        <widget name="label11" position="779,110" size="141,50" font="Regular;40" foregroundColor="foreground" backgroundColor="background" transparent="1" zPosition="1"/>
-        <widget name="label1" position="35,158" size="885,80" font="Regular;32" foregroundColor="yellow" backgroundColor="background" transparent="1" zPosition="1"/>
-        <widget name="device_icon" position="944,924" size="0,0" alphatest="blend"/>
-        <widget name="label2" position="42,620" size="868,42" halign="left" font="Regular;30" backgroundColor="background" transparent="1" zPosition="1"/>
-        <widget name="label6" position="60,662" size="867,42" halign="left" font="Regular;30" backgroundColor="background" transparent="1" zPosition="1"/>
-        <widget name="config" position="42,250" size="884,350" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" textOffset="15,10" itemCornerRadius="12" scrollbarMode="showNever"/>
-        <widget name="label3" position="42,790" size="300,40" font="Regular;34" foregroundColor="foreground" backgroundColor="background" transparent="1" zPosition="1"/>
-        <widget name="label7" position="344,790" size="270,40" font="Regular;34" backgroundColor="background" transparent="1" zPosition="1"/>
-        <widget name="label4" position="42,720" size="300,40" font="Regular;30" backgroundColor="background" transparent="1" zPosition="1"/>
-        <widget name="free_space_progressbar" position="40,764" size="880,20" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10"/>
-        <widget name="label8" position="344,720" size="270,40" font="Regular;30" backgroundColor="background" transparent="1" zPosition="1"/>
-        <widget name="label5" position="42,880" size="868,42" font="Regular;30" backgroundColor="background" transparent="1" zPosition="1"/>
-        <widget name="label9" position="60,922" size="862,42" font="Regular; 30" backgroundColor="background" transparent="1" zPosition="1"/>
-        <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
     </screen>
     <screen name="TunerServer" position="fill" title="Tuner Server" backgroundColor="transparent" flags="wfNoBorder">
