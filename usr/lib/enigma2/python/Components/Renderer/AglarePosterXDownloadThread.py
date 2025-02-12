@@ -19,9 +19,7 @@ import json
 from random import choice
 from requests import get, exceptions
 from twisted.internet.reactor import callInThread
-from requests.adapters import HTTPAdapter, Retry
-from requests.exceptions import RequestException
-from .AglareConverlibr import quoteEventName
+from .Converlibr import quoteEventName
 
 
 try:
@@ -30,6 +28,7 @@ try:
 except ImportError:
     from httplib import HTTPConnection
     HTTPConnection.debuglevel = 0
+from requests.adapters import HTTPAdapter, Retry
 
 global my_cur_skin, srch
 
@@ -216,7 +215,8 @@ class AglarePosterXDownloadThread(threading.Thread):
                     data = None
                 self.downloadData2(data)
                 return True, "Download avviato con successo"
-            return False, f"Errore durante la ricerca su TMDb: {response.status_code}"
+            else:
+                return False, f"Errore durante la ricerca su TMDb: {response.status_code}"
         except Exception as e:
             print('Errore nella ricerca TMDb:', e)
             return False, "Errore durante la ricerca su TMDb"
@@ -263,7 +263,7 @@ class AglarePosterXDownloadThread(threading.Thread):
                                     # self.sizeb = True
                                     # self.resizePoster(self.dwn_poster)
                             return True, "[SUCCESS poster: tmdb] title {} [poster{}-backdrop{}] => year{} => rating{} => showtitle{}".format(title, poster, backdrop, year, rating, show_title)
-                return False, "[SKIP : tmdb] Not found"
+                    return False, "[SKIP : tmdb] Not found"
             except Exception as e:
                 print('error=', e)
                 if os.path.exists(self.dwn_poster):
@@ -339,7 +339,8 @@ class AglarePosterXDownloadThread(threading.Thread):
                                 # self.sizeb = True
                                 # self.resizePoster(self.pstrNm)
                         return True, "[SUCCESS : tvdb] {} [{}-{}] => {} => {} => {}".format(self.title_safe, chkType, year, url_tvdbg, url_tvdb, url_poster)
-            return False, "[SKIP : tvdb] {} [{}-{}] => {} (Not found)".format(self.title_safe, chkType, year, url_tvdbg)
+            else:
+                return False, "[SKIP : tvdb] {} [{}-{}] => {} (Not found)".format(self.title_safe, chkType, year, url_tvdbg)
 
         except Exception as e:
             if os.path.exists(dwn_poster):
@@ -583,7 +584,7 @@ class AglarePosterXDownloadThread(threading.Thread):
                                     # self.sizeb = True
                                     # self.resizePoster(dwn_poster)
                             return True, "[SUCCESS url_poster: programmetv-google] {} [{}] => Found self.title_safe : '{}' => {} => {} (initial size: {}) [{}]".format(self.title_safe, chkType, get_title, url_ptv, url_poster, url_poster_size, ptv_id)
-            return False, "[SKIP : programmetv-google] {} [{}] => Not found [{}] => {}".format(self.title_safe, chkType, ptv_id, url_ptv)
+                return False, "[SKIP : programmetv-google] {} [{}] => Not found [{}] => {}".format(self.title_safe, chkType, ptv_id, url_ptv)
 
         except Exception as e:
             if os.path.exists(dwn_poster):
@@ -714,7 +715,7 @@ class AglarePosterXDownloadThread(threading.Thread):
                             # self.sizeb = True
                             # self.resizePoster(dwn_poster)
                     return True, "[SUCCESS url_poster: molotov-google] {} ({}) [{}] => {} => {} => {}".format(self.title_safe, channel, chkType, imsg, url_mgoo, url_poster)
-            return False, "[SKIP : molotov-google] {} ({}) [{}] => {} => {} => {} (jpeg error)".format(self.title_safe, channel, chkType, imsg, url_mgoo, url_poster)
+                return False, "[SKIP : molotov-google] {} ({}) [{}] => {} => {} => {} (jpeg error)".format(self.title_safe, channel, chkType, imsg, url_mgoo, url_poster)
         except Exception as e:
             if os.path.exists(dwn_poster):
                 os.remove(dwn_poster)
@@ -789,27 +790,27 @@ class AglarePosterXDownloadThread(threading.Thread):
             if os.path.exists(dwn_poster):
                 os.remove(dwn_poster)
             return False, "[ERROR : google] {} [{}-{}] => {} => {} ({})".format(self.title_safe, chkType, year, url_google, url_poster, str(e))
-        
-    def savePoster(self, url, file_path):
-        print('savePoster URL=', url)
-        print('savePoster CALLBACK=', file_path)
-        AGENTS = [
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
-            "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0",
-            "Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1)",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edge/87.0.664.75",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"
-        ]
+
+    def savePoster(self, url, callback):
+        print('000000000URLLLLL=', url)
+        print('000000000CALLBACK=', callback)
+        AGENTS = ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
+                  "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1",
+                  "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0",
+                  "Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1)",
+                  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edge/87.0.664.75",
+                  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"]
         headers = {"User-Agent": choice(AGENTS)}
         try:
-            response = requests.get(url, headers=headers, timeout=(3.05, 6))
+            response = get(url.encode(), headers=headers, timeout=(3.05, 6))
             response.raise_for_status()
-            with open(file_path, "wb") as local_file:
+
+            with open(callback, "wb") as local_file:
                 local_file.write(response.content)
-        except RequestException as error:
-            print("ERROR in module 'download': %s" % str(error))
-        return file_path
+
+        except exceptions.RequestException as error:
+            print("ERROR in module 'download': %s" % (str(error)))
+        return callback
 
     def resizePoster(self, dwn_poster):
         try:

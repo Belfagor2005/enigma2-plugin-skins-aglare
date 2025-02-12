@@ -70,11 +70,15 @@ config.oscaminfo.intervall = ConfigInteger(default=10, limits=(1, 600))
 
 def check_NAMEBIN():
     NAMEBIN = "oscam"
+    # if fileExists("/tmp/.oscam/oscam.version"):
+        # NAMEBIN = "OScam"
     return NAMEBIN
 
 
 def check_NAMEBIN2():
     NAMEBIN2 = "OScam"
+    # if fileExists("/tmp/.oscam/oscam.version"):
+        # NAMEBIN2 = "OScam"
     return NAMEBIN2
 
 
@@ -297,6 +301,12 @@ class OscamInfo:
         if result[0]:
             if not self.showLog:
                 dataXML = ElementTree.XML(result[1])
+                # if typ == "version":
+                    # if "version" in dataXML.attrib:
+                        # self.version = dataXML.attrib["version"]
+                    # else:
+                        # self.version = "-"
+                    # return self.version
                 status = dataXML.find("status")
                 clients = status.findall("client")
                 for client in clients:
@@ -489,7 +499,7 @@ class OSCamInfo(Screen):
     skin = '''
         <screen name="OSCamInfo" position="fill" title="OSCamInfo" backgroundColor="#ff000000" flags="wfNoBorder">
             <widget source="Title" render="Label" position="106,38" size="890,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
-            <!-- <widget source="ScreenPath" render="Label" position="36,10" size="1380,22" backgroundColor="#0528343b" transparent="1" zPosition="1" font="Regular; 19" valign="center" halign="left"/> -->
+            <widget source="ScreenPath" render="Label" position="36,10" size="1380,22" backgroundColor="#0528343b" transparent="1" zPosition="1" font="Regular; 19" valign="center" halign="left"/>
             <eLabel backgroundColor="#002d3d5b" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
             <eLabel backgroundColor="#001a2336" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
             <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
@@ -741,6 +751,7 @@ class oscECMInfo(Screen, OscamInfo):
     def showData(self):
         dataECM = self.getECMInfo(self.ecminfo)
         out = []
+        # y = 0
         for i in dataECM:
             out.append(self.buildListEntry(i))
         self["output"].l.setItemHeight(int(30 * f))
@@ -1328,7 +1339,7 @@ class OscamInfoConfigScreen(ConfigListScreen, Screen):
     skin = '''
         <screen name="OscamInfoConfigScreen" position="fill" title="Oscam Info Setup" backgroundColor="#ff000000" flags="wfNoBorder">
             <widget source="Title" render="Label" position="106,38" size="890,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
-            <!-- <widget source="ScreenPath" render="Label" position="36,10" size="1380,22" backgroundColor="#0528343b" transparent="1" zPosition="1" font="Regular; 19" valign="center" halign="left"/> -->
+            <widget source="ScreenPath" render="Label" position="36,10" size="1380,22" backgroundColor="#0528343b" transparent="1" zPosition="1" font="Regular; 19" valign="center" halign="left"/>
             <widget font="Bold; 30" halign="right" position="1401,20" render="Label" size="500,40" source="global.CurrentTime" transparent="1">
                 <convert type="ClockToText">Format:%a %d.%m.  %H:%M</convert>
             </widget>
@@ -1390,6 +1401,5 @@ class OscamInfoConfigScreen(ConfigListScreen, Screen):
         config.oscaminfo.autoupdate.save()
         config.oscaminfo.intervall.save()
         self.close()
-
 
 OscamInfoMenu = OSCamInfo

@@ -24,7 +24,7 @@ import re
 import time
 import traceback
 
-from .AglareConverlibr import convtext
+from .Converlibr import convtext
 
 PY3 = False
 if sys.version_info[0] >= 3:
@@ -161,7 +161,6 @@ class AglarePosterXEMC(Renderer):
             print("Connessione rilevata.")
         self.canal = [None, None, None, None, None, None]
         self.logdbg = None
-        self.pstrNm = None
         self.pstcanal = None
         self.path = path_folder
 
@@ -234,7 +233,7 @@ class AglarePosterXEMC(Renderer):
 
     def generatePosterPath(self):
         """Genera il percorso completo per il poster."""
-        if self.canal[5]:
+        if self.canal and len(self.canal) > 5 and self.canal[5]:
             pstcanal = convtext(self.canal[5])
             return os.path.join(self.path, str(pstcanal) + ".jpg")
         return None

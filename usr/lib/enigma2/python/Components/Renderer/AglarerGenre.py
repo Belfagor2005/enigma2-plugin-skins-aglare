@@ -19,7 +19,7 @@ import re
 import json
 import os
 import sys
-from .AglareConverlibr import convtext
+from .Converlibr import convtext
 
 PY3 = False
 if sys.version_info[0] >= 3:

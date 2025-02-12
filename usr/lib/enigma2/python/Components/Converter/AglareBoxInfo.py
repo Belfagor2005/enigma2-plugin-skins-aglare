@@ -39,7 +39,6 @@ class AglareBoxInfo(Poll, Converter, object):
 	TimeInfo2 = 10
 	TimeInfo3 = 11
 	TimeInfo4 = 12
-	PythonVersion = 13
 
 	def __init__(self, type):
 		Converter.__init__(self, type)
@@ -58,8 +57,7 @@ class AglareBoxInfo(Poll, Converter, object):
 		'TimeInfo': self.TimeInfo,
 		'TimeInfo2': self.TimeInfo2,
 		'TimeInfo3': self.TimeInfo3,
-		'TimeInfo4': self.TimeInfo4,
-		'PythonVersion': self.PythonVersion,}[type]
+		'TimeInfo4': self.TimeInfo4}[type]
 
 	def imageinfo(self):
 		imageinfo = ''
@@ -90,7 +88,7 @@ class AglareBoxInfo(Poll, Converter, object):
 				box = os.popen("head -n 1 /etc/hostname").read().split()[0]
 			if os.path.isfile('/etc/issue'):
 				for line in open('/etc/issue'):
-					software += line.capitalize().replace('Open vision enigma2 image for', '').replace('More information : https://openvision.tech', '').replace('%d, %t - (%s %r %m)', '').replace('release', 'r').replace('Welcome to openatv', '').replace('Welcome to teamblue', '').replace('Welcome to openbh', '').replace('Welcome to openvix', '').replace('Welcome to openhdf', '').replace('Welcome to opendroid', '').replace('Welcome to openspa', '').replace('\n', '').replace('\l', '').replace('\\', '').strip()[:-1].capitalize()
+					software += line.capitalize().replace('Open vision enigma2 image for', '').replace('More information : https://openvision.tech', '').replace('%d, %t - (%s %r %m)', '').replace('release', 'r').replace('Welcome to openatv', '').replace('Welcome to teamblue', '').replace('Welcome to openbh', '').replace('Welcome to openvix', '').replace('Welcome to opendroid', '').replace('Welcome to openspa', '').replace('\n', '').replace('\l', '').replace('\\', '').strip()[:-1].capitalize()
 				if software.startswith("Egami"):
 					try:
 						from Components.SystemInfo import BoxInfo
@@ -107,12 +105,6 @@ class AglareBoxInfo(Poll, Converter, object):
 					try:
 						from Components.SystemInfo import BoxInfo
 						software = BoxInfo.getItem("displaydistro").upper() + " " + BoxInfo.getItem("imgversion") + " " + BoxInfo.getItem("imagebuild")
-					except ImportError:
-						pass
-				elif software.startswith("Openhdf"):
-					try:
-						from Components.SystemInfo import BoxInfo
-						software = BoxInfo.getItem("displaydistro").title() + " " + BoxInfo.getItem("imgversion") + " r" + BoxInfo.getItem("imagebuild")
 					except ImportError:
 						pass
 				elif software.startswith("Pure2"):
@@ -135,14 +127,6 @@ class AglareBoxInfo(Poll, Converter, object):
 				software = ' : %s ' % software.strip()
 			return '%s%s' % (box, software)
 
-		elif self.type == self.PythonVersion:
-			pythonversion = ''
-			try:
-				from Components.About import about
-				pythonversion = 'Python' + ' ' + about.getPythonVersionString() 
-			except ImportError:
-				pass
-			return '%s' % (pythonversion)
 		elif self.type == self.CpuInfo:
 			cpu_count = 0
 			info = cpu_speed = cpu_info = core = ''
