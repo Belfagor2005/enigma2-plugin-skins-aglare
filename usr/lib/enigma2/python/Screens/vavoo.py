@@ -980,9 +980,8 @@ class vavoox(Screen):
         elif answer:
             name = self.name
             url = self.url
-            filename = enigma_list + '/userbouquet.vavoo_%s.tv' % name.lower()
             filenameout = enigma_path + '/userbouquet.vavoo_%s.tv' % name.lower()
-            if os_path.exists(enigma_list) and file_exists(filename):
+            if file_exists(filenameout):
                 self.message4()
             else:
                 self.message2(name, url, True)
@@ -1009,7 +1008,6 @@ class vavoox(Screen):
         filenameout = enigma_path + '/userbouquet.vavoo_%s.tv' % name.lower()
         key = None
         ch = 0
-
         with open(filename, "rt") as fin:
             data = fin.read()
             regexcat = '#SERVICE.*?vavoo_auth=(.+?)#User'
