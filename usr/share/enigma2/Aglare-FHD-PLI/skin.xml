@@ -2879,7 +2879,6 @@ MultiContentEntryText(pos=(160,1), size=(700,100), font=0, flags=RT_HALIGN_LEFT|
     </screen>
     <screen name="QuitMainloopScreen" position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder">
         <ePixmap pixmap="sf/welcome.png" position="0,0" size="1920,1080" scale="1" alphatest="blend" zPosition="1" transparent="1"/>
-        <ePixmap name="" position="1504,966" size="350,70" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1"/>
         <widget name="text" position="78,12" size="1770,60" font="Regular; 50" halign="center" valign="center" backgroundColor="transparent2" foregroundColor="gold" zPosition="2"/>
         <eLabel name="" position="7,957" size="321,121" font="Regular; 34" backgroundColor="background" text="Welcome to ...  Corvoboys.org @Lululla" zPosition="2" transparent="1" halign="center" foregroundColor="yellow"/>
     </screen>
