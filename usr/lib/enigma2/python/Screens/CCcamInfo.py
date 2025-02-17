@@ -151,33 +151,29 @@ def _parse(url):
 
 
 def getPage(url, callback, errback):
-    url, AuthHeaders = _parse(url)
-    print("[CCcamInfo]2 url=%s" % url)
+    url, auth_headers = _parse(url)
+    print("[CCcamInfo] URL requested:", url)
+    data = ""
     try:
-        print("[CCcamInfo] URL requested:", url)
-        url, auth_headers = _parse(url)
-        print("[CCcamInfo] Parsed URL:", url)
         if 'username' in auth_headers and 'password' in auth_headers:
-            # Codifica base64 delle credenziali
-            credentials = f"{auth_headers['username']}:{auth_headers['password']}"
+            credentials = "%s:%s" % (auth_headers['username'], auth_headers['password'])
             encoded_credentials = b64encode(credentials.encode('utf-8')).decode('utf-8')
-            auth_headers['Authorization'] = f"Basic {encoded_credentials}"
+            auth_headers['Authorization'] = "Basic %s" % encoded_credentials
         try:
             response = requests.get(url, headers=auth_headers)
             response.raise_for_status()
+            try:
+                data = response.content.decode(encoding='utf-8')
+            except UnicodeDecodeError:
+                data = response.content.decode(encoding='latin-1')
         except requests.exceptions.RequestException as error:
             print("[CCcamInfo][getPage] Error in response:", error)
-            callback("")
-            print('callback', callback)
-        else:
-            try:
-                data = response.content.decode(encoding='UTF-8')
-            except:
-                data = response.content.decode(encoding='latin-1')
+            errback(error)
+            return
         callback(data)
     except TypeError as e:
         print("TypeError:", e)
-        raise
+        errback(e)
 
 
 class HelpableNumberActionMap(NumberActionMap):
@@ -811,7 +807,7 @@ class CCcamInfoMain(Screen):
     def showCCcamGeneral(self, html):
         start_tag = '<BR><BR>'
         end_tag = '<BR></BODY>'
-
+        html_content = ''
         # Verifica che html sia una stringa
         if not isinstance(html, str):
             self.showInfo(_("Invalid HTML content!"))
