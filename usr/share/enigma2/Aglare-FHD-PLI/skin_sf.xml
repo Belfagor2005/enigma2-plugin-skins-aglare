@@ -169,7 +169,7 @@
         <widget name="pform" position="55,849" size="838,70" font="Regular;28" halign="left" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="1" zPosition="5"/>
         <widget name="pth" position="55,922" size="848,75" font="Regular;30" halign="left" foregroundColor="#808080" backgroundColor="#000000" transparent="1" zPosition="5"/>
         <widget name="poster" position="775,26" size="150,90" backgroundColor="#30000000" transparent="1" borderWidth="3" borderColor="#00ffffff" alphatest="blend" zPosition="4"/>
-        <eLabel name="" position="1734,1016" size="55,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1734,1016" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
     </screen>
     <screen name="MMarkPiconScreen" position="0,0" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="SelectPicons"/>
@@ -230,8 +230,8 @@
         <eLabel name="" position="1438,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="1"/>
         <eLabel name="" position="1614,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
         <eLabel name="" position="1498,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="2"/>
-        <eLabel name="" position="1556,1016" size="52,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="8"/>
-        <eLabel name="" position="1734,1016" size="130,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="SECRET MENU"/>
+        <eLabel name="" position="1556,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="8"/>
+        <eLabel name="" position="1734,1016" size="130,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="SECRET MENU"/>
         <widget name="description" position="60,100" size="850,64" font="Regular; 32" halign="left" valign="center" foregroundColor="#002a79b8" backgroundColor="black" transparent="1" zPosition="5"/>
     </screen>
     <screen name="InfoCfg" position="0,0" size="1920,1080" title="Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
@@ -280,7 +280,7 @@
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
-        <eLabel name="" position="1734,1016" size="55,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1734,1016" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <widget name="info" position="41,93" size="884,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <widget name="statusgreen" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/tvaddon/res/pics/status-on.png" alphatest="blend" position="1300,1020" size="40,40" zPosition="5"/>
         <widget name="statusred" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/tvaddon/res/pics/status-off.png" alphatest="blend" position="1300,1020" size="40,40" zPosition="5"/>
@@ -335,7 +335,7 @@
         <panel name="pigscreen885"/>
         <panel name="boxdata1"/>
         <widget name="list" position="43,158" size="869,826" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
-        <eLabel name="" position="1734,1016" size="55,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1734,1016" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <widget name="info" position="41,96" size="884,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <widget name="progress" position="1578,910" size="300,50" foregroundColor="#2a70a4" backgroundColor="#10000000" transparent="1" zPosition="5"/>
         <widget source="progresstext" render="Label" font="Regular;20" position="1577,910" size="300,50" backgroundColor="#202020" transparent="1" halign="center" zPosition="6"/>
@@ -495,10 +495,10 @@
         <widget name="yellow" font="Regular;30" halign="center" valign="center" position="706,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
         <widget name="blue" font="Regular;30" halign="center" valign="center" position="1006,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
         <widget name="version" position="1667,935" size="120,40" zPosition="1" backgroundColor="#30000000" transparent="1" font="Regular; 32" halign="center" foregroundColor="#ffffff"/>
-        <eLabel name="" position="1850,1028" size="70,50" backgroundColor="#914167" halign="center" valign="center" transparent="0" cornerRadius="26" font="cvfont; 24" zPosition="3" text="MENU"/>
-        <eLabel name="" position="1781,1028" size="70,50" backgroundColor="#914167" halign="center" valign="center" transparent="0" cornerRadius="26" font="cvfont; 24" zPosition="3" text="INFO"/>
-        <eLabel name="" position="1715,1028" size="64,50" backgroundColor="#914167" halign="center" valign="center" transparent="0" cornerRadius="26" font="cvfont; 24" zPosition="3" text="CH+"/>
-        <eLabel name="" position="1651,1028" size="64,50" backgroundColor="#914167" halign="center" valign="center" transparent="0" cornerRadius="26" font="cvfont; 24" zPosition="3" text="CH-"/>
+        <eLabel name="" position="1850,1028" size="70,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="cvfont; 24" zPosition="3" text="MENU"/>
+        <eLabel name="" position="1781,1028" size="70,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="cvfont; 24" zPosition="3" text="INFO"/>
+        <eLabel name="" position="1715,1028" size="64,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="cvfont; 24" zPosition="3" text="CH+"/>
+        <eLabel name="" position="1651,1028" size="64,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="cvfont; 24" zPosition="3" text="CH-"/>
     </screen>
     <screen name="vavoox" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainVavoox"/>

@@ -41,8 +41,8 @@
         <eLabel name="" position="1438,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="1"/>
         <eLabel name="" position="1614,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
         <eLabel name="" position="1498,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="2"/>
-        <eLabel name="" position="1556,1016" size="52,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="8"/>
-        <eLabel name="" position="1734,1016" size="130,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="SECRET MENU"/>
+        <eLabel name="" position="1556,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="8"/>
+        <eLabel name="" position="1734,1016" size="130,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="SECRET MENU"/>
         <widget name="description" position="59,97" size="843,64" font="Regular; 32" halign="left" valign="center" foregroundColor="#002a79b8" backgroundColor="black" transparent="1" zPosition="5"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
         <ePixmap name="" position="1676,841" size="200,80" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/logo.png" scale="1"/>
@@ -98,7 +98,7 @@
         </widget>
         <ePixmap name="" position="1677,810" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1"/>
         <!-- <panel name="bLogo" /> -->
-        <eLabel name="" position="1734,1016" size="55,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1734,1016" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <widget name="info" position="39,107" size="884,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <widget name="fspace" position="1340,1019" size="315,50" font="Regular;24" halign="center" valign="center" foregroundColor="yellow" backgroundColor="wpmc" transparent="1" zPosition="99"/>
         <!-- <widget name="statusgreen" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/status-on.png" alphatest="blend" position="1013,45" size="40,40" zPosition="5"/> -->
