@@ -6541,11 +6541,26 @@ MultiContentEntryText(pos = (4, 88), size = (328, 76), font=0, color_sel=0x00fff
         <eLabel name="" position="1410,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="TXT\TV"/>
         <eLabel name="" position="1550,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <eLabel name="" position="1690,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
-        <eLabel name="" position="1843,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
         <eLabel name="" position="1327,1018" size="80,52" halign="left" valign="center" transparent="1" font="Regular; 22" zPosition="1" text="Config"/>
         <eLabel name="" position="1462,1018" size="80,52" halign="left" valign="center" transparent="1" font="Regular; 22" zPosition="1" text="City"/>
         <eLabel name="" position="1607,1018" size="80,52" halign="left" valign="center" transparent="1" font="Regular; 22" zPosition="1" text="Maps"/>
         <eLabel name="" position="1746,1018" size="96,52" halign="left" valign="center" transparent="1" font="Regular; 22" zPosition="1" text="Legend"/>
+        <ePixmap name="" position="1660,788" size="180,180" pixmap="main/ico/foreca.png" alphatest="on" zPosition="1"/>
+        <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
+    </screen>
+    <screen name="SatPanelb" title="Satellite photos" backgroundColor="background" flags="wfNoBorder" position="0,0" size="1920,1080">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <widget name="Mlist" font="Regular;32" position="36,98" size="890,870" setPictScale="1" itemHeight="145" scrollbarMode="showNever" enableWrapAround="1" transparent="1"/>
+        <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
+        <eLabel name="" position="1410,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="PREV"/>
+        <eLabel name="" position="1470,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="NEXT"/>
+        <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="UP"/>
+        <eLabel name="" position="1530,1018" size="60,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="DOWN"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
         <ePixmap name="" position="1660,788" size="180,180" pixmap="main/ico/foreca.png" alphatest="on" zPosition="1"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
     </screen>
@@ -6560,36 +6575,23 @@ MultiContentEntryText(pos = (4, 88), size = (328, 76), font=0, color_sel=0x00fff
         <ePixmap name="" position="1660,788" size="180,180" pixmap="main/ico/foreca.png" alphatest="on" zPosition="1"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
     </screen>
-    <screen name="SatPanelb" title="Satellite photos" backgroundColor="background" flags="wfNoBorder" position="0,0" size="1920,1080">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="pigscreen885"/>
-        <widget name="Mlist" font="Regular;32" position="36,98" size="890,870" setPictScale="1" itemHeight="145" scrollbarMode="showNever" enableWrapAround="1" transparent="1"/>
-        <eLabel text="OK" position="1273,1018" size="52,50" zPosition="1" backgroundColor="#9f1313" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 18"/>
-        <eLabel text="PREV" position="647,1016" size="310,50" zPosition="1" font="Regular;18" halign="center" valign="center" backgroundColor="#9f1313" transparent="1"/>
-        <eLabel text="NEXT" position="957,1016" size="310,50" zPosition="1" font="Regular;18" halign="center" valign="center" backgroundColor="#9f1313" transparent="1"/>
-        <eLabel text="UP" position="997,954" size="310,50" zPosition="1" backgroundColor="#9f1313" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 18"/>
-        <eLabel text="DOWN" position="997,954" size="310,50" zPosition="1" backgroundColor="#9f1313" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 18"/>
-        <ePixmap name="" position="1660,788" size="180,180" pixmap="main/ico/foreca.png" alphatest="on" zPosition="1"/>
-        <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
-    </screen>
     <screen name="CityPanel" title="Select a city" backgroundColor="background" flags="wfNoBorder" position="0,0" size="1920,1080">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="Mlist" itemHeight="50" font="Regular; 30" enableWrapAround="1" position="36,97" size="890,900" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" valign="center"/>
-        <eLabel text="OK" position="866,1016" size="210,50" zPosition="1" font="Regular; 18" backgroundColor="#9f1313" halign="center" valign="center" transparent="1" cornerRadius="26"/>
-        <eLabel text="PREV" position="447,1016" size="210,50" zPosition="1" font="Regular;18" backgroundColor="#9f1313" halign="center" valign="center" transparent="1" cornerRadius="26"/>
-        <eLabel text="NEXT" position="657,1016" size="210,50" zPosition="1" font="Regular;18" backgroundColor="#9f1313" halign="center" valign="center" transparent="1" cornerRadius="26"/>
-        <eLabel text="UP" position="28,1015" size="210,50" zPosition="1" font="Regular; 18" backgroundColor="#9f1313" halign="center" valign="center" transparent="1" cornerRadius="26"/>
-        <eLabel text="DOWN" position="238,1015" size="210,50" zPosition="1" font="Regular; 18" backgroundColor="#9f1313" halign="center" valign="center" transparent="1" cornerRadius="26"/>
-        <eLabel text="INFO" position="1498,1015" size="210,50" zPosition="1" font="Regular; 18" backgroundColor="#9f1313" halign="center" valign="center" transparent="1" cornerRadius="26"/>
-        <eLabel text="TXT" position="1077,1015" size="210,50" zPosition="1" font="Regular; 18" backgroundColor="#9f1313" halign="center" valign="center" transparent="1" cornerRadius="26"/>
-        <eLabel text="Search" position="1287,1015" size="210,50" zPosition="1" font="Regular; 22" backgroundColor="#9f1313" halign="center" valign="center" transparent="1" cornerRadius="26"/>
         <ePixmap name="" position="1660,788" size="180,180" pixmap="main/ico/foreca.png" alphatest="on" zPosition="1"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
+        <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="UP"/>
+        <eLabel name="" position="1530,1018" size="60,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="DOWN"/>
+        <eLabel name="" position="1470,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="NEXT"/>
+        <eLabel name="" position="1410,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="PREV"/>
+        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
+        <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="TXT"/>
+        <eLabel name="" position="1326,1018" size="76,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="SEARCH"/>
     </screen>
     <screen name="FTPBrowser" position="0,0" size="1920,1080" title="FTPBrowser" backgroundColor="background" flags="wfNoBorder">
         <panel name="menutemp3"/>
