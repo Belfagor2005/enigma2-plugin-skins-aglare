@@ -43,10 +43,10 @@ def fileReadLines(filename, default=None, source=DEFAULT_MODULE_NAME, debug=Fals
 	return lines
 
 
-class Lululla_Commander(Screen):
+class File_Commander(Screen):
 
 	skin = """
-		<screen name="Lululla_Commander" position="40,80" size="1900,900" title="Lululla_Commander">
+		<screen name="File_Commander" position="40,80" size="1900,900" title="Lululla_Commander">
 			<widget name="list_head" position="8,10" size="1850,45" font="Regular;24" foregroundColor="#00fff000" />
 			<widget name="filedata" scrollbarMode="showOnDemand" itemHeight="45" position="9,78" size="1850,725" />
 			<!--
@@ -66,7 +66,7 @@ class Lululla_Commander(Screen):
 		</screen>"""
 
 	def __init__(self, session, file):
-		self.skin = Lululla_Commander.skin
+		self.skin = File_Commander.skin
 		Screen.__init__(self, session)
 		# HelpableScreen.__init__(self)
 		self.file_name = file
