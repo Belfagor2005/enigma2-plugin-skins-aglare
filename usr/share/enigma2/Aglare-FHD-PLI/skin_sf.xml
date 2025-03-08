@@ -454,9 +454,9 @@
         <widget name="config" position="49,191" size="850,650" font="Regular;30" itemHeight="50" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049"/>
         <widget name="description" position="61,878" size="845,113" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
         <widget name="info" position="51,119" size="850,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
-        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/tvaddon/logo.png" scale="strech" alphatest="blend" position="736,35" size="191,67" zPosition="5"/>
-        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/tvaddon/res/pics/PayPal.png" scale="strech" position="1219,929" size="156,75" zPosition="5" alphatest="on"/>
-        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/tvaddon/res/pics/qr-code.png" scale="strech" position="1444,640" size="318,318" zPosition="2" alphatest="on"/>
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/tvmanager/logo.png" scale="strech" alphatest="blend" position="736,35" size="191,67" zPosition="5"/>
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/tvmanager/res/pics/PayPal.png" scale="strech" position="1219,929" size="156,75" zPosition="5" alphatest="on"/>
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/tvmanager/res/pics/qr-code.png" scale="strech" position="1444,640" size="318,318" zPosition="2" alphatest="on"/>
     </screen>
     <!-- *************************************** -->
     <!--  TvToM3u PANELS                           * -->
