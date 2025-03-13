@@ -4498,49 +4498,28 @@ MultiContentEntryPixmapAlphaBlend(pos = (0, 77), size = (890, 3), png = 5), # in
     </screen>
     <screen name="MviExplorer" position="0,0" size="1920,1080" title="MviExplorer" backgroundColor="transparent" flags="wfNoBorder">
     </screen>
-    <screen name="FileCommander" position="0,0" size="1920,1080" title="File Commander" backgroundColor="background" flags="wfNoBorder">
+    <screen name="FileCommanderScreen" position="0,0" size="1920,1080" title="File Commander" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="menutemp3"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <!--panel name="ScreenTemplateAllColorButtons_menu" /-->
+        <panel name="buttonicons"/>
+        <widget name="list_left_head1" position="34,100" size="900,30" font="Regular;26" noWrap="1" backgroundColor="background" transparent="1" zPosition="1" itemHeight="30" scrollbarMode="showNever"/>
+        <widget name="list_left_filename" position="34,130" size="900,21" font="Regular;18" noWrap="1" foregroundColor="yellow" backgroundColor="background" transparent="1" zPosition="1" scrollbarMode="showNever"/>
+        <widget name="sort_left" position="34,151" size="900,25" halign="center" font="Regular;23" backgroundColor="background" foregroundColor="white" transparent="1" zPosition="1"/>
+        <widget name="list_left_free" position="34,151" size="300,25" font="Regular;22" backgroundColor="background" foregroundColor="green" transparent="1" zPosition="1" scrollbarMode="showNever"/>
+        <widget name="list_right_head1" position="980,100" size="900,30" font="Regular;26" noWrap="1" backgroundColor="background" transparent="1" zPosition="1" itemHeight="30" scrollbarMode="showNever"/>
+        <widget name="list_right_filename" position="980,130" size="900,21" font="Regular;18" noWrap="1" foregroundColor="yellow" backgroundColor="background" transparent="1" zPosition="1" scrollbarMode="showNever"/>
+        <widget name="sort_right" position="980,151" size="900,25" halign="center" font="Regular;23" backgroundColor="background" foregroundColor="white" transparent="1" zPosition="1"/>
+        <widget name="list_right_free" position="980,151" size="300,25" font="Regular;22" backgroundColor="background" foregroundColor="green" transparent="1" zPosition="1" scrollbarMode="showNever"/>
+        <widget objectTypes="key_red,StaticText" source="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
+        <widget objectTypes="key_green,StaticText" source="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
+        <widget objectTypes="key_yellow,StaticText" source="key_yellow" render="Label" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
+        <widget objectTypes="key_blue,StaticText" source="key_blue" render="Label" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
         <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
-        <widget source="headleft" render="Listbox" position="34,108" size="900,120" selectionDisabled="1" transparent="1" scrollbarMode="showNever">
-            <convert type="TemplatedMultiContent">
-				{"template": [
-					MultiContentEntryText(pos= (20, 0), size=(848, 75), font = 1, flags = RT_HALIGN_LEFT | RT_WRAP, text = 26), # Index 26 is the current directory + the current file.
-					MultiContentEntryText(pos = (20, 75), size = (150, 45), font = 0, flags = RT_HALIGN_LEFT, text = 16), # index 16 is the sort
-					MultiContentEntryText(pos = (210, 75), size = (120, 45), font = 0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is a symbolic mode
-					MultiContentEntryText(pos = (330, 75), size = (150, 45), font = 0, flags = RT_HALIGN_RIGHT, text = 11), # index 11 is the scaled size
-					MultiContentEntryText(pos = (500, 75), size = (360, 45), font = 0, flags = RT_HALIGN_RIGHT, text = 13), # index 13 is the modification time
-					],
-					"fonts": [gFont("Regular", 27),gFont("Regular", 29)],
-					"itemHeight": 120,
-					"selectionEnabled": False
-				}
-			</convert>
-        </widget>
-        <widget source="headright" render="Listbox" position="980,108" size="900,120" selectionDisabled="1" transparent="1" scrollbarMode="showNever">
-            <convert type="TemplatedMultiContent">
-				{"template": [
-					MultiContentEntryText(pos= (20, 0), size=(848, 75), font = 1, flags = RT_HALIGN_LEFT | RT_WRAP, text = 26), # Index 26 is the current directory + the current file.
-					MultiContentEntryText(pos = (20, 75), size = (150, 45), font = 0, flags = RT_HALIGN_LEFT, text = 16), # index 16 is the sort
-					MultiContentEntryText(pos = (210, 75), size = (120, 45), font = 0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is a symbolic mode
-					MultiContentEntryText(pos = (330, 75), size = (150, 45), font = 0, flags = RT_HALIGN_RIGHT, text = 11), # index 11 is the scaled size
-					MultiContentEntryText(pos = (500, 75), size = (360, 45), font = 0, flags = RT_HALIGN_RIGHT, text = 13), # index 13 is the modification time
-					],
-					"fonts": [gFont("Regular", 27),gFont("Regular", 29)],
-					"itemHeight": 120,
-					"selectionEnabled": False
-				}
-			</convert>
-        </widget>
-        <widget name="multileft" position="34,265" size="900,675" itemHeight="50" font="Regular;30" transparent="1" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
-        <widget name="listleft" position="34,265" size="900,675" itemHeight="50" font="Regular;30" transparent="1" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
-        <widget name="multiright" position="980,265" size="900,675" itemHeight="50" font="Regular;30" transparent="1" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
-        <widget name="listright" position="980,265" size="900,675" itemHeight="50" font="Regular;30" transparent="1" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
-        <widget name="status" position="50,953" size="1832,50" font="Regular;30" backgroundColor="background" borderColor="background" borderWidth="2" foregroundColor="white" halign="center" valign="center" zPosition="+1"/>
-        <widget name="quickselect" position="34,108" size="1837,900" backgroundColor="background" foregroundColor="white" font="Regular;100" halign="center" transparent="1" valign="center" zPosition="+1"/>
-        <widget name="sortleft" position="50,200" size="0,0" font="Regular;27" halign="left" foregroundColor="white" backgroundColor="background" transparent="1"/>
-        <widget name="sortright" position="980,200" size="0,0" font="Regular;27" halign="left" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="list_left" position="34,200" size="900,720" itemHeight="40" font="Regular;30" transparent="1" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
+        <widget name="list_right" position="980,200" size="900,720" itemHeight="40" font="Regular;30" transparent="1" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
+        <widget name="status" position="36,940" size="1832,50" font="Regular;30" backgroundColor="background" borderColor="background" borderWidth="2" foregroundColor="white" halign="center" valign="center" zPosition="+1"/>
+        <widget name="quickselect" position="34,100" size="1837,900" backgroundColor="background" foregroundColor="white" font="Regular;100" halign="center" transparent="1" valign="center" zPosition="2"/>
         <!-- /* time -->
     </screen>
     <screen name="ChromiumEd" position="0,0" size="1920,1080" flags="wfNoBorder" backgroundColor="background">
@@ -6161,10 +6140,10 @@ MultiContentEntryPixmapAlphaTest(pos = (5, 1), size = (24, 24), png = 1),
             <convert type="ServiceName">Name</convert>
         </widget>
     </screen>
-    <screen name="vEditor" position="0,0" size="1920,1080" flags="wfNoBorder" title="File-Explorer" backgroundColor="background">
+    <screen name="vEditorScreen" position="0,0" size="1920,1080" flags="wfNoBorder" title="File-Explorer" backgroundColor="background">
         <panel name="menutemp3"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <widget name="filedata" position="45,120" size="1830,810" itemHeight="45" font="Regular;30" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="8" valign="center"/>
+        <widget name="filedata" position="45,121" size="1830,810" itemHeight="45" font="Regular;30" textOffset="10,6" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" valign="center"/>
     </screen>
     <screen name="PluginManager" position="0,0" size="1920,1080" title="Plugin manager" backgroundColor="background" flags="wfNoBorder">
         <panel name="titletemp"/>
