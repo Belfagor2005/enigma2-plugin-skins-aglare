@@ -451,7 +451,6 @@ class AglareCaidInfo2(Poll, Converter, object):
     def getCIdata(self, allVisible, showNameOfActive=True):
         # CI data
         CIstring = ""
-        appname = ""
         if self.NUM_CI and self.NUM_CI > 0:
             if self.eDVBCIUIInstance:
                 for slot in range(self.NUM_CI):
@@ -795,6 +794,8 @@ class AglareCaidInfo2(Poll, Converter, object):
                                     item[1] = "emu"
                             elif item[0] == "hops":
                                 item[1] = item[1].strip("\n")
+                            elif item[0] == "from":
+                                item[1] = item[1].strip("\n")
                             elif item[0] == "system":
                                 item[1] = item[1].strip("\n")
                             elif item[0] == "provider":
@@ -806,8 +807,18 @@ class AglareCaidInfo2(Poll, Converter, object):
                                 if item[1].strip()[:3] == "net":
                                     it_tmp = item[1].strip().split(" ")
                                     info["protocol"] = it_tmp[1][1:]
-                                    info["server"] = it_tmp[-1].split(":", 1)[0]
-                                    info["port"] = it_tmp[-1].split(':', 1)[1][:-1]
+                                    if ":" in it_tmp[-1]:
+                                        info["server"] = it_tmp[-1].split(":", 1)[0]
+                                        info["port"] = it_tmp[-1].split(":", 1)[1][:-1]
+                                    elif ":" not in it_tmp[-1]:
+                                        try:
+                                            info["server"] = it_tmp[3].split(":", 1)[0]
+                                            info["port"] = it_tmp[3].split(":", 1)[1][:-1]
+                                        except:
+                                            pass
+                                    else:
+                                        info["server"] == ""
+                                        info["port"] == ""
                                     item[1] = "net"
                             elif item[0] == "prov":
                                 y = item[1].find(",")
@@ -817,8 +828,11 @@ class AglareCaidInfo2(Poll, Converter, object):
                             elif item[0] == "reader":
                                 if item[1].strip() == "emu":
                                     item[0] = "source"
-                            elif item[0] == "from":
-                                if item[1].lower().find("local") > -1:  # some oscams return also number of local
+                            elif item[0] == "protocol":
+                                if item[1].strip() == "emu" or item[1].strip() == "constcw":
+                                    item[1] = "emu"
+                                    item[0] = "source"
+                                elif item[1].strip() == "internal":
                                     item[1] = "sci"
                                     item[0] = "source"
                                 else:
