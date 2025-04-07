@@ -29,16 +29,16 @@ class AglareAudioInfo(Poll, Converter):
             "11_pcm": ("pcm",),
             "12_mpeg": ("mpeg",),
             "13_dolbytruehd": ("truehd",),
-            }
+        }
         self.codec_info = {
             "dolbydigitalplus": ("51", "20", "71"),
             "dolbydigital": ("51", "20", "71"),
             "wma": ("8", "9"),
         }
         self.type, self.interesting_events = {
-                "AudioIcon": (self.GET_AUDIO_ICON, (iPlayableService.evUpdatedInfo,)),
-                "AudioCodec": (self.GET_AUDIO_CODEC, (iPlayableService.evUpdatedInfo,)),
-            }[type]
+            "AudioIcon": (self.GET_AUDIO_ICON, (iPlayableService.evUpdatedInfo,)),
+            "AudioCodec": (self.GET_AUDIO_CODEC, (iPlayableService.evUpdatedInfo,)),
+        }[type]
 
     def getAudio(self):
         service = self.source.service

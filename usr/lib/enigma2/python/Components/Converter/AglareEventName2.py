@@ -199,3 +199,39 @@ class AglareEventName2(Converter, object):
             return
 
     text = property(getText)
+
+
+"""
+<!-- Event Name Tweaked -->
+<widget source="AglareEventName2(NameTweaked)" render="Label" position="10,10" size="600,30" font="Regular;30" zPosition="1" />
+
+<!-- Short Description -->
+<widget source="AglareEventName2(Description)" render="Label" position="10,50" size="600,30" font="Regular;20" zPosition="1" />
+
+<!-- Extended Description -->
+<widget source="AglareEventName2(ExtendedDescription)" render="Label" position="10,90" size="600,30" font="Regular;20" zPosition="1" />
+
+<!-- Full Description -->
+<widget source="AglareEventName2(FullDescription)" render="Label" position="10,130" size="600,30" font="Regular;20" zPosition="1" />
+
+<!-- Event ID -->
+<widget source="AglareEventName2(ID)" render="Label" position="10,170" size="600,30" font="Regular;20" zPosition="1" />
+
+<!-- Next Event Name -->
+<widget source="AglareEventName2(NextName)" render="Label" position="10,210" size="600,30" font="Regular;20" zPosition="1" />
+
+<!-- Next Event Description -->
+<widget source="AglareEventName2(NextDescription)" render="Label" position="10,250" size="600,30" font="Regular;20" zPosition="1" />
+
+<!-- Next Event List -->
+<widget source="AglareEventName2(NextEventList)" render="Label" position="10,290" size="600,30" font="Regular;20" zPosition="1" />
+
+<!-- Prime Time No Duration -->
+<widget source="AglareEventName2(PrimeTimeNoDuration)" render="Label" position="10,330" size="600,30" font="Regular;20" zPosition="1" />
+
+<!-- Prime Time Only Duration -->
+<widget source="AglareEventName2(PrimeTimeOnlyDuration)" render="Label" position="10,370" size="600,30" font="Regular;20" zPosition="1" />
+
+<!-- Prime Time With Duration -->
+<widget source="AglareEventName2(PrimeTimeWithDuration)" render="Label" position="10,410" size="600,30" font="Regular;20" zPosition="1" />
+"""

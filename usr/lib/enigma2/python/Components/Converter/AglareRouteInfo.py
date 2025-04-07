@@ -51,3 +51,28 @@ class AglareRouteInfo(Converter, object):
 
     def changed(self, what):
         Converter.changed(self, what)
+
+
+"""
+<screen name="RouteInfoScreen" position="center,center" size="1280,720" title="Network Information">
+    <!-- Widget per visualizzare lo stato della connessione LAN -->
+    <widget name="lanStatus" source="ServiceEvent" render="Label" position="50,100" size="1180,50" font="Bold; 26" backgroundColor="background" transparent="1" noWrap="1" zPosition="1" foregroundColor="green" valign="center">
+        <convert type="AglareRouteInfo">Lan</convert>
+    </widget>
+
+    <!-- Widget per visualizzare lo stato della connessione Wi-Fi -->
+    <widget name="wifiStatus" source="ServiceEvent" render="Label" position="50,160" size="1180,50" font="Bold; 26" backgroundColor="background" transparent="1" noWrap="1" zPosition="1" foregroundColor="yellow" valign="center">
+        <convert type="AglareRouteInfo">Wifi</convert>
+    </widget>
+
+    <!-- Widget per visualizzare lo stato della connessione Modem -->
+    <widget name="modemStatus" source="ServiceEvent" render="Label" position="50,220" size="1180,50" font="Bold; 26" backgroundColor="background" transparent="1" noWrap="1" zPosition="1" foregroundColor="blue" valign="center">
+        <convert type="AglareRouteInfo">Modem</convert>
+    </widget>
+
+    <!-- Widget per visualizzare informazioni generali sulla connessione -->
+    <widget name="networkInfo" source="ServiceEvent" render="Label" position="50,280" size="1180,50" font="Bold; 26" backgroundColor="background" transparent="1" noWrap="1" zPosition="1" foregroundColor="red" valign="center">
+        <convert type="AglareRouteInfo">Info</convert>
+    </widget>
+</screen>
+"""

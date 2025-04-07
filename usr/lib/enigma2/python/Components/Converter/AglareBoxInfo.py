@@ -19,11 +19,11 @@ from Components.Converter.Poll import Poll
 from Components.Converter.Converter import Converter
 from Components.config import config
 from Components.Element import cached
-from Components.Language import language
 from Tools.Directories import fileExists
-from os import path, popen
+from os import popen
 import re
 import os
+
 
 class AglareBoxInfo(Poll, Converter, object):
 	Boxtype = 0
@@ -46,18 +46,19 @@ class AglareBoxInfo(Poll, Converter, object):
 		self.poll_interval = 1000
 		self.poll_enabled = True
 		self.type = {'Boxtype': self.Boxtype,
-		'CpuInfo': self.CpuInfo,
-		'HddTemp': self.HddTemp,
-		'TempInfo': self.TempInfo,
-		'FanInfo': self.FanInfo,
-		'Upinfo': self.Upinfo,
-		'CpuLoad': self.CpuLoad,
-		'CpuSpeed': self.CpuSpeed,
-		'SkinInfo': self.SkinInfo,
-		'TimeInfo': self.TimeInfo,
-		'TimeInfo2': self.TimeInfo2,
-		'TimeInfo3': self.TimeInfo3,
-		'TimeInfo4': self.TimeInfo4}[type]
+					 'CpuInfo': self.CpuInfo,
+					 'HddTemp': self.HddTemp,
+					 'TempInfo': self.TempInfo,
+					 'FanInfo': self.FanInfo,
+					 'Upinfo': self.Upinfo,
+					 'CpuLoad': self.CpuLoad,
+					 'CpuSpeed': self.CpuSpeed,
+					 'SkinInfo': self.SkinInfo,
+					 'TimeInfo': self.TimeInfo,
+					 'TimeInfo2': self.TimeInfo2,
+					 'TimeInfo3': self.TimeInfo3,
+					 'TimeInfo4': self.TimeInfo4
+					 }[type]
 
 	def imageinfo(self):
 		imageinfo = ''
@@ -88,7 +89,7 @@ class AglareBoxInfo(Poll, Converter, object):
 				box = os.popen("head -n 1 /etc/hostname").read().split()[0]
 			if os.path.isfile('/etc/issue'):
 				for line in open('/etc/issue'):
-					software += line.capitalize().replace('Open vision enigma2 image for', '').replace('More information : https://openvision.tech', '').replace('%d, %t - (%s %r %m)', '').replace('release', 'r').replace('Welcome to openatv', '').replace('Welcome to teamblue', '').replace('Welcome to openbh', '').replace('Welcome to openvix', '').replace('Welcome to opendroid', '').replace('Welcome to openspa', '').replace('\n', '').replace('\l', '').replace('\\', '').strip()[:-1].capitalize()
+					software += line.capitalize().replace('Open vision enigma2 image for', '').replace('More information : https://openvision.tech', '').replace('%d, %t - (%s %r %m)', '').replace('release', 'r').replace('Welcome to openatv', '').replace('Welcome to teamblue', '').replace('Welcome to openbh', '').replace('Welcome to openvix', '').replace('Welcome to opendroid', '').replace('Welcome to openspa', '').replace('\n', '').replace(r'\l', '').replace(r'\\', '').strip()[:-1].capitalize()
 				if software.startswith("Egami"):
 					try:
 						from Components.SystemInfo import BoxInfo
@@ -137,7 +138,7 @@ class AglareBoxInfo(Poll, Converter, object):
 					if 'system type' in line:
 						info = line.split(':')[-1].split()[0].strip().strip('\n')
 					elif 'cpu MHz' in line:
-						cpu_speed =  line.split(':')[-1].strip().strip('\n')
+						cpu_speed = line.split(':')[-1].strip().strip('\n')
 					elif 'cpu type' in line:
 						info = line.split(':')[-1].strip().strip('\n')
 					elif 'model name' in line or 'Processor' in line:
@@ -158,7 +159,7 @@ class AglareBoxInfo(Poll, Converter, object):
 							f = open('/sys/firmware/devicetree/base/cpus/cpu@0/clock-frequency', 'rb')
 							clockfrequency = f.read()
 							f.close()
-							cpu_speed = "%s" % str(int(binascii.hexlify(clockfrequency), 16)/1000000)
+							cpu_speed = "%s" % str(int(binascii.hexlify(clockfrequency), 16) / 1000000)
 						except:
 							cpu_speed = '-'
 				if cpu_info == '':
@@ -190,7 +191,7 @@ class AglareBoxInfo(Poll, Converter, object):
 					info = '%s%sC' % (open('/sys/devices/virtual/thermal/thermal_zone0/temp').read()[:2].strip('\n'), str('\xc2\xb0'))
 				elif os.path.exists('/proc/hisi/msp/pm_cpu'):
 					try:
-						info = '%s%sC' % (re.search('temperature = (\d+) degree', open('/proc/hisi/msp/pm_cpu').read()).group(1), str('\xc2\xb0'))
+						info = '%s%sC' % (re.search(r'temperature = (\d+) degree', open('/proc/hisi/msp/pm_cpu').read()).group(1), str('\xc2\xb0'))
 					except:
 						pass
 			except:
@@ -224,17 +225,17 @@ class AglareBoxInfo(Poll, Converter, object):
 				MINUTE = 60
 				HOUR = MINUTE * 60
 				DAY = HOUR * 24
-				days = int( total_seconds / DAY )
-				hours = int( ( total_seconds % DAY ) / HOUR )
-				minutes = int( ( total_seconds % HOUR ) / MINUTE )
-				seconds = int( total_seconds % MINUTE )
+				days = int(total_seconds / DAY)
+				hours = int((total_seconds % DAY) / HOUR)
+				minutes = int((total_seconds % HOUR) / MINUTE)
+				seconds = int(total_seconds % MINUTE)
 				uptime = ''
 				if days > 0:
-					uptime += str(days) + ' ' + (days == 1 and 'day' or 'days' ) + ' '
+					uptime += str(days) + ' ' + (days == 1 and 'day' or 'days') + ' '
 				if len(uptime) > 0 or hours > 0:
-					uptime += str(hours) + ' ' + (hours == 1 and 'hour' or 'hours' ) + ' '
+					uptime += str(hours) + ' ' + (hours == 1 and 'hour' or 'hours') + ' '
 				if len(uptime) > 0 or minutes > 0:
-					uptime += str(minutes) + ' ' + (minutes == 1 and 'minute' or 'minutes' )
+					uptime += str(minutes) + ' ' + (minutes == 1 and 'minute' or 'minutes')
 				return 'Time in work: %s' % uptime
 
 		elif self.type == self.CpuLoad:
@@ -253,7 +254,7 @@ class AglareBoxInfo(Poll, Converter, object):
 			info = 0
 			try:
 				for line in open('/proc/cpuinfo').readlines():
-					line = [ x.strip() for x in line.strip().split(':') ]
+					line = [x.strip() for x in line.strip().split(':')]
 					if line[0] == 'cpu MHz':
 						info = '%1.0f' % float(line[1])
 				if not info:
@@ -303,3 +304,108 @@ class AglareBoxInfo(Poll, Converter, object):
 				return '+0'
 
 	text = property(getText)
+
+
+# Basic Usage in Skins
+# 1. Box Information Widget
+"""
+<widget source="session.CurrentService" render="Label" position="100,100" size="400,25" font="Regular;18" foregroundColor="white">
+  <convert type="AglareBoxInfo">Boxtype</convert>
+</widget>
+"""
+
+# 2. CPU Information Widget
+"""
+<widget source="session.CurrentService" render="Label" position="100,130" size="400,25" font="Regular;18" foregroundColor="white">
+  <convert type="AglareBoxInfo">CpuInfo</convert>
+</widget>
+"""
+# 3. Temperature Monitoring
+"""
+<!-- System Temperature -->
+<widget source="session.CurrentService" render="Label" position="100,160" size="200,25" font="Regular;18" foregroundColor="white">
+  <convert type="AglareBoxInfo">TempInfo</convert>
+</widget>
+<!-- HDD Temperature (if available) -->
+<widget source="session.CurrentService" render="Label" position="310,160" size="200,25" font="Regular;18" foregroundColor="white">
+  <convert type="AglareBoxInfo">HddTemp</convert>
+</widget>
+"""
+
+# 4. System Uptime
+"""
+<widget source="session.CurrentService" render="Label" position="100,190" size="400,25" font="Regular;18" foregroundColor="white">
+  <convert type="AglareBoxInfo">Upinfo</convert>
+</widget>
+"""
+
+# 5. CPU Load Monitoring
+"""
+<widget source="session.CurrentService" render="Label" position="100,220" size="400,25" font="Regular;18" foregroundColor="white">
+  <convert type="AglareBoxInfo">CpuLoad</convert>
+</widget>
+"""
+# Advanced Usage Examples
+# 1. Combined System Info Panel
+"""
+<panel position="80,80" size="440,180" backgroundColor="#40000000" borderColor="#808080" borderWidth="1">
+  <widget source="session.CurrentService" render="Label" position="10,10" size="420,25" font="Regular;20" foregroundColor="#FFFF00" transparent="1">
+	<convert type="AglareBoxInfo">Boxtype</convert>
+  </widget>
+  <widget source="session.CurrentService" render="Label" position="10,40" size="420,20" font="Regular;16" foregroundColor="white" transparent="1">
+	<convert type="AglareBoxInfo">CpuInfo</convert>
+  </widget>
+  <widget source="session.CurrentService" render="Label" position="10,65" size="200,20" font="Regular;16" foregroundColor="white" transparent="1">
+	<convert type="AglareBoxInfo">TempInfo</convert>
+  </widget>
+  <widget source="session.CurrentService" render="Label" position="220,65" size="200,20" font="Regular;16" foregroundColor="white" transparent="1">
+	<convert type="AglareBoxInfo">CpuLoad</convert>
+  </widget>
+  <widget source="session.CurrentService" render="Label" position="10,90" size="420,20" font="Regular;16" foregroundColor="white" transparent="1">
+	<convert type="AglareBoxInfo">Upinfo</convert>
+  </widget>
+</panel>
+"""
+# 2. Fan Control Status
+"""
+<widget source="session.CurrentService" render="Label" position="100,250" size="400,25" font="Regular;18" foregroundColor="#FF6600">
+  <convert type="AglareBoxInfo">FanInfo</convert>
+</widget>
+"""
+# 3. Timezone Information
+"""
+<!-- Timezone Offset -->
+<widget source="session.CurrentService" render="Label" position="100,280" size="100,25" font="Regular;18" foregroundColor="white">
+  <convert type="AglareBoxInfo">TimeInfo</convert>
+</widget>
+
+<!-- Full Timezone Name -->
+<widget source="session.CurrentService" render="Label" position="210,280" size="300,25" font="Regular;18" foregroundColor="white">
+  <convert type="AglareBoxInfo">TimeInfo2</convert>
+</widget>
+"""
+
+# Customization Options
+
+# You can customize the appearance of these widgets using standard skin attributes:
+# position:           X,Y coordinates
+# size:               Width,Height
+# font:               Font style and size (e.g., "Regular;18" or "Bold;20")
+# foregroundColor:    Text color (hex or color name)
+# backgroundColor:    Background color
+# transparent:        Set to "1" for transparent background
+# halign:             Horizontal alignment (left/center/right)
+# valign:             Vertical alignment (top/center/bottom)
+
+# Tips for Optimal Usage
+# Polling Interval:   The default polling interval is 2 seconds (2000ms). For less critical info (like box type), you might want to increase this.
+# Error Handling:     If a particular sensor isn't available, the converter will return "N/A" or similar.
+# Performance:        For boxes with limited resources, consider:
+
+# Using fewer widgets
+
+# Increasing polling intervals
+
+# Disabling widgets that require external commands (like HDD temp)
+# Extensions:     You can easily extend the converter by adding new information types following the existing pattern.
+# Debugging:      If a widget isn't showing expected information, check your Enigma2 logs for error messages from the converter.

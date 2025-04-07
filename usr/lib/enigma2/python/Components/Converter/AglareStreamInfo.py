@@ -42,7 +42,7 @@ class AglareStreamInfo(Converter):
                 strurl = refstr.split(':')
                 streamurl = strurl[10].replace('%3a', ':').replace('http://', '').replace('https://', '').split('/1:0:')[0].split('//')[0].split('/')[0].split('@')[-1]
                 return streamurl
-        return ''
+        return 'No URL available'
 
     @cached
     def getText(self):
@@ -53,9 +53,7 @@ class AglareStreamInfo(Converter):
                 return str(self.streamurl())
             elif self.type == self.STREAMTYPE:
                 return str(self.streamtype())
-        return ''
-
-    text = property(getText)
+        return 'No information available'
 
     def changed(self, what):
         if what[0] != self.CHANGED_SPECIFIC or what[1] in (iPlayableService.evStart,):

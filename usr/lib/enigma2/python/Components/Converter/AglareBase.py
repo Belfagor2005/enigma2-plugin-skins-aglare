@@ -930,3 +930,31 @@ class AglareBase(Poll, Converter, object):
     def changed(self, what):
         if what[0] == self.CHANGED_SPECIFIC and what[1] == iPlayableService.evUpdatedInfo or what[0] == self.CHANGED_POLL:
             Converter.changed(self, what)
+
+"""
+<!-- 1. Informazioni frequenza DVB-S -->
+<widget source="session.CurrentService" render="Label" position="100,100" size="400,25" font="Regular;18">
+  <convert type="AglareBase">FreqInfo</convert>
+</widget>
+
+<!-- 2. Posizione orbitale -->
+<widget source="session.CurrentService" render="FixedLabel" position="100,130" size="300,25">
+  <convert type="AglareBase">Orbital</convert>
+</widget>
+
+<!-- 3. Risoluzione e codec -->
+<widget source="session.CurrentService" render="Label" position="100,160" size="500,25" font="Regular;16">
+  <convert type="AglareBase">ResCodec</convert>
+</widget>
+
+<!-- 4. Controllo se è 1080p -->
+<widget source="session.CurrentService" render="Pixmap" position="100,190" size="30,30">
+  <convert type="AglareBase">Is1080</convert>
+  <convert type="ConditionalShowHide"/>
+</widget>
+
+<!-- 5. Informazioni HDR -->
+<widget source="session.CurrentService" render="Label" position="100,220" size="200,25" font="Regular;16">
+  <convert type="AglareBase">HDRInfo</convert>
+</widget>
+"""
