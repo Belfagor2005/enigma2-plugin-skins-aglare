@@ -433,10 +433,10 @@ class AglarePosterX(Renderer):
 
     def applySkin(self, desktop, parent):
         attribs = []
-        for (attrib, value,) in self.skinAttributes:
+        for (attrib, value) in self.skinAttributes:
             if attrib == "nexts":
                 self.nxts = int(value)
-            if attrib == "path":
+            elif attrib == "path":
                 self.path = str(value)
             attribs.append((attrib, value))
         self.skinAttributes = attribs
