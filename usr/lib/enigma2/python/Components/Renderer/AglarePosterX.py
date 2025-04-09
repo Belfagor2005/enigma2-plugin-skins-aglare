@@ -49,8 +49,8 @@ import traceback
 import datetime
 import glob
 import codecs
-import threading
-from functools import lru_cache
+# import threading
+# from functools import lru_cache
 # from .Converlibr import convtext
 from .AglareConverlibr import convtext
 
@@ -486,6 +486,7 @@ class AglarePosterX(Renderer):
     def waitPoster(self):
         if self.instance:
             self.instance.hide()
+
         self.pstrNm = self.generatePosterPath()
         if not self.pstrNm:
             self.logPoster("[ERROR: waitPoster] Poster path is None")

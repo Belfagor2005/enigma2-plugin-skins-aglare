@@ -47,8 +47,8 @@ import traceback
 import datetime
 import glob
 import codecs
-import threading
-from functools import lru_cache
+# import threading
+# from functools import lru_cache
 # from .Converlibr import convtext
 from .AglareConverlibr import convtext
 

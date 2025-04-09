@@ -177,7 +177,6 @@ class AglareBackdropXDownloadThread(threading.Thread):
 	def search_tmdb(self, dwn_backdrop, title, shortdesc, fulldesc, channel=None):
 		try:
 			self.dwn_backdrop = dwn_backdrop
-			print('self.dwn_backdrop=', self.dwn_backdrop)
 			title_safe = title
 			self.title_safe = title_safe.replace('+', ' ')
 			url = f"https://api.themoviedb.org/3/search/multi?api_key={tmdb_api}&language={lng}&query={self.title_safe}"
@@ -206,7 +205,6 @@ class AglareBackdropXDownloadThread(threading.Thread):
 
 	def downloadData2(self, data):
 		if isinstance(data, bytes):
-			print("Decoding bytes to string...")
 			data = data.decode('utf-8')
 		data_json = data if isinstance(data, dict) else json.loads(data)
 		if 'results' in data_json:
