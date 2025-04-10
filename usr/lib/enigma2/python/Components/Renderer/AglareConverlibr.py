@@ -151,13 +151,14 @@ def sanitize_filename(name):
 	# name = sub(r'\s+', '_', name)
 	# name = sub(r"[^\w\-.]", "", name)
 
-	invalid_chars = '*?"<>|'
+	invalid_chars = '*?"<>|,'
 	for char in invalid_chars:
 		name = name.replace(char, '')
 
-	if name.startswith('live:'):
+	if name.lower().startswith('live:'):
 		name = name.partition(":")[1]
-
+	if name.endswith(',') or name.endswith(':'):
+		name = name.replace(",", "")
 	# Truncate to 50 characters if needed
 	if len(name) > 50:
 		name = name[:50]
@@ -302,7 +303,7 @@ def convtext(text=''):
 			text = text.replace(char, ' ')
 
 		# Rimozione contenuti dopo certi caratteri
-		for separator in [' -', '(', '[', '|']:
+		for separator in [' -', '(', '[', '|', ':']:
 			if separator in text:
 				text = text.split(separator)[0].strip()
 

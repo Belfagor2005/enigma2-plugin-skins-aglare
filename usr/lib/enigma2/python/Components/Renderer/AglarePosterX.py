@@ -51,7 +51,7 @@ import datetime
 import glob
 import codecs
 import threading
-from functools import lru_cache
+# from functools import lru_cache
 
 
 # from .Converlibr import convtext
@@ -113,6 +113,38 @@ except:
 	pass
 
 
+def logPoster(message):
+	print(message)
+
+
+def logDB(logmsg):
+	try:
+		with open("/tmp/PosterDB.log", "a") as w:
+			w.write("%s\n" % logmsg)
+	except Exception as e:
+		logPoster("logDB error:", str(e))
+		print_exc()
+
+
+def logPosterx(logmsg):
+	try:
+		with open("/tmp/logPosterX.log", "a") as w:
+			w.write("%s\n" % logmsg)
+	except Exception as e:
+		logPoster('logPoster error', str(e))
+		print_exc()
+
+
+def logAutoDB(logmsg):
+	try:
+		timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+		with open("/tmp/PosterAutoDB.log", "a") as w:
+			w.write("[{}] {}\n".format(timestamp, logmsg))
+	except Exception as e:
+		logPoster("logAutoDB error: {}".format(e))
+		print_exc()
+
+
 def SearchBouquetTerrestrial():
 	"""Searches for a bouquet file containing specific terrestrial markers."""
 	fallback_file = "/etc/enigma2/userbouquet.favourites.tv"
@@ -121,7 +153,7 @@ def SearchBouquetTerrestrial():
 			content = f.read().strip().lower()
 			if "eeee" in content:
 				if "82000" not in content and "c0000" not in content:
-					return filepath  # Return path, not content
+					return filepath	 # Return path, not content
 	return fallback_file
 
 
@@ -136,14 +168,14 @@ def process_autobouquet():
 	apdb = {}
 
 	if not exists(autobouquet_file):
-		print("File not found:", autobouquet_file)
+		logPoster("File not found:", autobouquet_file)
 		return {}
 
 	try:
 		with open(autobouquet_file, "r", encoding="utf-8") as f:
 			lines = f.readlines()
 	except (IOError, OSError) as e:
-		print("Error reading file:", e)
+		logPoster("Error reading file:", e)
 		return {}
 
 	autobouquet_count = min(autobouquet_count, len(lines))
@@ -154,7 +186,7 @@ def process_autobouquet():
 			if len(parts) == 11 and ":".join(parts[3:7]) != "0:0:0:0":
 				apdb[i] = ":".join(parts)
 
-	print("Found", len(apdb), "valid services.")
+	logPoster("Found", len(apdb), "valid services.")
 	return apdb
 
 
@@ -181,46 +213,37 @@ class PosterDB(AglarePosterXDownloadThread):
 		self.pstcanal = None
 
 	def run(self):
-		self.logDB("[QUEUE] : Initialized")
+		logDB("[QUEUE] : Initialized")
 		while True:
 			canal = pdb.get()
-			self.logDB("[QUEUE] : {} : {}-{} ({})".format(canal[0], canal[1], canal[2], canal[5]))
-			name_sanitized = canal[5] if canal[5] else ""
-			self.pstcanal = convtext(name_sanitized)
+			logDB("[QUEUE] : {} : {}-{} ({})".format(canal[0], canal[1], canal[2], canal[5]))
+			# name_sanitized = canal[5] if canal[5] else ""
+			self.pstcanal = convtext(canal[5])
 
-			if self.pstcanal is not None:
-				dwn_poster = join(path_folder, self.pstcanal + ".jpg")
-			else:
-				print("None type detected - poster not found")
-				pdb.task_done()  # Per evitare il blocco del thread
+			if not self.pstcanal:
+				logDB("[ERROR] Poster not found for channel")
+				pdb.task_done()
 				continue
 
+			dwn_poster = join(path_folder, self.pstcanal + ".jpg")
 			if exists(dwn_poster):
 				utime(dwn_poster, (time.time(), time.time()))
 			if not exists(dwn_poster):
 				val, log = self.search_tmdb(dwn_poster, self.pstcanal, canal[4], canal[3])
-				self.logDB(log)
+				logDB(log)
 			elif not exists(dwn_poster):
 				val, log = self.search_tvdb(dwn_poster, self.pstcanal, canal[4], canal[3])
-				self.logDB(log)
+				logDB(log)
 			elif not exists(dwn_poster):
 				val, log = self.search_fanart(dwn_poster, self.pstcanal, canal[4], canal[3])
-				self.logDB(log)
+				logDB(log)
 			elif not exists(dwn_poster):
 				val, log = self.search_imdb(dwn_poster, self.pstcanal, canal[4], canal[3])
-				self.logDB(log)
+				logDB(log)
 			elif not exists(dwn_poster):
 				val, log = self.search_google(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
-				self.logDB(log)
+				logDB(log)
 			pdb.task_done()
-
-	def logDB(self, logmsg):
-		try:
-			with open("/tmp/PosterDB.log", "a") as w:
-				w.write("%s\n" % logmsg)
-		except Exception as e:
-			print("logDB error:", str(e))
-			print_exc()
 
 
 class PosterAutoDB(AglarePosterXDownloadThread):
@@ -230,117 +253,112 @@ class PosterAutoDB(AglarePosterXDownloadThread):
 		self.pstcanal = None
 
 	def run(self):
-		self.logAutoDB("[AutoDB] *** Initialized ***")
+		logAutoDB("[AutoDB] *** Initialized ***")
 
-		while True:
-			time.sleep(7200)  # 7200 - Start every 2 hours
-			self.logAutoDB("[AutoDB] *** Running ***")
-			self.pstcanal = None
-			for service in apdb.values():
-				try:
-					events = epgcache.lookupEvent(['IBDCTESX', (service, 0, -1, 1440)])
-					newfd = 0
-					newcn = None
-
-					for evt in events:
-						self.logAutoDB("[AutoDB] evt {} events ({})".format(evt, len(events)))
-						canal = [None] * 6
-
-						if PY3:
-							canal[0] = ServiceReference(service).getServiceName().replace('\xc2\x86', '').replace('\xc2\x87', '')
-						else:
-							canal[0] = ServiceReference(service).getServiceName().replace('\xc2\x86', '').replace('\xc2\x87', '').encode('utf-8')
-						if evt[1] is None or evt[4] is None or evt[5] is None or evt[6] is None:
-							self.logAutoDB("[AutoDB] *** Missing EPG for {}".format(canal[0]))
-						else:
-							canal[1:6] = [evt[1], evt[4], evt[5], evt[6], evt[4]]
-							name_sanitized = canal[5] if canal[5] else ""
-							self.pstcanal = convtext(name_sanitized)
-							if self.pstcanal is not None:
-								dwn_poster = join(path_folder, self.pstcanal + ".jpg")
-							else:
-								print("None type detected - poster not found")
-								continue
-
-							if exists(dwn_poster):
-								utime(dwn_poster, (time.time(), time.time()))
-							if not exists(dwn_poster):
-								val, log = self.search_tmdb(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
-								if val and log.find("SUCCESS"):
-									newfd += 1
-							elif not exists(dwn_poster):
-								val, log = self.search_tvdb(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
-								if val and log.find("SUCCESS"):
-									newfd += 1
-							elif not exists(dwn_poster):
-								val, log = self.search_fanart(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
-								if val and log.find("SUCCESS"):
-									newfd += 1
-							elif not exists(dwn_poster):
-								val, log = self.search_imdb(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
-								if val and log.find("SUCCESS"):
-									newfd += 1
-							elif not exists(dwn_poster):
-								val, log = self.search_google(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
-								if val and log.find("SUCCESS"):
-									newfd += 1
-							newcn = canal[0]
-						self.logAutoDB("[AutoDB] {} new file(s) added ({})".format(newfd, newcn))
-
-				except Exception as e:
-					self.logAutoDB("[AutoDB] *** Service error: {}".format(e))
-					print_exc()
-
-			# AUTO REMOVE OLD FILES
-			if not exists(path_folder):
-				self.logAutoDB("[AutoDB] path_folder does not exist: {}".format(path_folder))
-				continue
-
-			now_tm = time.time()
-			emptyfd = 0
-			oldfd = 0
-			for f in listdir(path_folder):
-				if not f.endswith(".jpg"):
-					continue
-				file_path = join(path_folder, f)
-				try:
-					diff_tm = now_tm - getmtime(file_path)
-
-					if diff_tm > 120 and getsize(file_path) == 0:
-						remove(file_path)
-						emptyfd += 1
-					elif diff_tm > 31536000:  # 1 year
-						remove(file_path)
-						oldfd += 1
-				except Exception as e:
-					self.logAutoDB("[ERROR] File removal failed: {} - {}".format(file_path, e))
-
-			self.logAutoDB("[AutoDB] {} old file(s) removed".format(oldfd))
-			self.logAutoDB("[AutoDB] {} empty file(s) removed".format(emptyfd))
-			self.logAutoDB("[AutoDB] *** Stopping ***")
-
-	def logAutoDB(self, logmsg):
 		try:
-			timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-			with open("/tmp/PosterAutoDB.log", "a") as w:
-				w.write("[{}] {}\n".format(timestamp, logmsg))
+			while True:
+				time.sleep(7200)  # 7200 - Start every 2 hours
+				logAutoDB("[AutoDB] *** Running ***")
+				self.pstcanal = None
+				for service in apdb.values():
+					try:
+						events = epgcache.lookupEvent(['IBDCTESX', (service, 0, -1, 1440)])
+						newfd = 0
+						newcn = None
+
+						for evt in events:
+							logAutoDB("[AutoDB] evt {} events ({})".format(evt, len(events)))
+							canal = [None] * 6
+
+							if PY3:
+								canal[0] = ServiceReference(service).getServiceName().replace('\xc2\x86', '').replace('\xc2\x87', '')
+							else:
+								canal[0] = ServiceReference(service).getServiceName().replace('\xc2\x86', '').replace('\xc2\x87', '').encode('utf-8')
+							if evt[1] is None or evt[4] is None or evt[5] is None or evt[6] is None:
+								logAutoDB("[AutoDB] *** Missing EPG for {}".format(canal[0]))
+							else:
+								canal[1:6] = [evt[1], evt[4], evt[5], evt[6], evt[4]]
+								# name_sanitized = canal[5] if canal[5] else ""
+								self.pstcanal = convtext(canal[5]) if canal[5] else None
+								if self.pstcanal is not None:
+									dwn_poster = join(path_folder, self.pstcanal + ".jpg")
+								else:
+									logPoster("None type detected - poster not found")
+									continue
+
+								if exists(dwn_poster):
+									utime(dwn_poster, (time.time(), time.time()))
+								if not exists(dwn_poster):
+									val, log = self.search_tmdb(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
+									if val and log.find("SUCCESS"):
+										newfd += 1
+								elif not exists(dwn_poster):
+									val, log = self.search_tvdb(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
+									if val and log.find("SUCCESS"):
+										newfd += 1
+								elif not exists(dwn_poster):
+									val, log = self.search_fanart(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
+									if val and log.find("SUCCESS"):
+										newfd += 1
+								elif not exists(dwn_poster):
+									val, log = self.search_imdb(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
+									if val and log.find("SUCCESS"):
+										newfd += 1
+								elif not exists(dwn_poster):
+									val, log = self.search_google(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
+									if val and log.find("SUCCESS"):
+										newfd += 1
+							newcn = canal[0]
+							logAutoDB("[AutoDB] {} new file(s) added ({})".format(newfd, newcn))
+
+					except Exception as e:
+						logAutoDB("[AutoDB] *** Service error: {}".format(e))
+						print_exc()
+
+				# AUTO REMOVE OLD FILES
+				if not exists(path_folder):
+					logAutoDB("[AutoDB] path_folder does not exist: {}".format(path_folder))
+					continue
+
+				now_tm = time.time()
+				emptyfd = 0
+				oldfd = 0
+				for f in listdir(path_folder):
+					if not f.endswith(".jpg"):
+						continue
+					file_path = join(path_folder, f)
+					try:
+						diff_tm = now_tm - getmtime(file_path)
+						if diff_tm > 120 and getsize(file_path) == 0:
+							remove(file_path)
+							emptyfd += 1
+						elif diff_tm > 31536000:  # 1 year
+							remove(file_path)
+							oldfd += 1
+					except Exception as e:
+						logAutoDB("[ERROR] File removal failed: {} - {}".format(file_path, e))
+				logAutoDB("[AutoDB] {} old file(s) removed".format(oldfd))
+				logAutoDB("[AutoDB] {} empty file(s) removed".format(emptyfd))
+				logAutoDB("[AutoDB] *** Stopping ***")
 		except Exception as e:
-			print("logAutoDB error: {}".format(e))
+			logAutoDB("[AutoDB] *** Fatal error: {}".format(e))
 			print_exc()
 
 
 class AglarePosterX(Renderer):
 
-	GUI_WIDGET = ePixmap
-
 	def __init__(self):
 		Renderer.__init__(self)
 		self.adsl = intCheck()
 		if not self.adsl:
-			print("Connessione assente, modalità offline.")
+			logPoster("Connessione assente, modalità offline.")
 			return
 		else:
-			print("Connessione rilevata.")
+			logPoster("Connessione rilevata.")
+
+		self.instance = None
+		self.timer = None
+
 		self.nxts = 0
 		self.path = path_folder
 		self.canal = [None] * 6
@@ -364,6 +382,8 @@ class AglarePosterX(Renderer):
 			attribs.append((attrib, value))
 		self.skinAttributes = attribs
 		return Renderer.applySkin(self, desktop, parent)
+
+	GUI_WIDGET = ePixmap
 
 	def changed(self, what):
 		if not self.instance:
@@ -417,63 +437,77 @@ class AglarePosterX(Renderer):
 					apdb[service_name] = service_str
 
 		except Exception as e:
-			print("Error (service):", str(e))
+			logPoster("Error (service):", str(e))
 			if self.instance:
 				self.instance.hide()
 			return
 
 		if not servicetype:
-			print("Error: service type undefined")
 			if self.instance:
 				self.instance.hide()
 			return
 
+		# if self.instance:
+			# self.instance.hide()
+
 		try:
 			curCanal = "{}-{}".format(self.canal[1], self.canal[2])
-			if curCanal == self.oldCanal:
-				return
+			if curCanal != self.oldCanal:
+				self.oldCanal = curCanal
+				self.pstcanal = convtext(self.canal[5])
+				if self.pstcanal is not None:
+					self.pstrNm = join(self.path, str(self.pstcanal) + ".jpg")
+					self.pstcanal = self.pstrNm
 
-			self.oldCanal = curCanal
-			name_sanitized = self.canal[5] if self.canal[5] else ""
-			self.pstcanal = convtext(name_sanitized)
-			if self.pstcanal is not None:
-				self.pstrNm = join(self.path, str(self.pstcanal) + ".jpg")
-				self.pstcanal = self.pstrNm
+				if exists(self.pstcanal):
+					self.timer.start(5, True)
+				else:
+					canal = self.canal[:]
+					pdb.put(canal)
+					self.runPosterThread()
 
-			if exists(self.pstcanal):
-				self.timer.start(10, True)
-			else:
-				canal = self.canal[:]
-				pdb.put(canal)
-				# start_new_thread(self.waitPoster, ())
-				self.runPosterThread()
+			# if curCanal == self.oldCanal:
+				# return
+			# self.oldCanal = curCanal
+			# self.pstcanal = convtext(self.canal[5])
+			# if self.pstcanal is not None:
+				# self.pstrNm = join(self.path, str(self.pstcanal) + ".jpg")
+				# self.pstcanal = self.pstrNm
+
+			# if exists(self.pstcanal):
+				# self.timer.start(5, True)
+			# else:
+				# canal = self.canal[:]
+				# pdb.put(canal)
+				# # start_new_thread(self.waitPoster, ())
+				# self.runPosterThread()
 
 		except Exception as e:
-			print("Error (eFile):", str(e))
+			logPoster("Error (eFile):", str(e))
 			if self.instance:
 				self.instance.hide()
 			return
 
 	def generatePosterPath(self):
-		if self.canal and len(self.canal) > 5 and self.canal[5]:
-			name_sanitized = self.canal[5] if self.canal[5] else ""
-			pstcanal = convtext(name_sanitized)
-			return join(self.path, str(pstcanal) + ".jpg")
+		if len(self.canal) > 5 and self.canal[5]:
+			pstcanal = convtext(self.canal[5])
+			return join(self.path, f"{pstcanal}.jpg")
 		return None
 
-	@lru_cache(maxsize=150)
+	# @lru_cache(maxsize=150)
 	def checkPosterExistence(self, poster_path):
-		return exists(poster_path)
+		exists_flag = exists(poster_path)
+		logPoster("[FILE CHECK] Poster exists: " + str(exists_flag) + " for path: " + poster_path)
+		return exists_flag
 
 	def runPosterThread(self):
-		threading.Thread(target=self.waitPoster).start()
+		threading.Thread(target=self.waitPoster, daemon=True).start()
 
 	def showPoster(self):
 		if self.instance:
 			self.instance.hide()
 		self.pstrNm = self.generatePosterPath()
 		if self.pstrNm and self.checkPosterExistence(self.pstrNm):
-			self.logPoster("[LOAD : showPoster] " + self.pstrNm)
 			self.instance.setPixmap(loadJPG(self.pstrNm))
 			self.instance.setScale(1)
 			self.instance.show()
@@ -483,27 +517,23 @@ class AglarePosterX(Renderer):
 			self.instance.hide()
 		self.pstrNm = self.generatePosterPath()
 		if not self.pstrNm:
-			self.logPoster("[ERROR: waitPoster] Poster path is None")
+			logPoster("[ERROR: waitPoster] Poster path is None")
 			return
-		loop = 180  # Maximum number of attempts
+
+		loop = 180
 		found = False
-		self.logPoster("[LOOP: waitPoster] " + self.pstrNm)
+		logPoster("[LOOP: waitPoster] " + self.pstrNm)
 		while loop > 0:
-			if self.pstrNm and self.checkPosterExistence(self.pstrNm):
+			if self.pstrNm is not None and self.checkPosterExistence(self.pstrNm):
 				found = True
 				break
 			time.sleep(0.5)
 			loop -= 1
+
 		if found:
 			self.timer.start(10, True)
-
-	def logPoster(self, logmsg):
-		try:
-			with open("/tmp/logPosterXx.log", "a") as w:
-				w.write("%s\n" % logmsg)
-		except Exception as e:
-			print('logPoster error:', str(e))
-			print_exc()
+		else:
+			logPoster("[ERROR: waitPoster] Poster not found after waiting.")
 
 
 threadDB = PosterDB()
