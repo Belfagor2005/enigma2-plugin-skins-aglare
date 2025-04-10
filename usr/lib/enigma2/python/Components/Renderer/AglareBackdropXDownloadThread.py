@@ -220,8 +220,8 @@ class AglareBackdropXDownloadThread(threading.Thread):
 						elif media_type == "serie" and 'first_air_date' in each and each['first_air_date']:
 							year = each['first_air_date'].split("-")[0]
 						title = each.get('name', each.get('title', ''))
-						backdrop = "http://image.tmdb.org/t/p/w1280" + (each.get('backdrop_path') or '')
-						poster = "http://image.tmdb.org/t/p/w500" + (each.get('poster_path') or '')
+						backdrop = "http://image.tmdb.org/t/p/original" + (each.get('backdrop_path') or '')
+						poster = "http://image.tmdb.org/t/p/original" + (each.get('poster_path') or '')
 						rating = str(each.get('vote_average', 0))
 						show_title = title
 						if year:
@@ -238,6 +238,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
 
 	def search_tvdb(self, dwn_backdrop, title, shortdesc, fulldesc, channel=None):
 		try:
+			self.dwn_backdrop = dwn_backdrop
 			series_nb = -1
 			chkType, fd = self.checkType(shortdesc, fulldesc)
 			title_safe = title
@@ -430,6 +431,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
 
 	def search_programmetv_google(self, dwn_backdrop, title, shortdesc, fulldesc, channel=None):
 		try:
+			self.dwn_backdrop = dwn_backdrop
 			url_ptv = ''
 			headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 			chkType, fd = self.checkType(shortdesc, fulldesc)
@@ -475,6 +477,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
 
 	def search_molotov_google(self, dwn_backdrop, title, shortdesc, fulldesc, channel=None):
 		try:
+			self.dwn_backdrop = dwn_backdrop
 			url_mgoo = ''
 			headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 			chkType, fd = self.checkType(shortdesc, fulldesc)
@@ -587,6 +590,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
 
 	def search_google(self, dwn_backdrop, title, shortdesc, fulldesc, channel=None):
 		try:
+			self.dwn_backdrop = dwn_backdrop
 			headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 			chkType, fd = self.checkType(shortdesc, fulldesc)
 			backdrop = None

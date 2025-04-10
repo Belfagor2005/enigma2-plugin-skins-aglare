@@ -1,11 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from re import sub, S, I, search, compile, DOTALL, escape
-from six import text_type
+from re import compile, DOTALL, sub
 from unicodedata import normalize
 import sys
-
 
 try:
 	unicode
@@ -13,16 +11,16 @@ except NameError:
 	unicode = str
 
 
-PY3 = False
-if sys.version_info[0] >= 3:
+PY3 = sys.version_info[0] >= 3
+if not PY3:
+	from urllib import quote_plus
+	from HTMLParser import HTMLParser
+	html_parser = HTMLParser()
+else:
 	PY3 = True
 	import html
 	html_parser = html
 	from urllib.parse import quote_plus
-else:
-	from urllib import quote_plus
-	from HTMLParser import HTMLParser
-	html_parser = HTMLParser()
 
 
 def quoteEventName(eventName):
@@ -58,277 +56,285 @@ REGEX = compile(
 
 
 def remove_accents(string):
-	if not isinstance(string, text_type):
-		string = text_type(string, 'utf-8')
-	string = sub(u"[àáâãäå]", 'a', string)
-	string = sub(u"[èéêë]", 'e', string)
-	string = sub(u"[ìíîï]", 'i', string)
-	string = sub(u"[òóôõö]", 'o', string)
-	string = sub(u"[ùúûü]", 'u', string)
-	string = sub(u"[ýÿ]", 'y', string)
+	if not isinstance(string, str):
+		string = str(string, 'utf-8')
+	string = string.replace(u"à", "a").replace(u"á", "a").replace(u"â", "a").replace(u"ã", "a").replace(u"ä", "a")
+	string = string.replace(u"è", "e").replace(u"é", "e").replace(u"ê", "e").replace(u"ë", "e").replace(u"å", "a")
+	string = string.replace(u"ì", "i").replace(u"í", "i").replace(u"î", "i").replace(u"ï", "i").replace(u"ö", "o")
+	string = string.replace(u"ò", "o").replace(u"ó", "o").replace(u"ô", "o").replace(u"õ", "o").replace(u"ý", "y")
+	string = string.replace(u"ù", "u").replace(u"ú", "u").replace(u"û", "u").replace(u"ü", "u").replace(u"ÿ", "y")
 	return string
 
 
 def unicodify(s, encoding='utf-8', norm=None):
-	if not isinstance(s, text_type):
-		s = text_type(s, encoding)
+	if not isinstance(s, str):
+		s = str(s, encoding)
 	if norm:
 		s = normalize(norm, s)
 	return s
 
 
 def str_encode(text, encoding="utf8"):
-	if not PY3:
-		if isinstance(text, text_type):
-			return text.encode(encoding)
+	if not PY3 and isinstance(text, str):
+		return text.encode(encoding)
 	return text
 
 
 def cutName(eventName=""):
 	if eventName:
-		eventName = eventName.replace('"', '').replace('Х/Ф', '').replace('М/Ф', '').replace('Х/ф', '')  # .replace('.', '').replace(' | ', '')
-		eventName = eventName.replace('(18+)', '').replace('18+', '').replace('(16+)', '').replace('16+', '').replace('(12+)', '')
-		eventName = eventName.replace('12+', '').replace('(7+)', '').replace('7+', '').replace('(6+)', '').replace('6+', '')
-		eventName = eventName.replace('(0+)', '').replace('0+', '').replace('+', '')
-		eventName = eventName.replace('المسلسل العربي', '')
-		eventName = eventName.replace('مسلسل', '')
-		eventName = eventName.replace('برنامج', '')
-		eventName = eventName.replace('فيلم وثائقى', '')
-		eventName = eventName.replace('حفل', '')
+		replacements = [
+			('"', ''), ('live:', ''), ('Х/Ф', ''), ('М/Ф', ''), ('Х/ф', ''),
+			('(18+)', ''), ('18+', ''), ('(16+)', ''), ('16+', ''),
+			('(12+)', ''), ('12+', ''), ('(7+)', ''), ('7+', ''),
+			('(6+)', ''), ('6+', ''), ('(0+)', ''), ('0+', ''), ('+', ''),
+			('المسلسل العربي', ''), ('مسلسل', ''), ('برنامج', ''),
+			('فيلم وثائقى', ''), ('حفل', '')
+		]
+		for old, new in replacements:
+			eventName = eventName.replace(old, new)
 		return eventName
 	return ""
 
 
 def getCleanTitle(eventitle=""):
-	# save_name = sub('\\(\d+\)$', '', eventitle)
-	# save_name = sub('\\(\d+\/\d+\)$', '', save_name)  # remove episode-number " (xx/xx)" at the end
-	# # save_name = sub('\ |\?|\.|\,|\!|\/|\;|\:|\@|\&|\'|\-|\"|\%|\(|\)|\[|\]\#|\+', '', save_name)
-	save_name = eventitle.replace(' ^`^s', '').replace(' ^`^y', '')
-	return save_name
+	return eventitle.replace(' ^`^s', '').replace(' ^`^y', '')
 
 
-def sanitize_filename(filename):
-	# Replace spaces with underscores and remove invalid characters (like ':')
-	sanitized = sub(r'[^\w\s-]', '', filename)  # Remove invalid characters
-	# sanitized = sanitized.replace(' ', '_')      # Replace spaces with underscores
-	# sanitized = sanitized.replace('-', '_')      # Replace dashes with underscores
-	return sanitized.strip()
+CHAR_REPLACEMENTS = {
+	"$": "s",
+	"&": "and",
+	"@": "at",
+	"€": "_",
+	"£": "_",
+	"¢": "_",
+	"¥": "_",
+	"©": "_",
+	"®": "_",
+	"™": "_",
+	"°": "_",
+	"¡": "_",
+	"¿": "_",
+	"§": "_",
+	"¶": "_",
+	"•": "_",
+	"–": "_",  # En dash
+	"—": "_",  # Em dash
+	"“": "_",  # Left double quote
+	"”": "_",  # Right double quote
+	"‘": "_",  # Left single quote
+	"’": "_",  # Right single quote
+	"«": "_",  # Left-pointing double angle quote
+	"»": "_",  # Right-pointing double angle quote
+	"/": "_",  # Slash
+	# ":": "-",  # Colon
+	"*": "_",  # Asterisk
+	"?": "_",  # Question mark
+	"!": "_",  # Exclamation mark
+	"#": "_",  # Hash
+	"~": "_",  # Tilde
+	"^": "_",  # Caret
+	"=": "_",  # Equals
+	"(": "_",  # Open parenthesis
+	")": "_",  # Close parenthesis
+	"[": "_",  # Open bracket
+	"]": "_",  # Close bracket
+}
+
+
+def sanitize_filename(name):
+	# Replace characters based on the custom map
+	for char, replacement in CHAR_REPLACEMENTS.items():
+		name = name.replace(char, replacement)
+	while '  ' in name:
+		name = name.replace('  ', ' ')
+	# name = name.replace(' ', '')
+	# name = sub(r'\s+', '_', name)
+	# name = sub(r"[^\w\-.]", "", name)
+
+	invalid_chars = '*?"<>|'
+	for char in invalid_chars:
+		name = name.replace(char, '')
+
+	if name.startswith('live:'):
+		name = name.partition(":")[1]
+
+	# Truncate to 50 characters if needed
+	if len(name) > 50:
+		name = name[:50]
+	return name.strip()
 
 
 def convtext(text=''):
 	try:
 		if text is None:
 			print('return None original text:', type(text))
-			return  # Esci dalla funzione se text è None
+			return None
 		if text == '':
 			print('text is an empty string')
-		else:
-			text = str(text)
-			# print('original text:', text)
-			# Converti tutto in minuscolo
-			text = text.lower().rstrip()
-			# print('lowercased text:', text)
+			return text
+		text = str(text).lower().rstrip()
+		# Mappatura sostituzioni con azione specifica
+		substitutions = [
+			# set
+			('superman & lois', 'superman e lois', 'set'),
+			('lois & clark', 'superman e lois', 'set'),
+			("una 44 magnum per", 'magnumxx', 'set'),
+			('john q', 'johnq', 'set'),
+			# replace operations
+			('1/2', 'mezzo', 'replace'),
+			('c.s.i.', 'csi', 'replace'),
+			('c.s.i:', 'csi', 'replace'),
+			('n.c.i.s.:', 'ncis', 'replace'),
+			('ncis:', 'ncis', 'replace'),
+			('ritorno al futuro:', 'ritorno al futuro', 'replace'),
+			# set
+			('il ritorno di colombo', 'colombo', 'set'),
+			('lingo: parole', 'lingo', 'set'),
+			('heartland', 'heartland', 'set'),
+			('io & marilyn', 'io e marilyn', 'set'),
+			('giochi olimpici parigi', 'olimpiadi di parigi', 'set'),
+			('bruno barbieri', 'brunobarbierix', 'set'),
+			("anni '60", 'anni 60', 'set'),
+			('cortesie per gli ospiti', 'cortesieospiti', 'set'),
+			('tg regione', 'tg3', 'set'),
+			('tg1', 'tguno', 'set'),
+			('planet earth', 'planet earth', 'set'),
+			('studio aperto', 'studio aperto', 'set'),
+			('josephine ange gardien', 'josephine ange gardien', 'set'),
+			('josephine angelo', 'josephine ange gardien', 'set'),
+			('elementary', 'elementary', 'set'),
+			('squadra speciale cobra 11', 'squadra speciale cobra 11', 'set'),
+			('criminal minds', 'criminal minds', 'set'),
+			('i delitti del barlume', 'i delitti del barlume', 'set'),
+			('senza traccia', 'senza traccia', 'set'),
+			('hudson e rex', 'hudson e rex', 'set'),
+			('ben-hur', 'ben-hur', 'set'),
+			('alessandro borghese - 4 ristoranti', 'alessandroborgheseristoranti', 'set'),
+			('alessandro borghese: 4 ristoranti', 'alessandroborgheseristoranti', 'set'),
+			('amici di maria', 'amicimaria', 'set'),
+			('csi miami', 'csi miami', 'set'),
+			('csi: miami', 'csi miami', 'set'),
+			('csi: scena del crimine', 'csi scena del crimine', 'set'),
+			('csi: new york', 'csi new york', 'set'),
+			('csi: vegas', 'csi vegas', 'set'),
+			('csi: cyber', 'csi cyber', 'set'),
+			('csi: immortality', 'csi immortality', 'set'),
+			('csi: crime scene talks', 'csi crime scene talks', 'set'),
+			('ncis unità anticrimine', 'ncis unità anticrimine', 'set'),
+			('ncis unita anticrimine', 'ncis unita anticrimine', 'set'),
+			('ncis new orleans', 'ncis new orleans', 'set'),
+			('ncis los angeles', 'ncis los angeles', 'set'),
+			('ncis origins', 'ncis origins', 'set'),
+			('ncis hawai', 'ncis hawai', 'set'),
+			('ncis sydney', 'ncis sydney', 'set'),
+			('ritorno al futuro - parte iii', 'ritornoalfuturoparteiii', 'set'),
+			('ritorno al futuro - parte ii', 'ritornoalfuturoparteii', 'set'),
+			('walker, texas ranger', 'walker texas ranger', 'set'),
+			('e.r.', 'ermediciinprimalinea', 'set'),
+			('alexa: vita da detective', 'alexa vita da detective', 'set'),
+			('delitti in paradiso', 'delitti in paradiso', 'set'),
+			('modern family', 'modern family', 'set'),
+			('shaun: vita da pecora', 'shaun', 'set'),
+			('calimero', 'calimero', 'set'),
+			('i puffi', 'i puffi', 'set'),
+			('stuart little', 'stuart little', 'set'),
+			('gf daily', 'grande fratello', 'set'),
+			('grande fratello', 'grande fratello', 'set'),
+			('castle', 'castle', 'set'),
+			('seal team', 'seal team', 'set'),
+			('fast forward', 'fast forward', 'set'),
+			('un posto al sole', 'un posto al sole', 'set'),
+		]
 
-			# Mappatura sostituzioni con azione specifica
-			sostituzioni = [
-				# set
-				('superman & lois', 'superman e lois', 'set'),
-				('lois & clark', 'superman e lois', 'set'),
-				("una 44 magnum per", 'magnumxx', 'set'),
-				('john q', 'johnq', 'set'),
-				# replace
-				('1/2', 'mezzo', 'replace'),
-				('c.s.i.', 'csi', 'replace'),
-				('c.s.i:', 'csi', 'replace'),
-				('n.c.i.s.:', 'ncis', 'replace'),
-				('ncis:', 'ncis', 'replace'),
-				('ritorno al futuro:', 'ritorno al futuro', 'replace'),
+		for pattern, replacement, method in substitutions:
+			if method == 'set' and pattern in text:
+				text = replacement
+				break
+			elif method == 'replace':
+				text = text.replace(pattern, replacement)
 
-				# set
-				('il ritorno di colombo', 'colombo', 'set'),
-				('lingo: parole', 'lingo', 'set'),
-				('heartland', 'heartland', 'set'),
-				('io & marilyn', 'io e marilyn', 'set'),
-				('giochi olimpici parigi', 'olimpiadi di parigi', 'set'),
-				('bruno barbieri', 'brunobarbierix', 'set'),
-				("anni '60", 'anni 60', 'set'),
-				('cortesie per gli ospiti', 'cortesieospiti', 'set'),
-				('tg regione', 'tg3', 'set'),
-				('tg1', 'tguno', 'set'),
-				('planet earth', 'planet earth', 'set'),
-				('studio aperto', 'studio aperto', 'set'),
-				('josephine ange gardien', 'josephine ange gardien', 'set'),
-				('josephine angelo', 'josephine ange gardien', 'set'),
-				('elementary', 'elementary', 'set'),
-				('squadra speciale cobra 11', 'squadra speciale cobra 11', 'set'),
-				('criminal minds', 'criminal minds', 'set'),
-				('i delitti del barlume', 'i delitti del barlume', 'set'),
-				('senza traccia', 'senza traccia', 'set'),
-				('hudson e rex', 'hudson e rex', 'set'),
-				('ben-hur', 'ben-hur', 'set'),
-				('alessandro borghese - 4 ristoranti', 'alessandroborgheseristoranti', 'set'),
-				('alessandro borghese: 4 ristoranti', 'alessandroborgheseristoranti', 'set'),
-				('amici di maria', 'amicimaria', 'set'),
+		text = cutName(text)
+		text = getCleanTitle(text)
 
-				('csi miami', 'csi miami', 'set'),
-				('csi: miami', 'csi miami', 'set'),
-				('csi: scena del crimine', 'csi scena del crimine', 'set'),
-				('csi: new york', 'csi new york', 'set'),
-				('csi: vegas', 'csi vegas', 'set'),
-				('csi: cyber', 'csi cyber', 'set'),
-				('csi: immortality', 'csi immortality', 'set'),
-				('csi: crime scene talks', 'csi crime scene talks', 'set'),
+		if text.endswith("the"):
+			text = "the " + text[:-4]
 
-				('ncis unità anticrimine', 'ncis unità anticrimine', 'set'),
-				('ncis unita anticrimine', 'ncis unita anticrimine', 'set'),
-				('ncis new orleans', 'ncis new orleans', 'set'),
-				('ncis los angeles', 'ncis los angeles', 'set'),
-				('ncis origins', 'ncis origins', 'set'),
-				('ncis hawai', 'ncis hawai', 'set'),
-				('ncis sydney', 'ncis sydney', 'set'),
+		# Rimozione di caratteri e stringhe indesiderate
+		unwanted = [
+			"\xe2\x80\x93", "\xc2\x86", "\xc2\x87", "webhdtv", "1080i", "dvdr5", "((", "))", "hdtvrip",
+			"german", "english", "ws", "ituneshd", "hdtv", "dvdrip", "unrated", "retail", "web-dl", "divx",
+			"bdrip", "uncut", "avc", "ac3d", "ts", "ac3md", "ac3", "webhdtvrip", "xvid", "bluray",
+			"complete", "internal", "dtsd", "h264", "dvdscr", "dubbed", "line.dubbed", "dd51", "dvdr9",
+			"sync", "webhdrip", "webrip", "repack", "dts", "webhd", "1^tv", "1^ tv", " - prima tv",
+			" - primatv", "primatv", "en direct:", "first screening", "live:", "1^ visione rai",
+			"1^ visione", "premiere:", "nouveau:", "prima visione", "film -", "en vivo:",
+			"nueva emisión:", "new:", "film:", "première diffusion", "estreno:"
+		]
+		for item in unwanted:
+			text = text.replace(item, '')
 
-				('ritorno al futuro - parte iii', 'ritornoalfuturoparteiii', 'set'),
-				('ritorno al futuro - parte ii', 'ritornoalfuturoparteii', 'set'),
-				('walker, texas ranger', 'walker texas ranger', 'set'),
-				('e.r.', 'ermediciinprimalinea', 'set'),
-				('alexa: vita da detective', 'alexa vita da detective', 'set'),
-				('delitti in paradiso', 'delitti in paradiso', 'set'),
-				('modern family', 'modern family', 'set'),
-				('shaun: vita da pecora', 'shaun', 'set'),
-				('calimero', 'calimero', 'set'),
-				('i puffi', 'i puffi', 'set'),
-				('stuart little', 'stuart little', 'set'),
-				('gf daily', 'grande fratello', 'set'),
-				('grande fratello', 'grande fratello', 'set'),
-				('castle', 'castle', 'set'),
-				('seal team', 'seal team', 'set'),
-				('fast forward', 'fast forward', 'set'),
-				('un posto al sole', 'un posto al sole', 'set'),
-			]
+		text = remove_accents(text)
+		# Rimozione numeri episodi e stagioni
+		episode_patterns = [
+			' ep', ' episodio', ' st', ' stag', ' odc', ' parte', ' pt!series',
+			' serie', 's[0-9]e[0-9]', '[0-9]x[0-9]'
+		]
 
-			# Applicazione delle sostituzioni
-			for parola, sostituto, metodo in sostituzioni:
-				if parola in text:
-					if metodo == 'set':
-						text = sostituto
-						break
-					elif metodo == 'replace':
-						text = text.replace(parola, sostituto)
+		for pattern in episode_patterns:
+			if pattern in text:
+				text = text.split(pattern)[0].strip()
 
-			# Applica le funzioni di taglio e pulizia del titolo
-			text = cutName(text)
-			text = getCleanTitle(text)
+		if 's[0-9]e[0-9]' in text.lower():
+			text = text[:text.lower().index('s[0-9]e[0-9]')].strip()
+		# Rimozione suffissi non validi
+		bad_suffixes = [
+			" al", " ar", " ba", " da", " de", " en", " es", " eu", " ex-yu", " fi",
+			" fr", " gr", " hr", " mk", " nl", " no", " pl", " pt", " ro", " rs",
+			" ru", " si", " swe", " sw", " tr", " uk", " yu"
+		]
 
-			# Regola il titolo se finisce con "the"
-			if text.endswith("the"):
-				text = "the " + text[:-4]
+		for suffix in bad_suffixes:
+			if text.endswith(suffix):
+				text = text[:-len(suffix)].strip()
 
-			# Sostituisci caratteri speciali con stringhe vuote
-			text = text.replace("\xe2\x80\x93", "").replace('\xc2\x86', '').replace('\xc2\x87', '').replace('webhdtv', '')
-			text = text.replace('1080i', '').replace('dvdr5', '').replace('((', '(').replace('))', ')') .replace('hdtvrip', '')
-			text = text.replace('german', '').replace('english', '').replace('ws', '').replace('ituneshd', '').replace('hdtv', '')
-			text = text.replace('dvdrip', '').replace('unrated', '').replace('retail', '').replace('web-dl', '').replace('divx', '')
-			text = text.replace('bdrip', '').replace('uncut', '').replace('avc', '').replace('ac3d', '').replace('ts', '')
-			text = text.replace('ac3md', '').replace('ac3', '').replace('webhdtvrip', '').replace('xvid', '').replace('bluray', '')
-			text = text.replace('complete', '').replace('internal', '').replace('dtsd', '').replace('h264', '').replace('dvdscr', '')
-			text = text.replace('dubbed', '').replace('line.dubbed', '').replace('dd51', '').replace('dvdr9', '').replace('sync', '')
-			text = text.replace('webhdrip', '').replace('webrip', '').replace('repack', '').replace('dts', '').replace('webhd', '')
-			# set add
-			text = text.replace('1^tv', '').replace('1^ tv', '').replace(' - prima tv', '').replace(' - primatv', '')
-			text = text.replace('primatv', '').replace('en direct:', '').replace('first screening', '').replace('live:', '')
-			text = text.replace('1^ visione rai', '').replace('1^ visione', '').replace('premiere:', '').replace('nouveau:', '')
-			text = text.replace('prima visione', '').replace('film -', '').replace('en vivo:', '').replace('nueva emisión:', '')
-			text = text.replace('new:', '').replace('film:', '').replace('première diffusion', '').replace('estreno:', '')
-			print('cutlist:', text)
+		# Sostituzione caratteri speciali
+		for char in ['.', '_', "'"]:
+			text = text.replace(char, ' ')
 
-			# Rimuovi accenti
-			text = remove_accents(text)
-			# print('remove_accents text:', text)
+		# Rimozione contenuti dopo certi caratteri
+		for separator in [' -', '(', '[', '|']:
+			if separator in text:
+				text = text.split(separator)[0].strip()
 
-			# remove episode number from series, like "series"
-			regex = compile(r'^(.*?)([ ._-]*(ep|episodio|st|stag|odc|parte|pt!series|serie|s[0-9]{1,2}e[0-9]{1,2}|[0-9]{1,2}x[0-9]{1,2})[ ._-]*[.]?[ ._-]*[0-9]+.*)$')
-			text = sub(regex, r'\1', text).strip()
-			print("titolo_pulito:", text)
-			# Force and remove episode number from series, like "series"
-			if search(r'[Ss][0-9]+[Ee][0-9]+', text):
-				text = sub(r'[Ss][0-9]+[Ee][0-9]+.*[a-zA-Z0-9_]+', '', text, flags=S | I)
-			text = sub(r'\(.*\)', '', text).rstrip()  # remove episode number from series, like "series"
+		# Sostituzioni finali
+		final_replacements = {
+			'XXXXXX': '60',
+			'magnumxx': "una 44 magnum per l ispettore",
+			'amicimaria': 'amici di maria',
+			'alessandroborgheseristoranti': 'alessandro borghese - 4 ristoranti',
+			'brunobarbierix': 'bruno barbieri - 4 hotel',
+			'johnq': 'john q',
+			'il ritorno di colombo': 'colombo',
+			'cortesieospiti': 'cortesie per gli ospiti',
+			'ermediciinprimalinea': 'er medici in prima linea',
+			'ritornoalfuturoparteiii': 'ritorno al futuro parte iii',
+			'ritornoalfuturoparteii': 'ritorno al futuro parte ii',
+			'tguno': 'tg1'
+		}
 
-			# Rimozione pattern specifici
-			text = sub(r'^\w{2}:', '', text)  # Rimuove "xx:" all'inizio
-			text = sub(r'^\w{2}\|\w{2}\s', '', text)  # Rimuove "xx|xx" all'inizio
-			text = sub(r'^.{2}\+? ?- ?', '', text)  # Rimuove "xx -" all'inizio
-			text = sub(r'^\|\|.*?\|\|', '', text)  # Rimuove contenuti tra "||"
-			text = sub(r'^\|.*?\|', '', text)  # Rimuove contenuti tra "|"
-			text = sub(r'\|.*?\|', '', text)  # Rimuove qualsiasi altro contenuto tra "|"
-			text = sub(r'\(\(.*?\)\)|\(.*?\)', '', text)  # Rimuove contenuti tra "()"
-			text = sub(r'\[\[.*?\]\]|\[.*?\]', '', text)  # Rimuove contenuti tra "[]"
+		for old, new in final_replacements.items():
+			text = text.replace(old, new)
 
-			text = sub(r'[^\w\s]+$', '', text)
-			text = sub(r'\sح\s*\d+', '', text)   # remove episode number in arabic series
-			text = sub(r'\sج\s*\d+', '', text)   # remove season number in arabic series
-			text = sub(r'\sم\s*\d+', '', text)   # remove season number in arabic series
-			# text = sub(r' +ح| +ج| +م', '', text)  # Rimuove numeri di episodi/serie in arabo
+		# # Pulizia spazi multipli e rimozione di TUTTI gli spazi
+		# while '  ' in text:
+			# text = text.replace('  ', ' ')
 
-			# Rimozione di stringhe non valide
-			bad_strings = [
-				"ae|", "al|", "ar|", "at|", "ba|", "be|", "bg|", "br|", "cg|", "ch|", "cz|", "da|", "de|", "dk|",
-				"ee|", "en|", "es|", "eu|", "ex-yu|", "fi|", "fr|", "gr|", "hr|", "hu|", "in|", "ir|", "it|", "lt|",
-				"mk|", "mx|", "nl|", "no|", "pl|", "pt|", "ro|", "rs|", "ru|", "se|", "si|", "sk|", "sp|", "tr|",
-				"uk|", "us|", "yu|",
-				"1080p", "4k", "720p", "hdrip", "hindi", "imdb", "vod", "x264"
-			]
-
-			bad_strings.extend(map(str, range(1900, 2030)))  # Anni da 1900 a 2030
-			bad_strings_pattern = compile('|'.join(map(escape, bad_strings)))
-			text = bad_strings_pattern.sub('', text)
-			# Rimozione suffissi non validi
-			bad_suffix = [
-				" al", " ar", " ba", " da", " de", " en", " es", " eu", " ex-yu", " fi", " fr", " gr", " hr", " mk",
-				" nl", " no", " pl", " pt", " ro", " rs", " ru", " si", " swe", " sw", " tr", " uk", " yu"
-			]
-			bad_suffix_pattern = compile(r'(' + '|'.join(map(escape, bad_suffix)) + r')$')
-			text = bad_suffix_pattern.sub('', text)
-			# Rimuovi "." "_" "'" e sostituiscili con spazi
-			text = sub(r'[._\']', ' ', text)
-			# Rimuove tutto dopo i ":" (incluso ":")
-			text = sub(r':.*$', '', text)
-			# Pulizia finale
-			text = text.partition("(")[0]  # Rimuove contenuti dopo "("
-			# text = text.partition(":")[0]
-			# text = text + 'FIN'
-			# text = sub(r'(odc.\s\d+)+.*?FIN', '', text)
-			# text = sub(r'(odc.\d+)+.*?FIN', '', text)
-			# text = sub(r'(\d+)+.*?FIN', '', text)
-			# text = sub('FIN', '', text)
-
-			# remove episode number in arabic series
-			text = sub(r' +ح', '', text)
-			# remove season number in arabic series
-			text = sub(r' +ج', '', text)
-			# remove season number in arabic series
-			text = sub(r' +م', '', text)
-
-			text = text.partition(" -")[0]  # Rimuove contenuti dopo "-"
-			text = text.strip(' -')
-			# Forzature finali
-			text = text.replace('XXXXXX', '60')
-			text = text.replace('magnumxx', "una 44 magnum per l ispettore")
-			text = text.replace('amicimaria', 'amici di maria')
-			text = text.replace('alessandroborgheseristoranti', 'alessandro borghese - 4 ristoranti')
-			text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
-			text = text.replace('johnq', 'john q')
-			text = text.replace('il ritorno di colombo', 'colombo')
-			text = text.replace('cortesieospiti', 'cortesie per gli ospiti')
-			text = text.replace('ermediciinprimalinea', 'er medici in prima linea')
-			text = text.replace('ritornoalfuturoparteiii', 'ritorno al futuro parte iii')
-			text = text.replace('ritornoalfuturoparteii', 'ritorno al futuro parte ii')
-			text = text.replace('tguno', 'tg1')
-			# text = quote(text, safe="")
-			# text = unquote(text)
-			print('text safe:', text)
-
+		text = sanitize_filename(text)
+		# text = text.replace(' ', '-')
+		text = sub(r'-+', '-', text)
+		print('text safe:', text.capitalize())
 		return text.capitalize()
+
 	except Exception as e:
 		print('convtext error:', e)
 		return None

@@ -204,8 +204,8 @@ class AglarePosterXDownloadThread(threading.Thread):
 						elif media_type == "serie" and 'first_air_date' in each and each['first_air_date']:
 							year = each['first_air_date'].split("-")[0]
 						title = each.get('name', each.get('title', ''))
-						backdrop = "http://image.tmdb.org/t/p/w1280" + (each.get('backdrop_path') or '')
-						poster = "http://image.tmdb.org/t/p/w500" + (each.get('poster_path') or '')
+						backdrop = "http://image.tmdb.org/t/p/original" + (each.get('backdrop_path') or '')
+						poster = "http://image.tmdb.org/t/p/original" + (each.get('poster_path') or '')
 						rating = str(each.get('vote_average', 0))
 						show_title = title
 						if year:
