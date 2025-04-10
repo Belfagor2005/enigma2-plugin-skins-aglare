@@ -26,38 +26,43 @@
 # <widget source="Event" render="AglarePosterX" position="100,100" size="185,278" nexts="2" />
 # or put tag -->  path="/media/hdd/poster"
 from __future__ import print_function, absolute_import
-from Components.Renderer.Renderer import Renderer
-from Components.Renderer.AglarePosterXDownloadThread import AglarePosterXDownloadThread
-from Components.Sources.CurrentService import CurrentService
-from Components.Sources.Event import Event
-from Components.Sources.EventInfo import EventInfo
-from Components.Sources.ServiceEvent import ServiceEvent
-from Components.config import config
-from ServiceReference import ServiceReference
+
+# Standard library
+from os import utime, remove, listdir, makedirs
+from os.path import exists, join, getmtime, getsize
+import socket
+from sys import version_info
+from time import time, sleep
+from traceback import print_exc
+from datetime import datetime
+from glob import glob
+import threading
+# from functools import lru_cache
+import codecs
+
+# Enigma2 specific
+import NavigationInstance
 from enigma import (
 	ePixmap,
 	loadJPG,
 	eEPGCache,
 	eTimer,
 )
-import NavigationInstance
-from os import utime, remove, listdir, makedirs
-from os.path import exists, join, getmtime, getsize
-import socket
-import sys
-import time
-from traceback import print_exc
-import datetime
-import glob
-import codecs
-import threading
-# from functools import lru_cache
+from ServiceReference import ServiceReference
+from Components.config import config
+from Components.Renderer.Renderer import Renderer
+from Components.Renderer.AglarePosterXDownloadThread import AglarePosterXDownloadThread
+from Components.Sources.CurrentService import CurrentService
+from Components.Sources.Event import Event
+from Components.Sources.EventInfo import EventInfo
+from Components.Sources.ServiceEvent import ServiceEvent
 
-
+# Local imports
 # from .Converlibr import convtext
 from .AglareConverlibr import convtext
 
-PY3 = sys.version_info[0] >= 3
+
+PY3 = version_info[0] >= 3
 if not PY3:
 	import Queue
 	from urllib2 import HTTPError, URLError
@@ -113,12 +118,14 @@ except:
 	pass
 
 
-def logPoster(message):
+def logPoster(*args):
+	message = " ".join(str(arg) for arg in args)
 	print(message)
 
 
-def logDB(logmsg):
+def logDB(*args):
 	try:
+		logmsg = " ".join(str(arg) for arg in args)
 		with open("/tmp/PosterDB.log", "a") as w:
 			w.write("%s\n" % logmsg)
 	except Exception as e:
@@ -126,8 +133,9 @@ def logDB(logmsg):
 		print_exc()
 
 
-def logPosterx(logmsg):
+def logPosterx(*args):
 	try:
+		logmsg = " ".join(str(arg) for arg in args)
 		with open("/tmp/logPosterX.log", "a") as w:
 			w.write("%s\n" % logmsg)
 	except Exception as e:
@@ -135,9 +143,10 @@ def logPosterx(logmsg):
 		print_exc()
 
 
-def logAutoDB(logmsg):
+def logAutoDB(*args):
 	try:
-		timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+		timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+		logmsg = " ".join(str(arg) for arg in args)
 		with open("/tmp/PosterAutoDB.log", "a") as w:
 			w.write("[{}] {}\n".format(timestamp, logmsg))
 	except Exception as e:
@@ -148,12 +157,12 @@ def logAutoDB(logmsg):
 def SearchBouquetTerrestrial():
 	"""Searches for a bouquet file containing specific terrestrial markers."""
 	fallback_file = "/etc/enigma2/userbouquet.favourites.tv"
-	for filepath in sorted(glob.glob("/etc/enigma2/*.tv")):
+	for filepath in sorted(glob("/etc/enigma2/*.tv")):
 		with codecs.open(filepath, "r", encoding="utf-8") as f:
 			content = f.read().strip().lower()
 			if "eeee" in content:
 				if "82000" not in content and "c0000" not in content:
-					return filepath	 # Return path, not content
+					return filepath  # Return path, not content
 	return fallback_file
 
 
@@ -217,7 +226,6 @@ class PosterDB(AglarePosterXDownloadThread):
 		while True:
 			canal = pdb.get()
 			logDB("[QUEUE] : {} : {}-{} ({})".format(canal[0], canal[1], canal[2], canal[5]))
-			# name_sanitized = canal[5] if canal[5] else ""
 			self.pstcanal = convtext(canal[5])
 
 			if not self.pstcanal:
@@ -227,7 +235,7 @@ class PosterDB(AglarePosterXDownloadThread):
 
 			dwn_poster = join(path_folder, self.pstcanal + ".jpg")
 			if exists(dwn_poster):
-				utime(dwn_poster, (time.time(), time.time()))
+				utime(dwn_poster, (time(), time()))
 			if not exists(dwn_poster):
 				val, log = self.search_tmdb(dwn_poster, self.pstcanal, canal[4], canal[3])
 				logDB(log)
@@ -257,7 +265,7 @@ class PosterAutoDB(AglarePosterXDownloadThread):
 
 		try:
 			while True:
-				time.sleep(7200)  # 7200 - Start every 2 hours
+				sleep(7200)  # 7200 - Start every 2 hours
 				logAutoDB("[AutoDB] *** Running ***")
 				self.pstcanal = None
 				for service in apdb.values():
@@ -278,7 +286,6 @@ class PosterAutoDB(AglarePosterXDownloadThread):
 								logAutoDB("[AutoDB] *** Missing EPG for {}".format(canal[0]))
 							else:
 								canal[1:6] = [evt[1], evt[4], evt[5], evt[6], evt[4]]
-								# name_sanitized = canal[5] if canal[5] else ""
 								self.pstcanal = convtext(canal[5]) if canal[5] else None
 								if self.pstcanal is not None:
 									dwn_poster = join(path_folder, self.pstcanal + ".jpg")
@@ -287,7 +294,7 @@ class PosterAutoDB(AglarePosterXDownloadThread):
 									continue
 
 								if exists(dwn_poster):
-									utime(dwn_poster, (time.time(), time.time()))
+									utime(dwn_poster, (time(), time()))
 								if not exists(dwn_poster):
 									val, log = self.search_tmdb(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
 									if val and log.find("SUCCESS"):
@@ -320,7 +327,7 @@ class PosterAutoDB(AglarePosterXDownloadThread):
 					logAutoDB("[AutoDB] path_folder does not exist: {}".format(path_folder))
 					continue
 
-				now_tm = time.time()
+				now_tm = time()
 				emptyfd = 0
 				oldfd = 0
 				for f in listdir(path_folder):
@@ -356,9 +363,6 @@ class AglarePosterX(Renderer):
 		else:
 			logPoster("Connessione rilevata.")
 
-		self.instance = None
-		self.timer = None
-
 		self.nxts = 0
 		self.path = path_folder
 		self.canal = [None] * 6
@@ -366,6 +370,7 @@ class AglarePosterX(Renderer):
 		self.oldCanal = None
 		self.logdbg = None
 		self.pstcanal = None
+
 		self.timer = eTimer()
 		try:
 			self.timer_conn = self.timer.timeout.connect(self.showPoster)
@@ -394,6 +399,7 @@ class AglarePosterX(Renderer):
 
 		servicetype = None
 		try:
+
 			service = None
 			source_type = type(self.source)
 			if source_type is ServiceEvent:
@@ -452,6 +458,7 @@ class AglarePosterX(Renderer):
 
 		try:
 			curCanal = "{}-{}".format(self.canal[1], self.canal[2])
+			"""
 			if curCanal != self.oldCanal:
 				self.oldCanal = curCanal
 				self.pstcanal = convtext(self.canal[5])
@@ -465,22 +472,22 @@ class AglarePosterX(Renderer):
 					canal = self.canal[:]
 					pdb.put(canal)
 					self.runPosterThread()
+			"""
+			if curCanal == self.oldCanal:
+				return
+			self.oldCanal = curCanal
+			self.pstcanal = convtext(self.canal[5])
+			if self.pstcanal is not None:
+				self.pstrNm = join(self.path, str(self.pstcanal) + ".jpg")
+				self.pstcanal = self.pstrNm
 
-			# if curCanal == self.oldCanal:
-				# return
-			# self.oldCanal = curCanal
-			# self.pstcanal = convtext(self.canal[5])
-			# if self.pstcanal is not None:
-				# self.pstrNm = join(self.path, str(self.pstcanal) + ".jpg")
-				# self.pstcanal = self.pstrNm
-
-			# if exists(self.pstcanal):
-				# self.timer.start(5, True)
-			# else:
-				# canal = self.canal[:]
-				# pdb.put(canal)
-				# # start_new_thread(self.waitPoster, ())
-				# self.runPosterThread()
+			if exists(self.pstcanal):
+				self.timer.start(5, True)
+			else:
+				canal = self.canal[:]
+				pdb.put(canal)
+				# start_new_thread(self.waitPoster, ())
+				self.runPosterThread()
 
 		except Exception as e:
 			logPoster("Error (eFile):", str(e))
@@ -488,26 +495,21 @@ class AglarePosterX(Renderer):
 				self.instance.hide()
 			return
 
+	def runPosterThread(self):
+		threading.Thread(target=self.waitPoster, daemon=True).start()
+
 	def generatePosterPath(self):
+		# if self.canal and len(self.canal) > 5 and self.canal[5]:
 		if len(self.canal) > 5 and self.canal[5]:
 			pstcanal = convtext(self.canal[5])
 			return join(self.path, f"{pstcanal}.jpg")
 		return None
 
-	# @lru_cache(maxsize=150)
-	def checkPosterExistence(self, poster_path):
-		exists_flag = exists(poster_path)
-		logPoster("[FILE CHECK] Poster exists: " + str(exists_flag) + " for path: " + poster_path)
-		return exists_flag
-
-	def runPosterThread(self):
-		threading.Thread(target=self.waitPoster, daemon=True).start()
-
 	def showPoster(self):
 		if self.instance:
 			self.instance.hide()
 		self.pstrNm = self.generatePosterPath()
-		if self.pstrNm and self.checkPosterExistence(self.pstrNm):
+		if self.pstrNm and exists(self.pstrNm):
 			self.instance.setPixmap(loadJPG(self.pstrNm))
 			self.instance.setScale(1)
 			self.instance.show()
@@ -520,20 +522,18 @@ class AglarePosterX(Renderer):
 			logPoster("[ERROR: waitPoster] Poster path is None")
 			return
 
-		loop = 180
+		loop = 60
 		found = False
 		logPoster("[LOOP: waitPoster] " + self.pstrNm)
 		while loop > 0:
-			if self.pstrNm is not None and self.checkPosterExistence(self.pstrNm):
+			if self.pstrNm is not None and exists(self.pstrNm):
 				found = True
 				break
-			time.sleep(0.5)
+			sleep(1)
 			loop -= 1
 
 		if found:
 			self.timer.start(10, True)
-		else:
-			logPoster("[ERROR: waitPoster] Poster not found after waiting.")
 
 
 threadDB = PosterDB()

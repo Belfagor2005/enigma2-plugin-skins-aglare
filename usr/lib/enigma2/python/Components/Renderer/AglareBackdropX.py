@@ -24,38 +24,43 @@
 # <widget source="Event" render="AglareBackdropX" position="100,100" size="680,1000" nexts="2" />
 # or put tag -->  path="/media/hdd/backdrop"
 from __future__ import print_function, absolute_import
-from Components.Renderer.Renderer import Renderer
-from Components.Renderer.AglareBackdropXDownloadThread import AglareBackdropXDownloadThread
-from Components.Sources.CurrentService import CurrentService
-from Components.Sources.Event import Event
-from Components.Sources.EventInfo import EventInfo
-from Components.Sources.ServiceEvent import ServiceEvent
-from Components.config import config
-from ServiceReference import ServiceReference
+
+# Standard library
+from os import utime, remove, listdir, makedirs
+from os.path import exists, join, getmtime, getsize
+import socket
+from sys import version_info
+from time import time, sleep
+from traceback import print_exc
+from datetime import datetime
+from glob import glob
+import threading
+# from functools import lru_cache
+import codecs
+
+# Enigma2 specific
+import NavigationInstance
 from enigma import (
 	ePixmap,
 	loadJPG,
 	eEPGCache,
 	eTimer,
 )
-import NavigationInstance
-from os import utime, remove, listdir, makedirs
-from os.path import exists, join, getmtime, getsize
-import socket
-import sys
-import time
-from traceback import print_exc
-import datetime
-import glob
-import codecs
-import threading
-# from functools import lru_cache
+from ServiceReference import ServiceReference
+from Components.config import config
+from Components.Renderer.Renderer import Renderer
+from Components.Renderer.AglareBackdropXDownloadThread import AglareBackdropXDownloadThread
+from Components.Sources.CurrentService import CurrentService
+from Components.Sources.Event import Event
+from Components.Sources.EventInfo import EventInfo
+from Components.Sources.ServiceEvent import ServiceEvent
 
-
+# Local imports
 # from .Converlibr import convtext
 from .AglareConverlibr import convtext
 
-PY3 = sys.version_info[0] >= 3
+
+PY3 = version_info[0] >= 3
 if not PY3:
 	import Queue
 	from urllib2 import HTTPError, URLError
@@ -111,12 +116,14 @@ except:
 	pass
 
 
-def logBackdrop(message):
+def logBackdrop(*args):
+	message = " ".join(str(arg) for arg in args)
 	print(message)
 
 
-def logDB(logmsg):
+def logDB(*args):
 	try:
+		logmsg = " ".join(str(arg) for arg in args)
 		with open("/tmp/BackdropDB.log", "a") as w:
 			w.write("%s\n" % logmsg)
 	except Exception as e:
@@ -124,8 +131,9 @@ def logDB(logmsg):
 		print_exc()
 
 
-def logBackdropX(logmsg):
+def logBackdropX(*args):
 	try:
+		logmsg = " ".join(str(arg) for arg in args)
 		with open("/tmp/logBackdrop.log", "a") as w:
 			w.write("%s\n" % logmsg)
 	except Exception as e:
@@ -133,9 +141,10 @@ def logBackdropX(logmsg):
 		print_exc()
 
 
-def logAutoDB(logmsg):
+def logAutoDB(*args):
 	try:
-		timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+		timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+		logmsg = " ".join(str(arg) for arg in args)
 		with open("/tmp/BackdropAutoDb.log", "a") as w:
 			w.write("[{}] {}\n".format(timestamp, logmsg))
 	except Exception as e:
@@ -146,12 +155,12 @@ def logAutoDB(logmsg):
 def SearchBouquetTerrestrial():
 	"""Searches for a bouquet file containing specific terrestrial markers."""
 	fallback_file = "/etc/enigma2/userbouquet.favourites.tv"
-	for filepath in sorted(glob.glob("/etc/enigma2/*.tv")):
+	for filepath in sorted(glob("/etc/enigma2/*.tv")):
 		with codecs.open(filepath, "r", encoding="utf-8") as f:
 			content = f.read().strip().lower()
 			if "eeee" in content:
 				if "82000" not in content and "c0000" not in content:
-					return filepath	 # Return path, not content
+					return filepath  # Return path, not content
 	return fallback_file
 
 
@@ -219,13 +228,13 @@ class BackdropDB(AglareBackdropXDownloadThread):
 			self.pstcanal = convtext(canal[5])
 
 			if not self.pstcanal:
-				logDB("[ERROR] Poster not found for channel")
+				logDB("[ERROR] Backdrop not found for channel")
 				pdb.task_done()
 				continue
 
 			dwn_backdrop = join(path_folder, self.pstcanal + ".jpg")
 			if exists(dwn_backdrop):
-				utime(dwn_backdrop, (time.time(), time.time()))
+				utime(dwn_backdrop, (time(), time()))
 			if not exists(dwn_backdrop):
 				val, log = self.search_tmdb(dwn_backdrop, self.pstcanal, canal[4], canal[3])
 				logDB(log)
@@ -255,7 +264,7 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
 
 		try:
 			while True:
-				time.sleep(7200)  # 7200 - Start every 2 hours
+				sleep(7200)  # 7200 - Start every 2 hours
 				logAutoDB("[AutoDB] *** Running ***")
 				self.pstcanal = None
 				for service in apdb.values():
@@ -285,7 +294,7 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
 									continue
 
 								if exists(dwn_backdrop):
-									utime(dwn_backdrop, (time.time(), time.time()))
+									utime(dwn_backdrop, (time(), time()))
 								if not exists(dwn_backdrop):
 									val, log = self.search_tmdb(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
 									if val and log.find("SUCCESS"):
@@ -318,7 +327,7 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
 					logAutoDB("[AutoDB] path_folder does not exist: {}".format(path_folder))
 					continue
 
-				now_tm = time.time()
+				now_tm = time()
 				emptyfd = 0
 				oldfd = 0
 				for f in listdir(path_folder):
@@ -354,9 +363,6 @@ class AglareBackdropX(Renderer):
 		else:
 			logBackdrop("Connessione rilevata.")
 
-		self.instance = None
-		self.timer = None
-
 		self.nxts = 0
 		self.path = path_folder
 		self.canal = [None] * 6
@@ -364,6 +370,7 @@ class AglareBackdropX(Renderer):
 		self.oldCanal = None
 		self.logdbg = None
 		self.pstcanal = None
+
 		self.timer = eTimer()
 		try:
 			self.timer_conn = self.timer.timeout.connect(self.showBackdrop)
@@ -392,6 +399,7 @@ class AglareBackdropX(Renderer):
 
 		servicetype = None
 		try:
+
 			service = None
 			source_type = type(self.source)
 			if source_type is ServiceEvent:
@@ -450,6 +458,7 @@ class AglareBackdropX(Renderer):
 
 		try:
 			curCanal = "{}-{}".format(self.canal[1], self.canal[2])
+			"""
 			if curCanal != self.oldCanal:
 				self.oldCanal = curCanal
 				self.pstcanal = convtext(self.canal[5])
@@ -462,23 +471,23 @@ class AglareBackdropX(Renderer):
 				else:
 					canal = self.canal[:]
 					pdb.put(canal)
-					self.runPosterThread()
+					self.runBackdropThread()
+			"""
+			if curCanal == self.oldCanal:
+				return
+			self.oldCanal = curCanal
+			self.pstcanal = convtext(self.canal[5])
+			if self.pstcanal is not None:
+				self.pstrNm = join(self.path, str(self.pstcanal) + ".jpg")
+				self.pstcanal = self.pstrNm
 
-			# if curCanal == self.oldCanal:
-				# return
-			# self.oldCanal = curCanal
-			# self.pstcanal = convtext(self.canal[5])
-			# if self.pstcanal is not None:
-				# self.pstrNm = join(self.path, str(self.pstcanal) + ".jpg")
-				# self.pstcanal = self.pstrNm
-
-			# if exists(self.pstcanal):
-				# self.timer.start(10, True)
-			# else:
-				# canal = self.canal[:]
-				# pdb.put(canal)
-				# # start_new_thread(self.waitBackdrop, ())
-				# self.runBackdropThread()
+			if exists(self.pstcanal):
+				self.timer.start(5, True)
+			else:
+				canal = self.canal[:]
+				pdb.put(canal)
+				# start_new_thread(self.waitBackdrop, ())
+				self.runBackdropThread()
 
 		except Exception as e:
 			logBackdrop("Error (eFile):", str(e))
@@ -486,26 +495,21 @@ class AglareBackdropX(Renderer):
 				self.instance.hide()
 			return
 
+	def runBackdropThread(self):
+		threading.Thread(target=self.waitBackdrop, daemon=True).start()
+
 	def generateBackdropPath(self):
+		# if self.canal and len(self.canal) > 5 and self.canal[5]:
 		if len(self.canal) > 5 and self.canal[5]:
 			pstcanal = convtext(self.canal[5])
 			return join(self.path, f"{pstcanal}.jpg")
 		return None
 
-	# @lru_cache(maxsize=150)
-	def checkPosterExistence(self, backdrop_path):
-		exists_flag = exists(backdrop_path)
-		logBackdropX("[FILE CHECK] Poster exists: " + str(exists_flag) + " for path: " + backdrop_path)
-		return exists_flag
-
-	def runBackdropThread(self):
-		threading.Thread(target=self.waitBackdrop, daemon=True).start()
-
 	def showBackdrop(self):
 		if self.instance:
 			self.instance.hide()
 		self.pstrNm = self.generateBackdropPath()
-		if self.pstrNm and self.checkBackdropExistence(self.pstrNm):
+		if self.pstrNm and exists(self.pstrNm):
 			self.instance.setPixmap(loadJPG(self.pstrNm))
 			self.instance.setScale(1)
 			self.instance.show()
@@ -513,25 +517,23 @@ class AglareBackdropX(Renderer):
 	def waitBackdrop(self):
 		if self.instance:
 			self.instance.hide()
-		self.pstrNm = self.generateBackdropPath()
+		self.pstrNm = self.generatePosterPath()
 		if not self.pstrNm:
-			logBackdropX("[ERROR: waitBackdrop] Backdrop path is None")
+			logBackdropX("[ERROR: waitPoster] Poster path is None")
 			return
 
-		loop = 180
+		loop = 60
 		found = False
-		logBackdropX("[LOOP: waitBackdrop] " + self.pstrNm)
+		logBackdrop("[LOOP: waitPoster] " + self.pstrNm)
 		while loop > 0:
-			if self.pstrNm is not None and self.checkBackdropExistence(self.pstrNm):
+			if self.pstrNm is not None and exists(self.pstrNm):
 				found = True
 				break
-			time.sleep(0.5)
+			sleep(1)
 			loop -= 1
 
 		if found:
 			self.timer.start(10, True)
-		else:
-			logBackdropX("[ERROR: waitPoster] Poster not found after waiting.")
 
 
 threadDB = BackdropDB()
