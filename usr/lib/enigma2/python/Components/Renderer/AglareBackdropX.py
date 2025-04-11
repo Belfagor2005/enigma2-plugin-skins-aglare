@@ -224,7 +224,6 @@ class BackdropDB(AglareBackdropXDownloadThread):
 		while True:
 			canal = pdb.get()
 			logDB("[QUEUE] : {} : {}-{} ({})".format(canal[0], canal[1], canal[2], canal[5]))
-			# name_sanitized = canal[5] if canal[5] else ""
 			self.pstcanal = convtext(canal[5])
 
 			if not self.pstcanal:
@@ -285,7 +284,6 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
 								logAutoDB("[AutoDB] *** Missing EPG for {}".format(canal[0]))
 							else:
 								canal[1:6] = [evt[1], evt[4], evt[5], evt[6], evt[4]]
-								# name_sanitized = canal[5] if canal[5] else ""
 								self.pstcanal = convtext(canal[5]) if canal[5] else None
 								if self.pstcanal is not None:
 									dwn_backdrop = join(path_folder, self.pstcanal + ".jpg")
