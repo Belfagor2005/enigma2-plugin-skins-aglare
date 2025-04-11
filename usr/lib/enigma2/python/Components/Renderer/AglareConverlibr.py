@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from re import compile, DOTALL, sub
-from unicodedata import normalize
+from unicodedata import normalize, category
 import sys
 
 try:
@@ -32,37 +32,34 @@ def quoteEventName(eventName):
 
 
 REGEX = compile(
-	r'[\(\[].*?[\)\]]|'                    # Parentesi tonde o quadre
-	r':?\s?odc\.\d+|'                      # odc. con o senza numero prima
-	r'\d+\s?:?\s?odc\.\d+|'                # numero con odc.
-	r'[:!]|'                               # due punti o punto esclamativo
-	r'\s-\s.*|'                            # trattino con testo successivo
-	r',|'                                  # virgola
-	r'/.*|'                                # tutto dopo uno slash
-	r'\|\s?\d+\+|'                         # | seguito da numero e +
-	r'\d+\+|'                              # numero seguito da +
-	r'\s\*\d{4}\Z|'                        # * seguito da un anno a 4 cifre
-	r'[\(\[\|].*?[\)\]\|]|'                # Parentesi tonde, quadre o pipe
-	r'(?:\"[\.|\,]?\s.*|\"|'               # Testo tra virgolette
-	r'\.\s.+)|'                            # Punto seguito da testo
-	r'Премьера\.\s|'                       # Specifico per il russo
-	r'[хмтдХМТД]/[фс]\s|'                  # Pattern per il russo con /ф o /с
-	r'\s[сС](?:езон|ерия|-н|-я)\s.*|'      # Stagione o episodio in russo
-	r'\s\d{1,3}\s[чсЧС]\.?\s.*|'           # numero di parte/episodio in russo
-	r'\.\s\d{1,3}\s[чсЧС]\.?\s.*|'         # numero di parte/episodio in russo con punto
-	r'\s[чсЧС]\.?\s\d{1,3}.*|'             # Parte/Episodio in russo
-	r'\d{1,3}-(?:я|й)\s?с-н.*',            # Finale con numero e suffisso russo
-	DOTALL)
+	r'[\(\[].*?[\)\]]|'                    # Round or square brackets
+	r':?\s?odc\.\d+|'                      # "odc." with or without a preceding number
+	r'\d+\s?:?\s?odc\.\d+|'                # Number followed by "odc."
+	r'[:!]|'                               # Colon or exclamation mark
+	r'\s-\s.*|'                            # Dash followed by text
+	r',|'                                  # Comma
+	r'/.*|'                                # Everything after a slash
+	r'\|\s?\d+\+|'                         # Pipe followed by number and plus sign
+	r'\d+\+|'                              # Number followed by plus sign
+	r'\s\*\d{4}\Z|'                        # Asterisk followed by a 4-digit year
+	r'[\(\[\|].*?[\)\]\|]|'                # Round, square brackets or pipe with content
+	r'(?:\"[\.|\,]?\s.*|\"|'               # Text in quotes
+	r'\.\s.+)|'                            # Dot followed by text
+	r'Премьера\.\s|'                       # "Premiere." (specific to Russian)
+	r'[хмтдХМТД]/[фс]\s|'                  # Russian pattern with /ф or /с
+	r'\s[сС](?:езон|ерия|-н|-я)\s.*|'      # Season or episode in Russian
+	r'\s\d{1,3}\s[чсЧС]\.?\s.*|'           # Part/episode number in Russian
+	r'\.\s\d{1,3}\s[чсЧС]\.?\s.*|'         # Part/episode number in Russian with leading dot
+	r'\s[чсЧС]\.?\s\d{1,3}.*|'             # Russian part/episode marker followed by number
+	r'\d{1,3}-(?:я|й)\s?с-н.*', DOTALL)    # Ending with number and Russian suffix
 
 
 def remove_accents(string):
 	if not isinstance(string, str):
-		string = str(string, 'utf-8')
-	string = string.replace(u"à", "a").replace(u"á", "a").replace(u"â", "a").replace(u"ã", "a").replace(u"ä", "a")
-	string = string.replace(u"è", "e").replace(u"é", "e").replace(u"ê", "e").replace(u"ë", "e").replace(u"å", "a")
-	string = string.replace(u"ì", "i").replace(u"í", "i").replace(u"î", "i").replace(u"ï", "i").replace(u"ö", "o")
-	string = string.replace(u"ò", "o").replace(u"ó", "o").replace(u"ô", "o").replace(u"õ", "o").replace(u"ý", "y")
-	string = string.replace(u"ù", "u").replace(u"ú", "u").replace(u"û", "u").replace(u"ü", "u").replace(u"ÿ", "y")
+		string = str(string, "utf-8")
+	# Normalize to NFD form and remove all diacritic marks
+	string = normalize("NFD", string)
+	string = "".join(char for char in string if category(char) != "Mn")
 	return string
 
 
