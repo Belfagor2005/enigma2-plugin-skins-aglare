@@ -1,9 +1,38 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import, print_function
+"""
+#########################################################
+#														#
+#  AGP - Advanced Graphics BackdropRenderer				#
+#  Version: 3.5.0										#
+#  Created by Lululla (https://github.com/Belfagor2005) #
+#  License: CC BY-NC-SA 4.0								#
+#  https://creativecommons.org/licenses/by-nc-sa/4.0	#
+#														#
+#  Last Modified: "15:14 - 20250401"					#
+#														#
+#  Credits:												#
+#  - Original concept by Lululla						#
+#  - TMDB API integration								#
+#  - TVDB API integration								#
+#  - OMDB API integration								#
+#  - Advanced caching system							#
+#														#
+#  Usage of this code without proper attribution		#
+#  is strictly prohibited.								#
+#  For modifications and redistribution,				#
+#  please maintain this credit header.					#
+#########################################################
+"""
+__author__ = "Lululla"
+__copyright__ = "AGP Team"
+
 from re import compile, DOTALL, sub
-from unicodedata import normalize
+from unicodedata import normalize, category
 import sys
+from Components.config import config
 
 try:
 	unicode
@@ -24,6 +53,10 @@ else:
 
 
 def quoteEventName(eventName):
+	"""
+	Quote and clean event names for URL encoding
+	Handles special characters and encoding issues
+	"""
 	try:
 		text = eventName.decode('utf8').replace(u'\x86', u'').replace(u'\x87', u'').encode('utf8')
 	except:
@@ -31,42 +64,52 @@ def quoteEventName(eventName):
 	return quote_plus(text, safe="+")
 
 
+lng = "en"
+try:
+	lng = config.osd.language.value[:-3]
+except:
+	lng = "en"
+
+
+# Complex regex pattern for cleaning various text patterns
 REGEX = compile(
-	r'[\(\[].*?[\)\]]|'                    # Parentesi tonde o quadre
-	r':?\s?odc\.\d+|'                      # odc. con o senza numero prima
-	r'\d+\s?:?\s?odc\.\d+|'                # numero con odc.
-	r'[:!]|'                               # due punti o punto esclamativo
-	r'\s-\s.*|'                            # trattino con testo successivo
-	r',|'                                  # virgola
-	r'/.*|'                                # tutto dopo uno slash
-	r'\|\s?\d+\+|'                         # | seguito da numero e +
-	r'\d+\+|'                              # numero seguito da +
-	r'\s\*\d{4}\Z|'                        # * seguito da un anno a 4 cifre
-	r'[\(\[\|].*?[\)\]\|]|'                # Parentesi tonde, quadre o pipe
-	r'(?:\"[\.|\,]?\s.*|\"|'               # Testo tra virgolette
-	r'\.\s.+)|'                            # Punto seguito da testo
-	r'Премьера\.\s|'                       # Specifico per il russo
-	r'[хмтдХМТД]/[фс]\s|'                  # Pattern per il russo con /ф o /с
-	r'\s[сС](?:езон|ерия|-н|-я)\s.*|'      # Stagione o episodio in russo
-	r'\s\d{1,3}\s[чсЧС]\.?\s.*|'           # numero di parte/episodio in russo
-	r'\.\s\d{1,3}\s[чсЧС]\.?\s.*|'         # numero di parte/episodio in russo con punto
-	r'\s[чсЧС]\.?\s\d{1,3}.*|'             # Parte/Episodio in russo
-	r'\d{1,3}-(?:я|й)\s?с-н.*',            # Finale con numero e suffisso russo
-	DOTALL)
+	r'[\(\[].*?[\)\]]|'					   # Round or square brackets
+	r':?\s?odc\.\d+|'					   # "odc." with or without a preceding number
+	r'\d+\s?:?\s?odc\.\d+|'				   # Number followed by "odc."
+	r'[:!]|'							   # Colon or exclamation mark
+	r'\s-\s.*|'							   # Dash followed by text
+	r',|'								   # Comma
+	r'/.*|'								   # Everything after a slash
+	r'\|\s?\d+\+|'						   # Pipe followed by number and plus sign
+	r'\d+\+|'							   # Number followed by plus sign
+	r'\s\*\d{4}\Z|'						   # Asterisk followed by a 4-digit year
+	r'[\(\[\|].*?[\)\]\|]|'				   # Round, square brackets or pipe with content
+	r'(?:\"[\.|\,]?\s.*|\"|'			   # Text in quotes
+	r'\.\s.+)|'							   # Dot followed by text
+	r'Премьера\.\s|'					   # "Premiere." (specific to Russian)
+	r'[хмтдХМТД]/[фс]\s|'				   # Russian pattern with /ф or /с
+	r'\s[сС](?:езон|ерия|-н|-я)\s.*|'	   # Season or episode in Russian
+	r'\s\d{1,3}\s[чсЧС]\.?\s.*|'		   # Part/episode number in Russian
+	r'\.\s\d{1,3}\s[чсЧС]\.?\s.*|'		   # Part/episode number in Russian with leading dot
+	r'\s[чсЧС]\.?\s\d{1,3}.*|'			   # Russian part/episode marker followed by number
+	r'\d{1,3}-(?:я|й)\s?с-н.*', DOTALL)	   # Ending with number and Russian suffix
 
 
 def remove_accents(string):
+	"""
+	Remove diacritic marks from characters
+	Normalizes unicode to decomposed form and removes combining marks
+	"""
 	if not isinstance(string, str):
-		string = str(string, 'utf-8')
-	string = string.replace(u"à", "a").replace(u"á", "a").replace(u"â", "a").replace(u"ã", "a").replace(u"ä", "a")
-	string = string.replace(u"è", "e").replace(u"é", "e").replace(u"ê", "e").replace(u"ë", "e").replace(u"å", "a")
-	string = string.replace(u"ì", "i").replace(u"í", "i").replace(u"î", "i").replace(u"ï", "i").replace(u"ö", "o")
-	string = string.replace(u"ò", "o").replace(u"ó", "o").replace(u"ô", "o").replace(u"õ", "o").replace(u"ý", "y")
-	string = string.replace(u"ù", "u").replace(u"ú", "u").replace(u"û", "u").replace(u"ü", "u").replace(u"ÿ", "y")
+		string = str(string, "utf-8")
+	# Normalize to NFD form and remove all diacritic marks
+	string = normalize("NFD", string)
+	string = "".join(char for char in string if category(char) != "Mn")
 	return string
 
 
 def unicodify(s, encoding='utf-8', norm=None):
+	"""Ensure string is unicode and optionally normalize it"""
 	if not isinstance(s, str):
 		s = str(s, encoding)
 	if norm:
@@ -75,12 +118,14 @@ def unicodify(s, encoding='utf-8', norm=None):
 
 
 def str_encode(text, encoding="utf8"):
+	"""Ensure proper string encoding for Python 2/3 compatibility"""
 	if not PY3 and isinstance(text, str):
 		return text.encode(encoding)
 	return text
 
 
 def cutName(eventName=""):
+	"""Remove specific patterns and markers from event names"""
 	if eventName:
 		replacements = [
 			('"', ''), ('live:', ''), ('Х/Ф', ''), ('М/Ф', ''), ('Х/ф', ''),
@@ -97,9 +142,11 @@ def cutName(eventName=""):
 
 
 def getCleanTitle(eventitle=""):
+	"""Remove specific formatting markers from titles"""
 	return eventitle.replace(' ^`^s', '').replace(' ^`^y', '')
 
 
+# Character replacement mapping for filename sanitization
 CHAR_REPLACEMENTS = {
 	"$": "s",
 	"&": "and",
@@ -126,7 +173,7 @@ CHAR_REPLACEMENTS = {
 	"«": "_",  # Left-pointing double angle quote
 	"»": "_",  # Right-pointing double angle quote
 	"/": "_",  # Slash
-	# ":": "-",  # Colon
+	# ":": "-",	 # Colon
 	"*": "_",  # Asterisk
 	"?": "_",  # Question mark
 	"!": "_",  # Exclamation mark
@@ -142,22 +189,28 @@ CHAR_REPLACEMENTS = {
 
 
 def sanitize_filename(name):
+	"""
+	Sanitize strings to be safe for filenames
+	Replaces problematic characters and cleans up formatting
+	"""
 	# Replace characters based on the custom map
 	for char, replacement in CHAR_REPLACEMENTS.items():
 		name = name.replace(char, replacement)
-	while '  ' in name:
+	while '	 ' in name:
 		name = name.replace('  ', ' ')
 	# name = name.replace(' ', '')
 	# name = sub(r'\s+', '_', name)
 	# name = sub(r"[^\w\-.]", "", name)
-
-	invalid_chars = '*?"<>|'
+	# Remove invalid filename characters
+	invalid_chars = '*?"<>|,'
 	for char in invalid_chars:
 		name = name.replace(char, '')
 
-	if name.startswith('live:'):
+	# Clean common prefixes/suffixes
+	if name.lower().startswith('live:'):
 		name = name.partition(":")[1]
-
+	if name.endswith(',') or name.endswith(':'):
+		name = name.replace(",", "")
 	# Truncate to 50 characters if needed
 	if len(name) > 50:
 		name = name[:50]
@@ -165,6 +218,10 @@ def sanitize_filename(name):
 
 
 def convtext(text=''):
+	"""
+	Main text conversion and cleaning function
+	Handles complex text normalization for media titles
+	"""
 	try:
 		if text is None:
 			print('return None original text:', type(text))
@@ -173,21 +230,21 @@ def convtext(text=''):
 			print('text is an empty string')
 			return text
 		text = str(text).lower().rstrip()
-		# Mappatura sostituzioni con azione specifica
+		# Special case substitutions
 		substitutions = [
-			# set
+			# set operations (exact matches)
 			('superman & lois', 'superman e lois', 'set'),
 			('lois & clark', 'superman e lois', 'set'),
 			("una 44 magnum per", 'magnumxx', 'set'),
 			('john q', 'johnq', 'set'),
-			# replace operations
+			# replace operations (partial matches)
 			('1/2', 'mezzo', 'replace'),
 			('c.s.i.', 'csi', 'replace'),
 			('c.s.i:', 'csi', 'replace'),
 			('n.c.i.s.:', 'ncis', 'replace'),
 			('ncis:', 'ncis', 'replace'),
 			('ritorno al futuro:', 'ritorno al futuro', 'replace'),
-			# set
+			# More set operations
 			('il ritorno di colombo', 'colombo', 'set'),
 			('lingo: parole', 'lingo', 'set'),
 			('heartland', 'heartland', 'set'),
@@ -259,7 +316,7 @@ def convtext(text=''):
 		if text.endswith("the"):
 			text = "the " + text[:-4]
 
-		# Rimozione di caratteri e stringhe indesiderate
+		# Remove unwanted strings and markers
 		unwanted = [
 			"\xe2\x80\x93", "\xc2\x86", "\xc2\x87", "webhdtv", "1080i", "dvdr5", "((", "))", "hdtvrip",
 			"german", "english", "ws", "ituneshd", "hdtv", "dvdrip", "unrated", "retail", "web-dl", "divx",
@@ -274,7 +331,8 @@ def convtext(text=''):
 			text = text.replace(item, '')
 
 		text = remove_accents(text)
-		# Rimozione numeri episodi e stagioni
+
+		# Remove episode and season indicators
 		episode_patterns = [
 			' ep', ' episodio', ' st', ' stag', ' odc', ' parte', ' pt!series',
 			' serie', 's[0-9]e[0-9]', '[0-9]x[0-9]'
@@ -286,7 +344,8 @@ def convtext(text=''):
 
 		if 's[0-9]e[0-9]' in text.lower():
 			text = text[:text.lower().index('s[0-9]e[0-9]')].strip()
-		# Rimozione suffissi non validi
+
+		# Remove invalid suffixes
 		bad_suffixes = [
 			" al", " ar", " ba", " da", " de", " en", " es", " eu", " ex-yu", " fi",
 			" fr", " gr", " hr", " mk", " nl", " no", " pl", " pt", " ro", " rs",
@@ -297,16 +356,16 @@ def convtext(text=''):
 			if text.endswith(suffix):
 				text = text[:-len(suffix)].strip()
 
-		# Sostituzione caratteri speciali
+		# Replace special characters
 		for char in ['.', '_', "'"]:
 			text = text.replace(char, ' ')
 
-		# Rimozione contenuti dopo certi caratteri
-		for separator in [' -', '(', '[', '|']:
+		# Split on various separators
+		for separator in [' -', '(', '[', '|', ':']:
 			if separator in text:
 				text = text.split(separator)[0].strip()
 
-		# Sostituzioni finali
+		# Final replacements
 		final_replacements = {
 			'XXXXXX': '60',
 			'magnumxx': "una 44 magnum per l ispettore",
@@ -325,14 +384,14 @@ def convtext(text=''):
 		for old, new in final_replacements.items():
 			text = text.replace(old, new)
 
-		# # Pulizia spazi multipli e rimozione di TUTTI gli spazi
+		# # Clean multiple spaces and remove ALL spaces
 		# while '  ' in text:
-			# text = text.replace('  ', ' ')
+			# text = text.replace('	 ', ' ')
 
 		text = sanitize_filename(text)
 		# text = text.replace(' ', '-')
 		text = sub(r'-+', '-', text)
-		print('text safe:', text.capitalize())
+		# print('text safe:', text.capitalize())
 		return text.capitalize()
 
 	except Exception as e:

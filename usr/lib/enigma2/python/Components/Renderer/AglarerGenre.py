@@ -1,159 +1,167 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import, print_function
+"""
+#########################################################
+#														#
+#  AGP - Advanced Graphics Renderer						#
+#  Version: 3.5.0										#
+#  Created by Lululla (https://github.com/Belfagor2005) #
+#  License: CC BY-NC-SA 4.0								#
+#  https://creativecommons.org/licenses/by-nc-sa/4.0	#
+#														#
+#  Last Modified: "15:14 - 20250401"					#
+#														#
+#  Credits:												#
+#	by base code from digiteng 2022						#
+#  - Original concept by Lululla						#
+#  - TMDB API integration								#
+#  - TVDB API integration								#
+#  - OMDB API integration								#
+#  - Advanced caching system							#
+#														#
+#  Usage of this code without proper attribution		#
+#  is strictly prohibited.								#
+#  For modifications and redistribution,				#
+#  please maintain this credit header.					#
+#########################################################
+"""
+__author__ = "Lululla"
+__copyright__ = "AGP Team"
 
-# edit lululla to 30.07.2022
-# channelselections
-# <widget render="AglarerGenre" source="ServiceEvent" position="793,703" size="300,438" zPosition="3" transparent="1" />
-# infobar
-# <widget render="AglarerGenre" source="session.Event_Now" position="54,315" size="300,438" zPosition="22" transparent="1" />
-# <widget render="AglarerGenre" source="session.Event_Next" position="54,429" size="300,438" zPosition="22" transparent="1" />
-# recode from lululla 2023
-from __future__ import print_function
+# Standard library imports
+from os.path import join, exists
+from re import sub
+from json import load as json_load
+
+# Enigma2 imports
 from Components.Renderer.Renderer import Renderer
 from Components.config import config
-from enigma import (
-    ePixmap,
-    loadPNG,
-)
-import re
-import json
-import os
-import sys
-from .Converlibr import convtext
-
-PY3 = False
-if sys.version_info[0] >= 3:
-    PY3 = True
+from enigma import ePixmap, loadPNG
 
 
-def isMountedInRW(mount_point):
-    with open("/proc/mounts", "r") as f:
-        for line in f:
-            parts = line.split()
-            if len(parts) > 1 and parts[1] == mount_point:
-                return True
-    return False
+# Local imports
+from .Agp_Utils import clean_for_tvdb, get_valid_storage_path, logger  # , noposter
+
+# Constants
+GENRE_PIC_PATH = f'/usr/share/enigma2/{config.skin.primary_skin.value.replace("/skin.xml", "")}/genre_pic/'
 
 
-curskin = config.skin.primary_skin.value.replace('/skin.xml', '')
-PIC_PATH = '/usr/share/enigma2/%s/genre_pic/' % curskin
-found = False
-path_folder = "/tmp/poster"
-if os.path.exists("/media/hdd"):
-    if isMountedInRW("/media/hdd"):
-        path_folder = "/media/hdd/poster"
-elif os.path.exists("/media/usb"):
-    if isMountedInRW("/media/usb"):
-        path_folder = "/media/usb/poster"
-elif os.path.exists("/media/mmc"):
-    if isMountedInRW("/media/mmc"):
-        path_folder = "/media/mmc/poster"
+class AglareGenreX(Renderer):
+	"""Advanced genre icon renderer with AGP ecosystem integration"""
 
-if not os.path.exists(path_folder):
-    os.makedirs(path_folder)
+	GUI_WIDGET = ePixmap
+
+	# Genre mapping compatible with EPG levels
+	GENRE_MAP = {
+		1: {
+			'default': 'general',
+			1: 'action', 2: 'thriller', 3: 'drama', 4: 'movie',
+			16: 'animation', 35: 'comedy'
+		},
+		5: {'default': 'kids', 1: 'cartoon'},
+		12: {'default': 'adventure'},
+		14: {'default': 'fantasy'}
+	}
+
+	def __init__(self):
+		Renderer.__init__(self)
+		self.genre_cache = {}  # title_hash -> genre_name
+		self.storage_path = get_valid_storage_path()  # Reuse from PosterX
+
+	def changed(self, what):
+		"""Handle EPG changes"""
+		if not self.instance:
+			return
+
+		if what[0] == self.CHANGED_CLEAR:
+			self.instance.hide()
+			return
+
+		self._update_genre_icon()
+
+	def _update_genre_icon(self):
+		"""Main icon update logic"""
+		event = self.source.event
+		if not event:
+			return
+
+		try:
+			# Get normalized title (reusing PosterX functions)
+			title = event.getEventName()
+			clean_title = clean_for_tvdb(title) if title else None
+			title_hash = hash(title) if title else 0
+
+			# Try cache first
+			cached_genre = self.genre_cache.get(title_hash)
+			if cached_genre:
+				self._load_genre_icon(cached_genre)
+				return
+
+			# Check JSON metadata (compatible with PosterX storage)
+			genre = self._get_genre_from_metadata(clean_title) if clean_title else None
+
+			# Fallback to EPG data
+			if not genre:
+				genre = self._get_genre_from_epg(event)
+
+			if genre:
+				self.genre_cache[title_hash] = genre
+				self._load_genre_icon(genre)
+			else:
+				self.instance.hide()
+
+		except Exception as e:
+			logger.error(f"GenreX error: {str(e)}")
+			self.instance.hide()
+
+	def _get_genre_from_metadata(self, clean_title):
+		"""Check for genre in PosterX-generated JSON"""
+		meta_file = join(self.storage_path, f"{clean_title}.json")
+		if exists(meta_file):
+			try:
+				with open(meta_file, 'r') as f:
+					return json_load(f).get('genres', '').split(',')[0].strip().lower()
+			except:
+				logger.warning(f"Couldn't read genre from {meta_file}")
+		return None
+
+	def _get_genre_from_epg(self, event):
+		"""Extract genre from EPG data"""
+		gData = event.getGenreData()
+		if not gData:
+			return None
+
+		level1 = gData.getLevel1()
+		level2 = gData.getLevel2()
+
+		genre_map = self.GENRE_MAP.get(level1, {})
+		return genre_map.get(level2, genre_map.get('default'))
+
+	def _load_genre_icon(self, genre_name):
+		"""Load and display genre PNG"""
+		if not genre_name:
+			self.instance.hide()
+			return
+
+		safe_name = sub(r"[^a-z0-9]+", "_", genre_name.lower()).strip("_")
+		icon_path = f"{GENRE_PIC_PATH}{safe_name}.png"
+
+		if exists(icon_path):
+			self.instance.setPixmap(loadPNG(icon_path))
+			self.instance.setScale(1)
+			self.instance.show()
+		else:
+			logger.debug(f"No icon for genre: {genre_name}")
+			self.instance.hide()
 
 
-class AglarerGenre(Renderer):
-
-    def __init__(self):
-        Renderer.__init__(self)
-
-    GUI_WIDGET = ePixmap
-
-    def changed(self, what):
-        if not self.instance:
-            return
-        if what[0] != self.CHANGED_CLEAR:
-            if self.instance:
-                self.instance.hide()
-            self.delay()
-
-    def delay(self):
-        global found
-        self.pstrNm = ''
-        genreTxt = None
-        self.event = self.source.event
-        if not self.event:
-            return
-
-        if self.event and self.event != 'None' or self.event is not None:
-            try:
-                if PY3:
-                    self.evnt = self.event.getEventName().replace('\xc2\x86', '').replace('\xc2\x87', '')  # .encode('utf-8')
-                else:
-                    self.evnt = self.event.getEventName().replace('\xc2\x86', '').replace('\xc2\x87', '').encode('utf-8')
-
-                self.evntNm = convtext(self.evnt)
-                infos_file = "{}/{}".format(path_folder, self.evntNm)
-                if os.path.exists(infos_file):
-                    with open(infos_file) as f:
-                        genreTxt = json.load(f)['Genre']
-                        genreTxt = genreTxt.split(",")[0]
-                        print('genreTxt name: ', genreTxt)
-
-                if genreTxt is not None:
-                    try:
-                        gData = self.event.getGenreData()
-                        if gData:
-                            genreTxt = {
-                                1: ('N/A', 'Action', 'Thriller', 'Drama', 'Movie', 'Detective', 'Mistery', 'Adventure', 'Science', 'Animation', 'Comedy', 'Serie', 'Romance', 'Serious', 'Adult'),
-                                2: ('News', 'Weather', 'Magazine', 'Docu', 'Disc', 'Documetary'),
-                                3: ('Show', 'Quiz', 'Variety', 'Talk'),
-                                4: ('Sports', 'Special', 'Sports Magazine', 'Football', 'Tennis', 'Team Sports', 'Athletics', 'Motor Sport', 'Water Sport', 'Winter Sport', 'Equestrian', 'Martial Sports'),
-                                5: ("Childrens", "Children", 'entertainment (6-14)', 'entertainment (10-16)', 'Information', 'Cartoon'),
-                                6: ('Music', 'Rock/Pop', 'Classic Music', 'Folk', 'Jazz', 'Musical/Opera', 'Ballet'),
-                                7: ('Arts', 'Performing Arts', 'Fine Arts', 'Religion', 'PopCulture', 'Literature', 'Cinema', 'ExpFilm', 'Press', 'New Media', 'Culture', 'Fashion'),
-                                8: ('Social', 'Magazines', 'Economics', 'Remarkable People'),
-                                9: ('Education', 'Nature/Animals/', 'Technology', 'Medicine', 'Expeditions', 'Social', 'Further Education', 'Languages'),
-                                10: ('Hobbies', 'Travel', 'Handicraft', 'Motoring', 'Fitness', 'Cooking', 'Shopping', 'Gardening'),
-                                11: ('Original Language', 'Black & White', 'Unpublished', 'Live Broadcast'),
-                                12: ('Adventure'),
-                                14: ('Fantasy'),
-                                16: ('Animation'),
-                                18: ('Drama'),
-                                27: ('Horror', 'Thriller'),
-                                28: ('Action'),
-                                35: ('Comedy'),
-                                36: ('History'),
-                                37: ('Western'),
-                                53: ('Thriller', 'Horror'),
-                                80: ('Crime'),
-                                99: ('Documentary'),
-                                878: ('Science Fiction', 'Science', 'Fiction'),
-                                9648: ('Mystery'),
-                                10402: ('Music'),
-                                10751: ('Family'),
-                                10752: ('War'),
-                                10759: ('Action & Adventure', 'Action', 'Adventure'),
-                                10762: ('Kids'),
-                                10763: ('News'),
-                                10764: ('Reality'),
-                                10765: ('Sci-Fi & Fantasy', 'Sci-Fi', 'Fantasy'),
-                                10766: ('Soap'),
-                                10767: ('Talk'),
-                                10768: ('War & Politics '),
-                                10770: ('TV Movie')}.get(gData.getLevel1(), "")[gData.getLevel2()]
-                    except:
-                        pass
-                print('Genre Txt 11 : ', genreTxt)
-                png = "%s%s.png" % (PIC_PATH, re.sub("[^0-9a-z]+", "_", genreTxt.lower()).replace("__", "_").strip("_"))
-                if os.path.exists(png):
-                    found = True
-                    print('PNG name: ', png)
-                    if not PY3:
-                        png = png.encode()
-                    self.instance.setPixmap(loadPNG(png))
-                    self.instance.setScale(1)
-                    self.instance.show()
-
-                if not found:
-                    try:
-                        print('No Found Genre : ', found)
-                        return genreTxt
-                    except:
-                        print('except No Found GenreTxt: ')
-                        if self.instance:
-                            self.instance.hide()
-            except Exception as e:
-                print('AglarerGenre error get event: ',  str(e))
-                pass
+# Skin configuration example
+"""
+<widget render="AglareGenreX"
+	source="session.Event_Now"
+	position="54,315"
+	size="300,438"
+	zPosition="22"
+	transparent="1" />
+"""
