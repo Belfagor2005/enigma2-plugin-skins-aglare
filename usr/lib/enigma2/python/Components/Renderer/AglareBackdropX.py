@@ -282,7 +282,7 @@ class AglareBackdropX(Renderer):
 		if not self.instance:
 			return
 		"""
-		if not self.pstrNm or not self.checkPosterExistence(self.pstrNm):
+		if not self.pstrNm or not self.checkBackdropExistence(self.pstrNm):
 			self.instance.hide()
 			print('showPoster ide instance')
 			return

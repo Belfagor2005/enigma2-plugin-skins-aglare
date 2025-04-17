@@ -3,27 +3,27 @@
 from __future__ import absolute_import, print_function
 """
 #########################################################
-#														#
-#  AGP - Advanced Graphics Renderer						#
-#  Version: 3.5.0										#
+#                                                       #
+#  AGP - Advanced Graphics Renderer                     #
+#  Version: 3.5.0                                       #
 #  Created by Lululla (https://github.com/Belfagor2005) #
-#  License: CC BY-NC-SA 4.0								#
-#  https://creativecommons.org/licenses/by-nc-sa/4.0	#
-#  from original code by @digiteng 2021					#
-#														#
-#  Last Modified: "15:14 - 20250401"					#
-#														#
-#  Credits:												#
-#  - Original concept by Lululla						#
-#  - TMDB API integration								#
-#  - TVDB API integration								#
-#  - OMDB API integration								#
-#  - Advanced caching system							#
-#														#
-#  Usage of this code without proper attribution		#
-#  is strictly prohibited.								#
-#  For modifications and redistribution,				#
-#  please maintain this credit header.					#
+#  License: CC BY-NC-SA 4.0                             #
+#  https://creativecommons.org/licenses/by-nc-sa/4.0    #
+#  from original code by @digiteng 2021                 #
+#                                                       #
+#  Last Modified: "15:14 - 20250401"                    #
+#                                                       #
+#  Credits:                                             #
+#  - Original concept by Lululla                        #
+#  - TMDB API integration                               #
+#  - TVDB API integration                               #
+#  - OMDB API integration                               #
+#  - Advanced caching system                            #
+#                                                       #
+#  Usage of this code without proper attribution        #
+#  is strictly prohibited.                              #
+#  For modifications and redistribution,                #
+#  please maintain this credit header.                  #
 #########################################################
 """
 __author__ = "Lululla"
@@ -40,7 +40,7 @@ from unicodedata import normalize
 
 # Third-party libraries
 from PIL import Image
-from requests import get, codes, Session  # , exceptions
+from requests import get, codes, Session
 from requests.exceptions import RequestException
 from requests.adapters import HTTPAdapter, Retry
 from twisted.internet.reactor import callInThread
@@ -51,7 +51,7 @@ from Components.config import config
 
 # Local imports
 from .Agp_lib import PY3, quoteEventName
-from .Agp_apikeys import tmdb_api, thetvdb_api, fanart_api	# , omdb_api
+from .Agp_apikeys import tmdb_api, thetvdb_api, fanart_api  # , omdb_api
 
 
 try:
@@ -96,6 +96,7 @@ AGENTS = [
 	"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edge/87.0.664.75",
 	"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"
 ]
+headers = {"User-Agent": choice(AGENTS)}
 
 
 isz = "300,450"
@@ -147,38 +148,38 @@ isz = "w780"
   "original"
 ]
 ## Add Supported Image Sizes (in Pixels)
-# API NAME	=	WEB NAME		   MIN Pixel	MAX Pixel	  Aspect Ratio
-# poster	= Poster ............  500 x 750   2000 x 3000	 1.50	 (1x1.5)
-# poster	= Poster TV Season ..  400 x 578   2000 x 3000	 1.50	 (1x1.5)
-# backdrop	= Backdrop .......... 1280 x 720   3840 x 2160	 1.77778 (16x9)
-# still		= Backdrop Episode ..  400 x 225   3840 x 2160	 1.77778 (16x9)
-# profile	= Person Profile ....  300 x 450   2000 x 3000	 1.50	 (1x1.5)
-# Logo PNG	= Production/Networks  500 x 1	   2000 x 2000	 n/a
-# Logo SVG	= Production/Networks  500 x 1	   Vector File	 n/a
+# API NAME  =   WEB NAME           MIN Pixel    MAX Pixel     Aspect Ratio
+# poster    = Poster ............  500 x 750   2000 x 3000   1.50    (1x1.5)
+# poster    = Poster TV Season ..  400 x 578   2000 x 3000   1.50    (1x1.5)
+# backdrop  = Backdrop .......... 1280 x 720   3840 x 2160   1.77778 (16x9)
+# still     = Backdrop Episode ..  400 x 225   3840 x 2160   1.77778 (16x9)
+# profile   = Person Profile ....  300 x 450   2000 x 3000   1.50    (1x1.5)
+# Logo PNG  = Production/Networks  500 x 1     2000 x 2000   n/a
+# Logo SVG  = Production/Networks  500 x 1     Vector File   n/a
 '''
+
 
 class AgbDownloadThread(Thread):
 	def __init__(self):
 		Thread.__init__(self)
-		self.checkMovie = ["film", "movie", "фильм", "кино", "ταινία",
-						   "película", "cinéma", "cine", "cinema",
-						   "filma"]
-		self.checkTV = ["serial", "series", "serie", "serien", "série",
-						"séries", "serious", "folge", "episodio",
-						"episode", "épisode", "l'épisode", "ep.",
-						"animation", "staffel", "soap", "doku", "tv",
-						"talk", "show", "news", "factual",
-						"entertainment", "telenovela", "dokumentation",
-						"dokutainment", "documentary", "informercial",
-						"information", "sitcom", "reality", "program",
-						"magazine", "mittagsmagazin", "т/с", "м/с",
-						"сезон", "с-н", "эпизод", "сериал", "серия",
-						"actualité", "discussion", "interview", "débat",
-						"émission", "divertissement", "jeu", "magasine",
-						"information", "météo", "journal", "sport",
-						"culture", "infos", "feuilleton", "téléréalité",
-						"société", "clips", "concert", "santé",
-						"éducation", "variété"]
+		self.checkMovie = [
+			"film", "movie", "фильм", "кино", "ταινία",
+			"película", "cinéma", "cine", "cinema", "filma"
+		]
+		self.checkTV = [
+			"serial", "series", "serie", "serien", "série", "séries",
+			"serious", "folge", "episodio", "episode", "épisode",
+			"l'épisode", "ep.", "animation", "staffel", "soap", "doku",
+			"tv", "talk", "show", "news", "factual", "entertainment",
+			"telenovela", "dokumentation", "dokutainment", "documentary",
+			"informercial", "information", "sitcom", "reality", "program",
+			"magazine", "mittagsmagazin", "т/с", "м/с", "сезон", "с-н",
+			"эпизод", "сериал", "серия", "actualité", "discussion",
+			"interview", "débat", "émission", "divertissement", "jeu",
+			"magasine", "information", "météo", "journal", "sport",
+			"culture", "infos", "feuilleton", "téléréalité", "société",
+			"clips", "concert", "santé", "éducation", "variété"
+		]
 
 	def search_tmdb(self, dwn_backdrop, title, shortdesc, fulldesc, channel=None):
 		try:
@@ -324,12 +325,10 @@ class AgbDownloadThread(Thread):
 			year = ""
 			url_maze = ""
 			url_fanart = ""
-			# url_backdrop = ""
 			tvmaze_id = "-"
 			self.title_safe = title.replace("+", " ")
 			chkType, fd = self.checkType(shortdesc, fulldesc)
 
-			# Estrazione dell'anno se presente
 			try:
 				matches = findall(r"19\d{2}|20\d{2}", fd)
 				if matches:
@@ -337,7 +336,6 @@ class AgbDownloadThread(Thread):
 			except Exception:
 				pass
 
-			# Recupero ID TVMaze
 			try:
 				url_maze = "http://api.tvmaze.com/singlesearch/shows?q={}".format(self.title_safe)
 				resp = get(url_maze, timeout=5)
@@ -347,13 +345,10 @@ class AgbDownloadThread(Thread):
 			except Exception as err:
 				print("TVMaze error: " + str(err))
 
-			# Fanart.tv
 			try:
 				m_type = "tv"
 				url_fanart = "https://webservice.fanart.tv/v3/{}/{}?api_key={}".format(m_type, tvmaze_id, fanart_api)
-				fanart_resp = get(url_fanart, verify=False, timeout=5)
-				fanart_resp.raise_for_status()
-				fjs = fanart_resp.json()
+				fjs = get(url_fanart, verify=False, timeout=5).json()
 
 				url = ""
 				if "showbackground" in fjs and fjs["showbackground"]:
@@ -398,7 +393,7 @@ class AgbDownloadThread(Thread):
 			imsg = ""
 			url_mimdb = ""
 			url_backdrop = ""
-			url_imdb = []
+			url_imdb = ''
 
 			# Build IMDb search URL
 			if aka and aka != self.title_safe:
@@ -424,9 +419,8 @@ class AgbDownloadThread(Thread):
 				imdb = list(imdb)
 				imdb[1] = self.UNAC(imdb[1])  # Title
 				tmp = findall(r'aka <i>"(.*?)"</i>', imdb[4])
-				imdb[4] = self.UNAC(tmp[0]) if tmp else self.UNAC(imdb[4])	# AKA
+				imdb[4] = self.UNAC(tmp[0]) if tmp else self.UNAC(imdb[4])  # AKA
 
-				# Extract image URL
 				backdrop_match = search(r"(.*?)._V1_.*?.jpg", imdb[0])
 				if not backdrop_match:
 					continue
@@ -729,7 +723,6 @@ class AgbDownloadThread(Thread):
 			return False, "[ERROR : google] {} [{}-{}] => {} => {} ({})".format(self.title_safe, chkType, year, url_google, url_backdrop, str(e))
 
 	def saveBackdrop(self, url, callback):
-		headers = {"User-Agent": choice(AGENTS)}
 		try:
 			if not url or url.strip().endswith("/original"):
 				return None
@@ -746,7 +739,7 @@ class AgbDownloadThread(Thread):
 
 		return callback
 
-	def resizebackdrop(self, dwn_backdrop):
+	def resizeBackdrop(self, dwn_backdrop):
 		try:
 			img = Image.open(dwn_backdrop)
 			width, height = img.size
@@ -763,7 +756,7 @@ class AgbDownloadThread(Thread):
 		except Exception as e:
 			print("ERROR:{}".format(e))
 
-	def verifybackdrop(self, dwn_backdrop):
+	def verifyBackdrop(self, dwn_backdrop):
 		try:
 			img = Image.open(dwn_backdrop)
 			img.verify()
@@ -800,8 +793,8 @@ class AgbDownloadThread(Thread):
 		string = sub(r"u0026", "&", string)
 		string = sub(r"u003d", "=", string)
 		string = sub(r'[\u0300-\u036f]', '', string)  # Remove accents
-		string = sub(r"[,!?\.\"]", ' ', string)		  # Replace punctuation with space
-		string = sub(r'\s+', ' ', string)			  # Collapse multiple spaces
+		string = sub(r"[,!?\.\"]", ' ', string)       # Replace punctuation with space
+		string = sub(r'\s+', ' ', string)             # Collapse multiple spaces
 		return string.strip()
 
 	def PMATCH(self, textA, textB):
