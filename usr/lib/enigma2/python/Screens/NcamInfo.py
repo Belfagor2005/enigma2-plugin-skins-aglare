@@ -690,7 +690,6 @@ class NcamInfoMenu(Screen):
 
 class oscECMInfo(Screen, NcamInfo):
 
-	global sizeH
 	sizeLH = sizeH - 20
 	skin = """<screen position="center,center" size="%s, 390*f" title="ECMInfo" >
 			<widget source="output" render="Listbox" position="10,10" size="%s,390*f" scrollbarMode="showOnDemand" >

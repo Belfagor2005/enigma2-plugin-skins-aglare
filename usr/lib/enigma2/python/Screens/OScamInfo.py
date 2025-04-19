@@ -686,7 +686,6 @@ class OSCamInfo(Screen):
 
 class oscECMInfo(Screen, OscamInfo):
 
-	global HDSKIN, sizeH
 	sizeLH = sizeH - 20
 	skin = """<screen position="center,center" size="%s, 390*f" title="oscECMInfo" >
 			<widget source="output" render="Listbox" position="10,10" size="%s,390*f" scrollbarMode="showOnDemand" >
@@ -1059,7 +1058,6 @@ class oscInfo(Screen, OscamInfo):
 
 
 class oscEntitlements(Screen, OscamInfo):
-	global HDSKIN, sizeH
 	sizeLH = sizeH - 20
 	skin = """<screen position="center,center" size="%s, 390*f" title="Client Info" >
 				<widget source="output" render="Listbox" position="10,10" size="%s,390*f" scrollbarMode="showOnDemand" >
@@ -1207,7 +1205,6 @@ class oscEntitlements(Screen, OscamInfo):
 
 
 class oscReaderStats(Screen, OscamInfo):
-	global HDSKIN, sizeH
 	sizeLH = sizeH - 20
 	skin = """<screen position="center,center" size="%s, 390*f" title="Client Info" >
 			<widget source="output" render="Listbox" position="10,10" size="%s,390*f" scrollbarMode="showOnDemand" >
