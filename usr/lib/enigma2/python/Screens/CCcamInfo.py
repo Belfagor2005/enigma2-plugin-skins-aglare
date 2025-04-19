@@ -63,9 +63,12 @@ from errno import ENOENT
 from enigma import eGetEnigmaDebugLvl
 import sys
 import base64
+
 # from base64 import encodebytes
 import requests
 
+import gettext
+_ = gettext.gettext
 
 try:
 	from urllib.parse import urlparse, urlunparse

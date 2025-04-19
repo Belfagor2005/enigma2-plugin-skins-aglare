@@ -22,7 +22,6 @@ from os import makedirs as os_makedirs, path as os_path, remove as os_remove, po
 from requests import get, exceptions
 from shutil import rmtree
 from time import time
-
 import json
 
 from random import choice
@@ -30,6 +29,9 @@ from re import split, sub
 from sys import version_info
 from unicodedata import normalize
 import requests
+
+import gettext
+_ = gettext.gettext
 
 PY2 = False
 PY3 = False

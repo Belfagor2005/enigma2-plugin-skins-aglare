@@ -16,6 +16,8 @@ from Components.config import (
 )
 from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
+import gettext
+_ = gettext.gettext
 
 config.plugins.ccprio = ConfigSubsection()
 config.plugins.ccprio.autostart = ConfigEnableDisable(default=False)

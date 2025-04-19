@@ -49,6 +49,9 @@ from Screens.Screen import Screen
 # enigma2 Tools
 from Tools.Directories import resolveFilename
 
+import gettext
+_ = gettext.gettext
+
 try:
 	from Tools.Directories import SCOPE_GUISKIN as SCOPE_SKIN
 except ImportError:

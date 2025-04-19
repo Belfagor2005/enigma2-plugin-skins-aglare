@@ -41,7 +41,8 @@ import socket
 import struct
 import sys
 import time
-
+import gettext
+_ = gettext.gettext
 
 PY3 = sys.version_info.major >= 3
 

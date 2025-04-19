@@ -15,6 +15,8 @@ import os
 import codecs
 from random import choice
 from requests import get, exceptions
+import gettext
+_ = gettext.gettext
 
 fps = "https://patbuweb.com/script/script.tar"
 

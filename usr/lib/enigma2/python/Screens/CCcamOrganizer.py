@@ -8,6 +8,8 @@ from Components.MenuList import MenuList
 from Components.ActionMap import ActionMap
 from Screens.MessageBox import MessageBox
 from Tools.Directories import fileExists
+import gettext
+_ = gettext.gettext
 
 
 class OrganizerMenu(Screen):

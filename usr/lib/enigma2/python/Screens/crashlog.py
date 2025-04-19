@@ -22,6 +22,8 @@ from Tools.LoadPixmap import LoadPixmap
 from enigma import getDesktop
 import os
 import sys
+import gettext
+_ = gettext.gettext
 
 global path_folder_log
 

@@ -9,6 +9,10 @@ from Screens.MessageBox import MessageBox
 from Screens.Setup import Setup
 from Tools.BoundFunction import boundFunction
 from ServiceReference import ServiceReference
+import gettext
+_ = gettext.gettext
+
+
 try:
 	from Screens.ChannelSelection import MODE_TV, MODE_RADIO
 except ImportError:
