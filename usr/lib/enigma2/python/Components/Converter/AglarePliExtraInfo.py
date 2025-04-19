@@ -1,5 +1,3 @@
-# shamelessly copied from pliExpertInfo (Vali, Mirakels, Littlesat)
-
 from enigma import iServiceInformation, iPlayableService
 from Components.Converter.Converter import Converter
 from Components.Element import cached
@@ -10,6 +8,7 @@ from Tools.Hex2strColor import Hex2strColor
 from Components.Converter.Poll import Poll
 from Tools.Directories import pathExists
 from skin import parameters
+
 
 caid_data = (
     ("0x100", "0x1ff", "Seca", "S", "SECA", True),

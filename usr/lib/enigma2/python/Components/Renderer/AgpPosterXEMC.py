@@ -55,7 +55,7 @@ extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp']
 
 """
 # Use for emc plugin
-<widget source="Servicet" render="AglarePosterXEMC"
+<widget source="Servicet" render="AgpPosterXEMC"
 	position="100,100"
 	size="185,278"
 	cornerRadius="20"
@@ -78,7 +78,7 @@ except:
 	pass
 
 
-class AglarePosterXEMC(Renderer):
+class AgpPosterXEMC(Renderer):
 
 	GUI_WIDGET = ePixmap
 

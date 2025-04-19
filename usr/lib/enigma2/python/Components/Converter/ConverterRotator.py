@@ -1,10 +1,9 @@
-#
 # ConverterRotator Converter for Enigma2 (ConverterRotator.py)
 # Coded by vlamo (c) 2012
 #
 # Version: 0.1 (26.01.2012 04:05)
 # Support: http://dream.altmaster.net/
-#
+
 from Components.Converter.Converter import Converter
 from Components.Converter.Poll import Poll
 from Components.Element import cached

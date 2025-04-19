@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # ArBoxInfo
 # Copyright (c) Tikhon 2019
 # v.1.0
@@ -14,398 +15,421 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
+# update from #lululla 20250401
 
+import os
+import re
+import logging
+from subprocess import Popen, PIPE
+from datetime import timedelta
 from Components.Converter.Poll import Poll
 from Components.Converter.Converter import Converter
 from Components.config import config
 from Components.Element import cached
 from Tools.Directories import fileExists
-from os import popen
-import re
-import os
 
 
-class AglareBoxInfo(Poll, Converter, object):
-	Boxtype = 0
-	CpuInfo = 1
-	HddTemp = 2
-	TempInfo = 3
-	FanInfo = 4
-	Upinfo = 5
-	CpuLoad = 6
-	CpuSpeed = 7
-	SkinInfo = 8
-	TimeInfo = 9
-	TimeInfo2 = 10
-	TimeInfo3 = 11
-	TimeInfo4 = 12
+class AglareBoxInfo(Poll, Converter):
+	"""Enhanced system information converter for Enigma2"""
+
+	# Info types
+	BOX_TYPE = 0
+	CPU_INFO = 1
+	HDD_TEMP = 2
+	TEMP_INFO = 3
+	FAN_INFO = 4
+	UPTIME_INFO = 5
+	CPU_LOAD = 6
+	CPU_SPEED = 7
+	SKIN_INFO = 8
+	TIMEZONE_OFFSET = 9
+	TIMEZONE_NAME = 10
+	TIMEZONE_FULL = 11
+	TIMEZONE_AREA = 12
 
 	def __init__(self, type):
 		Converter.__init__(self, type)
 		Poll.__init__(self)
-		self.poll_interval = 1000
-		self.poll_enabled = True
-		self.type = {'Boxtype': self.Boxtype,
-					 'CpuInfo': self.CpuInfo,
-					 'HddTemp': self.HddTemp,
-					 'TempInfo': self.TempInfo,
-					 'FanInfo': self.FanInfo,
-					 'Upinfo': self.Upinfo,
-					 'CpuLoad': self.CpuLoad,
-					 'CpuSpeed': self.CpuSpeed,
-					 'SkinInfo': self.SkinInfo,
-					 'TimeInfo': self.TimeInfo,
-					 'TimeInfo2': self.TimeInfo2,
-					 'TimeInfo3': self.TimeInfo3,
-					 'TimeInfo4': self.TimeInfo4
-					 }[type]
+		self.logger = logging.getLogger("AglareBoxInfo")
 
-	def imageinfo(self):
-		imageinfo = ''
-		if os.path.isfile('/usr/lib/opkg/status'):
-			imageinfo = '/usr/lib/opkg/status'
-		elif os.path.isfile('/usr/lib/ipkg/status'):
-			imageinfo = '/usr/lib/ipkg/status'
-		elif os.path.isfile('/var/lib/opkg/status'):
-			imageinfo = '/var/lib/opkg/status'
-		elif os.path.isfile('/var/opkg/status'):
-			imageinfo = '/var/opkg/status'
-		return imageinfo
+		# Configuration
+		self.poll_interval = 2000  # 2 seconds
+		self.poll_enabled = True
+		self.temp_unit = "°C"
+
+		# Type mapping
+		self.type_mapping = {
+			'Boxtype': self.BOX_TYPE,
+			'CpuInfo': self.CPU_INFO,
+			'HddTemp': self.HDD_TEMP,
+			'TempInfo': self.TEMP_INFO,
+			'FanInfo': self.FAN_INFO,
+			'Upinfo': self.UPTIME_INFO,
+			'CpuLoad': self.CPU_LOAD,
+			'CpuSpeed': self.CPU_SPEED,
+			'SkinInfo': self.SKIN_INFO,
+			'TimeInfo': self.TIMEZONE_OFFSET,
+			'TimeInfo2': self.TIMEZONE_NAME,
+			'TimeInfo3': self.TIMEZONE_FULL,
+			'TimeInfo4': self.TIMEZONE_AREA
+		}
+
+		try:
+			self.type = self.type_mapping[type]
+		except KeyError:
+			self.type = self.BOX_TYPE
+			self.logger.warning(f"Unknown type '{type}', defaulting to Boxtype")
+
+	def execute_command(self, command):
+		"""Safely execute shell command and return output"""
+		try:
+			with Popen(command, shell=True, stdout=PIPE, stderr=PIPE) as process:
+				output, error = process.communicate()
+				if process.returncode == 0:
+					return output.decode('utf-8').strip()
+				self.logger.debug(f"Command failed: {command}, Error: {error.decode('utf-8')}")
+		except Exception as e:
+			self.logger.warning(f"Command execution error: {str(e)}")
+		return None
+
+	def get_distro_info(self):
+		"""Get distribution information from various sources"""
+		distro_info = ""
+
+		# Check common issue file locations
+		issue_files = [
+			'/etc/issue',
+			'/etc/issue.net',
+			'/etc/os-release',
+			'/etc/openvision/distro'
+		]
+
+		for file in issue_files:
+			if os.path.isfile(file):
+				try:
+					with open(file, 'r') as f:
+						content = f.read()
+						# Clean up the content
+						distro_info = content.split('\n')[0]
+						distro_info = re.sub(r'\\[a-zA-Z]', '', distro_info)  # Remove escape sequences
+						distro_info = re.sub(r'Welcome to ', '', distro_info, flags=re.IGNORECASE)
+						distro_info = distro_info.strip()
+						if distro_info:
+							return distro_info
+				except Exception as e:
+					self.logger.debug(f"Error reading {file}: {str(e)}")
+
+		return "Unknown"
 
 	@cached
 	def getText(self):
-		if self.type == self.Boxtype:
-			box = software = ''
-			if os.path.isfile('/proc/version'):
-				enigma = open('/proc/version').read().split()[2]
-			try:
-				from Components.SystemInfo import BoxInfo
-				DISPLAYBRAND = BoxInfo.getItem("displaybrand")
-				if DISPLAYBRAND.startswith('Maxytec'):
-					DISPLAYBRAND = 'Novaler'
-				DISPLAYMODEL = BoxInfo.getItem("displaymodel")
-				box = DISPLAYBRAND + " " + DISPLAYMODEL
-			except ImportError:
-				box = os.popen("head -n 1 /etc/hostname").read().split()[0]
-			if os.path.isfile('/etc/issue'):
-				for line in open('/etc/issue'):
-					software += line.capitalize().replace('Open vision enigma2 image for', '').replace('More information : https://openvision.tech', '').replace('%d, %t - (%s %r %m)', '').replace('release', 'r').replace('Welcome to openatv', '').replace('Welcome to teamblue', '').replace('Welcome to openbh', '').replace('Welcome to openvix', '').replace('Welcome to opendroid', '').replace('Welcome to openspa', '').replace('\n', '').replace(r'\l', '').replace(r'\\', '').strip()[:-1].capitalize()
-				if software.startswith("Egami"):
-					try:
-						from Components.SystemInfo import BoxInfo
-						software = BoxInfo.getItem("displaydistro").upper() + " " + BoxInfo.getItem("imgversion") + " - R " + BoxInfo.getItem("imagedevbuild")
-					except ImportError:
-						pass
-				elif software.startswith("Openbh"):
-					try:
-						from Components.SystemInfo import BoxInfo
-						software = BoxInfo.getItem("displaydistro").upper() + " " + BoxInfo.getItem("imgversion") + " " + BoxInfo.getItem("imagebuild")
-					except ImportError:
-						pass
-				elif software.startswith("Openvix"):
-					try:
-						from Components.SystemInfo import BoxInfo
-						software = BoxInfo.getItem("displaydistro").upper() + " " + BoxInfo.getItem("imgversion") + " " + BoxInfo.getItem("imagebuild")
-					except ImportError:
-						pass
-				elif software.startswith("Pure2"):
-					try:
-						from Components.SystemInfo import BoxInfo
-						software = BoxInfo.getItem("displaydistro").upper() + " " + BoxInfo.getItem("imgversion") + " - R " + BoxInfo.getItem("imagedevbuild")
-					except ImportError:
-						pass
-				elif software.startswith("Openatv"):
-					try:
-						from Components.SystemInfo import BoxInfo
-						software = BoxInfo.getItem("displaydistro").upper() + " " + BoxInfo.getItem("imgversion")
-					except ImportError:
-						pass
-				software = ' : %s ' % software.strip()
-			if os.path.isfile('/etc/vtiversion.info'):
-				software = ''
-				for line in open('/etc/vtiversion.info'):
-					software += line.split()[0].split('-')[0] + ' ' + line.split()[-1].replace('\n', '')
-				software = ' : %s ' % software.strip()
-			return '%s%s' % (box, software)
+		"""Main method to get requested information"""
+		try:
+			if self.type == self.BOX_TYPE:
+				return self._get_box_info()
+			elif self.type == self.CPU_INFO:
+				return self._get_cpu_info()
+			elif self.type == self.HDD_TEMP:
+				return self._get_hdd_temp()
+			elif self.type == self.TEMP_INFO:
+				return self._get_temp_info()
+			elif self.type == self.FAN_INFO:
+				return self._get_fan_info()
+			elif self.type == self.UPTIME_INFO:
+				return self._get_uptime_info()
+			elif self.type == self.CPU_LOAD:
+				return self._get_cpu_load()
+			elif self.type == self.CPU_SPEED:
+				return self._get_cpu_speed()
+			elif self.type == self.SKIN_INFO:
+				return self._get_skin_info()
+			elif self.type in (self.TIMEZONE_OFFSET, self.TIMEZONE_NAME,
+							   self.TIMEZONE_FULL, self.TIMEZONE_AREA):
+				return self._get_timezone_info()
+		except Exception as e:
+			self.logger.error(f"Error in getText: {str(e)}")
+			return "N/A"
 
-		elif self.type == self.CpuInfo:
-			cpu_count = 0
-			info = cpu_speed = cpu_info = core = ''
-			core = _('core')
-			cores = _('cores')
-			if os.path.isfile('/proc/cpuinfo'):
-				for line in open('/proc/cpuinfo'):
-					if 'system type' in line:
-						info = line.split(':')[-1].split()[0].strip().strip('\n')
-					elif 'cpu MHz' in line:
-						cpu_speed = line.split(':')[-1].strip().strip('\n')
-					elif 'cpu type' in line:
-						info = line.split(':')[-1].strip().strip('\n')
-					elif 'model name' in line or 'Processor' in line:
-						info = line.split(':')[-1].strip().strip('\n').replace('Processor ', '')
+	def _get_box_info(self):
+		"""Get box model and software information"""
+		try:
+			# Try to get box info from SystemInfo first
+			from Components.SystemInfo import BoxInfo
+			brand = BoxInfo.getItem("displaybrand", "Unknown")
+			model = BoxInfo.getItem("displaymodel", "Unknown")
+
+			# Special case for Maxytec
+			if brand.startswith('Maxytec'):
+				brand = 'Novaler'
+
+			box_info = f"{brand} {model}"
+		except ImportError:
+			# Fallback to hostname
+			box_info = os.popen("head -n 1 /etc/hostname").read().split()[0] or "Unknown"
+
+		# Get software info
+		software_info = self.get_distro_info()
+
+		return f"{box_info} : {software_info}"
+
+	def _get_cpu_info(self):
+		"""Get detailed CPU information"""
+		cpu_info = {
+			'model': "Unknown",
+			'speed': "0",
+			'cores': 0,
+			'vendor': "Unknown"
+		}
+
+		if os.path.isfile('/proc/cpuinfo'):
+			with open('/proc/cpuinfo', 'r') as f:
+				for line in f:
+					line = line.strip()
+					if not line:
+						continue
+
+					key, sep, value = line.partition(':')
+					key = key.strip()
+					value = value.strip()
+
+					if key == 'model name' or key == 'Processor':
+						cpu_info['model'] = value.replace('Processor', '').strip()
+					elif key == 'cpu MHz':
+						cpu_info['speed'] = value
+					elif key == 'system type':
+						cpu_info['model'] = value.split()[0]
+					elif key == 'cpu type':
+						cpu_info['model'] = value
+					elif key == 'vendor_id':
+						cpu_info['vendor'] = value
 					elif line.startswith('processor'):
-						cpu_count += 1
-				if info.startswith('ARM') and os.path.isfile('/proc/stb/info/chipset'):
-					for line in open('/proc/cpuinfo'):
-						if 'model name' in line or 'Processor' in line:
-							info = line.split(':')[-1].split()[0].strip().strip('\n')
-							info = '%s (%s)' % (open('/proc/stb/info/chipset').readline().strip().lower().replace('hi3798mv200', 'Hi3798MV200').replace('bcm', 'BCM').replace('brcm', 'BCM').replace('7444', 'BCM7444').replace('7278', 'BCM7278'), info)
-				if not cpu_speed:
-					try:
-						cpu_speed = int(open('/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq').read()) / 1000
-					except:
-						try:
-							import binascii
-							f = open('/sys/firmware/devicetree/base/cpus/cpu@0/clock-frequency', 'rb')
-							clockfrequency = f.read()
-							f.close()
-							cpu_speed = "%s" % str(int(binascii.hexlify(clockfrequency), 16) / 1000000)
-						except:
-							cpu_speed = '-'
-				if cpu_info == '':
-					return _('%s, %s MHz (%d %s)') % (info, cpu_speed, cpu_count, cpu_count > 1 and cores or core)
-			else:
-				return _('No info')
+						cpu_info['cores'] += 1
 
-		elif self.type == self.HddTemp:
-			textvalue = 'No info'
-			info = 'N/A'
+		# Special handling for ARM devices
+		if cpu_info['model'].startswith('ARM') and os.path.isfile('/proc/stb/info/chipset'):
 			try:
-				out_line = popen('hddtemp -n -q /dev/sda').readline()
-				info = 'HDD: Temp:' + out_line[:2] + str('\xc2\xb0') + 'C'
-				textvalue = info
-			except:
-				pass
-			return textvalue
+				with open('/proc/stb/info/chipset', 'r') as f:
+					chipset = f.readline().strip()
+					# Clean up chipset name
+					chipset = chipset.replace('hi3798mv200', 'Hi3798MV200')
+					chipset = re.sub(r'bcm|brcm', 'BCM', chipset, flags=re.IGNORECASE)
+					chipset = chipset.replace('7444', 'BCM7444').replace('7278', 'BCM7278')
+				cpu_info['model'] = f"{chipset} ({cpu_info['model']})"
+			except Exception as e:
+				self.logger.debug(f"Error reading chipset info: {str(e)}")
 
-		elif self.type == self.TempInfo:
-			info = 'N/A'
+		# Try alternative methods to get CPU speed
+		if cpu_info['speed'] == "0":
 			try:
-				if os.path.exists('/proc/stb/sensors/temp0/value') and os.path.exists('/proc/stb/sensors/temp0/unit'):
-					info = '%s%s%s' % (open('/proc/stb/sensors/temp0/value').read().strip('\n'), str('\xc2\xb0'), open('/proc/stb/sensors/temp0/unit').read().strip('\n'))
-				elif os.path.exists('/proc/stb/fp/temp_sensor_avs'):
-					info = '%s%sC' % (open('/proc/stb/fp/temp_sensor_avs').read().strip('\n'), str('\xc2\xb0'))
-				elif os.path.exists('/proc/stb/fp/temp_sensor'):
-					info = '%s%sC' % (open('/proc/stb/fp/temp_sensor').read().strip('\n'), str('\xc2\xb0'))
-				elif os.path.exists('/sys/devices/virtual/thermal/thermal_zone0/temp'):
-					info = '%s%sC' % (open('/sys/devices/virtual/thermal/thermal_zone0/temp').read()[:2].strip('\n'), str('\xc2\xb0'))
-				elif os.path.exists('/proc/hisi/msp/pm_cpu'):
-					try:
-						info = '%s%sC' % (re.search(r'temperature = (\d+) degree', open('/proc/hisi/msp/pm_cpu').read()).group(1), str('\xc2\xb0'))
-					except:
-						pass
+				# Try sysfs first
+				with open('/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq', 'r') as f:
+					cpu_info['speed'] = str(int(f.read()) / 1000)
 			except:
-				info = 'N/A'
-			if self.type is self.TempInfo:
-				info = (info[0:2] + 'C')
-			return info
-
-		elif self.type == self.FanInfo:
-			info = 'N/A'
-			try:
-				if os.path.exists('/proc/stb/fp/fan_speed'):
-					info = open('/proc/stb/fp/fan_speed').read().strip('\n')
-				elif os.path.exists('/proc/stb/fp/fan_pwm'):
-					info = open('/proc/stb/fp/fan_pwm').read().strip('\n')
-			except:
-				info = 'N/A'
-			if self.type is self.FanInfo:
-				info = 'Fan: ' + info
-			return info
-
-		elif self.type == self.Upinfo:
-			try:
-				with open('/proc/uptime', 'r') as file:
-					uptime_info = file.read().split()
-			except:
-				return ' '
-				uptime_info = None
-			if uptime_info is not None:
-				total_seconds = float(uptime_info[0])
-				MINUTE = 60
-				HOUR = MINUTE * 60
-				DAY = HOUR * 24
-				days = int(total_seconds / DAY)
-				hours = int((total_seconds % DAY) / HOUR)
-				minutes = int((total_seconds % HOUR) / MINUTE)
-				seconds = int(total_seconds % MINUTE)
-				uptime = ''
-				if days > 0:
-					uptime += str(days) + ' ' + (days == 1 and 'day' or 'days') + ' '
-				if len(uptime) > 0 or hours > 0:
-					uptime += str(hours) + ' ' + (hours == 1 and 'hour' or 'hours') + ' '
-				if len(uptime) > 0 or minutes > 0:
-					uptime += str(minutes) + ' ' + (minutes == 1 and 'minute' or 'minutes')
-				return 'Time in work: %s' % uptime
-
-		elif self.type == self.CpuLoad:
-			info = ''
-			try:
-				if os.path.exists('/proc/loadavg'):
-					l = open('/proc/loadavg', 'r')
-					load = l.readline(4)
-					l.close()
-			except:
-				load = ''
-			info = load.replace('\n', '').replace(' ', '')
-			return _('CPU Load: %s') % info
-
-		elif self.type == self.CpuSpeed:
-			info = 0
-			try:
-				for line in open('/proc/cpuinfo').readlines():
-					line = [x.strip() for x in line.strip().split(':')]
-					if line[0] == 'cpu MHz':
-						info = '%1.0f' % float(line[1])
-				if not info:
-					try:
-						info = int(open('/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq').read()) / 1000
-					except:
-						try:
-							import binascii
-							info = int(int(binascii.hexlify(open('/sys/firmware/devicetree/base/cpus/cpu@0/clock-frequency', 'rb').read()), 16) / 100000000) * 100
-						except:
-							info = '-'
-				return 'CPU Speed: %s MHz' % info
-			except:
-				return ''
-
-		elif self.type == self.SkinInfo:
-			if fileExists('/etc/enigma2/settings'):
 				try:
-					for line in open('/etc/enigma2/settings'):
-						if 'config.skin.primary_skin' in line:
-							return (_('Skin: ')) + line.replace('/skin.xml', ' ').split('=')[1]
+					# Try device tree
+					import binascii
+					with open('/sys/firmware/devicetree/base/cpus/cpu@0/clock-frequency', 'rb') as f:
+						clock = int(binascii.hexlify(f.read()), 16)
+						cpu_info['speed'] = str(clock / 1000000)
 				except:
-					return
+					cpu_info['speed'] = "-"
 
-		elif self.type == self.TimeInfo:
-			if not config.timezone.val.value.startswith('(GMT)'):
-				return config.timezone.val.value[4:7]
-			else:
-				return '+0'
+		# Format output
+		cores_text = "cores" if cpu_info['cores'] > 1 else "core"
+		return f"{cpu_info['model']}, {cpu_info['speed']} MHz ({cpu_info['cores']} {cores_text})"
 
-		elif self.type == self.TimeInfo2:
-			if not config.timezone.val.value.startswith('(GMT)'):
-				return (_('Timezone: ')) + config.timezone.val.value[0:10]
-			else:
-				return (_('Timezone: ')) + 'GMT+00:00'
+	def _get_hdd_temp(self):
+		"""Get HDD temperature"""
+		if not os.path.exists('/dev/sda'):
+			return "HDD: Not detected"
 
-		elif self.type == self.TimeInfo3:
-			if not config.timezone.val.value.startswith('(GMT)'):
-				return (_('Timezone:')) + config.timezone.val.value[0:20]
-			else:
-				return '+0'
+		# Try hddtemp first
+		temp = self.execute_command('hddtemp -n -q /dev/sda')
+		if temp and temp.isdigit():
+			return f"HDD: Temp: {temp}{self.temp_unit}"
 
-		elif self.type == self.TimeInfo4:
-			if not config.timezone.area.value.startswith('(GMT)'):
-				return (_('Part~of~the~light:')) + config.timezone.area.value[0:12]
-			else:
-				return '+0'
+		# Try smartctl as fallback
+		temp = self.execute_command('smartctl -A /dev/sda | grep Temperature_Celsius')
+		if temp:
+			match = re.search(r'\d+', temp)
+			if match:
+				return f"HDD: Temp: {match.group()}{self.temp_unit}"
+
+		return "HDD: Temp: N/A"
+
+	def _get_temp_info(self):
+		"""Get system temperature from various sources"""
+		temp_sources = [
+			('/proc/stb/sensors/temp0/value', '/proc/stb/sensors/temp0/unit'),
+			('/proc/stb/fp/temp_sensor_avs', None),
+			('/proc/stb/fp/temp_sensor', None),
+			('/sys/devices/virtual/thermal/thermal_zone0/temp', None),
+			('/proc/hisi/msp/pm_cpu', r'temperature = (\d+) degree')
+		]
+
+		for source, unit_source in temp_sources:
+			if os.path.exists(source):
+				try:
+					with open(source, 'r') as f:
+						content = f.read()
+						if unit_source:
+							# Read unit from separate file
+							with open(unit_source, 'r') as uf:
+								unit = uf.read().strip()
+						elif source == '/sys/devices/virtual/thermal/thermal_zone0/temp':
+							# Special handling for thermal zone (value is in millidegrees)
+							temp = str(int(content) // 1000)
+							unit = "C"
+						elif source == '/proc/hisi/msp/pm_cpu':
+							# Special handling for hisi format
+							match = re.search(r'temperature = (\d+) degree', content)
+							if match:
+								temp = match.group(1)
+								unit = "C"
+							else:
+								continue
+						else:
+							# Default case
+							temp = content.strip()
+							unit = "C"
+
+						return f"{temp}{self.temp_unit}{unit}"
+				except Exception as e:
+					self.logger.debug(f"Error reading temperature from {source}: {str(e)}")
+					continue
+
+		return f"N/A{self.temp_unit}"
+
+	def _get_fan_info(self):
+		"""Get fan speed information"""
+		fan_sources = [
+			'/proc/stb/fp/fan_speed',
+			'/proc/stb/fp/fan_pwm',
+			'/sys/class/hwmon/hwmon0/fan1_input'
+		]
+
+		for source in fan_sources:
+			if os.path.exists(source):
+				try:
+					with open(source, 'r') as f:
+						speed = f.read().strip()
+						return f"Fan: {speed} RPM"
+				except Exception as e:
+					self.logger.debug(f"Error reading fan speed from {source}: {str(e)}")
+					continue
+
+		return "Fan: N/A"
+
+	def _get_uptime_info(self):
+		"""Get system uptime information"""
+		try:
+			with open('/proc/uptime', 'r') as f:
+				uptime_seconds = float(f.readline().split()[0])
+
+			uptime = timedelta(seconds=uptime_seconds)
+			days = uptime.days
+			hours = uptime.seconds // 3600
+			minutes = (uptime.seconds % 3600) // 60
+
+			parts = []
+			if days > 0:
+				parts.append(f"{days} {'day' if days == 1 else 'days'}")
+			if hours > 0:
+				parts.append(f"{hours} {'hour' if hours == 1 else 'hours'}")
+			if minutes > 0 or not parts:
+				parts.append(f"{minutes} {'minute' if minutes == 1 else 'minutes'}")
+
+			return "Uptime: " + " ".join(parts)
+		except Exception as e:
+			self.logger.warning(f"Error getting uptime: {str(e)}")
+			return "Uptime: N/A"
+
+	def _get_cpu_load(self):
+		"""Get current CPU load average"""
+		try:
+			with open('/proc/loadavg', 'r') as f:
+				load = f.readline().split()[0]
+			return f"CPU Load: {load}"
+		except Exception as e:
+			self.logger.warning(f"Error getting CPU load: {str(e)}")
+			return "CPU Load: N/A"
+
+	def _get_cpu_speed(self):
+		"""Get current CPU speed"""
+		try:
+			# Try sysfs first
+			if os.path.exists('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq'):
+				with open('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq', 'r') as f:
+					speed = int(f.read()) / 1000
+				return f"CPU Speed: {speed:.0f} MHz"
+
+			# Fallback to cpuinfo
+			if os.path.exists('/proc/cpuinfo'):
+				with open('/proc/cpuinfo', 'r') as f:
+					for line in f:
+						if 'cpu MHz' in line:
+							speed = float(line.split(':')[1].strip())
+							return f"CPU Speed: {speed:.0f} MHz"
+
+			# Try device tree as last resort
+			if os.path.exists('/sys/firmware/devicetree/base/cpus/cpu@0/clock-frequency'):
+				import binascii
+				with open('/sys/firmware/devicetree/base/cpus/cpu@0/clock-frequency', 'rb') as f:
+					speed = int(binascii.hexlify(f.read()), 16) / 1000000
+				return f"CPU Speed: {speed:.0f} MHz"
+
+			return "CPU Speed: N/A"
+		except Exception as e:
+			self.logger.warning(f"Error getting CPU speed: {str(e)}")
+			return "CPU Speed: N/A"
+
+	def _get_skin_info(self):
+		"""Get current skin information"""
+		settings_file = '/etc/enigma2/settings'
+		if not fileExists(settings_file):
+			return "Skin: N/A"
+
+		try:
+			with open(settings_file, 'r') as f:
+				for line in f:
+					if line.startswith('config.skin.primary_skin='):
+						skin = line.split('=')[1].strip()
+						skin = skin.replace('/skin.xml', '')
+						return f"Skin: {skin}"
+			return "Skin: Default"
+		except Exception as e:
+			self.logger.warning(f"Error reading skin info: {str(e)}")
+			return "Skin: N/A"
+
+	def _get_timezone_info(self):
+		"""Get timezone information"""
+		try:
+			tz_value = config.timezone.val.value
+			tz_area = config.timezone.area.value
+
+			if self.type == self.TIMEZONE_OFFSET:
+				if not tz_value.startswith('(GMT)'):
+					return tz_value[4:7]
+				return "+0"
+			elif self.type == self.TIMEZONE_NAME:
+				if not tz_value.startswith('(GMT)'):
+					return f"Timezone: {tz_value[:10]}"
+				return "Timezone: GMT+00:00"
+			elif self.type == self.TIMEZONE_FULL:
+				if not tz_value.startswith('(GMT)'):
+					return f"Timezone: {tz_value[:20]}"
+				return "+0"
+			elif self.type == self.TIMEZONE_AREA:
+				if not tz_area.startswith('(GMT)'):
+					return f"Area: {tz_area[:12]}"
+				return "+0"
+		except Exception as e:
+			self.logger.warning(f"Error getting timezone info: {str(e)}")
+			return "N/A"
 
 	text = property(getText)
 
-
-# Basic Usage in Skins
-# 1. Box Information Widget
-"""
-<widget source="session.CurrentService" render="Label" position="100,100" size="400,25" font="Regular;18" foregroundColor="white">
-  <convert type="AglareBoxInfo">Boxtype</convert>
-</widget>
-"""
-
-# 2. CPU Information Widget
-"""
-<widget source="session.CurrentService" render="Label" position="100,130" size="400,25" font="Regular;18" foregroundColor="white">
-  <convert type="AglareBoxInfo">CpuInfo</convert>
-</widget>
-"""
-# 3. Temperature Monitoring
-"""
-<!-- System Temperature -->
-<widget source="session.CurrentService" render="Label" position="100,160" size="200,25" font="Regular;18" foregroundColor="white">
-  <convert type="AglareBoxInfo">TempInfo</convert>
-</widget>
-<!-- HDD Temperature (if available) -->
-<widget source="session.CurrentService" render="Label" position="310,160" size="200,25" font="Regular;18" foregroundColor="white">
-  <convert type="AglareBoxInfo">HddTemp</convert>
-</widget>
-"""
-
-# 4. System Uptime
-"""
-<widget source="session.CurrentService" render="Label" position="100,190" size="400,25" font="Regular;18" foregroundColor="white">
-  <convert type="AglareBoxInfo">Upinfo</convert>
-</widget>
-"""
-
-# 5. CPU Load Monitoring
-"""
-<widget source="session.CurrentService" render="Label" position="100,220" size="400,25" font="Regular;18" foregroundColor="white">
-  <convert type="AglareBoxInfo">CpuLoad</convert>
-</widget>
-"""
-# Advanced Usage Examples
-# 1. Combined System Info Panel
-"""
-<panel position="80,80" size="440,180" backgroundColor="#40000000" borderColor="#808080" borderWidth="1">
-  <widget source="session.CurrentService" render="Label" position="10,10" size="420,25" font="Regular;20" foregroundColor="#FFFF00" transparent="1">
-	<convert type="AglareBoxInfo">Boxtype</convert>
-  </widget>
-  <widget source="session.CurrentService" render="Label" position="10,40" size="420,20" font="Regular;16" foregroundColor="white" transparent="1">
-	<convert type="AglareBoxInfo">CpuInfo</convert>
-  </widget>
-  <widget source="session.CurrentService" render="Label" position="10,65" size="200,20" font="Regular;16" foregroundColor="white" transparent="1">
-	<convert type="AglareBoxInfo">TempInfo</convert>
-  </widget>
-  <widget source="session.CurrentService" render="Label" position="220,65" size="200,20" font="Regular;16" foregroundColor="white" transparent="1">
-	<convert type="AglareBoxInfo">CpuLoad</convert>
-  </widget>
-  <widget source="session.CurrentService" render="Label" position="10,90" size="420,20" font="Regular;16" foregroundColor="white" transparent="1">
-	<convert type="AglareBoxInfo">Upinfo</convert>
-  </widget>
-</panel>
-"""
-# 2. Fan Control Status
-"""
-<widget source="session.CurrentService" render="Label" position="100,250" size="400,25" font="Regular;18" foregroundColor="#FF6600">
-  <convert type="AglareBoxInfo">FanInfo</convert>
-</widget>
-"""
-# 3. Timezone Information
-"""
-<!-- Timezone Offset -->
-<widget source="session.CurrentService" render="Label" position="100,280" size="100,25" font="Regular;18" foregroundColor="white">
-  <convert type="AglareBoxInfo">TimeInfo</convert>
-</widget>
-
-<!-- Full Timezone Name -->
-<widget source="session.CurrentService" render="Label" position="210,280" size="300,25" font="Regular;18" foregroundColor="white">
-  <convert type="AglareBoxInfo">TimeInfo2</convert>
-</widget>
-"""
-
-# Customization Options
-
-# You can customize the appearance of these widgets using standard skin attributes:
-# position:           X,Y coordinates
-# size:               Width,Height
-# font:               Font style and size (e.g., "Regular;18" or "Bold;20")
-# foregroundColor:    Text color (hex or color name)
-# backgroundColor:    Background color
-# transparent:        Set to "1" for transparent background
-# halign:             Horizontal alignment (left/center/right)
-# valign:             Vertical alignment (top/center/bottom)
-
-# Tips for Optimal Usage
-# Polling Interval:   The default polling interval is 2 seconds (2000ms). For less critical info (like box type), you might want to increase this.
-# Error Handling:     If a particular sensor isn't available, the converter will return "N/A" or similar.
-# Performance:        For boxes with limited resources, consider:
-
-# Using fewer widgets
-
-# Increasing polling intervals
-
-# Disabling widgets that require external commands (like HDD temp)
-# Extensions:     You can easily extend the converter by adding new information types following the existing pattern.
-# Debugging:      If a widget isn't showing expected information, check your Enigma2 logs for error messages from the converter.
+	def destroy(self):
+		"""Clean up resources"""
+		self.poll_enabled = False
+		super().destroy()

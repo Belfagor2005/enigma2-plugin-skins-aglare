@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import, print_function
 """
 #########################################################
 #                                                       #
@@ -29,11 +30,13 @@
 #  please maintain this credit header.                  #
 #########################################################
 """
-from __future__ import print_function
+__author__ = "Lululla"
+__copyright__ = "AGP Team"
 
 # Standard library imports
-import os
-import re
+from os import makedirs
+from os.path import join, exists
+from re import search, I
 import json
 
 # Enigma2/Dreambox specific imports
@@ -79,22 +82,23 @@ class AglareParentalX(Renderer):
 
 	def _verify_resources(self):
 		"""Ensure required resources exist"""
-		if not os.path.exists(PARENTAL_ICON_PATH):
-			os.makedirs(PARENTAL_ICON_PATH)
+		if not exists(PARENTAL_ICON_PATH):
+			makedirs(PARENTAL_ICON_PATH)
 			logger.warning(f"Created parental rating directory: {PARENTAL_ICON_PATH}")
 
 		# Verify default icons exist
 		for rating in ['0', '6', '12', '16', '18', 'UN']:
-			if not os.path.exists(f"{PARENTAL_ICON_PATH}FSK_{rating}.png"):
+			if not exists(f"{PARENTAL_ICON_PATH}FSK_{rating}.png"):
 				logger.error(f"Missing parental icon: FSK_{rating}.png")
 
 	def changed(self, what):
 		"""Handle EPG changes"""
-		if not self.instance:
+		if not hasattr(self, 'instance') or not self.instance:
 			return
 
-		if what[0] == self.CHANGED_CLEAR:
-			self.instance.hide()
+		if what[0] not in (self.CHANGED_DEFAULT, self.CHANGED_ALL, self.CHANGED_SPECIFIC, self.CHANGED_CLEAR):
+			if self.instance:
+				self.instance.hide()
 			return
 
 		self._start_delay()
@@ -140,7 +144,7 @@ class AglareParentalX(Renderer):
 			event.getExtendedDescription() or ""
 		])
 
-		match = re.search(r"\b(\d{1,2})\+|\b(FSK|PEGI)\s*(\d{1,2})", text, re.I)
+		match = search(r"\b(\d{1,2})\+|\b(FSK|PEGI)\s*(\d{1,2})", text, I)
 		if match:
 			return match.group(1) or match.group(3)
 		return None
@@ -152,9 +156,9 @@ class AglareParentalX(Renderer):
 			return None
 
 		clean_title = clean_for_tvdb(title)
-		meta_file = os.path.join(self.storage_path, f"{clean_title}.json")
+		meta_file = join(self.storage_path, f"{clean_title}.json")
 
-		if os.path.exists(meta_file):
+		if exists(meta_file):
 			try:
 				with open(meta_file, 'r') as f:
 					rated = json.load(f).get('Rated', '')
@@ -168,11 +172,11 @@ class AglareParentalX(Renderer):
 		rating = str(rating).upper()
 		icon_path = f"{PARENTAL_ICON_PATH}FSK_{rating}.png"
 
-		if not os.path.exists(icon_path):
+		if not exists(icon_path):
 			icon_path = f"{PARENTAL_ICON_PATH}FSK_{DEFAULT_RATING}.png"
 			logger.debug(f"Using default icon for rating: {rating}")
 
-		if os.path.exists(icon_path):
+		if exists(icon_path):
 			self.instance.setPixmap(loadPNG(icon_path))
 			self.instance.show()
 		else:

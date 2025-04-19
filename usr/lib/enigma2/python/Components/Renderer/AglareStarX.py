@@ -31,10 +31,8 @@ __copyright__ = "AGP Team"
 
 # Standard library imports
 import json
-import os
-import sys
 from hashlib import md5
-
+from os.path import join, exists
 # Enigma2 imports
 from enigma import eSlider, eEPGCache
 from Components.Renderer.Renderer import Renderer
@@ -52,8 +50,6 @@ from ServiceReference import ServiceReference
 from .Agp_Utils import POSTER_FOLDER, clean_for_tvdb, clean_filename, logger
 
 # Constants
-PY3 = sys.version_info[0] >= 3
-
 epgcache = eEPGCache.getInstance()
 epgcache.load()
 
@@ -78,10 +74,10 @@ class AglareStarX(VariableValue, Renderer):
 		VariableValue.__init__(self)
 		self.__start = 0
 		self.__end = 100
-		self.text = ""
 		self.canal = [None] * 6
 		self.quick_cache = {}
-		self.last_service = None
+		if len(self.quick_cache) > 50:
+			self.quick_cache.clear()
 		self.rating_source = config.plugins.AglareStarX.rating_source.value
 		self.display_mode = config.plugins.AglareStarX.display_mode.value
 		logger.info("AglareStarX Renderer initialized")
@@ -163,7 +159,7 @@ class AglareStarX(VariableValue, Renderer):
 			(self.range, self.value) = ((0, 1), 0)
 			return
 
-		clean_title = clean_for_tvdb(self.canal[5]) if self.canal[5] else None
+		clean_title = clean_for_tvdb(self.canal[5])  # if self.canal[5] else None
 		title_hash = md5(clean_title.encode('utf-8')).hexdigest()
 
 		# Check quick cache first
@@ -172,8 +168,8 @@ class AglareStarX(VariableValue, Renderer):
 			return
 
 		# Check in persistent cache
-		info_file = os.path.join(POSTER_FOLDER, f"{clean_filename(clean_title)}.json")
-		if os.path.exists(info_file):
+		info_file = join(POSTER_FOLDER, f"{clean_filename(clean_title)}.json")
+		if exists(info_file):
 			try:
 				with open(info_file, 'r') as f:
 					info_data = json.load(f)
