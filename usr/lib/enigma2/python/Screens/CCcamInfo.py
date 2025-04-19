@@ -1965,7 +1965,6 @@ def main(session, **kwargs):
 
 
 def sessionstart(reason, **kwargs):
-	global ecmInfoStart
 	if reason == 0 and ecmInfoStart is None:
 		CCcamPrioMaker.CCPrioMakerAutostart(kwargs["session"])
 		# ecmInfoStart = ecmInfo.gotSession(kwargs["session"])

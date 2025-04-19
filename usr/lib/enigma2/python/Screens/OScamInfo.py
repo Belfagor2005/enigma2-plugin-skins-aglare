@@ -726,7 +726,6 @@ class oscECMInfo(Screen, OscamInfo):
 
 	def __init__(self, session):
 		Screen.__init__(self, session)
-		global HDSKIN, sizeH
 		self.setTitle(_("Ecm Info"))
 		self.ecminfo = "/tmp/ecm.info"
 		self.title = _("Ecm Info")
@@ -796,7 +795,6 @@ class oscInfo(Screen, OscamInfo):
 			</screen>'''
 
 	def __init__(self, session, what):
-		global HDSKIN, sizeH
 		self.session = session
 		self.what = what
 		self.firstrun = True
@@ -1100,7 +1098,6 @@ class oscEntitlements(Screen, OscamInfo):
 			</screen>""" % (sizeH, sizeLH)
 
 	def __init__(self, session, reader):
-		global HDSKIN, sizeH
 		Screen.__init__(self, session)
 		self.mlist = oscMenuList([])
 		self.cccamreader = reader
@@ -1245,7 +1242,6 @@ class oscReaderStats(Screen, OscamInfo):
 		</screen>""" % (sizeH, sizeLH)
 
 	def __init__(self, session, reader):
-		global HDSKIN, sizeH
 		Screen.__init__(self, session)
 		if reader == "all":
 			self.allreaders = True

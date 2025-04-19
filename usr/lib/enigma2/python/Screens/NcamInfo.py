@@ -690,7 +690,7 @@ class NcamInfoMenu(Screen):
 
 class oscECMInfo(Screen, NcamInfo):
 
-	global HDSKIN, sizeH
+	global sizeH
 	sizeLH = sizeH - 20
 	skin = """<screen position="center,center" size="%s, 390*f" title="ECMInfo" >
 			<widget source="output" render="Listbox" position="10,10" size="%s,390*f" scrollbarMode="showOnDemand" >
@@ -730,7 +730,6 @@ class oscECMInfo(Screen, NcamInfo):
 
 	def __init__(self, session):
 		Screen.__init__(self, session)
-		global HDSKIN, sizeH
 		self.setTitle(_("Ecm Info"))
 		self.ecminfo = "/tmp/ecm.info"
 		self.title = _("Ecm Info")
@@ -800,7 +799,6 @@ class ncInfo(Screen, NcamInfo):
 			</screen>'''
 
 	def __init__(self, session, what):
-		global HDSKIN, sizeH
 		self.session = session
 		self.what = what
 		self.firstrun = True
@@ -1065,7 +1063,6 @@ class ncInfo(Screen, NcamInfo):
 
 
 class oscEntitlements(Screen, NcamInfo):
-	global HDSKIN, sizeH
 	sizeLH = sizeH - 20
 	skin = """<screen position="center,center" size="%s, 390*f" title="Client Info" >
 				<widget source="output" render="Listbox" position="10,10" size="%s,390*f" scrollbarMode="showOnDemand" >
@@ -1104,7 +1101,6 @@ class oscEntitlements(Screen, NcamInfo):
 			</screen>""" % (sizeH, sizeLH)
 
 	def __init__(self, session, reader):
-		global HDSKIN, sizeH
 		Screen.__init__(self, session)
 		self.mlist = oscMenuList([])
 		self.cccamreader = reader
@@ -1212,7 +1208,6 @@ class oscEntitlements(Screen, NcamInfo):
 
 
 class oscReaderStats(Screen, NcamInfo):
-	global HDSKIN, sizeH
 	sizeLH = sizeH - 20
 	skin = """<screen position="center,center" size="%s, 390*f" title="Client Info" >
 			<widget source="output" render="Listbox" position="10,10" size="%s,390*f" scrollbarMode="showOnDemand" >
@@ -1247,7 +1242,6 @@ class oscReaderStats(Screen, NcamInfo):
 		</screen>""" % (sizeH, sizeLH)
 
 	def __init__(self, session, reader):
-		global HDSKIN, sizeH
 		Screen.__init__(self, session)
 		if reader == "all":
 			self.allreaders = True

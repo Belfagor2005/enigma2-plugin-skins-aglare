@@ -264,7 +264,6 @@ class CrashLogScreen(Screen):
 
 	def Ok(self):
 		item = self["menu"].getCurrent()
-		global Crashfile
 		try:
 			base_dir = item[3]
 			filename = item[0]  # + ".log"
@@ -360,7 +359,6 @@ class LogScreen(Screen):
 	def __init__(self, session):
 		self.session = session
 		Screen.__init__(self, session)
-		global Crashfile
 		self.setTitle('View Crashlog file:  ' + str(Crashfile))
 		self["shortcuts"] = ActionMap(
 			["ShortcutActions", "WizardActions"],
@@ -382,7 +380,6 @@ class LogScreen(Screen):
 		self.close()
 
 	def listcrah(self):
-		global Crashfile
 		list = "No data error"
 		list2 = "No data error"
 		try:
