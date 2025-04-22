@@ -15,6 +15,7 @@ from Components.config import (
 	ConfigYesNo,
 	config,
 	getConfigListEntry,
+	ConfigClock
 )
 from Components.Label import Label
 from Components.Pixmap import Pixmap
@@ -154,6 +155,8 @@ config.plugins.Aglare.api2 = NoSave(ConfigYesNo(default=False))  # NoSave(Config
 config.plugins.Aglare.omdb_api = ConfigText(default=omdb_api, visible_width=50, fixed_size=False)
 config.plugins.Aglare.pstdown = ConfigOnOff(default=False)
 config.plugins.Aglare.bkddown = ConfigOnOff(default=False)
+config.plugins.Aglare.pscan_time = ConfigClock(default=(0, 0))  # 00:00
+config.plugins.Aglare.bscan_time = ConfigClock(default=(2, 0))  # 02:00
 
 config.plugins.Aglare.png = NoSave(ConfigYesNo(default=False))  # NoSave(ConfigSelection(['-> Ok']))
 config.plugins.Aglare.colorSelector = ConfigSelection(default='color0', choices=[
@@ -415,7 +418,12 @@ class AglareSetup(ConfigListScreen, Screen):
 
 			section = '--------------------------( SKIN UTILITY SETUP )-----------------------'
 			list.append(getConfigListEntry(_('Automatic download of poster'), config.plugins.Aglare.pstdown, _("Download favorite list posters with Epg automatically at startup")))
+			if config.plugins.Aglare.pstdown.value is True:
+				list.append(getConfigListEntry(_('Set Time our - minute for Poster download'), config.plugins.Aglare.pscan_time, _("Configure time for downloading posters")))
 			list.append(getConfigListEntry(_('Automatic download of backdrop'), config.plugins.Aglare.bkddown, _("Download favorite list backdrop with Epg automatically at startup")))
+			if config.plugins.Aglare.bkddown.value is True:
+				list.append(getConfigListEntry(_('Set Time our - minute for Backdrop download'), config.plugins.Aglare.bscan_time, _("Configure time for downloading backdrop")))
+
 			list.append(getConfigListEntry(_('Remove all png (poster - backdrop) (OK)'), config.plugins.Aglare.png, _("This operation remove all png from folder device (Poster-Backdrop)")))
 
 			self["config"].list = list
