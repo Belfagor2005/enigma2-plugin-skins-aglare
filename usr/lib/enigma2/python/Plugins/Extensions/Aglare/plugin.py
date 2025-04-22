@@ -101,47 +101,55 @@ elif os.path.exists("/media/mmc") and isMountedInRW("/media/mmc"):
 
 
 def removePng():
-	print('Rimuovo file PNG e JPG...')
+	# Print message indicating the start of PNG and JPG file removal
+	print('Removing PNG and JPG files...')
+
 	if os.path.exists(path_poster):
 		png_files = glob.glob(os.path.join(path_poster, "*.png"))
 		jpg_files = glob.glob(os.path.join(path_poster, "*.jpg"))
 		files_to_remove = png_files + jpg_files
+
 		if not files_to_remove:
-			print("Nessun file PNG o JPG trovato nella cartella " + path_poster)
+			print("No PNG or JPG files found in the folder " + path_poster)
+
 		for file in files_to_remove:
 			try:
 				os.remove(file)
-				print("Rimosso: " + file)
+				print("Removed: " + file)
 			except Exception as e:
-				print("Errore durante la rimozione di " + file + ": " + str(e))
+				print("Error removing " + file + ": " + str(e))
 	else:
-		print("La cartella " + path_poster + " non esiste.")
+		print("The folder " + path_poster + " does not exist.")
 
 	if os.path.exists(patch_backdrop):
 		png_files_backdrop = glob.glob(os.path.join(patch_backdrop, "*.png"))
 		jpg_files_backdrop = glob.glob(os.path.join(patch_backdrop, "*.jpg"))
 		files_to_remove_backdrop = png_files_backdrop + jpg_files_backdrop
+
 		if not files_to_remove_backdrop:
-			print("Nessun file PNG o JPG trovato nella cartella " + patch_backdrop)
+			print("No PNG or JPG files found in the folder " + patch_backdrop)
 		else:
 			for file in files_to_remove_backdrop:
 				try:
 					os.remove(file)
-					print("Rimosso: " + file)
+					print("Removed: " + file)
 				except Exception as e:
-					print("Errore durante la rimozione di " + file + ": " + str(e))
+					print("Error removing " + file + ": " + str(e))
 	else:
-		print("La cartella " + patch_backdrop + " non esiste.")
+		print("The folder " + patch_backdrop + " does not exist.")
 
 
 config.plugins.Aglare = ConfigSubsection()
 config.plugins.Aglare.actapi = NoSave(ConfigOnOff(default=False))
 config.plugins.Aglare.data = NoSave(ConfigOnOff(default=False))
 config.plugins.Aglare.api = NoSave(ConfigYesNo(default=False))  # NoSave(ConfigSelection(['-> Ok']))
-config.plugins.Aglare.txtapi = ConfigText(default=tmdb_api, visible_width=50, fixed_size=False)
+config.plugins.Aglare.tmdb_api = ConfigText(default=tmdb_api, visible_width=50, fixed_size=False)
 config.plugins.Aglare.data2 = NoSave(ConfigOnOff(default=False))
 config.plugins.Aglare.api2 = NoSave(ConfigYesNo(default=False))  # NoSave(ConfigSelection(['-> Ok']))
-config.plugins.Aglare.txtapi2 = ConfigText(default=omdb_api, visible_width=50, fixed_size=False)
+config.plugins.Aglare.omdb_api = ConfigText(default=omdb_api, visible_width=50, fixed_size=False)
+config.plugins.Aglare.pstdown = ConfigOnOff(default=False)
+config.plugins.Aglare.bkddown = ConfigOnOff(default=False)
+
 config.plugins.Aglare.png = NoSave(ConfigYesNo(default=False))  # NoSave(ConfigSelection(['-> Ok']))
 config.plugins.Aglare.colorSelector = ConfigSelection(default='color0', choices=[
 	('color0', _('Default')),
@@ -300,11 +308,11 @@ class AglareSetup(ConfigListScreen, Screen):
 			config.plugins.Aglare.png.save()
 		if sel and sel == config.plugins.Aglare.api:
 			self.keyApi()
-		if sel and sel == config.plugins.Aglare.txtapi:
+		if sel and sel == config.plugins.Aglare.tmdb_api:
 			self.KeyText()
 		if sel and sel == config.plugins.Aglare.api2:
 			self.keyApi2()
-		if sel and sel == config.plugins.Aglare.txtapi2:
+		if sel and sel == config.plugins.Aglare.omdb_api:
 			self.KeyText()
 
 	def keyApi(self, answer=None):
@@ -321,8 +329,8 @@ class AglareSetup(ConfigListScreen, Screen):
 				if fpage:
 					with open(tmdb_skin, "w") as t:
 						t.write(fpage)
-					config.plugins.Aglare.txtapi.setValue(fpage)
-					config.plugins.Aglare.txtapi.save()
+					config.plugins.Aglare.tmdb_api.setValue(fpage)
+					config.plugins.Aglare.tmdb_api.save()
 					self.session.open(MessageBox, _("TMDB ApiKey Imported & Stored!"), MessageBox.TYPE_INFO, timeout=4)
 				else:
 					self.session.open(MessageBox, _("TMDB ApiKey is empty!"), MessageBox.TYPE_INFO, timeout=4)
@@ -344,8 +352,8 @@ class AglareSetup(ConfigListScreen, Screen):
 				if fpage:
 					with open(omdb_skin, "w") as t:
 						t.write(fpage)
-					config.plugins.Aglare.txtapi2.setValue(fpage)
-					config.plugins.Aglare.txtapi2.save()
+					config.plugins.Aglare.omdb_api.setValue(fpage)
+					config.plugins.Aglare.omdb_api.save()
 					self.session.open(MessageBox, _("OMDB ApiKey Imported & Stored!"), MessageBox.TYPE_INFO, timeout=4)
 				else:
 					self.session.open(MessageBox, _("OMDB ApiKey is empty!"), MessageBox.TYPE_INFO, timeout=4)
@@ -394,14 +402,16 @@ class AglareSetup(ConfigListScreen, Screen):
 				list.append(getConfigListEntry("TMDB API:", config.plugins.Aglare.data, _("Settings TMDB ApiKey")))
 				if config.plugins.Aglare.data.value is True:
 					list.append(getConfigListEntry("--Load TMDB Apikey", config.plugins.Aglare.api, _("Load TMDB Apikey from /tmp/tmdbkey.txt")))
-					list.append(getConfigListEntry("--Set TMDB Apikey", config.plugins.Aglare.txtapi, _("Signup on TMDB and input free personal ApiKey")))
+					list.append(getConfigListEntry("--Set TMDB Apikey", config.plugins.Aglare.tmdb_api, _("Signup on TMDB and input free personal ApiKey")))
 				list.append(getConfigListEntry("OMDB API:", config.plugins.Aglare.data2, _("Settings OMDB APIKEY")))
 				if config.plugins.Aglare.data2.value is True:
 					list.append(getConfigListEntry("--Load OMDB Apikey", config.plugins.Aglare.api2, _("Load OMDB Apikey from /tmp/omdbkey.txt")))
-					list.append(getConfigListEntry("--Set OMDB Apikey", config.plugins.Aglare.txtapi2, _("Signup on OMDB and input free personal ApiKey")))
+					list.append(getConfigListEntry("--Set OMDB Apikey", config.plugins.Aglare.omdb_api, _("Signup on OMDB and input free personal ApiKey")))
 
 			section = '--------------------------( SKIN UTILITY SETUP )-----------------------'
-			list.append(getConfigListEntry(_('Remove all png (OK)'), config.plugins.Aglare.png, _("This operation remove all png from folder device (Poster-Backdrop)")))
+			list.append(getConfigListEntry(_('Automatic download of poster'), config.plugins.Aglare.pstdown, _("Download favorite list posters with Epg automatically at startup")))
+			list.append(getConfigListEntry(_('Automatic download of backdrop'), config.plugins.Aglare.bkddown, _("Download favorite list backdrop with Epg automatically at startup")))
+			list.append(getConfigListEntry(_('Remove all png (poster - backdrop) (OK)'), config.plugins.Aglare.png, _("This operation remove all png from folder device (Poster-Backdrop)")))
 
 			self["config"].list = list
 			self["config"].l.setList(list)
