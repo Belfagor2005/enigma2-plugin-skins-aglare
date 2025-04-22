@@ -28,11 +28,12 @@ from Screens.Screen import Screen
 from Screens.Standby import TryQuitMainloop
 from Tools.Directories import fileExists
 from Tools.Downloader import downloadWithProgress
-import os
-import sys
-import glob
+from os.path import exists, join
+from os import remove, stat, system as os_system
+from sys import version_info
+from glob import glob as glob_glob
 
-PY3 = sys.version_info.major >= 3
+PY3 = version_info.major >= 3
 if PY3:
 	from urllib.request import urlopen
 	from urllib.request import Request
@@ -41,7 +42,7 @@ else:
 	from urllib2 import Request
 
 
-version = '5.2'
+version = '5.3'
 my_cur_skin = False
 cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
 mvi = '/usr/share/'
@@ -51,28 +52,32 @@ omdb_skin = "%senigma2/%s/omdbkey" % (mvi, cur_skin)
 omdb_api = "cb1d9f55"
 
 try:
-	if my_cur_skin is False:
+	if not my_cur_skin:
 		skin_paths = {
 			"tmdb_api": "/usr/share/enigma2/{}/tmdbkey".format(cur_skin),
 			"omdb_api": "/usr/share/enigma2/{}/omdbkey".format(cur_skin),
 			# "thetvdbkey": "/usr/share/enigma2/{}/thetvdbkey".format(cur_skin)
 			# "visual_api": "/etc/enigma2/VisualWeather/visualkey.txt"
 		}
+
 		for key, path in skin_paths.items():
 			if fileExists(path):
 				with open(path, "r") as f:
 					value = f.read().strip()
-					if key == "tmdb_api":
-						tmdb_api = value
-					elif key == "omdb_api":
-						omdb_api = value
-					# elif key == "thetvdbkey":
-						# thetvdbkey = value
-					# elif key == "visual_api":
-						# visual_api = value
-				my_cur_skin = True
+
+				if key == "tmdb_api":
+					tmdb_api = value
+				elif key == "omdb_api":
+					omdb_api = value
+				# elif key == "thetvdbkey":
+				#     thetvdbkey = value
+				# elif key == "visual_api":
+				#     visual_api = value
+
+		my_cur_skin = True
+
 except Exception as e:
-	print("Errore nel caricamento delle API:", str(e))
+	print("Error loading API keys:", str(e))
 	my_cur_skin = False
 
 
@@ -87,15 +92,15 @@ def isMountedInRW(mount_point):
 
 path_poster = "/tmp/poster"
 patch_backdrop = "/tmp/backdrop"
-if os.path.exists("/media/hdd") and isMountedInRW("/media/hdd"):
+if exists("/media/hdd") and isMountedInRW("/media/hdd"):
 	path_poster = "/media/hdd/poster"
 	patch_backdrop = "/media/hdd/backdrop"
 
-elif os.path.exists("/media/usb") and isMountedInRW("/media/usb"):
+elif exists("/media/usb") and isMountedInRW("/media/usb"):
 	path_poster = "/media/usb/poster"
 	patch_backdrop = "/media/usb/backdrop"
 
-elif os.path.exists("/media/mmc") and isMountedInRW("/media/mmc"):
+elif exists("/media/mmc") and isMountedInRW("/media/mmc"):
 	path_poster = "/media/mmc/poster"
 	patch_backdrop = "/media/mmc/backdrop"
 
@@ -104,9 +109,9 @@ def removePng():
 	# Print message indicating the start of PNG and JPG file removal
 	print('Removing PNG and JPG files...')
 
-	if os.path.exists(path_poster):
-		png_files = glob.glob(os.path.join(path_poster, "*.png"))
-		jpg_files = glob.glob(os.path.join(path_poster, "*.jpg"))
+	if exists(path_poster):
+		png_files = glob_glob(join(path_poster, "*.png"))
+		jpg_files = glob_glob(join(path_poster, "*.jpg"))
 		files_to_remove = png_files + jpg_files
 
 		if not files_to_remove:
@@ -114,16 +119,16 @@ def removePng():
 
 		for file in files_to_remove:
 			try:
-				os.remove(file)
+				remove(file)
 				print("Removed: " + file)
 			except Exception as e:
 				print("Error removing " + file + ": " + str(e))
 	else:
 		print("The folder " + path_poster + " does not exist.")
 
-	if os.path.exists(patch_backdrop):
-		png_files_backdrop = glob.glob(os.path.join(patch_backdrop, "*.png"))
-		jpg_files_backdrop = glob.glob(os.path.join(patch_backdrop, "*.jpg"))
+	if exists(patch_backdrop):
+		png_files_backdrop = glob_glob(join(patch_backdrop, "*.png"))
+		jpg_files_backdrop = glob_glob(join(patch_backdrop, "*.jpg"))
 		files_to_remove_backdrop = png_files_backdrop + jpg_files_backdrop
 
 		if not files_to_remove_backdrop:
@@ -131,7 +136,7 @@ def removePng():
 		else:
 			for file in files_to_remove_backdrop:
 				try:
-					os.remove(file)
+					remove(file)
 					print("Removed: " + file)
 				except Exception as e:
 					print("Error removing " + file + ": " + str(e))
@@ -318,12 +323,12 @@ class AglareSetup(ConfigListScreen, Screen):
 	def keyApi(self, answer=None):
 		api = "/tmp/tmdbkey.txt"
 		if answer is None:
-			if fileExists(api) and os.stat(api).st_size > 0:
+			if fileExists(api) and stat(api).st_size > 0:
 				self.session.openWithCallback(self.keyApi, MessageBox, _("Import Api Key TMDB from /tmp/tmdbkey.txt?"))
 			else:
 				self.session.open(MessageBox, (_("Missing %s !") % api), MessageBox.TYPE_INFO, timeout=4)
 		elif answer:
-			if fileExists(api) and os.stat(api).st_size > 0:
+			if fileExists(api) and stat(api).st_size > 0:
 				with open(api, 'r') as f:
 					fpage = f.readline().strip()
 				if fpage:
@@ -341,12 +346,12 @@ class AglareSetup(ConfigListScreen, Screen):
 	def keyApi2(self, answer=None):
 		api2 = "/tmp/omdbkey.txt"
 		if answer is None:
-			if fileExists(api2) and os.stat(api2).st_size > 0:
+			if fileExists(api2) and stat(api2).st_size > 0:
 				self.session.openWithCallback(self.keyApi2, MessageBox, _("Import Api Key OMDB from /tmp/omdbkey.txt?"))
 			else:
 				self.session.open(MessageBox, (_("Missing %s !") % api2), MessageBox.TYPE_INFO, timeout=4)
 		elif answer:
-			if fileExists(api2) and os.stat(api2).st_size > 0:
+			if fileExists(api2) and stat(api2).st_size > 0:
 				with open(api2, 'r') as f:
 					fpage = f.readline().strip()
 				if fpage:
@@ -700,14 +705,35 @@ class AglareUpdater(Screen):
 		self.download.addProgress(self.downloadProgress)
 		self.download.start().addCallback(self.downloadFinished).addErrback(self.downloadFailed)
 
-	def downloadFinished(self, string=''):
-		self['status'].setText(_('Installing updates!'))
-		os.system('opkg install /tmp/aglarepli.ipk')
-		os.system('sync')
-		os.system('rm -r /tmp/aglarepli.ipk')
-		os.system('sync')
-		restartbox = self.session.openWithCallback(self.restartGUI, MessageBox, _('Aglare update was done!!!\nDo you want to restart the GUI now?'), MessageBox.TYPE_YESNO)
-		restartbox.setTitle(_('Restart GUI now?'))
+	def downloadFinished(self, string=""):
+		self["status"].setText(_("Installing updates..."))
+
+		package_path = "/tmp/aglarepli.ipk"
+
+		if fileExists(package_path):
+			# Install the package
+			os_system("opkg install {}".format(package_path))
+			os_system("sync")
+
+			# Remove the package
+			remove(package_path)
+			os_system("sync")
+
+			# Ask user for GUI restart
+			restartbox = self.session.openWithCallback(
+				self.restartGUI,
+				MessageBox,
+				_("Aglare update was done!\nDo you want to restart the GUI now?"),
+				MessageBox.TYPE_YESNO
+			)
+			restartbox.setTitle(_("Restart GUI now?"))
+		else:
+			self["status"].setText(_("Update package not found!"))
+			self.session.open(
+				MessageBox,
+				_("The update file was not found in /tmp.\nUpdate aborted."),
+				MessageBox.TYPE_ERROR
+			)
 
 	def downloadFailed(self, failure_instance=None, error_message=''):
 		text = _('Error downloading files!')
