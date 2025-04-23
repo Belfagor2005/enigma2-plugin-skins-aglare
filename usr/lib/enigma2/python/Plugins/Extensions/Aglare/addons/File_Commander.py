@@ -17,6 +17,9 @@ from Screens.Screen import Screen
 from Tools.Directories import fileExists  # , fileReadLines
 from errno import ENOENT
 
+import gettext
+_ = gettext.gettext
+
 DEFAULT_MODULE_NAME = __name__.split(".")[-1]
 
 # by lululla
