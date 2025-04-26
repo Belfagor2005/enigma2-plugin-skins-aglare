@@ -79,12 +79,8 @@ from Plugins.Plugin import PluginDescriptor
 
 
 PY3 = version_info.major >= 3
-if PY3:
-	from urllib.request import urlopen
-	from urllib.request import Request
-else:
-	from urllib2 import urlopen
-	from urllib2 import Request
+from urllib.request import urlopen
+from urllib.request import Request
 
 
 version = '5.4'
