@@ -435,7 +435,7 @@ class AglareSetup(ConfigListScreen, Screen):
 				"ok": self.keyRun,
 				"info": self.info,
 				"blue": self.info,
-				"5": self.Checkskin,
+				# "5": self.Checkskin,
 				"cancel": self.keyExit
 			},
 			-1
