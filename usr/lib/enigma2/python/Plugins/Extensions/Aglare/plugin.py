@@ -5,7 +5,7 @@ from __future__ import absolute_import, print_function
 #########################################################
 #                                                       #
 #  AGLARE SETUP UTILITY SKIN                            #
-#  Version: 5.4                                         #
+#  Version: 5.7                                         #
 #  Created by Lululla (https://github.com/Belfagor2005) #
 #  License: CC BY-NC-SA 4.0                             #
 #  https://creativecommons.org/licenses/by-nc-sa/4.0    #
@@ -192,7 +192,6 @@ config.plugins.Aglare.info_display_mode = ConfigSelection(default="auto", choice
     ("omdb", _("OMDB Only")),
     ("off", _("Off"))
 ])
-
 
 # skin style
 config.plugins.Aglare.colorSelector = ConfigSelection(default='color0', choices=[
