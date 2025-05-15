@@ -1075,7 +1075,8 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
     <widget name="year" position="1293,720" size="624,38" font="Regular; 27" backgroundColor="background" foregroundColor="yellow" transparent="1" />
     <widget name="genre" position="1293,770" size="624,38" font="Regular; 27" backgroundColor="background" foregroundColor="yellow" transparent="1" />
     <widget name="titletext" position="1176,570" size="113,38" font="Regular;27" foregroundColor="white" backgroundColor="background" transparent="1" />
-    <widget source="session.CurrentService" render="Label" position="1214,422" size="148,45" zPosition="22" font="Regular;27" halign="left" backgroundColor="background" foregroundColor="white" noWrap="1" transparent="1">
+<!--
+     <widget source="session.CurrentService" render="Label" position="1214,422" size="148,45" zPosition="22" font="Regular;27" halign="left" backgroundColor="background" foregroundColor="white" noWrap="1" transparent="1">
       <convert type="ServicePosition">Position,ShowHours</convert>
     </widget>
     <widget source="session.CurrentService" render="Label" position="1691,422" size="143,45" zPosition="22" font="Regular;27" halign="right" backgroundColor="background" foregroundColor="white" noWrap="1" transparent="1">
@@ -1083,6 +1084,30 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
     </widget>
     <widget source="session.CurrentService" render="Progress" position="1372,438" size="300,12" pixmap="main/progfg30012.png" cornerRadius="5" zPosition="99" backgroundColor="progbg">
       <convert type="ServicePosition">Position</convert>
+    </widget> -->
+    <widget source="session.CurrentService" render="Label"
+            position="1214,422" size="148,45"
+            halign="right" font="Regular; 30"
+            backgroundColor="background" transparent="1"
+            valign="center" zPosition="1">
+        <convert type="ServicePosition">Position,ShowHours</convert>
+    </widget>
+
+    <widget source="session.CurrentService" render="Label"
+            position="1691,422" size="143,45"
+            halign="left" font="Regular; 30"
+            backgroundColor="background" transparent="1"
+            valign="center" zPosition="1">
+        <convert type="ServicePosition">Remaining,Plus,ShowHours</convert>
+    </widget>
+
+
+    <widget source="session.CurrentService" render="Progress"
+            position="1372,438" size="300,12"
+            pixmap="main/progfg70010.png"
+            backgroundColor="progbg" cornerRadius="5"
+            zPosition="88">
+        <convert type="ServicePosition">Position</convert>
     </widget>
     <widget name="title" position="1293,570" size="624,38" font="Regular; 27" backgroundColor="background" foregroundColor="yellow" transparent="1" noWrap="1" />
     <widget name="artisttext" position="1176,620" size="113,38" font="Regular;27" foregroundColor="white" backgroundColor="background" transparent="1" />
@@ -1147,7 +1172,7 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
   <widget source="session.CurrentService" render="Label" position="1162,700" size="740,38" font="Regular; 28" foregroundColor="green" transparent="1" halign="left" zPosition="88" valign="center" noWrap="1">
     <convert type="ServiceName">Name</convert>
   </widget>
-  <widget source="session.CurrentService" render="Label" position="1335,744" size="135,38" backgroundColor="background" transparent="1" zPosition="88" font="Regular; 30" valign="center" halign="center">
+<!--   <widget source="session.CurrentService" render="Label" position="1335,744" size="135,38" backgroundColor="background" transparent="1" zPosition="88" font="Regular; 30" valign="center" halign="center">
     <convert type="ServicePosition">Position,ShowHours</convert>
   </widget>
   <widget source="session.CurrentService" render="Label" position="1484,744" size="160,38" backgroundColor="background" transparent="1" zPosition="88" font="Regular; 30" valign="center" halign="center" foregroundColor="yellow">
@@ -1155,7 +1180,31 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
   </widget>
   <widget source="session.CurrentService" render="Progress" position="1162,837" size="740,14" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="7">
     <convert type="ServicePosition">Progress</convert>
-  </widget>
+  </widget> -->
+    <widget source="session.CurrentService" render="Label"
+            position="1335,744" size="135,38"
+            halign="right" font="Regular; 30"
+            backgroundColor="background" transparent="1"
+            valign="center" zPosition="1">
+        <convert type="ServicePosition">Position,ShowHours</convert>
+    </widget>
+
+    <widget source="session.CurrentService" render="Label"
+            position="1484,744" size="160,38"
+            halign="left" font="Regular; 30"
+            backgroundColor="background" transparent="1"
+            valign="center" zPosition="1">
+        <convert type="ServicePosition">Remaining,Plus,ShowHours</convert>
+    </widget>
+
+
+    <widget source="session.CurrentService" render="Progress"
+            position="1162,837" size="740,14"
+            pixmap="main/progfg70010.png"
+            backgroundColor="progbg" cornerRadius="5"
+            zPosition="88">
+        <convert type="ServicePosition">Position</convert>
+    </widget>
   <widget source="Service" render="Label" position="1777,786" size="120,38" font="Regular;28" halign="center" backgroundColor="background" transparent="1" zPosition="88">
     <convert type="ServiceTime">Duration</convert>
     <convert type="ClockToText">AsLength</convert>

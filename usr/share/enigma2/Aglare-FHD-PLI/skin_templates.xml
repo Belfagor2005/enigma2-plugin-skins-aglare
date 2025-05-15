@@ -1103,15 +1103,42 @@
     <widget source="session.CurrentService" render="Label" position="148,850" size="1716,54" font="Regular; 44" backgroundColor="background" transparent="1" halign="left" zPosition="1" valign="center" noWrap="1">
       <convert type="ServiceName">Name</convert>
     </widget>
+    <!--
     <widget source="session.CurrentService" render="Label" position="66,924" size="142,45" halign="right" font="Regular; 30" backgroundColor="background" transparent="1" valign="center" zPosition="1">
       <convert type="ServicePosition">Position,ShowHours</convert>
     </widget>
-    <widget source="session.CurrentService" render="Label" position="948,924" size="142,45" halign="left" font="Regular; 30" backgroundColor="background" transparent="1" valign="center" zPosition="1">
+     <widget source="session.CurrentService" render="Label" position="948,924" size="142,45" halign="left" font="Regular; 30" backgroundColor="background" transparent="1" valign="center" zPosition="1">
       <convert type="ServicePosition">Remaining,Plus,ShowHours</convert>
     </widget>
     <widget source="session.CurrentService" render="Progress" position="226,941" size="700,10" pixmap="main/progfg70010.png" backgroundColor="progbg" cornerRadius="5" zPosition="88">
       <convert type="ServicePosition">Position</convert>
     </widget>
+    -->
+    <widget source="session.CurrentService" render="Label"
+        position="66,924" size="142,45"
+        halign="right" font="Regular; 30"
+        backgroundColor="background" transparent="1"
+        valign="center" zPosition="1">
+      <convert type="ServicePosition">Position,ShowHours</convert>
+    </widget>
+
+    <widget source="session.CurrentService" render="Label"
+        position="948,924" size="142,45"
+        halign="left" font="Regular; 30"
+        backgroundColor="background" transparent="1"
+        valign="center" zPosition="1">
+      <convert type="ServicePosition">Remaining,Plus,ShowHours</convert>
+    </widget>
+
+
+    <widget source="session.CurrentService" render="Progress"
+        position="226,941" size="700,10"
+        pixmap="main/progfg70010.png"
+        backgroundColor="progbg" cornerRadius="5"
+        zPosition="88">
+      <convert type="ServicePosition">Position</convert>
+    </widget>
+
     <widget source="session.CurrentService" render="Label" position="670,992" size="300,40" font="Regular; 30" halign="center" valign="center" backgroundColor="background" transparent="1">
       <convert type="AglareAudioInfo">AudioCodec</convert>
     </widget>
