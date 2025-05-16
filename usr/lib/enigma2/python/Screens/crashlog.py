@@ -9,7 +9,6 @@
 # --------------------#
 # Info Linuxsat-support.com  corvoboys.org
 '''
-# by 2boom 4bob@ua.fm
 from Components.ActionMap import ActionMap
 from Components.ScrollLabel import ScrollLabel
 from Components.Sources.List import List
@@ -45,10 +44,8 @@ def isMountReadonly(mnt):
 				if mount_point == mnt:
 					return 'ro' in flags
 	except IOError as e:
-		# Gestione errori di I/O (es. file non accessibile)
 		print("Errore di I/O: %s" % str(e), file=sys.stderr)
 	except Exception as err:
-		# Gestione generale delle eccezioni
 		print("Errore: %s" % str(err), file=sys.stderr)
 	return "mount: '%s' doesn't exist" % mnt
 
@@ -67,7 +64,6 @@ def crashlogPath():
 		path_folder_log = config.crash.debug_path.value
 	except (KeyError, AttributeError):
 		path_folder_log = None
-	print('path_folder_log:', path_folder_log)
 	if path_folder_log is None:
 		possible_paths = paths()
 		for path in possible_paths:
@@ -240,24 +236,23 @@ class CrashLogScreen(Screen):
 				"/ba/logs/*crash*.log"
 			) % (path_folder_log, path_folder_log, path_folder_log)
 		crashfiles = os.popen("ls -lh " + paths_to_search).read()
-		print('crashfiles:', crashfiles)  # Stampa per debug
 		cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
 		minipng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_SKIN, str(cur_skin) + "/mainmenu/crashlog.png"))
 		for line in crashfiles.splitlines():
 			print("Linea di crashfile:", line)
 			item = line.split()
 			if len(item) >= 9:
-				file_size = item[4]  # Dimensione del file
-				file_date = " ".join(item[5:8])  # Data e ora del file
-				file_name = item[8]  # Nome del file con percorso
+				file_size = item[4]
+				file_date = " ".join(item[5:8])
+				file_name = item[8]
 				display_name = (
-					file_name.split("/")[-1],  # Mostra solo il nome del file
-					"Dimensione: %s - Data: %s" % (file_size, file_date),  # Dettagli
-					minipng,  # Icona appropriata
-					file_name  # Percorso completo del file
+					file_name.split("/")[-1],
+					"Dimensione: %s - Data: %s" % (file_size, file_date),
+					minipng,
+					file_name
 				)
 				if display_name not in self.list:
-					print('Aggiungendo alla lista:', display_name)  # Debug per verificare l'aggiunta
+					print('Aggiungendo alla lista:', display_name)
 					self.list.append(display_name)
 
 		self["menu"].setList(self.list)
@@ -265,16 +260,11 @@ class CrashLogScreen(Screen):
 
 	def Ok(self):
 		item = self["menu"].getCurrent()
-		global Crashfile
 		try:
 			base_dir = item[3]
-			filename = item[0]  # + ".log"
-			print('base_dir=', base_dir)
-			print('filename=', filename)
-			# 17:53:17.5409 base_dir= /home/root/logs/20240922-165717-enigma2-crash.log
-			# 17:53:17.5410 filename= 20240922-165717-enigma2-crash.log.log
+			filename = item[0]
 			Crashfile = str(base_dir)
-			self.session.openWithCallback(self.CfgMenu, LogScreen)
+			self.session.openWithCallback(self.CfgMenu, LogScreen, Crashfile)
 		except (IndexError, TypeError, KeyError) as e:
 			print(e)
 			Crashfile = " "
@@ -283,9 +273,7 @@ class CrashLogScreen(Screen):
 		item = self["menu"].getCurrent()
 		try:
 			base_dir = item[3]
-			# filename = item[0]  # + ".log"
 			file_path = str(base_dir)
-			print('YellowKey file_path=', file_path)
 			os.remove(file_path)
 			self.mbox = self.session.open(MessageBox, (_("Removed %s") % (file_path)), MessageBox.TYPE_INFO, timeout=4)
 		except (IndexError, TypeError, KeyError) as e:
@@ -304,10 +292,10 @@ class CrashLogScreen(Screen):
 			else:
 				paths_to_search = "%s*crash*.log %slogs/*crash*.log /home/root/*crash*.log /home/root/logs/*crash*.log %stwisted.log /media/usb/logs/*crash*.log /media/usb/*crash*.log" % (path_folder_log, path_folder_log, path_folder_log)
 			crashfiles = os.popen("ls -lh " + paths_to_search).read()
-			for line in crashfiles.splitlines():  # Dividi l'output in linee
+			for line in crashfiles.splitlines():
 				item = line.split()
-				if len(item) >= 9:  # Assicurati che ci siano abbastanza informazioni
-					file_name = item[8]  # Nome del file con percorso
+				if len(item) >= 9:
+					file_name = item[8]
 					print('BlueKey file_name=', file_name)
 					os.remove(file_name)
 			self.mbox = self.session.open(MessageBox, (_("Removed All Crashlog Files")), MessageBox.TYPE_INFO, timeout=4)
@@ -358,10 +346,10 @@ class LogScreen(Screen):
 		</screen>
 		"""
 
-	def __init__(self, session):
+	def __init__(self, session, Crashfile):
 		self.session = session
 		Screen.__init__(self, session)
-		self.setTitle('View Crashlog file:  ' + str(Crashfile))
+		self.setTitle("View Crashlog file: " + Crashfile.split("/")[-1])
 		self["shortcuts"] = ActionMap(
 			["ShortcutActions", "WizardActions"],
 			{
@@ -371,9 +359,9 @@ class LogScreen(Screen):
 			}
 		)
 		self["Redkey"] = StaticText(_("Close"))
-		self["Greenkey"] = StaticText(_("Restart GUI"))
 		self["text"] = ScrollLabel("")
 		self["text2"] = ScrollLabel("")
+		self.crashfile = Crashfile
 		self.list = []
 		self["menu"] = List(self.list)
 		self.listcrah()
@@ -382,26 +370,36 @@ class LogScreen(Screen):
 		self.close()
 
 	def listcrah(self):
-		global Crashfile
-		list = "No data error"
-		list2 = "No data error"
+		text_output = "No data error"
+		error_line = "No data error"
 		try:
-			crashfiles = open(Crashfile, "r")
-			for line in crashfiles:
-				if line.find("Traceback (most recent call last):") != -1 or line.find("Backtrace:") != -1:
-					list = " "
-					list2 = " "
-					for line in crashfiles:
-						list += line
-						if line.find("Error: ") != -1:
-							list2 += line
-						if line.find("]]>") != -1 or line.find("dmesg") != -1 or line.find("StackTrace") != -1 or line.find("FATAL SIGNAL") != -1:
-							if line.find("FATAL SIGNAL") != -1:
-								list2 = "FATAL SIGNAL"
-							break
-			self["text"].setText(list)
-			crashfiles.close()
+			with open(self.crashfile, "r") as crashfile:
+				for line in crashfile:
+					if "Traceback (most recent call last):" in line or "Backtrace:" in line:
+						text_output = ""
+						error_line = ""
+						for line in crashfile:
+							text_output += line
+							if "Error: " in line:
+								error_line += line
+							if "]]>" in line or "dmesg" in line or "StackTrace" in line or "FATAL SIGNAL" in line:
+								if "FATAL SIGNAL" in line:
+									error_line = "FATAL SIGNAL"
+								break
+						break
 		except Exception as e:
-			print('error to open crashfile: ', e)
-		self["text2"].setText(list2)
-		self["actions"] = ActionMap(["OkCancelActions", "DirectionActions"], {"cancel": self.close, "up": self["text"].pageUp, "left": self["text"].pageUp, "down": self["text"].pageDown, "right": self["text"].pageDown}, -1)
+			print("error to open crashfile: ", e)
+
+		self["text"].setText(text_output)
+		self["text2"].setText(error_line)
+		self["actions"] = ActionMap(
+			["OkCancelActions", "DirectionActions"],
+			{
+				"cancel": self.close,
+				"up": self["text"].pageUp,
+				"down": self["text"].pageDown,
+				"left": self["text"].pageUp,
+				"right": self["text"].pageDown
+			},
+			-1
+		)
