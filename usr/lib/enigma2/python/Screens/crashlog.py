@@ -30,6 +30,7 @@ global path_folder_log
 
 version = '1.3'
 path_folder_log = '/media/usb/'
+Crashfile = ''
 
 
 def isMountReadonly(mnt):
@@ -264,6 +265,7 @@ class CrashLogScreen(Screen):
 
 	def Ok(self):
 		item = self["menu"].getCurrent()
+		global Crashfile
 		try:
 			base_dir = item[3]
 			filename = item[0]  # + ".log"
@@ -380,6 +382,7 @@ class LogScreen(Screen):
 		self.close()
 
 	def listcrah(self):
+		global Crashfile
 		list = "No data error"
 		list2 = "No data error"
 		try:
