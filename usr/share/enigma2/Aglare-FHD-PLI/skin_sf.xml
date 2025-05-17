@@ -548,6 +548,7 @@
         <widget name="info" position="380,720" size="0,0" font="Regular;40" foregroundColor="#00ffff00" backgroundColor="#000000" transparent="1" halign="left" valign="center" zPosition="4"/>
         <widget name="format" position="400,715" size="1500,40" font="Regular;34" foregroundColor="#00ffff00" backgroundColor="#000000" transparent="1" halign="left" valign="center" zPosition="4"/>
         <widget name="list" position="400,760" size="600,50" zPosition="4" scrollbarMode="showOnDemand" foregroundColorSelected="#ffffff" backgroundColorSelected="#1b3c85" transparent="1"/>
+        <!-- <widget name="duration"     position="1509,954" size="370,40" font="Regular;34" foregroundColor="yellow" backgroundColor="#000000" transparent="1" halign="right" valign="center" zPosition="4" /> -->
         <widget name="description" position="400,816" zPosition="4" size="950,139" font="Regular; 30" foregroundColor="#a0a0a0" backgroundColor="#000000" transparent="1" halign="left" valign="center"/>
         <widget name="djs" position="400,955" zPosition="4" size="1000,50" font="Regular; 30" foregroundColor="#00ffff00" backgroundColor="#000000" transparent="1" halign="left" valign="center"/>
         <widget name="current_song" position="880,790" zPosition="4" size="1000,180" font="Regular; 30" foregroundColor="#ffffff" backgroundColor="#000000" halign="right" valign="center" transparent="1"/>
