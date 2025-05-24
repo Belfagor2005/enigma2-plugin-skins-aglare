@@ -3,32 +3,32 @@
 from __future__ import absolute_import, print_function
 """
 #########################################################
-#                                                       #
-#  AGLARE SETUP UTILITY SKIN                            #
-#  Version: 5.7                                         #
+#														#
+#  AGLARE SETUP UTILITY SKIN							#
+#  Version: 5.7											#
 #  Created by Lululla (https://github.com/Belfagor2005) #
-#  License: CC BY-NC-SA 4.0                             #
-#  https://creativecommons.org/licenses/by-nc-sa/4.0    #
-#                                                       #
-#  Last Modified: "18:14 - 20250512"                    #
-#                                                       #
-#  Credits:                                             #
-#  - Original concept by Lululla                        #
-#  - TMDB API integration                               #
-#  - TVDB API integration                               #
-#  - OMDB API integration                               #
-#  - FANART API integration                             #
-#  - IMDB API integration                               #
-#  - ELCINEMA API integration                           #
-#  - GOOGLE API integration                             #
-#  - PROGRAMMETV integration                            #
-#  - MOLOTOV API integration                            #
-#  - Fully configurable via AGP Setup Plugin            #
-#                                                       #
-#  Usage of this code without proper attribution        #
-#  is strictly prohibited.                              #
-#  For modifications and redistribution,                #
-#  please maintain this credit header.                  #
+#  License: CC BY-NC-SA 4.0								#
+#  https://creativecommons.org/licenses/by-nc-sa/4.0	#
+#														#
+#  Last Modified: "18:14 - 20250512"					#
+#														#
+#  Credits:												#
+#  - Original concept by Lululla						#
+#  - TMDB API integration								#
+#  - TVDB API integration								#
+#  - OMDB API integration								#
+#  - FANART API integration								#
+#  - IMDB API integration								#
+#  - ELCINEMA API integration							#
+#  - GOOGLE API integration								#
+#  - PROGRAMMETV integration							#
+#  - MOLOTOV API integration							#
+#  - Fully configurable via AGP Setup Plugin			#
+#														#
+#  Usage of this code without proper attribution		#
+#  is strictly prohibited.								#
+#  For modifications and redistribution,				#
+#  please maintain this credit header.					#
 #########################################################
 """
 
@@ -56,7 +56,9 @@ from time import localtime, mktime
 from Components.config import (
 	configfile,
 	config,
-	getConfigListEntry
+	getConfigListEntry,
+	ConfigNothing,
+	NoSave
 )
 
 # Enigma2 Screens
@@ -68,7 +70,7 @@ from Screens.Standby import TryQuitMainloop
 from Tools.Directories import fileExists
 from Tools.Downloader import downloadWithProgress
 from twisted.internet import reactor
-from urllib.request import Request,  urlopen
+from urllib.request import Request,	 urlopen
 
 # Plugin-local imports
 from . import _
@@ -227,7 +229,7 @@ class AglareSetup(ConfigListScreen, Screen):
 			# Always‑available PosterX choices
 			posterx_choices = [
 				('infobar_posters_posterx_off', _('OFF')),
-				('infobar_posters_posterx_on',  _('ON')),
+				('infobar_posters_posterx_on',	_('ON')),
 			]
 
 			# Add “CD” only if Style5 CD is selected
@@ -247,7 +249,7 @@ class AglareSetup(ConfigListScreen, Screen):
 				cfg.InfobarPosterx.value = default_value
 			cfg.InfobarPosterx.setChoices(posterx_choices)
 			# ── NEW BLOCK: dynamic list for InfoBar Xtraevent ───────────────
-			style = cfg.InfobarStyle.value  # current skin style
+			style = cfg.InfobarStyle.value	# current skin style
 
 			# Always–present options
 			xtraevent_choices = [
@@ -256,11 +258,11 @@ class AglareSetup(ConfigListScreen, Screen):
 			]
 
 			# Style‑dependent extras
-			if style == 'infobar_base1':               # Default style
+			if style == 'infobar_base1':			   # Default style
 				xtraevent_choices.append(
 					('infobar_posters_xtraevent_info', _('Backdrop'))
 				)
-			elif style == 'infobar_base5':             # Style 5 CD
+			elif style == 'infobar_base5':			   # Style 5 CD
 				xtraevent_choices.append(
 					('infobar_posters_xtraevent_cd', _('CD'))
 				)
@@ -279,8 +281,8 @@ class AglareSetup(ConfigListScreen, Screen):
 			cfg.InfobarXtraevent.setChoices(xtraevent_choices)
 			# ────────────────────────────────────────────────────────────────
 			list = []
-			section = '-------------------------( GENERAL SKIN  SETUP )------------------------'
-			list.append(getConfigListEntry(section))
+			section = '-------------------------( GENERAL SKIN	SETUP )------------------------'
+			list.append((_(section), NoSave(ConfigNothing())))
 			list.append(getConfigListEntry(_('Color Style:'), cfg.colorSelector))
 			list.append(getConfigListEntry(_('Select Your Font:'), cfg.FontStyle))
 			list.append(getConfigListEntry(_('Skin Style:'), cfg.skinSelector))
@@ -298,11 +300,11 @@ class AglareSetup(ConfigListScreen, Screen):
 			list.append(getConfigListEntry(_('Support E2iplayer Skins:'), cfg.E2iplayerskins))
 
 			section = '--------------------------( UTILITY SKIN SETUP )------------------------'
-			list.append(getConfigListEntry(section))
+			list.append((_(section), NoSave(ConfigNothing())))
 			list.append(getConfigListEntry(_('Remove all png (poster - backdrop) (OK)'), cfg.png, _("This operation remove all png from folder device (Poster-Backdrop)")))
 
 			section = '---------------------------( APIKEY SKIN SETUP )------------------------'
-			list.append(getConfigListEntry(section))
+			list.append((_(section), NoSave(ConfigNothing())))
 			list.append(getConfigListEntry(_('Enable Rating Star:'), cfg.rating_source, _("This operation enable the display of rating stars for events, based on the selected rating source.")))
 			list.append(getConfigListEntry(_('Enable Parental Icons:'), cfg.info_parental_mode, _("Show parental guidance icons on events to indicate content rating and age suitability.")))
 			list.append(getConfigListEntry(_('Enable Display InfoEvents:'), cfg.info_display_mode, _("Enable the display of extended event information, including full cast, crew, plot details, and other metadata, in the info widget.")))
@@ -339,7 +341,7 @@ class AglareSetup(ConfigListScreen, Screen):
 				list.append(getConfigListEntry("MOLOTOV:", cfg.molotov, _("Activate/Deactivate MOLOTOV")))
 				list.append(getConfigListEntry("PROGRAMMETV:", cfg.programmetv, _("Activate/Deactivate PROGRAMMETV")))
 				section = '------------------------------------------------------------------------'
-				list.append(getConfigListEntry(section))
+				list.append((_(section), NoSave(ConfigNothing())))
 				if cfg.actapi.value:
 					list.append(getConfigListEntry("Use Cache on download:", cfg.cache, _("Enable or disable caching during event download to speed up repeated searches.")))
 					list.append(getConfigListEntry(_('Download now poster'), cfg.download_now_poster, _("Start downloading poster immediately")))
@@ -744,7 +746,7 @@ class AglareSetup(ConfigListScreen, Screen):
 
 		print("File exists, proceeding with saving...")
 		for x in self['config'].list:
-			if len(x) > 1:  # Check if x has at least two elements
+			if len(x) > 1:	# Check if x has at least two elements
 				print("Saving {}".format(x[1]))
 				x[1].save()
 
