@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 # from Components.About import about
-# from .. import _
+
 from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import (
 	# ConfigDirectory,
@@ -41,18 +41,16 @@ import socket
 import struct
 import sys
 import time
+from urllib.request import build_opener, HTTPHandler, Request, urlopen, install_opener, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler
+from urllib.parse import quote_plus
+from urllib.error import URLError
+
 import gettext
 _ = gettext.gettext
 
 PY3 = sys.version_info.major >= 3
 
-if PY3:
-	from urllib.request import build_opener, HTTPHandler, Request, urlopen, install_opener, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler
-	from urllib.parse import quote_plus
-	from urllib.error import URLError
-else:
-	from urllib2 import build_opener, HTTPHandler, Request, URLError, urlopen, install_opener, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler
-	from urllib import quote_plus
+
 
 
 global NAMEBIN

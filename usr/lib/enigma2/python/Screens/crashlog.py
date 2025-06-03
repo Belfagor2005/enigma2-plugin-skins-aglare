@@ -9,18 +9,25 @@
 # --------------------#
 # Info Linuxsat-support.com  corvoboys.org
 '''
+import sys
+
+from os import listdir, popen, remove
+from os.path import exists, join
+
+from enigma import getDesktop
+
 from Components.ActionMap import ActionMap
 from Components.ScrollLabel import ScrollLabel
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
 from Components.config import config
+
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-from Tools.Directories import (SCOPE_SKIN, resolveFilename)
+
+from Tools.Directories import SCOPE_SKIN, resolveFilename
 from Tools.LoadPixmap import LoadPixmap
-from enigma import getDesktop
-import os
-import sys
+
 import gettext
 _ = gettext.gettext
 
@@ -67,14 +74,14 @@ def crashlogPath():
 	if path_folder_log is None:
 		possible_paths = paths()
 		for path in possible_paths:
-			if os.path.exists(path) and not isMountReadonly(path):
+			if exists(path) and not isMountReadonly(path):
 				path_folder_log = path + "/"
 				break
 		else:
 			path_folder_log = "/tmp/"
 
 	try:
-		for crashlog in os.listdir(path_folder_log):
+		for crashlog in listdir(path_folder_log):
 			if crashlog.endswith(".log") and ("crashlog" in crashlog or "twiste" in crashlog):
 				crashlogPath_found = True
 				break
@@ -89,11 +96,11 @@ def find_log_files():
 	log_files = []
 	possible_paths = paths()
 	for path in possible_paths:
-		if os.path.exists(path) and not isMountReadonly(path):
+		if exists(path) and not isMountReadonly(path):
 			try:
-				for file in os.listdir(path):
+				for file in listdir(path):
 					if file.endswith(".log") and ("crashlog" in file or "twiste" in file):
-						log_files.append(os.path.join(path, file))
+						log_files.append(join(path, file))
 			except OSError as e:
 				print("Errore durante l'accesso a:", path, str(e))
 	return log_files
@@ -102,7 +109,7 @@ def find_log_files():
 def delete_log_files(files):
 	for file in files:
 		try:
-			os.remove(file)
+			remove(file)
 			print('File eliminato:', file)
 		except OSError as e:
 			print("Errore durante l'eliminazione di {file}:", str(e))
@@ -235,7 +242,7 @@ class CrashLogScreen(Screen):
 				"/ba/*crash*.log "
 				"/ba/logs/*crash*.log"
 			) % (path_folder_log, path_folder_log, path_folder_log)
-		crashfiles = os.popen("ls -lh " + paths_to_search).read()
+		crashfiles = popen("ls -lh " + paths_to_search).read()
 		cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
 		minipng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_SKIN, str(cur_skin) + "/mainmenu/crashlog.png"))
 		for line in crashfiles.splitlines():
@@ -274,7 +281,7 @@ class CrashLogScreen(Screen):
 		try:
 			base_dir = item[3]
 			file_path = str(base_dir)
-			os.remove(file_path)
+			remove(file_path)
 			self.mbox = self.session.open(MessageBox, (_("Removed %s") % (file_path)), MessageBox.TYPE_INFO, timeout=4)
 		except (IndexError, TypeError, KeyError) as e:
 			self.mbox = self.session.open(MessageBox, (_("Failed to remove file due to an error: %s") % str(e)), MessageBox.TYPE_INFO, timeout=4)
@@ -291,13 +298,13 @@ class CrashLogScreen(Screen):
 				paths_to_search = ' '.join(log_files)
 			else:
 				paths_to_search = "%s*crash*.log %slogs/*crash*.log /home/root/*crash*.log /home/root/logs/*crash*.log %stwisted.log /media/usb/logs/*crash*.log /media/usb/*crash*.log" % (path_folder_log, path_folder_log, path_folder_log)
-			crashfiles = os.popen("ls -lh " + paths_to_search).read()
+			crashfiles = popen("ls -lh " + paths_to_search).read()
 			for line in crashfiles.splitlines():
 				item = line.split()
 				if len(item) >= 9:
 					file_name = item[8]
 					print('BlueKey file_name=', file_name)
-					os.remove(file_name)
+					remove(file_name)
 			self.mbox = self.session.open(MessageBox, (_("Removed All Crashlog Files")), MessageBox.TYPE_INFO, timeout=4)
 		except (OSError, IOError) as e:
 			self.mbox = self.session.open(MessageBox, (_("Failed to remove some files: %s") % str(e)), MessageBox.TYPE_INFO, timeout=4)

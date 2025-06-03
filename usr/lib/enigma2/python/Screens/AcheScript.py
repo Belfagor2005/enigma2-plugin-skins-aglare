@@ -10,9 +10,10 @@ from Components.Sources.List import List
 from Screens.Console import Console
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-from os import listdir, makedirs, chmod
-import os
+from os import listdir, makedirs, chmod, remove
+from os.path import exists
 import codecs
+import subprocess
 from random import choice
 from requests import get, exceptions
 import gettext
@@ -88,7 +89,7 @@ class OpenScript(Screen):
 
 	def refresh_list(self):
 		try:
-			if not os.path.exists('/usr/script'):
+			if not exists('/usr/script'):
 				makedirs('/usr/script', 493)
 		except:
 			pass
@@ -120,25 +121,39 @@ class OpenScript(Screen):
 		self['list'].setList(self.mlist)
 
 	def getScrip(self, url):
-		dest = '/tmp/script.tar'
+		dest = "/tmp/script.tar"
 		headers = {"User-Agent": choice(AGENTS)}
+
 		try:
 			response = get(url, headers=headers, timeout=(3.05, 6))
 			response.raise_for_status()
-			with open(dest, 'wb') as file:
+
+			with open(dest, "wb") as file:
 				file.write(response.content)
-			command = "rm -rf /usr/script/*;tar -xvf /tmp/script.tar -C /usr/script"
-			os.system(command)
-			if os.path.exists(dest):
-				os.remove(dest)
+
+			# Clean old scripts
+			subprocess.run(["rm", "-rf", "/usr/script/*"], check=True)
+			# Extract new ones
+			subprocess.run(["tar", "-xvf", dest, "-C", "/usr/script"], check=True)
+
+			if exists(dest):
+				remove(dest)
+
 			self.refresh_list()
-			self.session.open(MessageBox, _('Scripts downloaded and extracted successfully!'), MessageBox.TYPE_INFO)
+			self.session.open(MessageBox, _("Scripts downloaded and extracted successfully!"), MessageBox.TYPE_INFO)
+
 		except exceptions.RequestException as error:
 			print("Error during script download:", str(error))
-			self.session.open(MessageBox, _('Error during script download: %s') % str(error), MessageBox.TYPE_ERROR)
-		except Exception as e:
+			self.session.open(MessageBox, _("Error during script download: %s") % str(error), MessageBox.TYPE_ERROR)
+
+		except subprocess.CalledProcessError as e:
 			print("Error during script extraction:", str(e))
-			self.session.open(MessageBox, _('Error during script extraction: %s') % str(e), MessageBox.TYPE_ERROR)
+			self.session.open(MessageBox, _("Error during script extraction: %s") % str(e), MessageBox.TYPE_ERROR)
+
+		except Exception as e:
+			print("Unexpected error:", str(e))
+			self.session.open(MessageBox, _("Unexpected error: %s") % str(e), MessageBox.TYPE_ERROR)
+
 
 	def download(self):
 		self.session.openWithCallback(self.callMyMsg, MessageBox, _('Download Script Pack?'), MessageBox.TYPE_YESNO)
@@ -163,7 +178,7 @@ class OpenScript(Screen):
 
 	def get_description(self, script):
 		"""Ottieni la descrizione da uno script leggendo il commento iniziale."""
-		if not os.path.exists(script):
+		if not exists(script):
 			print("Il file non esiste:", script)
 			return None
 		try:
@@ -185,19 +200,3 @@ class OpenScript(Screen):
 					chmod(mysel2, 0o0777)
 					mytitle = _("Script Executor %s") % mysel
 					self.session.open(Console, title=mytitle, cmdlist=[mysel2])
-
-
-# def main(session, **kwargs):
-	# session.open(OpenScript)
-
-
-# def StartSetup(menuid):
-	# if menuid == "mainmenu":
-		# return [("Acherone Script", main, "Acherone Script", 44)]
-	# else:
-		# return []
-
-
-# def Plugins(**kwargs):
-	# return [PluginDescriptor(name="Acherone Script", description=_("Plugin by Lululla"), where=PluginDescriptor.WHERE_PLUGINMENU, icon="plugin.png", fnc=main),
-			# PluginDescriptor(name="Acherone Script", description=_("Plugin by Lululla"), where=PluginDescriptor.WHERE_MENU, fnc=StartSetup)]

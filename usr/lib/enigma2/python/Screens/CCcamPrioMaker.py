@@ -1,21 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-# from . import _
-from Components.ServiceEventTracker import ServiceEventTracker
-from Screens.Screen import Screen
-from Screens.MessageBox import MessageBox
-from Screens.ChoiceBox import ChoiceBox
-from enigma import iPlayableService, iServiceInformation, eTimer
-from Components.ConfigList import ConfigListScreen
+
 from os import path as os_path
+
+from enigma import iPlayableService, iServiceInformation, eTimer
+
+from Components.ActionMap import ActionMap
+from Components.ConfigList import ConfigListScreen
+from Components.Sources.StaticText import StaticText
+from Components.ServiceEventTracker import ServiceEventTracker
 from Components.config import (
 	config,
 	ConfigSubsection,
 	ConfigEnableDisable,
 	getConfigListEntry,
 )
-from Components.ActionMap import ActionMap
-from Components.Sources.StaticText import StaticText
+
+from Screens.ChoiceBox import ChoiceBox
+from Screens.MessageBox import MessageBox
+from Screens.Screen import Screen
+
 import gettext
 _ = gettext.gettext
 
@@ -61,22 +65,20 @@ def cleanup_r(val):
 
 def readprio():
 	if os_path.exists(PRIOPATH):
-		file = open(PRIOPATH, "r")
-		for line in file.readlines():
-			if line.startswith("#"):
-				continue
-			line = line.upper()
-			if line.startswith("P:"):
-				val = cleanup_r(line.strip())
-				sp = val.split(':')
-				if len(sp) > 3:
-					PRIOLIST_P.append("%s%s" % (sp[2].strip(), sp[3].strip()))
-		file.close()
+		with open(PRIOPATH, "r") as file:
+			for line in file:
+				if line.startswith("#"):
+					continue
+				line = line.upper()
+				if line.startswith("P:"):
+					val = cleanup_r(line.strip())
+					sp = val.split(':')
+					if len(sp) > 3:
+						PRIOLIST_P.append(sp[2].strip() + sp[3].strip())
 	else:
-		file = open(PRIOPATH, 'w')
-		for p in PRIOLIST_D:
-			file.write(p + "\n")
-		file.close()
+		with open(PRIOPATH, "w") as file:
+			for p in PRIOLIST_D:
+				file.write(p + "\n")
 
 
 def cleanup(val):
@@ -91,20 +93,28 @@ def readecminfo():
 	caid = ""
 	provid = ""
 	print("[CCPrioMaker] search", ECMINFOPATH)
+
 	if os_path.exists(ECMINFOPATH):
-		file = open(ECMINFOPATH, "r")
-		for line in file.readlines():
-			if line.startswith("caid:"):
-				caid = line.split(":")
-				if len(caid) == 2:
-					caid = "%04X" % int(caid[1], 16)
-			elif line.startswith("provid:"):
-				provid = line.split(":")
-				if len(provid) == 2:
-					provid = "%06X" % int(provid[1], 16)
-			elif caid != "" and provid != "":
-				break
-		file.close()
+		with open(ECMINFOPATH, "r") as file:
+			for line in file:
+				line = line.strip()
+				if line.startswith("caid:"):
+					parts = line.split(":", 1)
+					if len(parts) == 2:
+						try:
+							caid = "%04X" % int(parts[1].strip(), 16)
+						except ValueError:
+							caid = ""
+				elif line.startswith("provid:"):
+					parts = line.split(":", 1)
+					if len(parts) == 2:
+						try:
+							provid = "%06X" % int(parts[1].strip(), 16)
+						except ValueError:
+							provid = ""
+				if caid != "" and provid != "":
+					break
+
 	return caid, provid
 
 
@@ -168,33 +178,41 @@ class CCPrioMaker(Screen):
 			caid = self.caid[0]
 			provid = self.caid[1]
 			self.valssid = "%s%s" % (provid, self.ssid)
-			if os_path.exists(PRIOPATH) is False:
+
+			if not os_path.exists(PRIOPATH):
 				global PRIOLIST_P
 				PRIOLIST_P = []
+
 			if self.valssid not in PRIOLIST_P:
 				menu = []
 				tmplist = []
 				providval = "000000"
+
 				for x in self.caidlist:
-					m = "%04X" % (x)
+					m = "%04X" % x
 					if m == caid:
 						providval = provid
 					menu.append((_("Caid:") + str(m) + _("\tProvid:") + providval, str(m)))
 					tmplist.append(str(m))
+
 				if caid not in tmplist:
 					menu.append(("Caid:" + str(caid) + "\tProvid:" + providval, str(caid)))
 					tmplist.append(str(caid))
+
 				self.caidlist = tmplist
+
 				if config.plugins.ccprio.askcaid.value is True:
 					selection = tmplist.index(str(caid))
 					mess = _("Provider") + " :" + self.Provider + "  " + _("Service") + " :" + self.ServiceName
+
 					if config.plugins.ccprio.allcaid.value is False:
 						menu = []
 						menu.append(("Caid:" + str(caid) + "\tProvid:" + provid, str(caid)))
 						selection = 0
 						mess += _("\n All Caid:")
 						for x in tmplist:
-							mess += "%s " % (x)
+							mess += "%s " % x
+
 					self.session.openWithCallback(self.parseEcmInfo_back, ChoiceBox, title=mess, list=menu, selection=selection)
 				else:
 					self.parseEcmInfo_back((str(caid), str(caid)))
@@ -211,16 +229,14 @@ class CCPrioMaker(Screen):
 				val = "P: %s:%s:%s" % (caid, provid, self.ssid)
 				self.session.open(MessageBox, _("%s\n\n%s\n%s\n\nPrio entry\n%s") % (_("Add"), _("Provider") + ": " + self.Provider, _("Service") + ": " + self.ServiceName, val), MessageBox.TYPE_INFO, 3)
 				PRIOLIST_P.append(self.valssid)
-				if os_path.exists(PRIOPATH):
-					file = open(PRIOPATH, 'a+')
-				else:
-					file = open(PRIOPATH, 'w')
-					for p in PRIOLIST_D:
-						file.write(p + "\n")
-				if config.plugins.ccprio.debug.value is True:
-					file.write("# %s  %s Caids:%s\n" % (_("Provider") + ":" + self.Provider, _("Service") + ":" + self.ServiceName, self.caidlist))
-				file.write("%s\n" % (val))
-				file.close()
+				mode = 'a+' if os_path.exists(PRIOPATH) else 'w'
+				with open(PRIOPATH, mode) as file:
+					if mode == 'w':
+						for p in PRIOLIST_D:
+							file.write(p + "\n")
+					if config.plugins.ccprio.debug.value is True:
+						file.write("# %s  %s Caids:%s\n" % (_("Provider") + ":" + self.Provider, _("Service") + ":" + self.ServiceName, self.caidlist))
+					file.write("%s\n" % (val))
 
 
 class Ccprio_Setup(Screen, ConfigListScreen):
