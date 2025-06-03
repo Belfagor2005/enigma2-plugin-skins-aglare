@@ -144,7 +144,6 @@ elif exists("/media/mmc") and isMountedInRW("/media/mmc"):
 
 # constants
 cur_skin = config.skin.primary_skin.value.replace("/skin.xml", "").strip()
-skinversion = None
 fullurl = None
 
 
@@ -727,6 +726,13 @@ class AglareSetup(ConfigListScreen, Screen):
         return SetupSummary
 
     def keySave(self):
+        if not skinversion:
+            self.session.open(MessageBox, "Skin version file missing or invalid.", MessageBox.TYPE_ERROR)
+            self.close()
+            return
+
+        self.version = skinversion
+
         def load_xml_to_skin_lines(file_path):
             try:
                 with open(file_path, 'r') as file:
