@@ -925,7 +925,6 @@ class Playstream2(Screen, InfoBarMenu, InfoBarBase, InfoBarSeek, InfoBarNotifica
     STATE_PAUSED = 2
 
     def __init__(self, session, name, url):
-        global SREF
         Screen.__init__(self, session)
         self.skinName = 'MoviePlayer'
         self.sref = None
