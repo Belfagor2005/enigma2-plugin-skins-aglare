@@ -77,6 +77,7 @@ from . import _
 from .api_config import cfg, ApiKeyManager
 from .DownloadControl import startPosterAutoDB, startBackdropAutoDB
 
+skinversion = '' 
 api_key_manager = ApiKeyManager()
 version = '5.7'
 
