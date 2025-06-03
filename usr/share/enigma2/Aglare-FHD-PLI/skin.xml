@@ -47,7 +47,7 @@
         <color name="#202020" value="#00202020"/>
         <color name="#254f7497" value="#254f7497"/>
         <color name="#264103" value="#00264103"/>
-        <color name="#283752" value="#00283752"/>
+                                                 
         <color name="#2a70a4" value="#002a70a4"/>
         <color name="#30000000" value="#30000000"/>
         <color name="#303030" value="#00303030"/>
@@ -61,7 +61,7 @@
         <color name="#555556" value="#00555556"/>
         <color name="#606060" value="#00606060"/>
         <color name="#808080" value="#00808080"/>
-        <color name="progfg" value="#008293b3"/>
+        <color name="#8293b3" value="#008293b3"/>
         <color name="#90000000" value="#90000000"/>
         <color name="#90ff00ff" value="#90ff00ff"/>
         <color name="#92f1fc" value="#0092f1fc"/>
@@ -71,6 +71,7 @@
         <color name="#b0b0b0" value="#00b0b0b0"/>
         <color name="#b2049" value="#000b2049"/>
         <color name="#bab329" value="#00bab329"/>
+        <color name="#c101b" value="#000c101b"/>
         <color name="#c4c4c4" value="#00c4c4c4"/>
         <color name="#cccc40" value="#00cccc40"/>
         <color name="#e5b243" value="#00e5b243"/>
@@ -79,8 +80,9 @@
         <color name="#f4b700" value="#00f4b700"/>
         <color name="#ffb75b" value="#00ffb75b"/>
         <color name="#fffff4" value="#00fffff4"/>
+        <color name="#fffffe" value="#00fffffe"/>
         <color name="babyblue" value="#0089cff0"/>
-        <color name="background" value="#050c101b"/>
+        <color name="background" value="#05000603"/>
         <color name="background2" value="#55000000"/>
         <color name="background3" value="#80000000"/>
         <color name="background4" value="#10000000"/>
@@ -88,7 +90,7 @@
         <color name="black" value="#00000000"/>
         <color name="blue" value="#000000ff"/>
         <color name="bpSide" value="#00ff6600"/>
-        <color name="buttonsc" value="#001a2336"/>
+        <color name="buttonsc" value="#00010a01"/>
         <color name="chselbg" value="#00632e48"/>
         <color name="chselfg" value="#00ededed"/>
         <color name="cyan" value="#000090e6"/>
@@ -99,7 +101,7 @@
         <color name="darkgrey" value="#00888888"/>
         <color name="darkgrey2" value="#202d2d2d"/>
         <color name="description" value="#0077c411"/>
-        <color name="fgcolor" value="#008293b2"/>
+        <color name="fgcolor" value="#00c0c0c0"/>
         <color name="foreground" value="#00f8f8f8"/>
         <color name="foreground2" value="#00e7c777"/>
         <color name="fresh" value="#009fd00b"/>
@@ -117,29 +119,31 @@
         <color name="grey2" value="#006b6b6b"/>
         <color name="greyc4" value="#00c4c4c4"/>
         <color name="hellgreen" value="#0056c856"/>
-        <color name="igsd" value="#001d283c"/>
-        <color name="igsdt" value="#121d283c"/>
-        <color name="igsl" value="#00293754"/>
-        <color name="lime" value="#0000ff00"/>
+        <color name="igsd" value="#000b3737"/>
+        <color name="igsdt" value="#120b3737"/>
+        <color name="igsl" value="#000a372e"/>
+                                              
         <color name="linebg" value="#00999999"/>
         <color name="listbgt" value="#200a1c20"/>
+        <color name="lmsb" value="#003e91f6"/>
         <color name="maindark" value="#000b1d21"/>
         <color name="mainlight" value="#0004495c"/>
-        <color name="mainskincolor" value="#00ff00ff"/>
+        <color name="mainskincolor" value="#007396ff"/>
         <color name="mcolor2" value="#00171a1c"/>
-        <color name="mcolor3" value="#00fffffe"/>
-        <color name="mcolor4" value="#003e4b53"/>
-        <color name="mcolor5" value="#00283752"/>
-        <color name="mcolor6" value="#004d5e7c"/>
+        <color name="mcolor3" value="#00ececfb"/>
+        <color name="mcolor4" value="#002a2a2a"/>
+        <color name="mcolor5" value="#00005826"/>
+        <color name="mcolor6" value="#00117d40"/>
         <color name="menu" value="#25062748"/>
-        <color name="lmsb" value="#003e91f6"/>
+                                              
         <color name="mint" value="#0000cc99"/>
         <color name="progbg" value="#005a5a5a"/>
         <color name="red" value="#00ff0000"/>
         <color name="redfont" value="#00bd1b0e"/>
         <color name="selectbg" value="#000f4c5c"/>
-        <color name="sidec1" value="#0023314c"/>
-        <color name="sidec2" value="#000c101b"/>
+        <color name="sidec1" value="#44005826"/>
+        <color name="sidec2" value="#00171a1c"/>
+        <color name="sidect" value="#118e762d"/>
         <color name="silver" value="#00c0c0c0"/>
         <color name="transchsel1" value="#21020202"/>
         <color name="transchsel2" value="#21201120"/>
@@ -149,12 +153,12 @@
         <color name="transpGrey" value="#41444444"/>
         <color name="transpWhite" value="#77ffffff"/>
         <color name="transpyellow" value="#33bab329"/>
-        <color name="wdcolor" value="#00171a1c"/>
+        <color name="wdcolor" value="#002a2a2a"/>
         <color name="white" value="#00ffffff"/>
         <color name="white2" value="#00dddddd"/>
-        <color name="wplc" value="#00222e47"/>
-        <color name="wpmc" value="#002d3d5b"/>
-        <color name="wpuc" value="#00080b11"/>
+        <color name="wplc" value="#00010f0f"/>
+        <color name="wpmc" value="#000b3737"/>
+        <color name="wpuc" value="#00000f0c"/>
         <color name="yellow" value="#00ffff00"/>
     </colors>
     <parameters>
@@ -271,14 +275,27 @@
         <alias name="Dreamexplorer" font="Regular" size="28" height="36"/>
     </fonts>
     <screen name="InfoBar" position="0,0" size="1920,1080" title="InfoBar" flags="wfNoBorder" backgroundColor="transparent">
-        <panel name="infobartemp"/>
+        <panel name="infobartemp2"/>
         <!--posters-->
+        <widget source="session.Event_Now" render="AglarePosterX" position="40,430" size="240,360" cornerRadius="14" zPosition="1" borderWidth="1" borderColor="igsd"/>
+        <widget source="session.Event_Now" render="AglarePosterX" nexts="1" position="1640,430" size="240,360" cornerRadius="14" zPosition="1" borderWidth="1" borderColor="igsd"/>
         <!--no xtraevent posters-->
-        <!--no date-->
-        <!-- no weather  -->
+        <!--date-->
+        <panel name="infobartimedate"/>
+        <!--  weather  -->
+        <eLabel backgroundColor="igsd" cornerRadius="60" position="1591,175" size="540,120"/>
+        <widget render="OAWeatherPixmap" position="1600,185" size="100,100" source="session.OAWeather" alphatest="blend" transparent="1" zPosition="8" scale="1">
+            <convert type="OAWeather">weathericon,current</convert>
+        </widget>
+        <widget backgroundColor="background" font="Regular; 26" foregroundColor="white" halign="center" position="1707,180" render="Label" size="215,70" source="session.OAWeather" transparent="1" valign="center" zPosition="3">
+            <convert type="OAWeather">temperature_text,current</convert>
+        </widget>
+        <widget noWrap="1" backgroundColor="background" font="Regular; 40" foregroundColor="yellow" render="Label" position="1707,244" size="215,49" source="session.OAWeather" transparent="1" zPosition="8" halign="center" valign="top">
+            <convert type="OAWeather">temperature_current</convert>
+        </widget>
     </screen>
     <screen name="SecondInfoBar" position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder">
-        <panel name="infobartemp"/>
+        <panel name="infobartemp2"/>
         <eLabel backgroundColor="igsdt" cornerRadius="30" position="10,31" size="1900,759" zPosition="-99"/>
         <eLabel backgroundColor="wdcolor" cornerRadius="30" position="20,734" size="1880,50" zPosition="-80"/>
         <eLabel name="" position="20,110" size="1880,300" zPosition="-70" cornerRadius="30" backgroundColor="#10171a1c" foregroundColor="#10171a1c"/>
@@ -421,61 +438,106 @@
         <widget backgroundColor="background" font="Regular; 24" foregroundColor="white" halign="center" position="626,74" render="Label" size="51,24" source="session.OAWeather" transparent="1" valign="center" zPosition="3" text="SW">
             <convert type="OAWeather">winddirshort</convert>
         </widget>
-        <!--############-->
+        <widget source="session.Event_Now" render="AglarePosterX" position="1690,117" size="190,285" cornerRadius="20" zPosition="1" borderWidth="1" borderColor="igsd"/>
+        <widget source="session.Event_Now" render="AglarePosterX" nexts="1" position="1690,431" size="190,285" cornerRadius="20" zPosition="1" borderWidth="1" borderColor="igsd"/>
         <!--#####no extraevent posters ###-->
     </screen>
     <screen name="ChannelSelection" position="0,0" size="1920,1080" title="Channel Selection" backgroundColor="black" flags="wfNoBorder">
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="timedate"/>
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
+        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="970,468" size="920,3" zPosition="99"/>
         <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
-        <widget source="Title" render="Label" position="36,32" size="1106,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
-        <widget name="list" position="40,94" size="1106,900" fieldMargins="15" nonplayableMargins="15" serviceItemHeight="50" serviceNumberFont="Regular;30" serviceNameFont="Regular;30" serviceInfoFont="Regular;28" foregroundColor="white" foregroundColorSelected="yellow" colorServiceDescription="mint" colorServiceDescriptionSelected="#00ffffff" foregroundColorServiceNotAvail="#444444" colorEventProgressbarBorderSelected="white" colorEventProgressbarBorder="white" zPosition="4" itemHeight="50" picServiceEventProgressbar="main/chprogressbar.png" progressbarHeight="6" progressBarWidth="100" progressbarBorderWidth="1" progressPercentWidth="60" backgroundColorMarked="#00131a1d" textSeparator="  •  " markerLine="1" markerTextAlignment="center" markerLineColor="fgcolor" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
-        <widget source="session.CurrentService" render="Label" position="1188,88" size="700,34" font="Regular; 27" borderWidth="1" backgroundColor="background" transparent="1" halign="center" foregroundColor="white" zPosition="30" valign="center" noWrap="1">
+        <widget source="Title" render="Label" position="36,32" size="890,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
+        <widget name="list" position="40,94" size="890,900" fieldMargins="15" nonplayableMargins="15" serviceItemHeight="50" serviceNumberFont="Regular;30" serviceNameFont="Regular;30" serviceInfoFont="Regular;28" foregroundColor="white" foregroundColorSelected="yellow" colorServiceDescription="mint" colorServiceDescriptionSelected="#00ffffff" foregroundColorServiceNotAvail="#444444" colorEventProgressbarBorderSelected="white" colorEventProgressbarBorder="white" zPosition="4" itemHeight="50" picServiceEventProgressbar="main/chprogressbar.png" progressbarHeight="6" progressBarWidth="100" progressbarBorderWidth="1" progressPercentWidth="60" backgroundColorMarked="#00131a1d" textSeparator="  •  " markerLine="1" markerTextAlignment="center" markerLineColor="fgcolor" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <widget source="ServiceEvent" render="Picon" position="1048,80" size="230,132" transparent="1" alphatest="blend" zPosition="22">
+            <convert type="ServiceName">Reference</convert>
+        </widget>
+        <widget source="session.CurrentService" render="Label" position="1386,90" size="500,32" font="Regular; 27" borderWidth="1" backgroundColor="background" transparent="1" halign="center" foregroundColor="white" zPosition="30" valign="center" noWrap="1">
             <convert type="ServiceName">Name</convert>
         </widget>
-        <widget source="ServiceEvent" render="Progress" pixmap="main/progfg70010.png" cornerRadius="5" position="1188,525" size="700,10" zPosition="99" backgroundColor="progbg">
+        <widget source="ServiceEvent" render="Progress" pixmap="main/progfg50010.png" cornerRadius="5" position="1386,410" size="500,10" zPosition="99" backgroundColor="progbg">
             <convert type="EventTime">Progress</convert>
         </widget>
-        <widget source="session.VideoPicture" render="Pig" position="1188,120" zPosition="20" size="700,394" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
-        <eLabel name="" position="31,30" size="1120,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
+                                                                                                                                                                              
+                                                                                                                                                
+                                                                                                                                                                                                  
+                                                                                                                                                                                                    
+                                                                                                                                                                                                   
+                                                                                                                                                                                                    
+                                                                                                                                                                                                    
+        <widget source="ServiceEvent" render="Label" position="970,420" size="780,50" font="Bold; 27" transparent="1" zPosition="8" valign="center" halign="left" noWrap="1">
+            <convert type="EventName">Name</convert>
+        </widget>
+                                                                                                                                                                                                                             
+                                                        
+                                                           
+                 
+        <widget source="ServiceEvent" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="970,474" size="920,135" halign="left" font="Regular; 26" transparent="1" valign="top" zPosition="99">
+            <convert type="EventName">FullDescription</convert>
+        </widget>
+        <widget source="session.VideoPicture" render="Pig" position="1386,120" zPosition="20" size="500,282" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
+        <widget source="ServiceEvent" render="Label" position="937,218" zPosition="1" size="440,32" font="Regular; 24" halign="center" backgroundColor="background" transparent="1" valign="center">
+            <convert type="AglareServName2">Provider</convert>
+        </widget>
+        <widget source="ServiceEvent" render="Label" position="992,332" zPosition="1" size="390,40" font="Regular; 28" halign="left" backgroundColor="background" transparent="1" valign="center">
+            <convert type="AglareServName2">%O %F %p %Y %f</convert>
+        </widget>
+        <eLabel name="" position="988,254" size="52,28" text="SNR" font="Regular; 22" transparent="1" zPosition="5" backgroundColor="background"/>
+        <eLabel name="" position="988,292" size="52,28" text="AGC" font="Regular; 22" transparent="1" zPosition="5" backgroundColor="background"/>
+        <widget source="session.FrontendStatus" render="Label" position="1280,254" size="100,28" font="Regular; 22" backgroundColor="background" transparent="1" zPosition="23" valign="center" halign="left">
+            <convert type="FrontendInfo">SNR</convert>
+        </widget>
+        <widget source="session.FrontendStatus" render="Label" position="1280,292" size="64,28" font="Regular; 22" backgroundColor="background" transparent="1" zPosition="23" valign="center" halign="left">
+            <convert type="FrontendInfo">AGC</convert>
+        </widget>
+        <widget render="Progress" size="230,8" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="4" position="1044,300" zPosition="99" backgroundColor="progbg">
+            <convert type="FrontendInfo">AGC</convert>
+        </widget>
+        <widget render="Progress" size="230,8" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="4" position="1044,264" zPosition="99" backgroundColor="progbg">
+            <convert type="FrontendInfo">SNR</convert>
+        </widget>
+        <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
+        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="970,618" size="400,3" zPosition="99"/>
+        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1490,618" size="400,3" zPosition="99"/>
+        <widget source="ServiceEvent" render="Label" position="1751,422" size="135,48" halign="center" font="Regular; 27" foregroundColor="white" backgroundColor="background" transparent="1" valign="center" zPosition="10">
+            <convert type="EventTime">Duration</convert>
+            <convert type="ClockToText">InMinutes</convert>
+        </widget>
         <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
         <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EPG"/>
         <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
-        <widget source="ServiceEvent" render="AglareRunningText" options="movetype=swimming,direction=right,startpoint=0,startdelay=1000,steptime=40,wrap=1,always=0,repeat=6,oneshot=1" position="1188,544" size="570,40" font="Bold; 27" transparent="1" zPosition="8" valign="center" halign="left" noWrap="1">
-            <convert type="EventName">Name</convert>
-        </widget>
-        <widget source="ServiceEvent" render="Label" position="1756,544" size="135,40" halign="right" font="Regular; 27" foregroundColor="white" backgroundColor="background" transparent="1" valign="center" zPosition="10">
-            <convert type="EventTime">Duration</convert>
-            <convert type="ClockToText">InMinutes</convert>
-        </widget>
-        <widget source="ServiceEvent" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="1188,602" size="700,150" halign="left" font="Regular; 28" transparent="1" valign="top" zPosition="99">
-            <convert type="EventName">FullDescription</convert>
-        </widget>
-        <eLabel name="" position="1473,752" size="130,40" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
-        <widget source="ServiceEvent" render="AglareEventListDisplay" position="1188,788" size="700,130" backgroundColor="buttonsc" column0="10,100,yellow,Regular,30,0,0" column1="110,590,white,Regular,30,1,1" primetimeoffset="0" rowHeight="40" transparent="1" zPosition="50">
-            <convert type="AglareEventList">beginOnly=yes,primetime=yes,eventcount=3</convert>
-        </widget>
-        <widget source="ServiceEvent" render="Label" position="1230,932" zPosition="1" size="660,40" font="Regular; 28" halign="left" backgroundColor="background" transparent="1" valign="center">
-            <convert type="AglareServName2">%O %F %p %Y %f</convert>
-        </widget>
-        <widget source="ServiceEvent" render="Label" position="1220,976" size="670,34" font="Bold; 28" backgroundColor="background" transparent="1" noWrap="1" zPosition="8" foregroundColor="gold" valign="top">
+        <eLabel name="" position="1366,606" size="132,40" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
+        <widget source="ServiceEvent" render="Label" position="1000,976" size="905,34" font="Bold; 28" backgroundColor="background" transparent="1" noWrap="1" zPosition="8" foregroundColor="gold" valign="top">
             <convert type="AglareEventName2">PrimeTimeWithDuration</convert>
         </widget>
-        <eLabel name="" position="1188,932" size="40,40" font="icomoon; 30" text="" halign="center" zPosition="99" transparent="1"/>
-        <eLabel name="" position="1188,976" size="30,30" font="icomoon; 24" text="" transparent="1" valign="center" halign="center" zPosition="99" foregroundColor="gold"/>
-        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1188,767" size="300,3" zPosition="99"/>
-        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1590,767" size="300,3" zPosition="99"/>
+        <eLabel name="" position="970,976" size="30,30" font="icomoon; 24" text="" transparent="1" valign="center" halign="center" zPosition="99" foregroundColor="gold"/>
+        <eLabel name="" position="950,332" size="40,40" font="icomoon; 30" text="" halign="center" zPosition="99" transparent="1"/>
+        <widget source="ServiceEvent" render="AglarePosterX" position="972,672" size="200,300" cornerRadius="20" zPosition="95"/>
+        <widget source="ServiceEvent" render="AglarePosterX" nexts="1" position="1202,672" size="200,300" cornerRadius="20" zPosition="95"/>
+        <widget source="ServiceEvent" render="AglarePosterX" nexts="2" position="1456,672" size="200,300" cornerRadius="20" zPosition="95"/>
+        <widget source="ServiceEvent" render="AglarePosterX" nexts="3" position="1686,672" size="200,300" cornerRadius="20" zPosition="95"/>
+        <ePixmap name="" position="970,670" size="204,304" alphatest="on" pixmap="main/noposter.png" zPosition="90"/>
+        <ePixmap name="" position="1200,670" size="204,304" alphatest="on" pixmap="main/noposter.png" zPosition="90"/>
+        <ePixmap name="" position="1454,670" size="204,304" alphatest="on" pixmap="main/noposter.png" zPosition="90"/>
+        <ePixmap name="" position="1684,670" size="204,304" alphatest="on" pixmap="main/noposter.png" zPosition="90"/>
+        <widget source="ServiceEvent" render="Label" position="970,376" zPosition="1" size="412,54" font="Regular; 28" halign="left" noWrap="1" backgroundColor="background" transparent="1" valign="center">
+            <convert type="AglareServName2">Reference</convert>
+        </widget>
+        <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="0" font="Regular; 18" halign="left" foregroundColor="white" backgroundColor="background" position="962,622" size="220,50" zPosition="5" transparent="1"/>
+        <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="1" font="Regular; 18" halign="left" foregroundColor="white" backgroundColor="background" position="1192,622" size="220,50" zPosition="5" transparent="1"/>
+        <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="2" font="Regular; 18" halign="left" foregroundColor="white" backgroundColor="background" position="1444,622" size="220,50" zPosition="5" transparent="1"/>
+        <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="3" font="Regular; 18" halign="left" foregroundColor="white" backgroundColor="background" position="1676,622" size="220,50" zPosition="5" transparent="1"/>
     </screen>
     <screen name="EventView" position="0,0" size="1920,1080" title="Eventview" backgroundColor="background" flags="wfNoBorder">
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="timedate"/>
-        <eLabel backgroundColor="buttonsc" cornerRadius="3" position="45,90" size="1250,3" zPosition="99"/>
+        <eLabel backgroundColor="buttonsc" cornerRadius="3" position="36,82" size="1230,3" zPosition="99"/>
         <ePixmap pixmap="top_logo.png" position="42,39" size="40,40" alphatest="on" transparent="0" zPosition="98"/>
-        <eLabel name="" position="36,30" size="1268,689" zPosition="-90" cornerRadius="20" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
-        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
+        <eLabel name="" position="27,30" size="1251,520" zPosition="-91" cornerRadius="20" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
+        <eLabel backgroundColor="wpmc" cornerRadius="20" position="2,0" size="1918,1080" zPosition="-99"/>
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
         <widget source="session.VideoPicture" render="Pig" position="1376,110" zPosition="1" size="494,272" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
         <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
@@ -490,17 +552,24 @@
         <widget source="Event" render="Progress" position="1376,444" size="500,10" pixmap="main/progfg50010.png" cornerRadius="5" zPosition="99" backgroundColor="progbg">
             <convert type="EventTime">Progress</convert>
         </widget>
-        <widget source="session.Event_Next" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="32,794" zPosition="2" size="1251,211" font="Regular; 30" halign="left" backgroundColor="background" transparent="1" valign="top">
+        <widget source="session.Event_Next" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="32,594" zPosition="2" size="1251,100" font="Regular; 30" halign="left" backgroundColor="background" transparent="1" valign="top">
             <convert type="EventName">ExtendedDescription</convert>
         </widget>
         <!-- /* separate -->
-        <widget name="epg_description" position="50,100" size="1240,610" zPosition="1" font="Regular; 30" backgroundColor="background" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" valign="top" halign="center"/>
-        <widget source="session.Event_Next" render="Label" position="32,736" size="494,54" halign="left" font="Regular; 40" backgroundColor="background" transparent="1" valign="center" noWrap="1" foregroundColor="white2">
+        <widget name="epg_description" position="350,90" size="920,450" zPosition="1" font="Regular; 30" backgroundColor="background" transparent="1" scrollbarMode="showOnDemand" valign="top" halign="center"/>
+        <widget source="session.Event_Next" render="Label" position="32,550" size="1240,40" halign="left" font="Regular; 36" backgroundColor="background" transparent="1" valign="center" noWrap="1" foregroundColor="white2">
             <convert type="EventName">Name</convert>
         </widget>
-        <widget source="session.CurrentService" render="Label" position="1376,394" size="494,40" font="Regular; 32" borderWidth="1" backgroundColor="background" transparent="1" halign="center" zPosition="5" valign="center" noWrap="1" foregroundColor="white">
+        <widget source="session.CurrentService" render="Label" position="1376,394" size="494,38" font="Regular; 28" borderWidth="1" backgroundColor="background" transparent="1" halign="center" zPosition="5" valign="center" noWrap="1" foregroundColor="white">
             <convert type="ServiceName">Name</convert>
         </widget>
+        <eLabel name="" position="30,698" size="204,304" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
+        <eLabel name="" position="240,698" size="204,304" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
+        <eLabel name="" position="450,698" size="204,304" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
+        <eLabel name="" position="660,698" size="204,304" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
+        <eLabel name="" position="870,698" size="204,304" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
+        <eLabel name="" position="1080,698" size="204,304" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
+        <eLabel name="" position="34,88" size="304,454" zPosition="-90" cornerRadius="20" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <!--##################-->
         <widget source="session.CurrentService" render="FixedLabel" position="1376,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Bold; 24" zPosition="9" text="FHD">
             <convert type="ServiceInfo">VideoWidth</convert>
@@ -530,6 +599,10 @@
             <convert type="ServiceInfo">IsWidescreen</convert>
             <convert type="ConditionalShowHide"/>
         </widget>
+        <widget source="session.CurrentService" render="FixedLabel" position="1554,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 34" text="" zPosition="4">
+            <convert type="AglareServiceInfoEX">IsCrypted</convert>
+            <convert type="ConditionalShowHide"/>
+        </widget>
         <widget source="session.CurrentService" render="FixedLabel" position="1816,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Bold; 24" zPosition="4" text="Hbb">
             <convert type="ServiceInfo">HasHBBTV</convert>
             <convert type="ConditionalShowHide"/>
@@ -538,22 +611,40 @@
             <convert type="ServiceInfo">IsMultichannel</convert>
             <convert type="ConditionalShowHide"/>
         </widget>
-        <eLabel name="" position="1554,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 28" zPosition="1" text="FTA"/>
-        <widget source="session.CurrentService" render="FixedLabel" position="1646,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 35" text="" zPosition="4">
+        <eLabel name="" position="1554,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 26" zPosition="1" text="FTA"/>
+        <widget source="session.CurrentService" render="FixedLabel" position="1646,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 34" text="" zPosition="4">
             <convert type="ServiceInfo">SubtitlesAvailable</convert>
             <convert type="ConditionalShowHide"/>
         </widget>
-        <widget source="session.CurrentService" render="FixedLabel" position="1554,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 34" text="" zPosition="4">
-            <convert type="AglareServiceInfoEX">IsCrypted</convert>
-            <convert type="ConditionalShowHide"/>
-        </widget>
+                                                                                                                                                                                                                                             
+                                                                   
+                                                 
+                 
         <eLabel name="" position="1646,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
         <eLabel name="" position="1732,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
         <eLabel name="" position="1816,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
         <widget source="Service" render="AglareEventListDisplay" position="1319,700" size="580,300" backgroundColor="buttonsc" column0="10,100,yellow,Regular,30,0,0" column1="110,470,white,Regular,30,1,1" primetimeoffset="0" rowHeight="50" transparent="1" zPosition="50">
             <convert type="AglareEventList">beginOnly=yes,primetime=yes,eventcount=6</convert>
         </widget>
-        <widget source="Title" render="Label" position="90,34" size="1203,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
+        <widget source="Event" render="AglarePosterX" nexts="1" position="32,700" size="200,300" zPosition="99" cornerRadius="20"/>
+        <widget source="Event" render="AglarePosterX" nexts="2" position="242,700" size="200,300" zPosition="99" cornerRadius="20"/>
+        <widget source="Event" render="AglarePosterX" nexts="3" position="452,700" size="200,300" zPosition="99" cornerRadius="20"/>
+        <widget source="Event" render="AglarePosterX" nexts="4" position="662,700" size="200,300" zPosition="99" cornerRadius="20"/>
+        <widget source="Event" render="AglarePosterX" nexts="5" position="872,700" size="200,300" zPosition="99" cornerRadius="20"/>
+        <widget source="Event" render="AglarePosterX" nexts="6" position="1082,700" size="200,300" zPosition="99" cornerRadius="20"/>
+        <widget source="Event" render="AglarePosterX" position="36,90" size="300,450" zPosition="88" cornerRadius="14"/>
+        <widget source="Event" render="xtraPoster" position="36,90" size="300,450" zPosition="99" cornerRadius="14"/>
+        <ePixmap name="" position="30,698" size="204,304" alphatest="on" pixmap="main/noposter.png" zPosition="2"/>
+        <ePixmap name="" position="240,698" size="204,304" alphatest="on" pixmap="main/noposter.png" zPosition="2"/>
+        <ePixmap name="" position="450,698" size="204,304" alphatest="on" pixmap="main/noposter.png" zPosition="2"/>
+        <ePixmap name="" position="660,698" size="204,304" alphatest="on" pixmap="main/noposter.png" zPosition="2"/>
+        <ePixmap name="" position="870,698" size="204,304" alphatest="on" pixmap="main/noposter.png" zPosition="2"/>
+        <ePixmap name="" position="1080,698" size="204,304" alphatest="on" pixmap="main/noposter.png" zPosition="2"/>
+        <ePixmap name="" position="34,88" size="304,454" alphatest="on" pixmap="main/noposter454.png" zPosition="2"/>
+        <ePixmap position="350,90" size="920,450" pixmap="menu/backgtr.png" alphatest="blend" zPosition="-79" cornerRadius="30"/>
+        <widget source="Event" render="AglareBackdropX" position="350,90" size="920,450" alphatest="blend" transparent="1" scale="fill" zPosition="-81" cornerRadius="30"/>
+        <widget source="Event" render="xtraBackdrop" position="350,90" size="920,450" alphatest="blend" transparent="1" scale="fill" zPosition="-80" cornerRadius="30"/>
+        <widget source="Title" render="Label" position="90,34" size="863,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
     </screen>
     <screen name="Volume" position="center,110" size="704,70" backgroundColor="transparent" flags="wfNoBorder" zPosition="100" transparent="0">
         <widget name="VolumeText" position="634,0" size="66,65" font="Regular; 34" backgroundColor="background" foregroundColor="white" halign="center" valign="center" zPosition="99" transparent="1"/>
@@ -632,22 +723,24 @@
     </screen>
     <screen name="TimeshiftState" position="610,10" size="700,90" flags="wfNoBorder" transparent="0" backgroundColor="transparent">
         <widget name="state" position="159,15" size="42,28" font="Regular; 26" backgroundColor="background" transparent="1" halign="center" foregroundColor="gold" zPosition="55"/>
+        <!--fix lululla -->
         <widget source="session.CurrentService" render="Label" position="452,10" size="100,40" font="Regular; 32" halign="left" transparent="1" backgroundColor="background" zPosition="55">
-            <convert type="ServicePosition">Position</convert>
+            <convert type="ServicePosition">Position,ShowHours</convert>
         </widget>
         <widget source="session.CurrentService" render="Label" position="21,10" size="127,40" font="Regular; 36" halign="center" transparent="1" backgroundColor="background" zPosition="55" foregroundColor="silver">
-            <convert type="ServicePosition">Remaining</convert>
+            <convert type="ServicePosition">Remaining,Plus</convert>
         </widget>
         <widget source="session.RecordState" render="Pixmap" pixmap="main/rec1.png" position="216,11" size="36,36" alphatest="on" zPosition="22">
             <convert type="ConditionalShowHide"/>
         </widget>
         <widget source="session.CurrentService" render="Label" position="580,10" size="100,40" font="Regular; 32" halign="right" transparent="1" backgroundColor="background" zPosition="55">
-            <convert type="ServicePosition">Length</convert>
+            <convert type="ServicePosition">Length,ShowHours</convert>
         </widget>
         <eLabel backgroundColor="wpmc" cornerRadius="30" position="0, 0" size="700,90" zPosition="-99"/>
         <widget source="session.CurrentService" render="Progress" position="21,60" size="656,14" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="7" zPosition="88">
-            <convert type="ServicePosition">Position</convert>
+            <convert type="ServicePosition">Gauge</convert>
         </widget>
+        <!--fix lululla end -->
         <widget name="PTSSeekPointer" position="0,0" size="0,0"/>
         <widget name="eventname" position="0,0" size="0,0"/>
         <eLabel text="/" position="556,10" size="20,40" font="Regular;30" zPosition="1" halign="center" foregroundColor="white" backgroundColor="background" transparent="1"/>
@@ -1637,15 +1730,17 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
         <widget name="year" position="1293,720" size="624,38" font="Regular; 27" backgroundColor="background" foregroundColor="yellow" transparent="1"/>
         <widget name="genre" position="1293,770" size="624,38" font="Regular; 27" backgroundColor="background" foregroundColor="yellow" transparent="1"/>
         <widget name="titletext" position="1176,570" size="113,38" font="Regular;27" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <!-- fix lululla -->
         <widget source="session.CurrentService" render="Label" position="1214,422" size="148,45" zPosition="22" font="Regular;27" halign="left" backgroundColor="background" foregroundColor="white" noWrap="1" transparent="1">
-            <convert type="ServicePosition">Position,ShowHours</convert>
+            <convert type="ServicePosition">Position,ShowHours,ShowNoSeconds</convert>
         </widget>
         <widget source="session.CurrentService" render="Label" position="1691,422" size="143,45" zPosition="22" font="Regular;27" halign="right" backgroundColor="background" foregroundColor="white" noWrap="1" transparent="1">
-            <convert type="ServicePosition">Length</convert>
+            <convert type="ServicePosition">Length,ShowHours,ShowNoSeconds</convert>
         </widget>
         <widget source="session.CurrentService" render="Progress" position="1372,438" size="300,12" pixmap="main/progfg30012.png" cornerRadius="5" zPosition="99" backgroundColor="progbg">
-            <convert type="ServicePosition">Position</convert>
+            <convert type="ServicePosition">Gauge</convert>
         </widget>
+        <!-- fix lululla  end -->
         <widget name="title" position="1293,570" size="624,38" font="Regular; 27" backgroundColor="background" foregroundColor="yellow" transparent="1" noWrap="1"/>
         <widget name="artisttext" position="1176,620" size="113,38" font="Regular;27" foregroundColor="white" backgroundColor="background" transparent="1"/>
         <widget name="albumtext" position="1176,670" size="113,38" font="Regular;27" foregroundColor="white" backgroundColor="background" transparent="1"/>
@@ -1709,15 +1804,20 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
         <widget source="session.CurrentService" render="Label" position="1162,700" size="740,38" font="Regular; 28" foregroundColor="green" transparent="1" halign="left" zPosition="88" valign="center" noWrap="1">
             <convert type="ServiceName">Name</convert>
         </widget>
+        <!-- fix lululla -->
         <widget source="session.CurrentService" render="Label" position="1335,744" size="135,38" backgroundColor="background" transparent="1" zPosition="88" font="Regular; 30" valign="center" halign="center">
             <convert type="ServicePosition">Position,ShowHours</convert>
+            <!-- 00:45:23 -->
         </widget>
         <widget source="session.CurrentService" render="Label" position="1484,744" size="160,38" backgroundColor="background" transparent="1" zPosition="88" font="Regular; 30" valign="center" halign="center" foregroundColor="yellow">
             <convert type="ServicePosition">Remaining,Plus,ShowHours</convert>
+            <!-- +01:15:00 -->
         </widget>
         <widget source="session.CurrentService" render="Progress" position="1162,837" size="740,14" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="7">
-            <convert type="ServicePosition">Progress</convert>
+            <convert type="ServicePosition">Gauge</convert>
+            <!-- Progress bar -->
         </widget>
+        <!-- end fix lululla -->
         <widget source="Service" render="Label" position="1777,786" size="120,38" font="Regular;28" halign="center" backgroundColor="background" transparent="1" zPosition="88">
             <convert type="ServiceTime">Duration</convert>
             <convert type="ClockToText">AsLength</convert>
