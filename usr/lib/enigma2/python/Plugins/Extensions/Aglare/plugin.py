@@ -425,7 +425,7 @@ class AglareSetup(ConfigListScreen, Screen):
 	def info(self):
 		aboutbox = self.session.open(
 			MessageBox,
-			_("Setup Aglare Skin\nfor %s v.%s\n\nby Lululla @2020\n\nSupport forum on linuxsat-support.com\n\nSkinner creator: Odem2014 ") % (cur_skin, version),
+			_("Setup Aglare Skin\nfor {0} v.{1}\n\nby Lululla @2020\n\nSupport forum on linuxsat-support.com\n\nSkinner creator: Odem2014 ").format(cur_skin, version)
 			MessageBox.TYPE_INFO
 		)
 		aboutbox.setTitle(_("Setup Aglare Skin Info"))
@@ -601,7 +601,7 @@ class AglareSetup(ConfigListScreen, Screen):
 					self.session.openWithCallback(
 						lambda answer: self.handle_api_load(api, answer),
 						MessageBox,
-						_("Import key %s from %s?") % (api.upper(), api_file)
+						_("Import key {0} from {1}?").format(api.upper(), api_file)
 					)
 				else:
 					self.session.open(
@@ -641,7 +641,7 @@ class AglareSetup(ConfigListScreen, Screen):
 			except Exception as e:
 				self.session.open(
 					MessageBox,
-					_("Error %s: %s") % (api.upper(), str(e)),
+					_("Error {0}: {1}").format(api.upper(), str(e))
 					MessageBox.TYPE_ERROR,
 					timeout=4
 				)
