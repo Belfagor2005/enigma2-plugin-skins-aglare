@@ -5715,7 +5715,7 @@ MultiContentEntryPixmapAlphaTest(pos = (5, 1), size = (24, 24), png = 1),
     </screen>
     <screen name="MusicExplorer" position="center,75" zPosition="2" size="1080,45" backgroundColor="transparent" flags="wfNoBorder">
         <widget font="Regular;36" halign="right" position="75,0" render="Label" size="150,45" source="session.CurrentService" valign="center" zPosition="1" transparent="1" backgroundColor="igsd">
-            <convert type="ServicePosition">Remaining</convert>
+            <convert type="ServicePosition">Remaining,Plus</convert>
         </widget>
         <widget font="Regular;36" position="255,0" render="Label" size="975,45" source="session.CurrentService" valign="center" zPosition="1" transparent="1" backgroundColor="igsd">
             <convert type="ServiceName">Name</convert>
