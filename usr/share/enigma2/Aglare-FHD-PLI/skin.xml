@@ -675,7 +675,7 @@
         </widget>
         <eLabel backgroundColor="wpmc" cornerRadius="30" position="0, 0" size="700,90" zPosition="-99"/>
         <widget source="session.CurrentService" render="Progress" position="21,60" size="656,14" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="7" zPosition="88">
-            <convert type="ServicePosition">Gauge</convert>
+            <convert type="ServicePosition">Progress</convert>
         </widget>
         <!--fix lululla end -->
         <widget name="PTSSeekPointer" position="0,0" size="0,0"/>
@@ -1675,7 +1675,7 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
             <convert type="ServicePosition">Length,ShowHours,ShowNoSeconds</convert>
         </widget>
         <widget source="session.CurrentService" render="Progress" position="1372,438" size="300,12" pixmap="main/progfg30012.png" cornerRadius="5" zPosition="99" backgroundColor="progbg">
-            <convert type="ServicePosition">Gauge</convert>
+            <convert type="ServicePosition">Position</convert>
         </widget>
         <!-- fix lululla  end -->
         <widget name="title" position="1293,570" size="624,38" font="Regular; 27" backgroundColor="background" foregroundColor="yellow" transparent="1" noWrap="1"/>
@@ -1751,8 +1751,7 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
             <!-- +01:15:00 -->
         </widget>
         <widget source="session.CurrentService" render="Progress" position="1162,837" size="740,14" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="7">
-            <convert type="ServicePosition">Gauge</convert>
-            <!-- Progress bar -->
+            <convert type="ServicePosition">Progress</convert>
         </widget>
         <!-- end fix lululla -->
         <widget source="Service" render="Label" position="1777,786" size="120,38" font="Regular;28" halign="center" backgroundColor="background" transparent="1" zPosition="88">
