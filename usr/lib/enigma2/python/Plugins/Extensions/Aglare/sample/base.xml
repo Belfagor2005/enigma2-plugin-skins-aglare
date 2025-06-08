@@ -85,7 +85,7 @@
             </widget>
             <eLabel backgroundColor="wpmc" cornerRadius="30" position="0, 0" size="700,90" zPosition="-99"/>
             <widget source="session.CurrentService" render="Progress" position="21,60" size="656,14" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="7" zPosition="88">
-                <convert type="ServicePosition">Progress</convert>
+                <convert type="ServicePosition">Gauge</convert>
             </widget>
             <!--fix lululla end -->
             <widget name="PTSSeekPointer" position="0,0" size="0,0"/>
@@ -1085,7 +1085,7 @@
                 <convert type="ServicePosition">Length,ShowHours,ShowNoSeconds</convert>
             </widget>
             <widget source="session.CurrentService" render="Progress" position="1372,438" size="300,12" pixmap="main/progfg30012.png" cornerRadius="5" zPosition="99" backgroundColor="progbg">
-                <convert type="ServicePosition">Progress</convert>
+                <convert type="ServicePosition">Gauge</convert>
             </widget>
             <!-- fix lululla  end -->
             <widget name="title" position="1293,570" size="624,38" font="Regular; 27" backgroundColor="background" foregroundColor="yellow" transparent="1" noWrap="1"/>
@@ -1161,7 +1161,7 @@
                 <!-- +01:15:00 -->
             </widget>
             <widget source="session.CurrentService" render="Progress" position="1162,837" size="740,14" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="7">
-                <convert type="ServicePosition">Progress</convert>
+                <convert type="ServicePosition">Gauge</convert>
                 <!-- Progress bar -->
             </widget>
             <!-- end fix lululla -->
