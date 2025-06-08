@@ -1,7 +1,7 @@
 
         <include filename="skin_templates.xml"/>
         <include filename="skin_sf.xml"/>
-        <    <screen name="SlimChannelSelection" position="0,0" size="1920,1080" title="Channel Selection" flags="wfNoBorder" backgroundColor="transparent">
+        <screen name="SlimChannelSelection" position="0,0" size="1920,1080" title="Channel Selection" flags="wfNoBorder" backgroundColor="transparent">
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="infobartimedate"/>
         <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
