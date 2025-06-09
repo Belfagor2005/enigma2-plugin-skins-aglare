@@ -51,8 +51,6 @@ _ = gettext.gettext
 PY3 = sys.version_info.major >= 3
 
 
-
-
 global NAMEBIN
 
 config.NcamInfo = ConfigSubsection()
@@ -300,27 +298,17 @@ class NcamInfo:
 		else:
 			self.showLog = False
 			part = None
-		result = self.openWebIF(part)           # returns True/False and data or error
+		result = self.openWebIF(part)
 		retval = []
 		tmp = {}
 		if result[0]:
 			if not self.showLog:
 				dataXML = ElementTree.XML(result[1])
-				# if typ == "version":
-					# if "version" in dataXML.attrib:
-						# self.version = dataXML.attrib["version"]
-					# else:
-						# self.version = "-"
-					# return self.version
 				status = dataXML.find("status")
 				clients = status.findall("client")
 				for client in clients:
 					name = client.attrib["name"]
 					proto = client.attrib["protocol"]
-					# au = client.attrib["au"] if "au" in client.attrib else ""
-					# login = client.find("times").attrib["login"]
-					# online = client.find("times").attrib["online"]
-					# port = client.find("connection").attrib["port"]
 					caid = client.find("request").attrib["caid"]
 					srvid = client.find("request").attrib["srvid"]
 					if "ecmtime" in client.find("request").attrib:

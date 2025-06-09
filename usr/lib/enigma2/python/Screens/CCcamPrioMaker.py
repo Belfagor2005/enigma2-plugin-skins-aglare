@@ -49,8 +49,9 @@ CCPrioMaker_session = None
 
 def CCPrioMakerAutostart(session=None):
 	global CCPrioMaker_session
-	if config.plugins.ccprio.autostart.value and CCPrioMaker_session and session:
-		CCPrioMaker_session = CCPrioMaker(session)
+	if config.plugins.ccprio.autostart.value and session:
+		if CCPrioMaker_session is None:
+			CCPrioMaker_session = CCPrioMaker(session)
 
 
 def cleanup_r(val):
@@ -69,16 +70,15 @@ def readprio():
 			for line in file:
 				if line.startswith("#"):
 					continue
-				line = line.upper()
+				line = line.upper().strip()
 				if line.startswith("P:"):
-					val = cleanup_r(line.strip())
+					val = cleanup_r(line)
 					sp = val.split(':')
-					if len(sp) > 3:
-						PRIOLIST_P.append(sp[2].strip() + sp[3].strip())
+					if len(sp) > 3:  # Ensure there are at least 4 elements
+						PRIOLIST_P.append("%s%s" % (sp[2].strip(), sp[3].strip()))
 	else:
-		with open(PRIOPATH, "w") as file:
-			for p in PRIOLIST_D:
-				file.write(p + "\n")
+		with open(PRIOPATH, 'w') as file:
+			file.writelines(p + "\n" for p in PRIOLIST_D)
 
 
 def cleanup(val):
@@ -92,29 +92,25 @@ def cleanup(val):
 def readecminfo():
 	caid = ""
 	provid = ""
-	print("[CCPrioMaker] search", ECMINFOPATH)
-
-	if os_path.exists(ECMINFOPATH):
+	print(f"[CCPrioMaker] search {ECMINFOPATH}")
+	try:
 		with open(ECMINFOPATH, "r") as file:
 			for line in file:
 				line = line.strip()
-				if line.startswith("caid:"):
-					parts = line.split(":", 1)
-					if len(parts) == 2:
-						try:
-							caid = "%04X" % int(parts[1].strip(), 16)
-						except ValueError:
-							caid = ""
-				elif line.startswith("provid:"):
-					parts = line.split(":", 1)
-					if len(parts) == 2:
-						try:
-							provid = "%06X" % int(parts[1].strip(), 16)
-						except ValueError:
-							provid = ""
-				if caid != "" and provid != "":
-					break
 
+				if line.startswith("caid:"):
+					parts = line.split(":")
+					if len(parts) == 2:
+						caid = f"{int(parts[1], 16):04X}"
+
+				elif line.startswith("provid:"):
+					parts = line.split(":")
+					if len(parts) == 2:
+						provid = f"{int(parts[1], 16):06X}"
+				if caid and provid:
+					break
+	except IOError as e:
+		print(f"Error reading file {ECMINFOPATH}: {e}")
 	return caid, provid
 
 
@@ -140,7 +136,6 @@ class CCPrioMaker(Screen):
 				iPlayableService.evStopped: self.__evStopped
 			}
 		)
-
 		readprio()
 
 	def __evStopped(self):
@@ -189,7 +184,7 @@ class CCPrioMaker(Screen):
 				providval = "000000"
 
 				for x in self.caidlist:
-					m = "%04X" % x
+					m = "%04X" % (x)
 					if m == caid:
 						providval = provid
 					menu.append((_("Caid:") + str(m) + _("\tProvid:") + providval, str(m)))
@@ -211,7 +206,7 @@ class CCPrioMaker(Screen):
 						selection = 0
 						mess += _("\n All Caid:")
 						for x in tmplist:
-							mess += "%s " % x
+							mess += "%s " % (x)
 
 					self.session.openWithCallback(self.parseEcmInfo_back, ChoiceBox, title=mess, list=menu, selection=selection)
 				else:

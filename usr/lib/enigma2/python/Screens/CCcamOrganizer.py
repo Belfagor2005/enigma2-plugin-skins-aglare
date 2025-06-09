@@ -21,17 +21,17 @@ class OrganizerMenu(Screen):
 
 	def __init__(self, session):
 		self.session = session
-		list = []
+		listx = []
 		if fileExists("/etc/CCcam.cfg"):
-			list.append((_("Delete Peer"), "two"))
-			list.append((_("Recover Peer"), "tree"))
-			list.append((_("Find Fakes"), "four"))
-			list.append((_("Stop Finding Fakes"), "five"))
-		list.append((_("Exit"), "exit"))
+			listx.append((_("Delete Peer"), "two"))
+			listx.append((_("Recover Peer"), "tree"))
+			listx.append((_("Find Fakes"), "four"))
+			listx.append((_("Stop Finding Fakes"), "five"))
+		listx.append((_("Exit"), "exit"))
 
 		Screen.__init__(self, session)
 		self.setTitle(_("CCcam Organizer"))
-		self["myMenu"] = MenuList(list)
+		self["myMenu"] = MenuList(listx)
 		self["myActionMap"] = ActionMap(["SetupActions"], {"ok": self.go, "cancel": self.cancel}, -2)
 
 	def go(self):
@@ -53,7 +53,6 @@ class OrganizerMenu(Screen):
 
 	def Revert(self):
 		lines = []
-		# Read the original file and revert lines starting with "#FC:"
 		try:
 			with open("/etc/CCcam.cfg", "r") as f:
 				for line in f:
@@ -79,7 +78,6 @@ class OrganizerNewmenu(Screen):
 	def __init__(self, session):
 		self.session = session
 		self.CFG = "/etc/CCcam.cfg"
-
 		if not fileExists(self.CFG):
 			self.close()
 			return
@@ -89,7 +87,6 @@ class OrganizerNewmenu(Screen):
 		self.selected = ""
 
 		menu_list = []
-
 		try:
 			with open(self.CFG, "r") as f:
 				for line in f:
@@ -140,9 +137,7 @@ class OrganizerNewmenu(Screen):
 			self.message(self.selected, _("PRESS RETURN"))
 
 	def FindFakes(self):
-		self.selected = self["Newmenu"].l.getCurrentSelection()
-		self.selected = self.selected and self.selected[1]
-
+		self.selected = self["Newmenu"].l.getCurrentSelection() and self["Newmenu"].l.getCurrentSelection()[1]
 		if not self.selected:
 			return
 

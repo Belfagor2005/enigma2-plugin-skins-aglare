@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-# from Components.About import about
-# from .. import _
 from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import (
 	# ConfigDirectory,
@@ -760,7 +758,6 @@ class oscECMInfo(Screen, OscamInfo):
 	def showData(self):
 		dataECM = self.getECMInfo(self.ecminfo)
 		out = []
-		# y = 0
 		for i in dataECM:
 			out.append(self.buildListEntry(i))
 		self["output"].l.setItemHeight(int(30 * f))
@@ -985,12 +982,12 @@ class oscInfo(Screen, OscamInfo):
 		if data[0]:
 			if self.what != "l":
 				heading = (
-					self.HEAD[self.NAME], 
-					self.HEAD[self.PROT], 
+					self.HEAD[self.NAME],
+					self.HEAD[self.PROT],
 					self.HEAD[self.CAID_SRVID],
-					self.HEAD[self.SRVNAME], 
-					self.HEAD[self.ECMTIME], 
-					self.HEAD[self.IP_PORT], 
+					self.HEAD[self.SRVNAME],
+					self.HEAD[self.ECMTIME],
+					self.HEAD[self.IP_PORT],
 					""
 				)
 				self.out = [self.buildListEntry(heading, heading=True)]
@@ -1404,7 +1401,6 @@ class OscamInfoConfigScreen(ConfigListScreen, Screen):
 		self.setTitle(_("%s Info - Configuration") % check_NAMEBIN2())
 		self["status"] = StaticText(_("Error:\n%s") % msg if msg is not None else "")  # what is this?
 		ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry)
-		# ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry, fullUI=True)
 		self["actions"] = ActionMap(
 			["SetupActions"],
 			{
@@ -1413,7 +1409,6 @@ class OscamInfoConfigScreen(ConfigListScreen, Screen):
 			},
 			-1
 		)
-		# self["key_red"] = StaticText(_("Close"))
 		self.createSetup()
 
 	def changedEntry(self):
