@@ -562,50 +562,7 @@
         <eLabel backgroundColor="#0000ff00" position="615,1055" size="210,6" zPosition="12"/>
         <eLabel backgroundColor="#000000ff" position="835,1055" size="210,6" zPosition="12"/>
     </screen>
-    <!-- *************************************** -->
-    <!--  WORLDCAM PANELS                           * -->
-    <!-- *************************************** -->
-    <!-- 
-    <screen name="Webcam1" position="0,0" size="1920,1080" title="..::WORLDCAM::.." backgroundColor="#ff000000" flags="wfNoBorder">
-        <widget name="info" position="67,101" size="820,50" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#000000" transparent="1" zPosition="5"/>
-        <ePixmap position="973,638" size="250,250" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/WorldCam/pics/ft.png" zPosition="22" scale="strech" alphatest="blend"/>
-        <eLabel position="61,853" size="830,150" backgroundColor="#30000000" zPosition="1"/>
-        <eLabel position="973,638" size="250,250" backgroundColor="#30000000" zPosition="1"/>
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="pigscreen885"/>
-        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/WorldCam/plugin.png" scale="strech" alphatest="blend" position="736,35" size="191,67" zPosition="5"/>
-        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/WorldCam/pics/PayPal.png" scale="strech" position="1238,889" size="156,75" zPosition="5" alphatest="on"/>
-        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/WorldCam/pics/qr-code.png" scale="strech" position="1444,640" size="318,318" zPosition="2" alphatest="on"/>
-        <eLabel backgroundGradient="blue,red,vertical" cornerRadius="10" position="1399,605" size="400,400"/>
-        <widget name="paypal" position="59,851" size="830,150" font="Regular; 34" foregroundColor="#ffb75b" backgroundColor="#101010" halign="left" transparent="1" zPosition="5"/>
-        <widget name="list" position="65,161" size="830,663" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" zPosition="10" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#000b2049" backgroundColorSelected="#0b2049" />
-    </screen>
-    <screen name="Webcam2" position="0,0" size="1920,1080" title="..::WORLDCAM::.." backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="Webcam1"/>
-    </screen>
-    <screen name="Webcam3" position="0,0" size="1920,1080" title="..::WORLDCAM::.." backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="Webcam1"/>
-    </screen>
-    <screen name="Webcam4" position="0,0" size="1920,1080" title="..::WORLDCAM::.." backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="Webcam1"/>
-    </screen>
-    <screen name="Webcam5" position="0,0" size="1920,1080" title="..::WORLDCAM::.." backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="Webcam1"/>
-    </screen>
-    <screen name="Webcam5a" position="0,0" size="1920,1080" title="..::WORLDCAM::.." backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="Webcam1"/>
-    </screen>
-    <screen name="Webcam6" position="0,0" size="1920,1080" title="..::WORLDCAM::.." backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="Webcam1"/>
-    </screen>
-    <screen name="Webcam7" position="0,0" size="1920,1080" title="..::WORLDCAM::.." backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="Webcam1"/>
-    </screen>
-    <screen name="Webcam8" position="0,0" size="1920,1080" title="..::WORLDCAM::.." backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="Webcam1"/>
-    </screen> -->
+
     <!-- ************* NSS Panels ************* -->
     <screen name="menu_Menu" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Menu Fenice">
         <panel name="titletemp"/>
