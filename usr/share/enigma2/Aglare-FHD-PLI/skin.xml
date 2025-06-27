@@ -6465,12 +6465,37 @@ MultiContentEntryPixmapAlphaTest(pos=(5,10), size=(40,40), png = 2),
         <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
         <widget source="help" render="Label" position="1018,826" size="810,100" font="Regular;26" foregroundColor="#b0b0b0" backgroundColor="black" transparent="1" zPosition="5"/>
     </screen>
+
+    <screen name="FlashImageConfig" position="0,0" size="1920,1080" title="Backup Suite" backgroundColor="background" flags="wfNoBorder">
+        <panel name="titletemp" />
+        <panel name="menutemp" />
+        <panel name="ScreenTemplateAllColorButtons_menu" />
+        <panel name="pigscreen885" />
+        <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU" />
+        <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP" />
+        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO" />
+        <widget source="help" render="Label" position="1018,826" size="810,100" font="Regular;26" foregroundColor="#b0b0b0" backgroundColor="black" transparent="1" zPosition="5" />
+        <widget name="filelist" position="36,98" size="890,900" itemHeight="50" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center" />
+        <widget source="curdir" render="Label" position="1012,765" size="856,53" valign="top" halign="left" zPosition="4" foregroundColor="#00f0f0f0" font="Regular;28" backgroundColor="#00000000" transparent="1" noWrap="1" />
+    </screen>
+    <screen name="BackupHelpScreen" position="0,0" size="1920,1080" title="Backup Suite" backgroundColor="background" flags="wfNoBorder">
+        <panel name="titletemp" />
+        <panel name="menutemp" />
+        <panel name="ScreenTemplateAllColorButtons_menu" />
+        <panel name="pigscreen885" />
+        <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU" />
+        <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP" />
+        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO" />
+        <widget source="help" render="Label" position="1018,826" size="810,100" font="Regular;26" foregroundColor="#b0b0b0" backgroundColor="black" transparent="1" zPosition="5" />
+        <widget name="help_text" position="36,98" size="890,900" itemHeight="50" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center" />
+    </screen>
+
     <screen name="WhatisNewInfo" position="0,0" size="1920,1080" title="FlashConfig" backgroundColor="background" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="pigscreen885"/>
-        <widget name="AboutScrollLabel" position="1018,826" size="810,100" font="Regular;26" foregroundColor="#b0b0b0" backgroundColor="black" transparent="1" zPosition="5"/>
+        <panel name="titletemp" />
+        <panel name="menutemp" />
+        <panel name="ScreenTemplateAllColorButtons_menu" />
+        <panel name="pigscreen885" />
+        <widget name="AboutScrollLabel" position="36,160" size="890,837" font="Regular;26" foregroundColor="#b0b0b0" backgroundColor="black" transparent="1" zPosition="5" />
     </screen>
     <screen name="NumberZapExt" position="center,440" size="794,160" title="Channel">
         <widget name="chPicon" position="560,10" size="220,140" alphatest="blend"/>
