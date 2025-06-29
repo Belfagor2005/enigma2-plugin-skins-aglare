@@ -168,7 +168,7 @@ class ServicePosition(Poll, Converter):
 	text = property(getText)
 	value = property(getValue)
 
-    def changed(self, what):
+   def changed(self, what):
         cutlist_refresh = what[0] != self.CHANGED_SPECIFIC or what[1] in (iPlayableService.evCuesheetChanged,)
         time_refresh = what[0] == self.CHANGED_POLL or (what[0] == self.CHANGED_SPECIFIC and what[1] in (iPlayableService.evCuesheetChanged,))
         
