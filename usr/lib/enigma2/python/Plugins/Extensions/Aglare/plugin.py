@@ -79,7 +79,7 @@ from .DownloadControl import startPosterAutoDB, startBackdropAutoDB
 
 skinversion = '' 
 api_key_manager = ApiKeyManager()
-version = '5.7'
+version = '6.5'
 
 """
 HELPER
@@ -286,18 +286,23 @@ class AglareSetup(ConfigListScreen, Screen):
             list.append(getConfigListEntry(_('Select Your Font:'), cfg.FontStyle))
             list.append(getConfigListEntry(_('Skin Style:'), cfg.skinSelector))
             list.append(getConfigListEntry(_('InfoBar Style:'), cfg.InfobarStyle))
+            list.append(getConfigListEntry(_('InfoBar ECM:'), cfg.InfobarECM))
             list.append(getConfigListEntry(_('InfoBar PosterX:'), cfg.InfobarPosterx))
             list.append(getConfigListEntry(_('InfoBar Xtraevent:'), cfg.InfobarXtraevent))
             list.append(getConfigListEntry(_('InfoBar Date:'), cfg.InfobarDate))
             list.append(getConfigListEntry(_('InfoBar Weather:'), cfg.InfobarWeather))
             list.append(getConfigListEntry(_('SecondInfobar Style:'), cfg.SecondInfobarStyle))
+            list.append(getConfigListEntry(_('SecondInfobar Weather:'), cfg.SecondInfobarWeather))
             list.append(getConfigListEntry(_('SecondInfobar Posterx:'), cfg.SecondInfobarPosterx))
             list.append(getConfigListEntry(_('SecondInfobar Xtraevent:'), cfg.SecondInfobarXtraevent))
             list.append(getConfigListEntry(_('ChannelSelection Style:'), cfg.ChannSelector))
+            list.append(getConfigListEntry(_('Channel Foreground Color:'), cfg.ChannForegroundColor))
+            list.append(getConfigListEntry(_('Channel Selected Foreground Color:'), cfg.ChannForegroundColorSelected))
+            list.append(getConfigListEntry(_('Channel Description Color:'), cfg.ChannServiceDescriptionColor))
+            list.append(getConfigListEntry(_('Channel Selected Description Color:'), cfg.ChannServiceDescriptionColorSelected))
             list.append(getConfigListEntry(_('EventView Style:'), cfg.EventView))
             list.append(getConfigListEntry(_('VolumeBar Style:'), cfg.VolumeBar))
             list.append(getConfigListEntry(_('Support E2iplayer Skins:'), cfg.E2iplayerskins))
-
             section = '--------------------------( UTILITY SKIN SETUP )------------------------'
             list.append((_(section), NoSave(ConfigNothing())))
             list.append(getConfigListEntry(_('Remove all png (poster - backdrop) (OK)'), cfg.png, _("This operation remove all png from folder device (Poster-Backdrop)")))

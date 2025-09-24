@@ -532,8 +532,8 @@
         <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
         <widget name="back" position="0,0" size="0,0" zPosition="0" alphatest="blend" transparent="1"/>
         <widget name="logo" position="1017,595" size="400,400" zPosition="0" alphatest="blend" scale="stretch" transparent="1"/>
-        <widget name="info" position="65,118" zPosition="4" size="835,57" font="Regular;38" foregroundColor="#ffffff" backgroundColor="#000000" transparent="1" halign="center" valign="center"/>
-        <widget name="list" position="58,189" size="849,793" backgroundColor="#30000000" zPosition="1" scrollbarMode="showOnDemand" transparent="1" foregroundColor="#00ffffff"/>
+        <widget name="info" position="65,114" zPosition="4" size="835,57" font="Regular;38" foregroundColor="#ffffff" backgroundColor="#000000" transparent="1" halign="center" valign="center"/>
+        <widget name="list" position="50,189" size="860,793" zPosition="1" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
         <eLabel name="" position="1704,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
     </screen>
@@ -562,7 +562,6 @@
         <eLabel backgroundColor="#0000ff00" position="615,1055" size="210,6" zPosition="12"/>
         <eLabel backgroundColor="#000000ff" position="835,1055" size="210,6" zPosition="12"/>
     </screen>
-
     <!-- ************* NSS Panels ************* -->
     <screen name="menu_Menu" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Menu Fenice">
         <panel name="titletemp"/>

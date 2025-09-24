@@ -166,63 +166,65 @@
     <color name="yellow" value="#00ffff00" />
   </colors>
   <parameters>
-    <parameter name="ChoicelistDash" value="0,3,790,62" />
-    <parameter name="ChoicelistName" value="80,14,790,62" />
-    <parameter name="ChoicelistIcon" value="8,14,54,62" />
-    <parameter name="ChoicelistButtonIcon" value="15,14,54,34" />
-    <parameter name="ChoicelistNameSingle" value="30,14,790,62" />
-    <parameter name="ConfigListSlider" value="20,2" />
-    <parameter name="ConfigListSeperator" value="600" />
-    <parameter name="VirtualKeyboard" value="100, 100" />
-    <parameter name="VirtualKeyBoardAlignment" value="80,80" />
-    <parameter name="VirtualKeyBoardPadding" value="1,1" />
-    <parameter name="VirtualKeyboardFont" value="Bold;40" />
-    <parameter name="VirtualKeyboard" value="80,80" />
-    <parameter name="HelpMenuListHlp" value="0,0,1300,50" />
-    <parameter name="HelpMenuListExtHlp0" value="0,0,900,39" />
-    <parameter name="HelpMenuListExtHlp1" value="0,42,900,30" />
-    <parameter name="FileListIcon" value="14,6,50,50" />
-    <parameter name="FileListName" value="66,6,900,45" />
-    <parameter name="PlayListIcon" value="7,12,32,48" />
-    <parameter name="PlayListName" value="45,0,1000,48" />
-    <parameter name="PluginBrowserIcon" value="20,5,120,60" />
-    <parameter name="PluginBrowserName" value="160,4,40" />
-    <parameter name="PluginBrowserDescr" value="170,36,40" />
-    <parameter name="PluginBrowserDownloadIcon" value="20,10,100,50" />
-    <parameter name="PluginBrowserDownloadName" value="130,4,40" />
-    <parameter name="PluginBrowserDownloadDescr" value="134,36,40" />
-    <parameter name="FileListMultiName" value="90,0,1000,36" />
-    <parameter name="FileListMultiIcon" value="45, 4, 30, 30" />
-    <parameter name="FileListMultiLock" value="2,0,36,36" />
-    <parameter name="ServiceInfo" value="0,0,400,50" />
-    <parameter name="ServiceInfoLeft" value="10,0,350,50" />
-    <parameter name="ServiceInfoRight" value="370,0,450,50" />
-    <parameter name="ServiceInfoFont" value="Regular;28" />
-    <parameter name="SelectionListDescr" value="45,0,1000,38" />
-    <parameter name="SelectionListLock" value="0,2,36,36" />
-    <parameter name="PicturePlayerThumb" value="30,285,45,300,30,25" />
-    <parameter name="AboutHddSplit" value="1" />
-    <parameter name="DreamexplorerName" value="62,2,1200,38" />
-    <parameter name="DreamexplorerIcon" value="15,6,30,30" />
-    <parameter name="FallbackReceiverListName" value="8,2,225,38" />
-    <parameter name="FallbackReceiverListIP" value="300,2,225,38" />
-    <parameter name="GMultiEPGTimelineItemHeight" value="60" />
-    <parameter name="EpgListMulti" value="300,210,110,15" />
-    <parameter name="EpgListMultiProgressBar" value="150,20,1" />
-    <parameter name="EpgListIcon" value="2,20,25,25,2" />
-    <parameter name="EpgListSingle" value="88,220" />
-    <!-- /**************** FileCommander Plugin  *****************-->
-    <parameter name="FcFileListIcon" value="10,2,30,30" />
-    <parameter name="FcFileListMultiIcon" value="45,2,30,30" />
-    <parameter name="FcFileListMultiLock" value="2,0,30,30" />
-    <parameter name="FcFileListMultiName" value="90,2,1000,32" />
-    <parameter name="FcFileListName" value="68,2,1000,34" />
-    <!-- /**************** MSN Weather Plugin  *******************-->
-    <parameter name="WeatherPluginCity" value="20,0,680,50" />
-    <parameter name="WeatherPluginDegreetype" value="670,0,100,50" />
-    <parameter name="WeatherPluginSearchlocation" value="10,0,550,40" />
-    <parameter name="WeatherPluginSearchresult" value="500,0,500,40" />
-  </parameters>
+  <parameter name="ChoicelistDash" value="0,3,790,62" />
+  <parameter name="ChoicelistName" value="80,14,790,62" />
+  <parameter name="ChoicelistIcon" value="8,14,54,62" />
+  <parameter name="ChoicelistButtonIcon" value="15,14,54,34" />
+  <parameter name="ChoicelistNameSingle" value="30,14,790,62" />
+  <parameter name="ConfigListSlider" value="20,2" />
+  <parameter name="ConfigListSeperator" value="600" />
+  <parameter name="VirtualKeyboard" value="100, 100" />
+  <parameter name="VirtualKeyBoardAlignment" value="80,80" />
+  <parameter name="VirtualKeyBoardPadding" value="1,1" />
+  <parameter name="VirtualKeyboardFont" value="Bold;40" />
+  <parameter name="VirtualKeyboard" value="80,80" />
+  <parameter name="HelpMenuListHlp" value="0,0,1300,50" />
+  <parameter name="HelpMenuListExtHlp0" value="0,0,900,39" />
+  <parameter name="HelpMenuListExtHlp1" value="0,42,900,30" />
+  <parameter name="FileListIcon" value="14,6,50,50" />
+  <parameter name="FileListName" value="66,6,900,45" />
+  <parameter name="PlayListIcon" value="7,12,32,48" />
+  <parameter name="PlayListName" value="45,0,1000,48" />
+  <parameter name="PluginBrowserIcon" value="20,5,120,60" />
+  <parameter name="PluginBrowserName" value="160,4,40" />
+  <parameter name="PluginBrowserDescr" value="170,36,40" />
+  <parameter name="PluginBrowserDownloadIcon" value="20,10,100,50" />
+  <parameter name="PluginBrowserDownloadName" value="130,4,40" />
+  <parameter name="PluginBrowserDownloadDescr" value="134,36,40" />
+  <parameter name="FileListMultiName" value="90,0,1000,36" />
+  <parameter name="FileListMultiIcon" value="45, 4, 30, 30" />
+  <parameter name="FileListMultiLock" value="2,0,36,36" />
+  <!--parameter name="ServiceInfo" value="0,0,400,50" /-->
+  <parameter name="ServiceInfoLeft" value="10,0,350,50" />
+  <parameter name="ServiceInfoRight" value="370,0,450,50" />
+  <!--parameter name="ServiceInfoFont" value="Regular;32" /-->
+  <parameter name="ServiceInfoLeftColumnAlignment" value="*RT_HALIGN_LEFT" />
+  <parameter name="ServiceInfoRightColumnAlignment" value="*RT_HALIGN_RIGHT" />
+  <parameter name="SelectionListDescr" value="45,0,1000,38" />
+  <parameter name="SelectionListLock" value="0,2,36,36" />
+  <parameter name="PicturePlayerThumb" value="30,285,45,300,30,25" />
+  <parameter name="AboutHddSplit" value="1" />
+  <parameter name="DreamexplorerName" value="62,2,1200,38" />
+  <parameter name="DreamexplorerIcon" value="15,6,30,30" />
+  <parameter name="FallbackReceiverListName" value="8,2,225,38" />
+  <parameter name="FallbackReceiverListIP" value="300,2,225,38" />
+  <parameter name="GMultiEPGTimelineItemHeight" value="60" />
+  <parameter name="EpgListMulti" value="300,210,110,15" />
+  <parameter name="EpgListMultiProgressBar" value="150,20,1" />
+  <parameter name="EpgListIcon" value="2,20,25,25,2" />
+  <parameter name="EpgListSingle" value="88,220" />
+  <!-- /**************** FileCommander Plugin  *****************-->
+  <parameter name="FcFileListIcon" value="10,2,30,30" />
+  <parameter name="FcFileListMultiIcon" value="45,2,30,30" />
+  <parameter name="FcFileListMultiLock" value="2,0,30,30" />
+  <parameter name="FcFileListMultiName" value="90,2,1000,32" />
+  <parameter name="FcFileListName" value="68,2,1000,34" />
+  <!-- /**************** MSN Weather Plugin  *******************-->
+  <parameter name="WeatherPluginCity" value="20,0,680,50" />
+  <parameter name="WeatherPluginDegreetype" value="670,0,100,50" />
+  <parameter name="WeatherPluginSearchlocation" value="10,0,550,40" />
+  <parameter name="WeatherPluginSearchresult" value="500,0,500,40" />
+</parameters>
   <switchpixmap>
     <pixmap name="menu_on" filename="Aglare-FHD-PLI/icons/menu_on.png" />
     <pixmap name="menu_off" filename="Aglare-FHD-PLI/icons/menu_off.png" />
