@@ -163,12 +163,12 @@ class AglareSetup(ConfigListScreen, Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
         self.session = session
-        self.version = skinversion
+        self.version = '.Aglare-FHD-PLI'
         self.skinFile = join("/usr/share/enigma2", config.skin.primary_skin.value)
         self.previewFiles = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/sample/'
         self['Preview'] = Pixmap()
         self.onChangedEntry = []
-        self.setup_title = (cur_skin)
+        self.setup_title = ('Aglare-FHD-PLI')
         list = []
         section = '--------------------------( SKIN GENERAL SETUP )-----------------------'
         list.append(getConfigListEntry(section))
@@ -474,7 +474,7 @@ class AglareSetup(ConfigListScreen, Screen):
             cfg.download_now_poster.value = False
             cfg.download_now_poster.save()
 
-            # Otteniamo TUTTI i provider abilitati, anche con chiavi di default
+            # Get all enabled providers, including those using default keys
             enabled_providers = {}
             using_default_keys = False
 
@@ -726,10 +726,10 @@ class AglareSetup(ConfigListScreen, Screen):
     def modify_channel_colors(self, content):
         """Replace colors in channel selection XML based on user selection"""
         # Get the selected colors
-        fg_color = config.plugins.Aglare.ChannForegroundColor.value
-        fg_selected_color = config.plugins.Aglare.ChannForegroundColorSelected.value
-        desc_color = config.plugins.Aglare.ChannServiceDescriptionColor.value
-        desc_selected_color = config.plugins.Aglare.ChannServiceDescriptionColorSelected.value
+        fg_color = cfg.ChannForegroundColor.value
+        fg_selected_color = cfg.ChannForegroundColorSelected.value
+        desc_color = cfg.ChannServiceDescriptionColor.value
+        desc_selected_color = cfg.ChannServiceDescriptionColorSelected.value
 
         # Replace the colors in the XML content
         from re import sub
@@ -741,21 +741,7 @@ class AglareSetup(ConfigListScreen, Screen):
         return content
 
     def keySave(self):
-        if not skinversion:
-            self.session.open(MessageBox, "Skin version file missing or invalid.", MessageBox.TYPE_ERROR)
-            self.close()
-            return
-
-        self.version = skinversion
-
-        def load_xml_to_skin_lines(file_path):
-            try:
-                with open(file_path, 'r') as file:
-                    return file.readlines()
-            except FileNotFoundError:
-                return []
-
-        if not fileExists(self.version):
+        if not fileExists(self.skinFile + self.version):
             print("File not found: {}".format(self.version))
             for x in self['config'].list:
                 if len(x) > 1:
@@ -773,50 +759,56 @@ class AglareSetup(ConfigListScreen, Screen):
         cfg.save()
         configfile.save()
 
-        try:
-            skin_lines = []
-            xml_files = [
-                'head-' + cfg.colorSelector.value,
-                'font-' + cfg.FontStyle.value,
-                'infobar-' + cfg.InfobarStyle.value,
-                'infobar-' + cfg.InfobarECM.value,
-                'infobar-' + cfg.InfobarPosterx.value,
-                'infobar-' + cfg.InfobarXtraevent.value,
-                'infobar-' + cfg.InfobarDate.value,
-                'infobar-' + cfg.InfobarWeather.value,
-                'secondinfobar-' + cfg.SecondInfobarStyle.value,
-                'secondinfobar-' + cfg.SecondInfobarWeather.value + '.xml',
-                'secondinfobar-' + cfg.SecondInfobarPosterx.value,
-                'secondinfobar-' + cfg.SecondInfobarXtraevent.value,
-                'channellist-' + cfg.ChannSelector.value,
-                'eventview-' + cfg.EventView.value,
-                'vol-' + cfg.VolumeBar.value,
-                'e2iplayer-' + cfg.E2iplayerskins.value
-            ]
-
-            for filename in xml_files:
-                skin_lines.extend(load_xml_to_skin_lines(self.previewFiles + filename + '.xml'))
-
-            base_file = 'base1.xml' if cfg.skinSelector.value == 'base1' else 'base.xml'
-            skin_lines.extend(load_xml_to_skin_lines(self.previewFiles + base_file))
+        def append_skin_file(file_path, skin_lines):
             try:
-                with open(skin_lines, 'r') as f:
-                    channellist_content = f.read()
-                # Apply color modifications to channel selection XML
-                channellist_content = self.modify_channel_colors(channellist_content)
-                skin_lines.append(channellist_content)
+                with open(file_path, 'r') as skFile:
+                    skin_lines.extend(skFile.readlines())
             except FileNotFoundError:
-                print("Channel selection file not found:", skin_lines)
+                print("File not found:", file_path)
 
-            if cfg.skinSelector.value == 'base1':
-                base_file = 'base1.xml'
-            skin_lines.extend(load_xml_to_skin_lines(self.previewFiles + base_file, skin_lines))
+        skin_lines = []
 
-            with open(self.skinFile, 'w') as xFile:
-                xFile.writelines(skin_lines)
+        file_paths = [
+            self.previewFiles + 'head-' + cfg.colorSelector.value + '.xml',
+            self.previewFiles + 'font-' + cfg.FontStyle.value + '.xml',
+            self.previewFiles + 'infobar-' + cfg.InfobarStyle.value + '.xml',
+            self.previewFiles + 'infobar-' + cfg.InfobarECM.value + '.xml',
+            self.previewFiles + 'infobar-' + cfg.InfobarPosterx.value + '.xml',
+            self.previewFiles + 'infobar-' + cfg.InfobarXtraevent.value + '.xml',
+            self.previewFiles + 'infobar-' + cfg.InfobarDate.value + '.xml',
+            self.previewFiles + 'infobar-' + cfg.InfobarWeather.value + '.xml',
+            self.previewFiles + 'secondinfobar-' + cfg.SecondInfobarStyle.value + '.xml',
+            self.previewFiles + 'secondinfobar-' + cfg.SecondInfobarWeather.value + '.xml',
+            self.previewFiles + 'secondinfobar-' + cfg.SecondInfobarPosterx.value + '.xml',
+            self.previewFiles + 'secondinfobar-' + cfg.SecondInfobarXtraevent.value + '.xml',
+            #self.previewFiles + 'channellist-' + cfg.ChannSelector.value + '.xml',
+            self.previewFiles + 'eventview-' + cfg.EventView.value + '.xml',
+            self.previewFiles + 'vol-' + cfg.VolumeBar.value + '.xml',
+            self.previewFiles + 'e2iplayer-' + cfg.E2iplayerskins.value + '.xml'
+        ]
 
-        except Exception as e:
-            self.session.open(MessageBox, _('Error by processing the skin file: {}').format(str(e)), MessageBox.TYPE_ERROR)
+        for path in file_paths:
+            append_skin_file(path, skin_lines)
+
+        # Now add the modified channel selection content
+        channellist_file = self.previewFiles + 'channellist-' + cfg.ChannSelector.value + '.xml'
+        try:
+            with open(channellist_file, 'r') as f:
+                channellist_content = f.read()
+            # Apply color modifications to channel selection XML
+            channellist_content = self.modify_channel_colors(channellist_content)
+            skin_lines.append(channellist_content)
+        except FileNotFoundError:
+            print("Channel selection file not found:", channellist_file)
+
+        # Finally, add the base file
+        base_file = 'base.xml'
+        if cfg.skinSelector.value == 'base1':
+            base_file = 'base1.xml'
+        append_skin_file(self.previewFiles + base_file, skin_lines)
+
+        with open(self.skinFile, 'w') as xFile:
+            xFile.writelines(skin_lines)
 
         restartbox = self.session.openWithCallback(
             self.restartGUI,
@@ -1037,25 +1029,24 @@ def removePng():
 
 
 def main(session, **kwargs):
-    global skinversion, destr, fullurl
-    cur_skin = config.skin.primary_skin.value.replace("/skin.xml", "")
+    # global skinversion, destr, fullurl
+    # cur_skin = config.skin.primary_skin.value.replace("/skin.xml", "")
 
-    if cur_skin == "Aglare-FHD-PLI":
-        skinversion = join("/usr/share/enigma2", cur_skin, ".Aglare-FHD-PLI")
-        destr = "aglarepliversion.txt"
-        myurl = "https://raw.githubusercontent.com/popking159/skins/main/aglarepli/"
-        fullurl = join(myurl, destr)
-    elif cur_skin == "Aglare-FHD":
-        skinversion = join("/usr/share/enigma2", cur_skin, ".Aglare-FHD")
-        destr = "aglareatvversion.txt"
-        myurl = "https://raw.githubusercontent.com/popking159/skins/main/aglareatv/"
-        fullurl = join(myurl, destr)
-    else:
-        def closePlugin(*args):
-            session.close()
-        session.openWithCallback(closePlugin, MessageBox, "Skin not supported.\nPlugin closed.", MessageBox.TYPE_ERROR, timeout=5)
-        return
-
+    # if cur_skin == "Aglare-FHD-PLI":
+        # skinversion = join("/usr/share/enigma2", cur_skin, ".Aglare-FHD-PLI")
+        # destr = "aglarepliversion.txt"
+        # myurl = "https://raw.githubusercontent.com/popking159/skins/main/aglarepli/"
+        # fullurl = join(myurl, destr)
+    # elif cur_skin == "Aglare-FHD":
+        # skinversion = join("/usr/share/enigma2", cur_skin, ".Aglare-FHD")
+        # destr = "aglareatvversion.txt"
+        # myurl = "https://raw.githubusercontent.com/popking159/skins/main/aglareatv/"
+        # fullurl = join(myurl, destr)
+    # else:
+        # def closePlugin(*args):
+            # session.close()
+        # session.openWithCallback(closePlugin, MessageBox, "Skin not supported.\nPlugin closed.", MessageBox.TYPE_ERROR, timeout=5)
+        # return
     session.open(AglareSetup)
 
 
