@@ -271,6 +271,11 @@ config.plugins.Aglare.InfobarStyle = ConfigSelection(default='infobar_base1', ch
 	('infobar_base4', _('Style4'))
 ])
 
+config.plugins.Aglare.InfobarECM = ConfigSelection(default='infobar_ecm_off', choices=[
+	('infobar_ecm_off', _('OFF')),
+	('infobar_ecm_on', _('ON'))
+])
+
 config.plugins.Aglare.InfobarPosterx = ConfigSelection(default='infobar_posters_posterx_off', choices=[
 	('infobar_posters_posterx_off', _('OFF')),
 	('infobar_posters_posterx_on', _('ON')),
@@ -325,7 +330,77 @@ config.plugins.Aglare.ChannSelector = ConfigSelection(default='channellist_no_po
 	('channellist_6_posters_EX', _('ChannelSelection_6_Posters_EX')),
 	('channellist_big_mini_tv', _('ChannelSelection_big_mini_tv'))
 ])
+config.plugins.Aglare.ChannForegroundColor = ConfigSelection(default='white', choices=[
+	('white', _('White')),
+	('#77ca5b', _('Mint')),
+	('#FFFAFA', _('SnowWhite')),
+	('#008080', _('Teal')),
+	('#FF0000', _('Red')),
+	('#DC143C', _('Crimson')),
+	('#FF6347', _('Tomato')),
+	('#4682B4', _('SteelBlue')),
+	('#32CD32', _('LimeGreen')),
+	('#9ACD32', _('YellowGreen')),
+	('#D3D3D3', _('LightGray')),
+	('#A0522D', _('Sienna')),
+	('#FF4500', _('Orange')),
+	('#663399', _('Purple')),
+	('#FF69B4', _('Pink'))
+])
 
+config.plugins.Aglare.ChannForegroundColorSelected = ConfigSelection(default='white', choices=[
+	('white', _('White')),
+	('#77ca5b', _('Mint')),
+	('#FFFAFA', _('SnowWhite')),
+	('#008080', _('Teal')),
+	('#FF0000', _('Red')),
+	('#DC143C', _('Crimson')),
+	('#FF6347', _('Tomato')),
+	('#4682B4', _('SteelBlue')),
+	('#32CD32', _('LimeGreen')),
+	('#9ACD32', _('YellowGreen')),
+	('#D3D3D3', _('LightGray')),
+	('#A0522D', _('Sienna')),
+	('#FF4500', _('Orange')),
+	('#663399', _('Purple')),
+	('#FF69B4', _('Pink'))
+])
+
+config.plugins.Aglare.ChannServiceDescriptionColor = ConfigSelection(default='white', choices=[
+	('white', _('White')),
+	('#77ca5b', _('Mint')),
+	('#FFFAFA', _('SnowWhite')),
+	('#008080', _('Teal')),
+	('#FF0000', _('Red')),
+	('#DC143C', _('Crimson')),
+	('#FF6347', _('Tomato')),
+	('#4682B4', _('SteelBlue')),
+	('#32CD32', _('LimeGreen')),
+	('#9ACD32', _('YellowGreen')),
+	('#D3D3D3', _('LightGray')),
+	('#A0522D', _('Sienna')),
+	('#FF4500', _('Orange')),
+	('#663399', _('Purple')),
+	('#FF69B4', _('Pink'))
+])
+
+config.plugins.Aglare.ChannServiceDescriptionColorSelected = ConfigSelection(default='white', choices=[
+	('white', _('White')),
+	('#77ca5b', _('Mint')),
+	('#FFFAFA', _('SnowWhite')),
+	('#008080', _('Teal')),
+	('#FF0000', _('Red')),
+	('#DC143C', _('Crimson')),
+	('#FF6347', _('Tomato')),
+	('#4682B4', _('SteelBlue')),
+	('#32CD32', _('LimeGreen')),
+	('#9ACD32', _('YellowGreen')),
+	('#D3D3D3', _('LightGray')),
+	('#A0522D', _('Sienna')),
+	('#FF4500', _('Orange')),
+	('#663399', _('Purple')),
+	('#FF69B4', _('Pink'))
+])
 config.plugins.Aglare.EventView = ConfigSelection(default='eventview_no_posters', choices=[
 	('eventview_no_posters', _('EventView_NO_Posters')),
 	('eventview_7_posters', _('EventView_7_Posters'))

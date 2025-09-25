@@ -77,7 +77,7 @@ from . import _
 from .api_config import cfg, ApiKeyManager
 from .DownloadControl import startPosterAutoDB, startBackdropAutoDB
 
-skinversion = '' 
+skinversion = ''
 api_key_manager = ApiKeyManager()
 version = '6.5'
 
@@ -223,59 +223,51 @@ class AglareSetup(ConfigListScreen, Screen):
     def createSetup(self):
         try:
             self.editListEntry = None
-            # ── NEW BLOCK: show "CD" in PosterX only when Style5 CD is active ──
-            is_style5_cd = (cfg.InfobarStyle.value == 'infobar_base5')
+                                                                                         
+            is_ecm_on = (cfg.InfobarECM.value == 'infobar_ecm_on')
 
-            # Always‑available PosterX choices
-            posterx_choices = [
-                ('infobar_posters_posterx_off', _('OFF')),
-                ('infobar_posters_posterx_on',  _('ON')),
-            ]
+            # Handle InfobarPosterx choices based on ECM setting
+            if is_ecm_on:
+                posterx_choices = [
+                    ('infobar_posters_posterx_off', _('OFF')),
+                    ('infobar_posters_posterx_ecm', _('1 poster'))
+                ]
+            else:
+                posterx_choices = [
+                    ('infobar_posters_posterx_off', _('OFF')),
+                    ('infobar_posters_posterx_on', _('ON')),
+                    ('infobar_posters_posterx_ecm', _('1 poster'))
+                ]
 
-            # Add “CD” only if Style5 CD is selected
-            if is_style5_cd:
-                posterx_choices.append(('infobar_posters_posterx_cd', _('CD')))
-
-            # ---------------- PosterX ----------------
-            current_value = cfg.InfobarPosterx.value
-            default_value = (
-                current_value
-                if any(k == current_value for k, _ in posterx_choices)
-                else 'infobar_posters_posterx_off'
-            )
-
-            if cfg.InfobarPosterx.value not in [v for v, _ in posterx_choices]:
-                cfg.InfobarPosterx.value = default_value
+            # Ensure current value is valid
+            current_posterx = cfg.InfobarPosterx.value
+            if current_posterx not in [v for v, _ in posterx_choices]:
+                cfg.InfobarPosterx.value = 'infobar_posters_posterx_off'
             cfg.InfobarPosterx.setChoices(posterx_choices)
-            # ── NEW BLOCK: dynamic list for InfoBar Xtraevent ───────────────
-            style = cfg.InfobarStyle.value  # current skin style
 
-            # Always–present options
-            xtraevent_choices = [
-                ('infobar_posters_xtraevent_off', _('OFF')),
-                ('infobar_posters_xtraevent_on',  _('ON')),
-            ]
-
-            # Style‑dependent extras
-            if style == 'infobar_base1':               # Default style
-                xtraevent_choices.append(
-                    ('infobar_posters_xtraevent_info', _('Backdrop'))
-                )
-            elif style == 'infobar_base5':             # Style 5 CD
-                xtraevent_choices.append(
-                    ('infobar_posters_xtraevent_cd', _('CD'))
-                )
+            # Handle InfobarXtraevent choices based on ECM setting
+            if is_ecm_on:
+                xtraevent_choices = [
+                    ('infobar_posters_xtraevent_off', _('OFF')),
+                    ('infobar_posters_xtraevent_ecm', _('1 poster'))
+                ]
+            else:
+                xtraevent_choices = [
+                    ('infobar_posters_xtraevent_off', _('OFF')),
+                    ('infobar_posters_xtraevent_on', _('ON')),
+                    ('infobar_posters_xtraevent_info', _('Backdrop')),
+                    ('infobar_posters_xtraevent_ecm', _('1 poster'))
+                ]
 
             # ---------------- Xtraevent --------------
-            current = cfg.InfobarXtraevent.value
+            current_xtraevent = cfg.InfobarXtraevent.value
             safe_default = (
-                current
-                if any(key == current for key, _ in xtraevent_choices)
+                current_xtraevent
+                if any(key == current_xtraevent for key, _ in xtraevent_choices)
                 else 'infobar_posters_xtraevent_off'
             )
 
-            # ✔ use it here
-            if cfg.InfobarXtraevent.value not in [v for v, _ in xtraevent_choices]:
+            if current_xtraevent not in [v for v, _ in xtraevent_choices]:
                 cfg.InfobarXtraevent.value = safe_default
             cfg.InfobarXtraevent.setChoices(xtraevent_choices)
             # ────────────────────────────────────────────────────────────────
@@ -731,6 +723,23 @@ class AglareSetup(ConfigListScreen, Screen):
         from Screens.Setup import SetupSummary
         return SetupSummary
 
+    def modify_channel_colors(self, content):
+        """Replace colors in channel selection XML based on user selection"""
+        # Get the selected colors
+        fg_color = config.plugins.Aglare.ChannForegroundColor.value
+        fg_selected_color = config.plugins.Aglare.ChannForegroundColorSelected.value
+        desc_color = config.plugins.Aglare.ChannServiceDescriptionColor.value
+        desc_selected_color = config.plugins.Aglare.ChannServiceDescriptionColorSelected.value
+
+        # Replace the colors in the XML content
+        from re import sub
+        content = sub(r'foregroundColor="[^"]*"', f'foregroundColor="{fg_color}"', content)
+        content = sub(r'foregroundColorSelected="[^"]*"', f'foregroundColorSelected="{fg_selected_color}"', content)
+        content = sub(r'colorServiceDescription="[^"]*"', f'colorServiceDescription="{desc_color}"', content)
+        content = sub(r'colorServiceDescriptionSelected="[^"]*"', f'colorServiceDescriptionSelected="{desc_selected_color}"', content)
+
+        return content
+
     def keySave(self):
         if not skinversion:
             self.session.open(MessageBox, "Skin version file missing or invalid.", MessageBox.TYPE_ERROR)
@@ -770,11 +779,13 @@ class AglareSetup(ConfigListScreen, Screen):
                 'head-' + cfg.colorSelector.value,
                 'font-' + cfg.FontStyle.value,
                 'infobar-' + cfg.InfobarStyle.value,
+                'infobar-' + cfg.InfobarECM.value,
                 'infobar-' + cfg.InfobarPosterx.value,
                 'infobar-' + cfg.InfobarXtraevent.value,
                 'infobar-' + cfg.InfobarDate.value,
                 'infobar-' + cfg.InfobarWeather.value,
                 'secondinfobar-' + cfg.SecondInfobarStyle.value,
+                'secondinfobar-' + cfg.SecondInfobarWeather.value + '.xml',
                 'secondinfobar-' + cfg.SecondInfobarPosterx.value,
                 'secondinfobar-' + cfg.SecondInfobarXtraevent.value,
                 'channellist-' + cfg.ChannSelector.value,
@@ -788,8 +799,19 @@ class AglareSetup(ConfigListScreen, Screen):
 
             base_file = 'base1.xml' if cfg.skinSelector.value == 'base1' else 'base.xml'
             skin_lines.extend(load_xml_to_skin_lines(self.previewFiles + base_file))
+            try:
+                with open(skin_lines, 'r') as f:
+                    channellist_content = f.read()
+                # Apply color modifications to channel selection XML
+                channellist_content = self.modify_channel_colors(channellist_content)
+                skin_lines.append(channellist_content)
+            except FileNotFoundError:
+                print("Channel selection file not found:", skin_lines)
 
-            print("Writing to file: {}".format(self.skinFile))
+            if cfg.skinSelector.value == 'base1':
+                base_file = 'base1.xml'
+            skin_lines.extend(load_xml_to_skin_lines(self.previewFiles + base_file, skin_lines))
+
             with open(self.skinFile, 'w') as xFile:
                 xFile.writelines(skin_lines)
 
