@@ -164,7 +164,7 @@ class AglareSetup(ConfigListScreen, Screen):
         Screen.__init__(self, session)
         self.session = session
         self.version = '.Aglare-FHD-PLI'
-        self.skinFile = join("/usr/share/enigma2", config.skin.primary_skin.value)
+        self.skinFile = "/usr/share/enigma2/Aglare-FHD-PLI"
         self.previewFiles = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/sample/'
         self['Preview'] = Pixmap()
         self.onChangedEntry = []
@@ -741,7 +741,7 @@ class AglareSetup(ConfigListScreen, Screen):
         return content
 
     def keySave(self):
-        if not fileExists(self.skinFile + self.version):
+        if not fileExists(join(self.skinFile, self.version)):
             print("File not found: {}".format(self.version))
             for x in self['config'].list:
                 if len(x) > 1:
@@ -781,7 +781,7 @@ class AglareSetup(ConfigListScreen, Screen):
             self.previewFiles + 'secondinfobar-' + cfg.SecondInfobarWeather.value + '.xml',
             self.previewFiles + 'secondinfobar-' + cfg.SecondInfobarPosterx.value + '.xml',
             self.previewFiles + 'secondinfobar-' + cfg.SecondInfobarXtraevent.value + '.xml',
-            #self.previewFiles + 'channellist-' + cfg.ChannSelector.value + '.xml',
+            # self.previewFiles + 'channellist-' + cfg.ChannSelector.value + '.xml',
             self.previewFiles + 'eventview-' + cfg.EventView.value + '.xml',
             self.previewFiles + 'vol-' + cfg.VolumeBar.value + '.xml',
             self.previewFiles + 'e2iplayer-' + cfg.E2iplayerskins.value + '.xml'
@@ -806,8 +806,8 @@ class AglareSetup(ConfigListScreen, Screen):
         if cfg.skinSelector.value == 'base1':
             base_file = 'base1.xml'
         append_skin_file(self.previewFiles + base_file, skin_lines)
-
-        with open(self.skinFile, 'w') as xFile:
+        skinFile = self.skinFile + '/skin.xml'
+        with open(skinFile, 'w') as xFile:
             xFile.writelines(skin_lines)
 
         restartbox = self.session.openWithCallback(
@@ -836,6 +836,7 @@ class AglareSetup(ConfigListScreen, Screen):
 
         try:
             # write server‐side version file into /tmp
+            destr = '/tmp/aglarepliversion.txt'
             tmp_file = f'/tmp/{destr}'
             req = Request(
                 fullurl,
@@ -1029,14 +1030,14 @@ def removePng():
 
 
 def main(session, **kwargs):
-    # global skinversion, destr, fullurl
+    global destr, fullurl
+    """
     # cur_skin = config.skin.primary_skin.value.replace("/skin.xml", "")
-
     # if cur_skin == "Aglare-FHD-PLI":
         # skinversion = join("/usr/share/enigma2", cur_skin, ".Aglare-FHD-PLI")
-        # destr = "aglarepliversion.txt"
-        # myurl = "https://raw.githubusercontent.com/popking159/skins/main/aglarepli/"
-        # fullurl = join(myurl, destr)
+        destr = "aglarepliversion.txt"
+        myurl = "https://raw.githubusercontent.com/popking159/skins/main/aglarepli/"
+        fullurl = join(myurl, destr)
     # elif cur_skin == "Aglare-FHD":
         # skinversion = join("/usr/share/enigma2", cur_skin, ".Aglare-FHD")
         # destr = "aglareatvversion.txt"
@@ -1047,6 +1048,10 @@ def main(session, **kwargs):
             # session.close()
         # session.openWithCallback(closePlugin, MessageBox, "Skin not supported.\nPlugin closed.", MessageBox.TYPE_ERROR, timeout=5)
         # return
+    """
+    destr = "aglarepliversion.txt"
+    myurl = "https://raw.githubusercontent.com/popking159/skins/main/aglarepli/"
+    fullurl = join(myurl, destr)
     session.open(AglareSetup)
 
 
