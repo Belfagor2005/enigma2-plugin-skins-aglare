@@ -295,7 +295,8 @@ config.plugins.Aglare.InfobarDate = ConfigSelection(default='infobar_no_date', c
 
 config.plugins.Aglare.InfobarWeather = ConfigSelection(default='infobar_no_weather', choices=[
     ('infobar_no_weather', _('Infobar_NO_Weather')),
-    ('infobar_weather', _('Infobar_Weather'))
+    ('infobar_MSNweather', _('Infobar_MSNWeather')),
+    ('infobar_OAweather', _('Infobar_OAWeather'))
 ])
 
 config.plugins.Aglare.SecondInfobarStyle = ConfigSelection(default='secondinfobar_base1', choices=[

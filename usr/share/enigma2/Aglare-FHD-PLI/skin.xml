@@ -22,17 +22,6 @@
         <resolution xres="1920" yres="1080" bpp="32"/>
     </output>
     <colors>
-        <color name="greeng1" value="#0038761d"/>
-        <color name="greeng2" value="#00326a1a"/>
-        <color name="greeng3" value="#002c5e17"/>
-        <color name="redg1" value="#00771615"/>
-        <color name="redg2" value="#006b1312"/>
-        <color name="redg3" value="#005f1110"/>
-        <color name="black1" value="#00181818"/>
-        <color name="gold1" value="#20ffd700"/>
-        <color name="white1" value="#20ffffff"/>
-        <color name="backgroundtrans1" value="#95000000"/>
-        <color name="backgroundtrans2" value="#95161414"/>
         <color name="#101010" value="#00101010"/>
         <color name="#10101010" value="#10101010"/>
         <color name="#101214" value="#00101214"/>
@@ -62,7 +51,6 @@
         <color name="#606060" value="#00606060"/>
         <color name="#808080" value="#00808080"/>
         <color name="#8293b3" value="#008293b3"/>
-        <color name="progfg" value="#008293b3"/>
         <color name="#90000000" value="#90000000"/>
         <color name="#90ff00ff" value="#90ff00ff"/>
         <color name="#92f1fc" value="#0092f1fc"/>
@@ -88,7 +76,10 @@
         <color name="background3" value="#80000000"/>
         <color name="background4" value="#10000000"/>
         <color name="background90" value="#20000000"/>
+        <color name="backgroundtrans1" value="#95000000"/>
+        <color name="backgroundtrans2" value="#95161414"/>
         <color name="black" value="#00000000"/>
+        <color name="black1" value="#00181818"/>
         <color name="blue" value="#000000ff"/>
         <color name="bpSide" value="#00ff6600"/>
         <color name="buttonsc" value="#001a2336"/>
@@ -110,14 +101,18 @@
         <color name="g2" value="#00481848"/>
         <color name="g3" value="#001c0e1c"/>
         <color name="gold" value="#00ffd700"/>
+        <color name="gold1" value="#20ffd700"/>
         <color name="grdd" value="#000f0910"/>
         <color name="grdd7" value="#00d7d7d7"/>
         <color name="grdl" value="#00c414c4"/>
         <color name="green" value="#0000ff00"/>
         <color name="greenfont" value="#0051bc0e"/>
+        <color name="greeng1" value="#0038761d"/>
+        <color name="greeng2" value="#00326a1a"/>
+        <color name="greeng3" value="#002c5e17"/>
         <color name="grey" value="#008f8f8f"/>
-        <color name="grey_tux" value="#00333333"/>
         <color name="grey2" value="#006b6b6b"/>
+        <color name="grey_tux" value="#00333333"/>
         <color name="greyc4" value="#00c4c4c4"/>
         <color name="hellgreen" value="#0056c856"/>
         <color name="igsd" value="#001d283c"/>
@@ -138,8 +133,12 @@
         <color name="menu" value="#25062748"/>
         <color name="mint" value="#0000cc99"/>
         <color name="progbg" value="#005a5a5a"/>
+        <color name="progfg" value="#008293b3"/>
         <color name="red" value="#00ff0000"/>
         <color name="redfont" value="#00bd1b0e"/>
+        <color name="redg1" value="#00771615"/>
+        <color name="redg2" value="#006b1312"/>
+        <color name="redg3" value="#005f1110"/>
         <color name="selectbg" value="#000f4c5c"/>
         <color name="sidec1" value="#0023314c"/>
         <color name="sidec2" value="#000c101b"/>
@@ -147,14 +146,15 @@
         <color name="silver" value="#00c0c0c0"/>
         <color name="transchsel1" value="#21020202"/>
         <color name="transchsel2" value="#21201120"/>
-        <color name="transparent" value="#ff000000"/>
-        <color name="transparent2" value="#ffffffff"/>
         <color name="transpBlack" value="#41000000"/>
         <color name="transpGrey" value="#41444444"/>
         <color name="transpWhite" value="#77ffffff"/>
+        <color name="transparent" value="#ff000000"/>
+        <color name="transparent2" value="#ffffffff"/>
         <color name="transpyellow" value="#33bab329"/>
         <color name="wdcolor" value="#00171a1c"/>
         <color name="white" value="#00ffffff"/>
+        <color name="white1" value="#20ffffff"/>
         <color name="white2" value="#00dddddd"/>
         <color name="wplc" value="#00222e47"/>
         <color name="wpmc" value="#002d3d5b"/>
@@ -162,60 +162,57 @@
         <color name="yellow" value="#00ffff00"/>
     </colors>
     <parameters>
-        <parameter name="ChoicelistDash" value="0,3,790,62"/>
-        <parameter name="ChoicelistName" value="80,14,790,62"/>
-        <parameter name="ChoicelistIcon" value="8,14,54,62"/>
-        <parameter name="ChoicelistButtonIcon" value="15,14,54,34"/>
-        <parameter name="ChoicelistNameSingle" value="30,14,790,62"/>
-        <parameter name="ConfigListSlider" value="20,2"/>
-        <parameter name="ConfigListSeperator" value="600"/>
-        <parameter name="VirtualKeyboard" value="100, 100"/>
-        <parameter name="VirtualKeyBoardAlignment" value="80,80"/>
-        <parameter name="VirtualKeyBoardPadding" value="1,1"/>
-        <parameter name="VirtualKeyboardFont" value="Bold;40"/>
-        <parameter name="VirtualKeyboard" value="80,80"/>
-        <parameter name="HelpMenuListHlp" value="0,0,1300,50"/>
-        <parameter name="HelpMenuListExtHlp0" value="0,0,900,39"/>
-        <parameter name="HelpMenuListExtHlp1" value="0,42,900,30"/>
-        <parameter name="FileListIcon" value="14,6,50,50"/>
-        <parameter name="FileListName" value="66,6,900,45"/>
-        <parameter name="PlayListIcon" value="7,12,32,48"/>
-        <parameter name="PlayListName" value="45,0,1000,48"/>
-        <parameter name="PluginBrowserIcon" value="20,5,120,60"/>
-        <parameter name="PluginBrowserName" value="160,4,40"/>
-        <parameter name="PluginBrowserDescr" value="170,36,40"/>
-        <parameter name="PluginBrowserDownloadIcon" value="20,10,100,50"/>
-        <parameter name="PluginBrowserDownloadName" value="130,4,40"/>
-        <parameter name="PluginBrowserDownloadDescr" value="134,36,40"/>
-        <parameter name="FileListMultiName" value="90,0,1000,36"/>
-        <parameter name="FileListMultiIcon" value="45, 4, 30, 30"/>
-        <parameter name="FileListMultiLock" value="2,0,36,36"/>
-        <parameter name="ServiceInfo" value="0,0,400,50"/>
-        <parameter name="ServiceInfoLeft" value="10,0,350,50"/>
-        <parameter name="ServiceInfoRight" value="370,0,450,50"/>
-        <parameter name="ServiceInfoFont" value="Regular;28"/>
-        <parameter name="ServiceInfoLeftColumnAlignment" value="*RT_HALIGN_LEFT"/>
-        <parameter name="ServiceInfoRightColumnAlignment" value="*RT_HALIGN_RIGHT"/>                                                                                  
-        <parameter name="SelectionListDescr" value="45,0,1000,38"/>
-        <parameter name="SelectionListLock" value="0,2,36,36"/>
-        <parameter name="PicturePlayerThumb" value="30,285,45,300,30,25"/>
         <parameter name="AboutHddSplit" value="1"/>
-        <parameter name="DreamexplorerName" value="62,2,1200,38"/>
+        <parameter name="ChoicelistButtonIcon" value="15,14,54,34"/>
+        <parameter name="ChoicelistDash" value="0,3,790,62"/>
+        <parameter name="ChoicelistIcon" value="8,14,54,62"/>
+        <parameter name="ChoicelistName" value="80,14,790,62"/>
+        <parameter name="ChoicelistNameSingle" value="30,14,790,62"/>
+        <parameter name="ConfigListSeperator" value="600"/>
+        <parameter name="ConfigListSlider" value="20,2"/>
         <parameter name="DreamexplorerIcon" value="15,6,30,30"/>
-        <parameter name="FallbackReceiverListName" value="8,2,225,38"/>
-        <parameter name="FallbackReceiverListIP" value="300,2,225,38"/>
-        <parameter name="GMultiEPGTimelineItemHeight" value="60"/>
+        <parameter name="DreamexplorerName" value="62,2,1200,38"/>
+        <parameter name="EpgListIcon" value="2,20,25,25,2"/>
         <parameter name="EpgListMulti" value="300,210,110,15"/>
         <parameter name="EpgListMultiProgressBar" value="150,20,1"/>
-        <parameter name="EpgListIcon" value="2,20,25,25,2"/>
         <parameter name="EpgListSingle" value="88,220"/>
-        <!-- /**************** FileCommander Plugin  *****************-->
+        <parameter name="FallbackReceiverListIP" value="300,2,225,38"/>
+        <parameter name="FallbackReceiverListName" value="8,2,225,38"/>
         <parameter name="FcFileListIcon" value="10,2,30,30"/>
         <parameter name="FcFileListMultiIcon" value="45,2,30,30"/>
         <parameter name="FcFileListMultiLock" value="2,0,30,30"/>
         <parameter name="FcFileListMultiName" value="90,2,1000,32"/>
         <parameter name="FcFileListName" value="68,2,1000,34"/>
-        <!-- /**************** MSN Weather Plugin  *******************-->
+        <parameter name="FileListIcon" value="14,6,50,50"/>
+        <parameter name="FileListMultiIcon" value="45, 4, 30, 30"/>
+        <parameter name="FileListMultiLock" value="2,0,36,36"/>
+        <parameter name="FileListMultiName" value="90,0,1000,36"/>
+        <parameter name="FileListName" value="66,6,900,45"/>
+        <parameter name="GMultiEPGTimelineItemHeight" value="60"/>
+        <parameter name="HelpMenuListExtHlp0" value="0,0,900,39"/>
+        <parameter name="HelpMenuListExtHlp1" value="0,42,900,30"/>
+        <parameter name="HelpMenuListHlp" value="0,0,1300,50"/>
+        <parameter name="PicturePlayerThumb" value="30,285,45,300,30,25"/>
+        <parameter name="PlayListIcon" value="7,12,32,48"/>
+        <parameter name="PlayListName" value="45,0,1000,48"/>
+        <parameter name="PluginBrowserDescr" value="170,36,40"/>
+        <parameter name="PluginBrowserDownloadDescr" value="134,36,40"/>
+        <parameter name="PluginBrowserDownloadIcon" value="20,10,100,50"/>
+        <parameter name="PluginBrowserDownloadName" value="130,4,40"/>
+        <parameter name="PluginBrowserIcon" value="20,5,120,60"/>
+        <parameter name="PluginBrowserName" value="160,4,40"/>
+        <parameter name="SelectionListDescr" value="45,0,1000,38"/>
+        <parameter name="SelectionListLock" value="0,2,36,36"/>
+        <parameter name="ServiceInfo" value="0,0,400,50"/>
+        <parameter name="ServiceInfoFont" value="Regular;28"/>
+        <parameter name="ServiceInfoLeft" value="10,0,350,50"/>
+        <parameter name="ServiceInfoLeftColumnAlignment" value="*RT_HALIGN_LEFT"/>
+        <parameter name="ServiceInfoRight" value="370,0,450,50"/>
+        <parameter name="ServiceInfoRightColumnAlignment" value="*RT_HALIGN_RIGHT"/>
+        <parameter name="VirtualKeyBoardAlignment" value="80,80"/>
+        <parameter name="VirtualKeyBoardPadding" value="1,1"/>
+        <parameter name="VirtualKeyboard" value="80,80"/>
+        <parameter name="VirtualKeyboardFont" value="Bold;40"/>
         <parameter name="WeatherPluginCity" value="20,0,680,50"/>
         <parameter name="WeatherPluginDegreetype" value="670,0,100,50"/>
         <parameter name="WeatherPluginSearchlocation" value="10,0,550,40"/>
@@ -662,7 +659,7 @@
             <convert type="ServicePosition">Position</convert>
         </widget>
         <!--fix lululla end -->
-<!--         <widget name="PTSSeekPointer" position="0,0" size="0,0"/>
+        <!--         <widget name="PTSSeekPointer" position="0,0" size="0,0"/>
         <widget name="eventname" position="0,0" size="0,0"/> -->
         <eLabel text="/" position="556,10" size="20,40" font="Regular;30" zPosition="1" halign="center" foregroundColor="white" backgroundColor="background" transparent="1"/>
     </screen>
@@ -878,10 +875,7 @@ MultiContentEntryText(pos = (830, 8), size = (30, 38),  font = 1, flags = RT_HAL
     <screen name="MemoryInfo" position="0,0" size="1920,1080" title="MemoryInfo" backgroundColor="background" flags="wfNoBorder">
         <panel name="menutemp2"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-                                
         <eLabel name="" position="998,96" size="900,800" zPosition="0" cornerRadius="18" backgroundColor="igsd" foregroundColor="igsd"/>
-                                                                                                          
-                                                                                                                
         <eLabel name="" position="36,96" size="900,800" zPosition="0" cornerRadius="18" backgroundColor="igsd" foregroundColor="igsd"/>
         <widget name="lmemtext" position="46,106" size="880,780" font="Regular; 26" zPosition="2" halign="left" transparent="1" backgroundColor="background"/>
         <widget name="lmemvalue" position="46,106" size="880,780" font="Regular; 26" zPosition="2" halign="right" transparent="1" backgroundColor="background" foregroundColor="green"/>
@@ -2019,7 +2013,6 @@ MultiContentEntryText(pos = (530, 54), size = (300, 35), font=1, flags = RT_HALI
         <widget font="Bold; 30" halign="right" position="688,18" render="Label" size="500,40" source="global.CurrentTime" transparent="1">
             <convert type="ClockToText">Format:%a %d.%m. | %H:%M</convert>
         </widget>
-                                                                                                                  
         <eLabel backgroundColor="wpmc" position="0,0" size="1200,800" zPosition="-99"/>
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
         <widget name="prompt" conditional="prompt" position="25,63" size="1050,98" font="Regular; 36" backgroundColor="background" halign="left" transparent="1" noWrap="1" valign="top"/>
@@ -5757,7 +5750,7 @@ MultiContentEntryPixmapAlphaTest(pos = (8, 87), size = (0, 0), png = 5), # index
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
-        <widget name="list" position="36,98" size="890,770" itemHeight="70" foregroundColor="white" foregroundColorSelected="yellow" transparent="1" zPosition="11" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="8" valign="center"/>
+        <widget name="list" position="36,98" size="890,770" itemHeight="70" foregroundColor="white" foregroundColorSelected="yellow" transparent="1" zPosition="11" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" itemCornerRadius="8"/>
         <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <eLabel backgroundColor="mcolor3" cornerRadius="3" position="36,932" size="400,3" zPosition="99"/>
         <eLabel backgroundColor="mcolor3" cornerRadius="3" position="524,932" size="400,3" zPosition="99"/>
@@ -6478,40 +6471,6 @@ MultiContentEntryPixmapAlphaTest(pos=(5,10), size=(40,40), png = 2),
         <panel name="pigscreen885"/>
         <widget name="config" position="36,98" size="890,750" valign="center" itemHeight="45" font="Regular; 30" itemCornerRadius="8" enableWrapAround="1" transparent="1" zPosition="9" scrollbarMode="showAlways" scrollbarForegroundColor="mcolor5" scrollbarBorderColor="mcolor2" scrollbarWidth="10" scrollbarBorderWidth="1" scrollbarRadius="5"/>
         <widget name="label" position="953,755" size="937,234" font="Regular;30" valign="center" halign="left" foregroundColor="yellow" backgroundColor="black" transparent="1" zPosition="5"/>
-    </screen>
-    <screen name="BackupStart" position="0,0" size="1920,1080" title="Backup Suite" backgroundColor="background" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="pigscreen885"/>
-        <widget name="devicelist" position="36,98" size="890,750" valign="center" itemHeight="80" font="Regular; 42" itemCornerRadius="8" enableWrapAround="1" transparent="1" zPosition="9" scrollbarMode="showAlways" scrollbarForegroundColor="mcolor5" scrollbarBorderColor="mcolor2" scrollbarWidth="10" scrollbarBorderWidth="1" scrollbarRadius="5"/>
-        <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
-        <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
-        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
-        <widget source="help" render="Label" position="1018,826" size="810,100" font="Regular;26" foregroundColor="#b0b0b0" backgroundColor="black" transparent="1" zPosition="5"/>
-    </screen>
-    <screen name="FlashImageConfig" position="0,0" size="1920,1080" title="Backup Suite" backgroundColor="background" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="pigscreen885"/>
-        <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
-        <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
-        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
-        <widget source="help" render="Label" position="1018,826" size="810,100" font="Regular;26" foregroundColor="#b0b0b0" backgroundColor="black" transparent="1" zPosition="5"/>
-        <widget name="filelist" position="36,98" size="890,900" itemHeight="50" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center"/>
-        <widget source="curdir" render="Label" position="1012,765" size="856,53" valign="top" halign="left" zPosition="4" foregroundColor="#00f0f0f0" font="Regular;28" backgroundColor="#00000000" transparent="1" noWrap="1"/>
-    </screen>
-    <screen name="BackupHelpScreen" position="0,0" size="1920,1080" title="Backup Suite" backgroundColor="background" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="pigscreen885"/>
-        <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
-        <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
-        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
-        <widget source="help" render="Label" position="1018,826" size="810,100" font="Regular;26" foregroundColor="#b0b0b0" backgroundColor="black" transparent="1" zPosition="5"/>
-        <widget name="help_text" position="36,98" size="890,900" itemHeight="50" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center"/>
     </screen>
     <screen name="WhatisNewInfo" position="0,0" size="1920,1080" title="FlashConfig" backgroundColor="background" flags="wfNoBorder">
         <panel name="titletemp"/>
@@ -7585,8 +7544,8 @@ MultiContentEntryText(pos = (15, 0), size = (890, 50), flags = RT_HALIGN_LEFT|RT
         <eLabel name="" position="1438,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="1"/>
         <eLabel name="" position="1614,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
         <eLabel name="" position="1498,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="2"/>
-        <eLabel name="" position="1556,1016" size="52,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="8"/>
-        <eLabel name="" position="1734,1016" size="130,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="SECRET MENU"/>
+        <eLabel name="" position="1556,1016" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="8"/>
+        <eLabel name="" position="1734,1016" size="130,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="SECRET MENU"/>
         <widget name="description" position="59,97" size="843,64" font="Regular; 32" halign="left" valign="center" foregroundColor="#2a79b8" backgroundColor="black" transparent="1" zPosition="5"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
         <ePixmap name="" position="1676,841" size="200,80" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/logo.png" scale="1"/>
@@ -7642,7 +7601,7 @@ MultiContentEntryText(pos = (15, 0), size = (890, 50), flags = RT_HALIGN_LEFT|RT
         </widget>
         <ePixmap name="" position="1677,810" size="220,136" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1"/>
         <!-- <panel name="bLogo" /> -->
-        <eLabel name="" position="1734,1016" size="55,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1734,1016" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <widget name="info" position="39,107" size="884,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <widget name="fspace" position="1340,1019" size="315,50" font="Regular;24" halign="center" valign="center" foregroundColor="yellow" backgroundColor="wpmc" transparent="1" zPosition="99"/>
         <!-- <widget name="statusgreen" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/status-on.png" alphatest="blend" position="1013,45" size="40,40" zPosition="5"/> -->
@@ -8057,7 +8016,7 @@ MultiContentEntryText(pos = (15, 0), size = (890, 50), flags = RT_HALIGN_LEFT|RT
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="pigscreen885"/>
-        <widget name="mainmenu" position="36,98" size="890,868" itemHeight="62" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center"/>
+        <widget name="mainmenu" position="36,98" size="890,868" itemHeight="62" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center" scrollbarMode="showNever"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/ncam-logo.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="NcamInfoConfigScreen" position="fill" title="Ncam Info Setup" backgroundColor="background" flags="wfNoBorder">
@@ -8388,5 +8347,142 @@ MultiContentEntryText(pos = (15, 0), size = (890, 50), flags = RT_HALIGN_LEFT|RT
         <widget source="LCD2text" render="Label" position="940,560" size="600,75" zPosition="2" font="Regular;38" halign="center" valign="center" transparent="1"/>
         <ePixmap name="" position="1676,834" size="200,80" zPosition="1" pixmap="icons/plugins/lcd4linux.png" alphatest="on" scale="1"/>
         <eLabel backgroundGradient="sidec1,sidec2,horizontal" cornerRadius="90" position="1600,788" size="500,180"/>
+    </screen>
+    <screen name="PluginManagerInfo" position="0,0" size="1920,1080" title="Plugin manager activity" backgroundColor="background" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <widget source="list" render="Listbox" position="36,98" size="890,900" backgroundColor="background" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemHeight="90" itemCornerRadius="8">
+            <convert type="TemplatedMultiContent">
+				{"template": [
+MultiContentEntryPixmapAlphaTest(pos = (20, 15), size = (60, 60), png = 2, flags=BT_SCALE), # index 2 is the status pixmap
+MultiContentEntryText(pos = (100, 4), size = (780, 42), font=0, flags = RT_HALIGN_LEFT, text = 0), # index 0 is the name
+MultiContentEntryText(pos = (100, 50), size = (780, 34), font=1, flags = RT_HALIGN_LEFT, text = 1), # index 1 is the state
+					],
+				"fonts": [gFont("Regular", 32),gFont("Regular", 26)],
+				"itemHeight": 90
+				}
+			</convert>
+        </widget>
+        <widget source="status" render="Label" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
+        <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
+    </screen>
+    <screen name="BackupSuite" position="fill" size="1920,1080" title=" " backgroundColor="background" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="pigscreen885"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="menutemp"/>
+        <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
+        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
+        <widget source="help" render="Label" position="1018,591" size="842,412" font="Regular;26" backgroundColor="background" transparent="1" zPosition="5"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <widget name="devicelist" position="36,100" size="890,900" font="Regular;26" transparent="1" scrollbarMode="showOnDemand" scrollbarForegroundColor="mcolor5" scrollbarBackgroundColor="black" scrollbarBorderColor="mcolor2" scrollbarWidth="10" scrollbarBorderWidth="1" scrollbarRadius="5" itemCornerRadius="10"/>
+    </screen>
+    <screen name="CreateQuadPipChannelEntry" position="center,center" size="1920,1080" title="Quad PiP Channel Selection" flags="wfNoBorder" backgroundColor="transparent">
+        <panel name="titletemp"/>
+        <panel name="menutemp2short"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <widget name="list" position="36,320" size="1212,675" itemHeight="45" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1"/>
+        <widget name="textChannels" position="36,108" size="1212,38" font="Regular;33" backgroundColor="background" transparent="1"/>
+        <widget name="selectedList" position="36,160" size="1013,150" font="Regular;27" itemHeight="33" backgroundColor="background" transparent="1" scrollbarMode="showNever"/>
+        <widget name="description" position="1280,481" size="620,225" font="Regular;30" halign="center" backgroundColor="background" transparent="1"/>
+    </screen>
+    <screen name="QuadPiPChannelSelection" position="center,center" size="1920,1080" title="Quad PiP Channel Selection" flags="wfNoBorder" backgroundColor="transparent">
+        <panel name="titletemp"/>
+        <panel name="menutemp2short"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <widget source="ChannelList" render="Listbox" position="36,110" size="1212,720" zPosition="3" transparent="1" itemHeight="240" itemCornerRadius="12" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1">
+            <convert type="TemplatedMultiContent">
+		{"templates":
+		{"default": (240,[
+				MultiContentEntryText(pos = (38, 5), size = (1013, 42), font=0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 0),
+				MultiContentEntryText(pos = (75, 51), size = (975, 42), font=1, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 1),
+				MultiContentEntryText(pos = (75, 96), size = (975, 42), font=1, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 2),
+				MultiContentEntryText(pos = (75, 141), size = (975, 42), font=1, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 3),
+				MultiContentEntryText(pos = (75, 186), size = (975, 42), font=1, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 4),
+				MultiContentEntryText(pos=  (0, 239), size =(1212,2), text = "", font = 0, flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, border_width = 1, border_color = 5268604),
+		]),
+		},
+		"fonts": [gFont("Regular", 36),gFont("Regular", 30)],
+		"itemHeight": 240
+		}
+	</convert>
+        </widget>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
+        <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
+    </screen>
+    <screen name="LED_GigaSetup" position="fill" title="Setup" flags="wfNoBorder" backgroundColor="background">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <widget name="config" position="36,101" size="890,900" itemHeight="50" font="Regular;30" valign="center" enableWrapAround="1" transparent="1" zPosition="1" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
+        <widget name="description" position="1000,693" size="600,300" font="Regular; 30" halign="left" backgroundColor="background" transparent="1" zPosition="2" valign="bottom"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
+        <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
+    </screen>
+    <screen name="BackupStart" position="0,0" size="1920,1080" title="Backup Suite" backgroundColor="background" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <widget name="devicelist" position="36,98" size="890,900" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center" scrollbarMode="showNever"/>
+        <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
+        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
+        <widget source="help" render="Label" position="1018,591" size="842,412" font="Regular;26" foregroundColor="#b0b0b0" backgroundColor="black" transparent="1" zPosition="5"/>
+    </screen>
+    <screen name="FlashImageConfig" position="0,0" size="1920,1080" title="Backup Suite" backgroundColor="background" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <widget source="help" render="Label" position="1018,591" size="842,412" font="Regular;26" backgroundColor="background" transparent="1" zPosition="5"/>
+        <widget name="filelist" position="36,98" size="890,800" itemHeight="50" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center" scrollbarMode="showAlways" scrollbarForegroundColor="mcolor5" scrollbarBackgroundColor="black" scrollbarBorderColor="mcolor2" scrollbarWidth="10" scrollbarBorderWidth="1" scrollbarRadius="5"/>
+        <widget source="curdir" render="Label" position="36,941" size="890,53" valign="top" halign="left" zPosition="4" foregroundColor="yellow" font="Regular;28" backgroundColor="background" transparent="1" noWrap="1"/>
+    </screen>
+    <screen name="BackupHelpScreen" position="0,0" size="1920,1080" title="Backup Suite" backgroundColor="background" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
+        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
+        <widget source="help" render="Label" position="1018,591" size="842,412" font="Regular;26" backgroundColor="background" transparent="1" zPosition="5"/>
+        <widget name="help_text" position="36,98" size="890,900" itemHeight="50" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center" scrollbarMode="showAlways" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
+    </screen>
+    <screen name="SHOUTcastWidget" title="SHOUTcast" position="fill" flags="wfNoBorder">
+        <panel name="menutemp3"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <widget name="cover" position="1381,320" size="400,380" zPosition="99"/>
+        <ePixmap name="" position="1481,116" size="200,180" pixmap="icons/plugins/shoutcast-200x180.png" zPosition="55" alphatest="on" scale="1"/>
+        <widget name="headertext" position="36,110" size="1220,50" zPosition="1" font="Regular;30" transparent="1" foregroundColor="yellow"/>
+        <widget name="statustext" position="321,510" size="624,135" zPosition="6" font="Regular;30" transparent="1"/>
+        <widget name="list" position="36,178" size="1220,800" zPosition="2" transparent="0" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <widget name="titel" position="1278,780" size="624,93" zPosition="1" font="Regular;27" transparent="1"/>
+        <widget name="station" position="1280,878" size="624,62" zPosition="1" font="Regular;27" foregroundColor="white" transparent="1"/>
+        <widget name="console" position="1278,940" size="624,62" zPosition="1" font="Regular;27" foregroundColor="red" transparent="1"/>
+        <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+    </screen>
+    <screen name="SHOUTcastSetup" title="SHOUTcast Setup" position="fill" flags="wfNoBorder">
+        <panel name="menutemp3"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <widget name="config" position="36,100" size="1220,900" itemHeight="50" font="Regular;30" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
+        <widget alphatest="blend" name="HelpWindow" position="999,813" size="906,188" transparent="1" zPosition="99" font="Regular; 30" halign="center"/>
+        <ePixmap name="" position="1481,116" size="200,180" pixmap="icons/plugins/shoutcast-200x180.png" zPosition="55" alphatest="on" scale="1"/>
+    </screen>
+    <screen name="SHOUTcastStreamripperRecordingPath" title="Select record path for streamripper" position="fill" flags="wfNoBorder">
+        <panel name="menutemp3"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <ePixmap name="" position="1481,116" size="200,180" pixmap="icons/plugins/shoutcast-200x180.png" zPosition="55" alphatest="on" scale="1"/>
+        <widget name="target" position="50,106" size="1200,50" valign="center" font="Regular;33" transparent="1" foregroundColor="yellow"/>
+        <widget name="filelist" position="36,188" size="1220,800" zPosition="1" itemCornerRadius="10" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
     </screen>
 </skin>

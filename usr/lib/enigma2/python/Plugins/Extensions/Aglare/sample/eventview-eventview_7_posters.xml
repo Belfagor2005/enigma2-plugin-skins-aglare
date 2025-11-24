@@ -38,31 +38,31 @@
   <eLabel name="" position="1080,698" size="204,304" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2" />
   <eLabel name="" position="34,88" size="304,454" zPosition="-90" cornerRadius="20" backgroundColor="mcolor2" foregroundColor="mcolor2" />
   <!--##################-->
-  <widget source="session.CurrentService" render="FixedLabel" position="1376,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Bold; 24" zPosition="9" text="FHD">
+  <widget source="session.CurrentService" render="FixedLabel" position="1376,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regularn; 24" zPosition="9" text="FHD">
     <convert type="ServiceInfo">VideoWidth</convert>
     <convert type="ValueRange">1440,1920</convert>
     <convert type="ConditionalShowHide" />
   </widget>
-  <widget source="session.CurrentService" render="FixedLabel" position="1376,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Bold; 24" zPosition="2" text="HD">
+  <widget source="session.CurrentService" render="FixedLabel" position="1376,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regularn; 24" zPosition="2" text="HD">
     <convert type="ServiceInfo">VideoWidth</convert>
     <convert type="ValueRange">1280,1439</convert>
     <convert type="ConditionalShowHide" />
   </widget>
-  <widget source="session.CurrentService" render="FixedLabel" position="1376,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Bold; 24" zPosition="1" text="SD">
+  <widget source="session.CurrentService" render="FixedLabel" position="1376,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regularn; 24" zPosition="1" text="SD">
     <convert type="ServiceInfo">VideoWidth</convert>
     <convert type="ValueRange">0,720</convert>
     <convert type="ConditionalShowHide" />
   </widget>
-  <widget source="session.CurrentService" render="FixedLabel" position="1376,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Bold; 24" zPosition="4" text="4K">
+  <widget source="session.CurrentService" render="FixedLabel" position="1376,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regularn; 24" zPosition="4" text="4K">
     <convert type="ServiceInfo">VideoWidth</convert>
     <convert type="ValueRange">3440,4096</convert>
     <convert type="ConditionalShowHide" />
   </widget>
-  <widget source="session.CurrentService" render="FixedLabel" position="1466,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Bold; 24" zPosition="4" text="4:3">
+  <widget source="session.CurrentService" render="FixedLabel" position="1466,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regularn; 24" zPosition="4" text="4:3">
     <convert type="ServiceInfo">IsNotWidescreen</convert>
     <convert type="ConditionalShowHide" />
   </widget>
-  <widget source="session.CurrentService" render="FixedLabel" position="1466,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Bold; 24" zPosition="4" text="16:9">
+  <widget source="session.CurrentService" render="FixedLabel" position="1466,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regularn; 24" zPosition="4" text="16:9">
     <convert type="ServiceInfo">IsWidescreen</convert>
     <convert type="ConditionalShowHide" />
   </widget>
@@ -70,7 +70,7 @@
     <convert type="AglareServiceInfoEX">IsCrypted</convert>
     <convert type="ConditionalShowHide" />
   </widget>
-  <widget source="session.CurrentService" render="FixedLabel" position="1816,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Bold; 24" zPosition="4" text="Hbb">
+  <widget source="session.CurrentService" render="FixedLabel" position="1816,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regularn; 24" zPosition="4" text="Hbb">
     <convert type="ServiceInfo">HasHBBTV</convert>
     <convert type="ConditionalShowHide" />
   </widget>
@@ -78,7 +78,7 @@
     <convert type="ServiceInfo">IsMultichannel</convert>
     <convert type="ConditionalShowHide" />
   </widget>
-  <eLabel name="" position="1554,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 26" zPosition="1" text="FTA" />
+  <eLabel name="" position="1554,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regularn; 26" zPosition="1" text="FTA" />
   <widget source="session.CurrentService" render="FixedLabel" position="1646,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 34" text="" zPosition="4">
     <convert type="ServiceInfo">SubtitlesAvailable</convert>
     <convert type="ConditionalShowHide" />

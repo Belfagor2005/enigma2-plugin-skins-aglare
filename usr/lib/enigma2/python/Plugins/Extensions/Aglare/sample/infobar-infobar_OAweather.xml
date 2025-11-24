@@ -1,6 +1,6 @@
 
 <!--  weather  -->
-  <eLabel backgroundGradient="igsdt,igsd,horizontal" cornerRadius="60" position="1591,175" size="540,120" />
+  <eLabel backgroundColor="igsd" cornerRadius="60" position="1591,175" size="540,120" />
   <widget render="OAWeatherPixmap" position="1600,185" size="100,100" source="session.OAWeather" alphatest="blend" transparent="1" zPosition="8" scale="1" >
     <convert type="OAWeather">weathericon,current</convert>
   </widget>
