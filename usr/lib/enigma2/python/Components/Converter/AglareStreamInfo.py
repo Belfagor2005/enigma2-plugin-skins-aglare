@@ -1,7 +1,7 @@
 from Components.Converter.Converter import Converter
 from Components.Element import cached
 import NavigationInstance
-from enigma import iPlayableService, iServiceInformation, eServiceReference
+from enigma import iPlayableService
 import urllib
 
 
