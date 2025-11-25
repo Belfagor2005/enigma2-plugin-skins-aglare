@@ -19,6 +19,14 @@ import NavigationInstance
 from os import path as os_path
 import urllib
 
+try:
+    # Python 2 imports
+    from urlparse import urlparse
+except ImportError:
+    # Python 3 imports
+    from urllib.parse import urlparse
+
+
 import gettext
 _ = gettext.gettext
 
