@@ -8432,7 +8432,7 @@ MultiContentEntryText(pos = (100, 50), size = (780, 34), font=1, flags = RT_HALI
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
-        <widget name="devicelist" position="36,98" size="890,900" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center" scrollbarMode="showNever"/>
+        <widget name="devicelist" position="36,98" size="890,900" itemHeight="100" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center" scrollbarMode="showNever"/>
         <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
         <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
