@@ -3670,23 +3670,23 @@ self.instance.move(ePoint((FB_W - win_w) // 2,
         <widget source="Canvas" render="Canvas" position="center,center" size="1280,720" font="Regular;32"/>
     </screen>
     <screen name="IMDB" position="0,0" size="1920,1080" title="IMDb Details Plugin" backgroundColor="background" flags="wfNoBorder">
-        <panel name="titletemp" />
-        <panel name="menutemp" />
-        <panel name="ScreenTemplateAllColorButtons_menu" />
-        <panel name="pigscreen885" />
-        <widget name="menu" position="36,546" size="890,450" valign="center" itemHeight="45" enableWrapAround="1" backgroundColor="background" transparent="1" alphatest="on" font="Regular; 28" zPosition="4" scrollbarMode="showNever" />
-        <widget name="titellabel" position="36,98" size="890,42" font="Regular; 36" valign="center" backgroundColor="background" transparent="1" foregroundColor="yellow" />
-        <widget name="starsbg" position="970,895" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IMDb/starsbar_empty.png" zPosition="2" alphatest="on" transparent="1" />
-        <widget name="stars" position="970,895" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IMDb/starsbar_filled.png" zPosition="3" transparent="1" alphatest="on" />
-        <widget name="ratinglabel" position="967,933" size="506,36" font="Bold; 30" halign="left" backgroundColor="background" transparent="1" />
-        <widget name="poster" position="969,586" size="200,300" alphatest="blend" zPosition="1" cornerRadius="10" />
-        <widget name="detailslabel" position="36,154" size="890,380" font="Regular; 30" backgroundColor="background" transparent="1" valign="top" foregroundColor="cyan1" scrollbarMode="showNever" />
-        <widget name="castlabel" position="36,546" size="890,450" font="Regular; 28" backgroundColor="background" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" valign="top" foregroundColor="#1edb76" />
-        <widget name="extralabel" position="36,154" size="890,650" font="Regular; 30" backgroundColor="background" transparent="1" valign="top" foregroundColor="white" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" />
-        <widget name="statusbar" position="1194,595" size="617,184" font="Regular; 26" halign="left" valign="bottom" foregroundColor="yellow" backgroundColor="background" transparent="1" zPosition="5" />
-        <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU" />
-        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/media.png" transparent="1" alphatest="on" />
-        <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180" />
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <widget name="menu" position="36,546" size="890,450" valign="center" itemHeight="45" enableWrapAround="1" backgroundColor="background" transparent="1" alphatest="on" font="Regular; 28" zPosition="4" scrollbarMode="showNever"/>
+        <widget name="titellabel" position="36,98" size="890,42" font="Regular; 36" valign="center" backgroundColor="background" transparent="1" foregroundColor="yellow"/>
+        <widget name="starsbg" position="970,895" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IMDb/starsbar_empty.png" zPosition="2" alphatest="on" transparent="1"/>
+        <widget name="stars" position="970,895" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IMDb/starsbar_filled.png" zPosition="3" transparent="1" alphatest="on"/>
+        <widget name="ratinglabel" position="967,933" size="506,36" font="Bold; 30" halign="left" backgroundColor="background" transparent="1"/>
+        <widget name="poster" position="969,586" size="200,300" alphatest="blend" zPosition="1" cornerRadius="10"/>
+        <widget name="detailslabel" position="36,154" size="890,380" font="Regular; 30" backgroundColor="background" transparent="1" valign="top" foregroundColor="cyan1" scrollbarMode="showNever"/>
+        <widget name="castlabel" position="36,546" size="890,450" font="Regular; 28" backgroundColor="background" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" valign="top" foregroundColor="#1edb76"/>
+        <widget name="extralabel" position="36,154" size="890,650" font="Regular; 30" backgroundColor="background" transparent="1" valign="top" foregroundColor="white" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
+        <widget name="statusbar" position="1194,595" size="617,184" font="Regular; 26" halign="left" valign="bottom" foregroundColor="yellow" backgroundColor="background" transparent="1" zPosition="5"/>
+        <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/media.png" transparent="1" alphatest="on"/>
+        <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
     </screen>
     <screen name="Information" title="Information" position="fill" backgroundColor="black" flags="wfNoBorder">
         <panel name="menutemp2"/>

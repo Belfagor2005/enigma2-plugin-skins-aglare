@@ -45,7 +45,7 @@
   <widget source="session.FrontendStatus" render="Progress" position="1044,262" size="230,8" pixmap="main/progfg2308.png" backgroundColor="progbg" zPosition="99" cornerRadius="4">
   <convert type="FrontendInfo">SNR</convert>
 </widget>
-  <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2"" />
+  <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" />
   <eLabel backgroundColor="mcolor3" cornerRadius="3" position="970,638" size="400,3" zPosition="99" />
   <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1490,638" size="400,3" zPosition="99" />
   <widget source="ServiceEvent" render="Label" position="1751,420" size="135,50" halign="center" font="Regular; 27" backgroundColor="background" transparent="1" valign="center" zPosition="10">
