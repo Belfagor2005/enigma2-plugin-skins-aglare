@@ -3,7 +3,7 @@
     <!-- *************************************** -->
     <!--  APSATTV PANELS                           * -->
     <!-- *************************************** -->
-    <screen name="Apsattv" position="0,0" size="1920,1080" title="::Apsattv::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="Apsattv" position="center,center" size="1920,1080" title="::Apsattv::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <widget name="category" position="939,614" size="456,192" zPosition="3" backgroundColor="#30000000" transparent="1" font="Regular;38" halign="center" foregroundColor="#f4b700"/>
         <widget name="name" position="56,111" size="850,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <eLabel position="61,853" size="830,150" backgroundColor="#30000000" zPosition="1"/>
@@ -19,16 +19,16 @@
         <!-- Menu List -->
         <widget name="menulist" position="57,181" size="833,632" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/Apsattv/skin/pic/slider.png"/>
     </screen>
-    <screen name="selectplay" position="0,0" size="1920,1080" title="..::Apsattv::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="selectplay" position="center,center" size="1920,1080" title="..::Apsattv::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="Apsattv"/>
     </screen>
-    <screen name="main2" position="0,0" size="1920,1080" title="..::Apsattv::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="main2" position="center,center" size="1920,1080" title="..::Apsattv::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="Apsattv"/>
     </screen>
     <!-- *************************************** -->
     <!--  FILMON PANELS                           * -->
     <!-- *************************************** -->
-    <screen name="filmon" position="0,0" size="1920,1080" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="filmon" position="center,center" size="1920,1080" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -41,7 +41,7 @@
     <!-- *************************************** -->
     <!--  FREEARHEY PANELS                           * -->
     <!-- *************************************** -->
-    <screen name="freearhey" position="0,0" size="1920,1080" title="::freearhey::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="freearhey" position="center,center" size="1920,1080" title="::freearhey::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <widget name="category" position="939,614" size="456,192" zPosition="3" backgroundColor="#30000000" transparent="1" font="Regular;38" halign="center" foregroundColor="#f4b700"/>
         <widget name="name" position="56,111" size="850,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <eLabel position="61,853" size="830,150" backgroundColor="#30000000" zPosition="1"/>
@@ -57,16 +57,16 @@
         <!-- Menu List -->
         <widget name="menulist" position="55,206" size="838,640" backgroundColor="#30000000" zPosition="1" scrollbarMode="showOnDemand" transparent="1" foregroundColor="#00ffffff"/>
     </screen>
-    <screen name="main23" position="0,0" size="1920,1080" title="..::freearhey::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="main23" position="center,center" size="1920,1080" title="..::freearhey::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="freearhey"/>
     </screen>
-    <screen name="selectplay3" position="0,0" size="1920,1080" title="..::freearhey::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="selectplay3" position="center,center" size="1920,1080" title="..::freearhey::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="freearhey"/>
     </screen>
     <!-- *************************************** -->
     <!--  HASBAHCA PANELS                           * -->
     <!-- *************************************** -->
-    <screen name="MainHasBahCa" position="0,0" size="1920,1080" title="..::HasBahCa::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="MainHasBahCa" position="center,center" size="1920,1080" title="..::HasBahCa::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -78,16 +78,16 @@
         <!-- Menu List -->
         <widget name="text" position="55,206" size="838,640" backgroundColor="#30000000" zPosition="1" scrollbarMode="showOnDemand" transparent="1" foregroundColor="#00ffffff"/>
     </screen>
-    <screen name="HasBahCaC" position="0,0" size="1920,1080" title="..::freearhey::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="HasBahCaC" position="center,center" size="1920,1080" title="..::freearhey::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainHasBahCa"/>
     </screen>
-    <screen name="HasBahCa1" position="0,0" size="1920,1080" title="..::freearhey::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="HasBahCa1" position="center,center" size="1920,1080" title="..::freearhey::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainHasBahCa"/>
     </screen>
     <!-- *************************************** -->
     <!--  TVDREAM PANELS                           * -->
     <!-- *************************************** -->
-    <screen name="MainSetting" position="0,0" size="1920,1080" title="..::TiVuDream::.." backgroundColor="transparent" flags="wfNoBorder">
+    <screen name="MainSetting" position="center,center" size="1920,1080" title="..::TiVuDream::.." backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -96,28 +96,28 @@
         <widget name="info" position="51,119" size="850,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <widget name="text" position="49,191" size="850,650" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049"/>
     </screen>
-    <screen name="State" position="0,0" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="State" position="center,center" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainSetting"/>
     </screen>
-    <screen name="tvRegioni" position="0,0" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="tvRegioni" position="center,center" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainSetting"/>
     </screen>
-    <screen name="tvItalia" position="0,0" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="tvItalia" position="center,center" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainSetting"/>
     </screen>
-    <screen name="tvCanal" position="0,0" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="tvCanal" position="center,center" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainSetting"/>
     </screen>
-    <screen name="tvCategory" position="0,0" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="tvCategory" position="center,center" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainSetting"/>
     </screen>
-    <screen name="subCategory" position="0,0" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="subCategory" position="center,center" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainSetting"/>
     </screen>
-    <screen name="tvNew" position="0,0" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="tvNew" position="center,center" size="1920,1080" title="..::TiVuDream::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainSetting"/>
     </screen>
-    <screen name="Playstream1" position="0,0" size="1920,1080" title="TiVuDream" backgroundColor="#FF000000" flags="wfNoBorder">
+    <screen name="Playstream1" position="center,center" size="1920,1080" title="TiVuDream" backgroundColor="#FF000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -128,7 +128,7 @@
     <!-- *************************************** -->
     <!--  PARSATV PANELS                           * -->
     <!-- *************************************** -->
-    <screen name="MainParsa" position="0,0" size="1920,1080" title="..::parsatv::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="MainParsa" position="center,center" size="1920,1080" title="..::parsatv::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -141,22 +141,22 @@
         <widget name="info" position="51,119" size="850,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <widget name="text" position="49,191" size="850,650" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049"/>
     </screen>
-    <screen name="parsatv2" position="0,0" size="1920,1080" title="..::parsatv::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="parsatv2" position="center,center" size="1920,1080" title="..::parsatv::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainParsa"/>
     </screen>
-    <screen name="parsatv3" position="0,0" size="1920,1080" title="..::parsatv::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="parsatv3" position="center,center" size="1920,1080" title="..::parsatv::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainParsa"/>
     </screen>
-    <screen name="parsasport" position="0,0" size="1920,1080" title="..::parsatv::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="parsasport" position="center,center" size="1920,1080" title="..::parsatv::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainParsa"/>
     </screen>
-    <screen name="parsatv" position="0,0" size="1920,1080" title="..::parsatv::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="parsatv" position="center,center" size="1920,1080" title="..::parsatv::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainParsa"/>
     </screen>
     <!-- *************************************** -->
     <!--  MMPICONS PANELS                           * -->
     <!-- *************************************** -->
-    <screen name="SelectPicons" position="0,0" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="SelectPicons" position="center,center" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -171,16 +171,16 @@
         <widget name="poster" position="775,26" size="150,90" backgroundColor="#30000000" transparent="1" borderWidth="3" borderColor="#00ffffff" alphatest="blend" zPosition="4"/>
         <eLabel name="" position="1734,1016" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
     </screen>
-    <screen name="MMarkPiconScreen" position="0,0" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="MMarkPiconScreen" position="center,center" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="SelectPicons"/>
     </screen>
-    <screen name="MMarkFolderScreen" position="0,0" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="MMarkFolderScreen" position="center,center" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="SelectPicons"/>
     </screen>
-    <screen name="MMarkFolderSkinZeta" position="0,0" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="MMarkFolderSkinZeta" position="center,center" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="SelectPicons"/>
     </screen>
-    <screen name="mmConfig" position="0,0" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="mmConfig" position="center,center" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -194,14 +194,14 @@
         <eLabel backgroundGradient="blue,red,vertical" cornerRadius="10" position="1399,605" size="400,400"/>
         <widget name="paypal" position="984,612" size="401,301" font="Regular; 34" foregroundColor="#ffb75b" backgroundColor="#101010" halign="left" transparent="1" zPosition="5"/>
     </screen>
-    <screen name="PiconsPreview" position="0,0" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="PiconsPreview" position="center,center" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <widget name="pixmap" position="center,center" size="1920,1080" zPosition="1" alphatest="on"/>
     </screen>
     <!-- *************************************** -->
     <!--  INFOS PANELS                           * -->
     <!-- *************************************** -->
     <!-- ************* CAM Manager ************* -->
-    <screen name="tvManager" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Cams Manager">
+    <screen name="tvManager" backgroundColor="transparent" flags="wfNoBorder" position="center,center" size="1920,1080" title="Cams Manager">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -234,7 +234,7 @@
         <eLabel name="" position="1734,1016" size="130,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="SECRET MENU"/>
         <widget name="description" position="60,100" size="850,64" font="Regular; 32" halign="left" valign="center" foregroundColor="#002a79b8" backgroundColor="black" transparent="1" zPosition="5"/>
     </screen>
-    <screen name="InfoCfg" position="0,0" size="1920,1080" title="Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="InfoCfg" position="center,center" size="1920,1080" title="Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -243,7 +243,7 @@
         <widget name="list" position="49,109" size="850,863" font="Regular;32" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" backgroundColor="#20000000" scrollbarMode="showNever"/>
         <widget name="description" position="998,620" size="875,266" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
     </screen>
-    <screen name="tv_config" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Addon Manager">
+    <screen name="tv_config" backgroundColor="transparent" flags="wfNoBorder" position="center,center" size="1920,1080" title="Addon Manager">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -256,7 +256,7 @@
     <!-- *************************************** -->
     <!-- Addon Manager                         * -->
     <!-- *************************************** -->
-    <screen name="InfoScreen" position="0,0" size="1920,1080" title="Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="InfoScreen" position="center,center" size="1920,1080" title="Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -264,7 +264,7 @@
         <ePixmap name="" position="1525,902" size="350,70" pixmap="sf/logo.png" alphatest="blend" zPosition="1" transparent="1"/>
         <widget name="text" position="49,109" size="850,863" font="Regular;32" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" backgroundColor="#20000000"/>
     </screen>
-    <screen name="GetipklistTv" position="0,0" size="1920,1080" title="Get Server" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="GetipklistTv" position="center,center" size="1920,1080" title="Get Server" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -272,10 +272,10 @@
         <widget name="list" position="49,118" size="850,723" scrollbarMode="showOnDemand" font="Regular;38" itemHeight="50" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049"/>
         <widget name="description" position="61,878" size="845,113" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
     </screen>
-    <screen name="GetipkTv" position="0,0" size="1920,1080" title="Get Server" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="GetipkTv" position="center,center" size="1920,1080" title="Get Server" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="GetipklistTv"/>
     </screen>
-    <screen name="Hometv" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen name="Hometv" backgroundColor="transparent" flags="wfNoBorder" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -328,7 +328,7 @@
             <convert type="AglareBoxInfo">Upinfo</convert>
         </widget>
     </screen>
-    <screen name="Categories" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen name="Categories" backgroundColor="transparent" flags="wfNoBorder" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -343,61 +343,61 @@
         <widget name="pform" position="995,593" size="882,50" font="Regular;30" halign="right" valign="center" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
         <!-- <ePixmap position="1376,965" size="500,90" pixmap="oZetaNSS-FHD/menu/bLogo.png" alphatest="blend" zPosition="1"/> -->
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="tvInstall" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="tvInstall" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="tvDailySetting" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="tvDailySetting" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingVhan" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingVhan" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingVhan2" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingVhan2" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="Milenka61" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="Milenka61" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingManutek" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingManutek" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingMorpheus" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingMorpheus" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingCiefp" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingCiefp" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingBi58" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingBi58" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingPredrag" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingPredrag" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingCyrus" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="SettingCyrus" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="tvUpdate" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="tvUpdate" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="tvRemove" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="tvRemove" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="mainkodilite" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="mainkodilite" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="pluginx" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="pluginx" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="plugins_adult" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="plugins_adult" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="script" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="script" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="repository" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="repository" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="Categories"/>
     </screen>
-    <screen name="tvIPK" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Addons Panels">
+    <screen name="tvIPK" backgroundColor="transparent" flags="wfNoBorder" position="center,center" size="1920,1080" title="Addons Panels">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -446,7 +446,7 @@
             <convert type="AglareBoxInfo">Upinfo</convert>
         </widget>
     </screen>
-    <screen name="tvConfig" position="0,0" size="1920,1080" title="Config" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="tvConfig" position="center,center" size="1920,1080" title="Config" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -462,7 +462,7 @@
     <!--  TvToM3u PANELS                           * -->
     <!-- *************************************** -->
     <!--
-     <screen name="TvToM3u" position="0,0" size="1920,1080" title="TvToM3u" backgroundColor="#ff000000" flags="wfNoBorder">
+     <screen name="TvToM3u" position="center,center" size="1920,1080" title="TvToM3u" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp" />
         <panel name="menutemp" />
         <panel name="ScreenTemplateAllColorButtons_menu" />
@@ -477,7 +477,7 @@
     <!-- *************************************** -->
     <!--  VAVOO                                 * -->
     <!-- *************************************** -->
-    <screen name="MainVavoox" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="MainVavoox" position="center,center" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <!-- <eLabel name="" position="31,30" size="900,980" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2" /> -->
         <ePixmap position="0,0" size="1920,1080" pixmap="vavoo/main.png" alphatest="blend" zPosition="-1"/>
         <widget source="global.CurrentTime" render="Label" position="1438,70" size="316,117" font="Lcd; 84" halign="right" backgroundColor="#914167" transparent="1" valign="center" foregroundColor="#00ffffff">
@@ -500,10 +500,10 @@
         <eLabel name="" position="1715,1028" size="64,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="cvfont; 24" zPosition="3" text="CH+"/>
         <eLabel name="" position="1651,1028" size="64,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="cvfont; 24" zPosition="3" text="CH-"/>
     </screen>
-    <screen name="vavoox" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="vavoox" position="center,center" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainVavoox"/>
     </screen>
-    <screen name="vavoo_configx" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="vavoo_configx" position="center,center" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <ePixmap position="0,0" size="1920,1080" pixmap="vavoo/main.png" alphatest="blend" zPosition="-1"/>
         <eLabel position="0,0" size="1920,1080" backgroundColor="#30000000" transparent="0" zPosition="-9" foregroundColor="#00ffffff"/>
         <!-- <eLabel backgroundColor="#00ffffff" position="0,975" size="1920,3" zPosition="12" /> -->
@@ -520,7 +520,7 @@
         </widget>
     </screen>
 
-    <screen name="CategorySelector" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="CategorySelector" position="center,center" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <ePixmap position="0,0" size="1920,1080" pixmap="vavoo/main.png" alphatest="blend" zPosition="-1" />
         <eLabel position="0,0" size="1920,1080" backgroundColor="#30000000" transparent="0" zPosition="-9" foregroundColor="#00ffffff" />
        <eLabel name="" position="193,871" size="500,40" backgroundColor="#ff000000" halign="center" valign="center" transparent="1" cornerRadius="26" font="Regular; 28" zPosition="1" text="Select Cowntry for Export" foregroundColor="#fe00" />
@@ -534,7 +534,7 @@
         </widget>
     </screen>
 
-    <screen name="SetupMaker" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="SetupMaker" position="center,center" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <ePixmap position="0,0" size="1920,1080" pixmap="vavoo/main.png" alphatest="blend" zPosition="-1"/>
         <eLabel position="0,0" size="1920,1080" backgroundColor="#30000000" transparent="0" zPosition="-9" foregroundColor="#00ffffff"/>
         <widget name="description" position="118,878" size="707,90" zPosition="1" backgroundColor="#30000000" transparent="1" font="Regular; 34" valign="center" halign="center" foregroundColor="#00ffffff"/>
@@ -549,7 +549,23 @@
         <widget name="green" font="Regular;30" halign="center" valign="center" position="406,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
         <widget name="yellow" font="Regular;30" halign="center" valign="center" position="706,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
         <widget name="blue" font="Regular;30" halign="center" valign="center" position="1006,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
+        <widget source="global.CurrentTime" render="Label" position="1438,70" size="316,117" font="Regular; 84" halign="right" backgroundColor="#914167" transparent="1" valign="center" foregroundColor="#00ffffff">
+            <convert type="ClockToText">Default</convert>
+        </widget>
+    </screen>
 
+    <screen name="vavoo_maker_config" position="center,center" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
+        <ePixmap position="0,0" size="1920,1080" pixmap="vavoo/main.png" alphatest="blend" zPosition="-1" />
+        <eLabel position="0,0" size="1920,1080" backgroundColor="#30000000" transparent="0" zPosition="-9" foregroundColor="#00ffffff" />
+        <widget name="description" position="118,878" size="707,90" zPosition="1" backgroundColor="#30000000" transparent="1" font="Regular; 34" valign="center" halign="center" foregroundColor="#00ffffff" />
+        <widget name="config" position="145,172" size="655,650" zPosition="1" font="Regular; 28" itemHeight="50" scrollbarMode="showNever" transparent="1" backgroundColor="#ffffff" foregroundColor="#ffccff" backgroundColorSelected="#743554" foregroundColorSelected="#ffffcc" />
+        <widget name="version" position="697,77" size="100,30" zPosition="9" backgroundColor="#30000000" transparent="1" font="Regular; 20" halign="center" foregroundColor="#ffffff" />
+        <widget name="statusbar" position="834,972" size="830,65" font="Regular; 28" foregroundColor="yellow" backgroundColor="#101010" transparent="1" zPosition="3" />
+        <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80" />
+        <eLabel backgroundColor="#00ff0000" position="108,1020" size="300,6" zPosition="12" />
+        <eLabel backgroundColor="#0000ff00" position="407,1020" size="300,6" zPosition="12" />
+        <widget name="red" font="Regular;30" halign="center" valign="center" position="107,961" size="300,58" backgroundColor="#30000000" foregroundColor="#00ffffff" transparent="1" zPosition="1" />
+        <widget name="green" font="Regular;30" halign="center" valign="center" position="406,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1" />
         <widget source="global.CurrentTime" render="Label" position="1438,70" size="316,117" font="Regular; 84" halign="right" backgroundColor="#914167" transparent="1" valign="center" foregroundColor="#00ffffff">
             <convert type="ClockToText">Default</convert>
         </widget>
@@ -558,7 +574,7 @@
     <!-- *************************************** -->
     <!--  RADIO M                              * -->
     <!-- *************************************** -->
-    <screen name="radiom1" position="0,0" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="background" flags="wfNoBorder">
+    <screen name="radiom1" position="center,center" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="background" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="timedate"/>
         <panel name="pigscreen885"/>
@@ -573,13 +589,13 @@
         <eLabel name="" position="1704,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
     </screen>
-    <screen name="radiom2" position="0,0" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="radiom2" position="center,center" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="radiom1"/>
     </screen>
-    <screen name="radiom3" position="0,0" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="radiom3" position="center,center" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="radiom1"/>
     </screen>
-    <screen name="radiom80" position="0,0" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="radiom80" position="center,center" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <ePixmap position="0,680" size="1920,400" pixmap="radio/80bar.png" alphatest="blend" zPosition="-1"/>
         <widget name="back" position="0,0" size="1920,1080" pixmap="radio/foreg.jpg" scale="1" zPosition="-2"/>
         <widget name="logo" position="20,720" size="340,340" zPosition="0" alphatest="blend" scale="stretch" transparent="1"/>
@@ -599,7 +615,7 @@
         <eLabel backgroundColor="#000000ff" position="835,1055" size="210,6" zPosition="12"/>
     </screen>
     <!-- ************* NSS Panels ************* -->
-    <screen name="menu_Menu" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Menu Fenice">
+    <screen name="menu_Menu" backgroundColor="transparent" flags="wfNoBorder" position="center,center" size="1920,1080" title="Menu Fenice">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
@@ -623,7 +639,7 @@
     <!-- *************************************** -->
     <!--  MenuSat PANELS                           * -->
     <!-- *************************************** -->
-    <screen name="Menu" position="0,0" size="1920,1080" title="Menu Fenice" backgroundColor="black" flags="wfNoBorder">
+    <screen name="Menu" position="center,center" size="1920,1080" title="Menu Fenice" backgroundColor="black" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
@@ -639,7 +655,7 @@
     <!-- *************************************** -->
     <!--  QuitMainloopScreen                   * -->
     <!-- *************************************** -->
-    <screen name="QuitMainloopScreen" position="0,0" size="1920,1080" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="QuitMainloopScreen" position="center,center" size="1920,1080" backgroundColor="#ff000000" flags="wfNoBorder">
         <ePixmap pixmap="sf/welcome.png" position="0,0" size="1920,1080" scale="1" zPosition="1" transparent="1"/>
         <widget name="text" position="78,12" size="1770,60" font="Regular; 50" halign="center" valign="center" backgroundColor="#ffffffff" foregroundColor="gold" zPosition="2"/>
         <eLabel name="" position="7,957" size="321,121" font="Regular; 34" backgroundColor="background" text="Welcome to ...  Satellite-Forum.com @Lululla" zPosition="2" transparent="1" halign="center" foregroundColor="yellow"/>
@@ -654,7 +670,7 @@
     <!-- *************************************** -->
     <!--  SetPiconPath Folder                              * -->
     <!-- *************************************** -->
-    <screen name="SetPiconPath" position="0,0" size="1920,1080" title="Select path for Picons" backgroundColor="background" flags="wfNoBorder">
+    <screen name="SetPiconPath" position="center,center" size="1920,1080" title="Select path for Picons" backgroundColor="background" flags="wfNoBorder">
         <widget name="target" position="997,607" size="885,180" font="Regular; 28" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
         <panel name="pigscreen885"/>
         <panel name="titletemp"/>
@@ -665,7 +681,7 @@
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
     </screen>
-    <screen name="piconPath" position="0,0" size="1920,1080" title="Select path for Picons" backgroundColor="transparent" flags="wfNoBorder">
+    <screen name="piconPath" position="center,center" size="1920,1080" title="Select path for Picons" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="SetPiconPath"/>
     </screen>
 </skin>
