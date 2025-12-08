@@ -114,30 +114,11 @@
         <!-- /* list -->
         <widget source="menu" render="Listbox" position="36,110" size="890,770" enableWrapAround="1" zPosition="44" itemHeight="70" scrollbarMode="showNever" itemCornerRadius="20">
             <convert type="TemplatedMultiContent">
-                 
-                      
 				{"template": [ MultiContentEntryText(pos = (30,0),size = (900,70),flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,text = 0) ],
-         
-                  
-                                                                                                           
-         
-                    
-                                                                                                                       
-                                                                                                                      
-         
-                   
-                                                                                                                    
-                                                                                                                       
-         
-                  
-                                                                                                                    
-                                                                                                                        
-                                                                                                                       
-        
-       
+
 		"fonts": [gFont("Regular",36)],
 		"itemHeight": 70
-                                
+
 	}
 			</convert>
         </widget>
