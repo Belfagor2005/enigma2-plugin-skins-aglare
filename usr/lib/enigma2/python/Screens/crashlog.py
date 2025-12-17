@@ -254,22 +254,23 @@ class CrashLogScreen(Screen):
         self.list = []
         self["menu"] = List(self.list)
         self.CfgMenu()
+        self.showing_info = False
         self.in_confirm_mode = False
 
     def CfgMenu(self):
         """Display list of crash log files"""
         self.list = []
-        
+
         # Use find_log_files() function
         log_files = find_log_files()
-        
+
         # Load icon
         try:
             cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
             minipng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_SKIN, str(cur_skin) + "/mainmenu/crashlog.png"))
         except:
             minipng = None
-        
+
         # Process each found file
         for file_path in log_files:
             try:
@@ -282,13 +283,13 @@ class CrashLogScreen(Screen):
                         size_str = "%.1f KB" % (file_size / 1024.0)
                     else:
                         size_str = "%.1f MB" % (file_size / (1024.0 * 1024.0))
-                    
+
                     # Get modification time
                     mtime = getmtime(file_path)
                     file_date = datetime.fromtimestamp(mtime).strftime("%Y-%m-%d %H:%M")
-                    
+
                     file_name = basename(file_path)
-                    
+
                     display_name = (
                         file_name,
                         "Size: %s - Date: %s" % (size_str, file_date),
@@ -299,7 +300,7 @@ class CrashLogScreen(Screen):
                         self.list.append(display_name)
             except Exception as e:
                 print("Error processing file %s: %s" % (file_path, str(e)))
-        
+
         # If no files found
         if not self.list:
             self.list.append((
@@ -308,7 +309,7 @@ class CrashLogScreen(Screen):
                 minipng,
                 ""
             ))
-        
+
         self["menu"].setList(self.list)
 
     def Ok(self):
@@ -328,30 +329,30 @@ class CrashLogScreen(Screen):
         """Remove selected file"""
         if self.in_confirm_mode:
             return
-        
+
         item = self["menu"].getCurrent()
-        
+
         if not item or len(item) < 4 or not item[3]:
             self.showTempMessage(_("No file selected"), 1500)
             return
-        
+
         file_path = str(item[3])
-        
+
         if not exists(file_path):
             self.showTempMessage(_("File already removed"), 1500)
             self.CfgMenu()
             return
-        
+
         try:
             # Remove the file
             remove(file_path)
-            
+
             # Show confirmation
             self.showTempMessage(_("Removed: %s") % basename(file_path), 1500)
-            
+
             # Refresh list
             self.CfgMenu()
-            
+
         except Exception as e:
             self.showTempMessage(_("Error: %s") % str(e), 2000)
 
@@ -359,16 +360,16 @@ class CrashLogScreen(Screen):
         """Delete all crash log files - FORCE REFRESH"""
         if self.in_confirm_mode:
             return
-        
+
         try:
             log_files = find_log_files()
             if not log_files:
                 self.showTempMessage(_("No crash logs found"), 2000)
                 return
-            
+
             # Store original title
             original_title = self.getTitle()
-            
+
             # Delete all files
             deleted = 0
             for file_path in log_files:
@@ -379,21 +380,21 @@ class CrashLogScreen(Screen):
                         print("Deleted:", file_path)
                 except Exception as e:
                     print("Failed to delete %s: %s" % (file_path, str(e)))
-            
+
             # Show immediate feedback
             if deleted > 0:
                 self.setTitle(_("Deleted %d files") % deleted)
             else:
                 self.setTitle(_("No files deleted"))
-            
+
             # FORCE refresh list NOW
             self.CfgMenu()
-            
+
             # Restore title after 1.5 seconds
             timer = eTimer()
             timer.callback.append(lambda: self.setTitle(original_title))
             timer.start(1500, True)
-                    
+
         except Exception as e:
             print("Error in BlueKey:", str(e))
             original_title = self.getTitle()
@@ -494,19 +495,72 @@ class CrashLogScreen(Screen):
         """Show temporary message"""
         if self.in_confirm_mode:
             return
-        
+
         original_title = self.getTitle()
         self.setTitle(message)
-        
+
         timer = eTimer()
         timer.callback.append(lambda: self.setTitle(original_title))
         timer.start(duration, True)
 
     def infoKey(self):
+        """Mostra informazioni sul plugin"""
         if self.in_confirm_mode:
             return
 
-        self.showTempMessage(_("Crashlog Viewer  ver. %s\n\nDeveloper: 2boom\n\nModifier: Evg77734\n\nUpdate from Lululla") % version, 5000)
+        original_list = self.list.copy()
+
+        info_items = []
+
+        info_items.append(("=" * 50, "", None, ""))
+        info_items.append(("CRASHLOG VIEWER - INFO", "", None, ""))
+        info_items.append(("=" * 50, "", None, ""))
+        info_items.append(("Version: " + version, "", None, ""))
+        info_items.append(("Developer: 2boom", "", None, ""))
+        info_items.append(("Modifier: Evg77734", "", None, ""))
+        info_items.append(("Update from Lululla", "", None, ""))
+        info_items.append(("=" * 50, "", None, ""))
+        info_items.append(("Press OK or RED to return", "", None, ""))
+
+        self["menu"].setList(info_items)
+
+        self["Redkey"].setText(_("Back"))
+        self["Greenkey"].setText("")
+        self["Yellowkey"].setText("")
+        self["Bluekey"].setText("")
+
+        self.showing_info = True
+
+        self["shortcuts"].actions.update({
+            "ok": self.returnFromInfo,
+            "cancel": self.returnFromInfo,
+            "red": self.returnFromInfo,
+            "green": lambda: None,  # Disabilita
+            "yellow": lambda: None,  # Disabilita
+            "blue": lambda: None,   # Disabilita
+            "info": lambda: None    # Disabilita
+        })
+
+    def returnFromInfo(self):
+        if hasattr(self, 'showing_info') and self.showing_info:
+            self.showing_info = False
+            self.CfgMenu()
+
+            self["Redkey"].setText(_("Close"))
+            self["Greenkey"].setText(_("View"))
+            self["Yellowkey"].setText(_("Remove"))
+            self["Bluekey"].setText(_("Remove All"))
+
+            self["shortcuts"].actions.update({
+                "ok": self.Ok,
+                "cancel": self.exit,
+                "back": self.exit,
+                "red": self.exit,
+                "green": self.Ok,
+                "yellow": self.YellowKey,
+                "blue": self.BlueKey,
+                "info": self.infoKey,
+            })
 
     def exit(self):
         if self.in_confirm_mode:
