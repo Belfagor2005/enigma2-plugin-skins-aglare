@@ -545,10 +545,10 @@
         <eLabel backgroundColor="#00ffff00" position="707,1020" size="300,6" zPosition="12"/>
         <eLabel backgroundColor="#000000ff" position="1007,1020" size="300,6" zPosition="12"/>
         <widget name="menulist" position="145,172" size="655,650" zPosition="1" scrollbarMode="showNever" transparent="1" backgroundColor="#ffffff" foregroundColor="#ffccff" backgroundColorSelected="#914167" foregroundColorSelected="#ffffcc"/>
-        <widget name="red" font="Regular;30" halign="center" valign="center" position="107,961" size="300,58" backgroundColor="#30000000" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
-        <widget name="green" font="Regular;30" halign="center" valign="center" position="406,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
-        <widget name="yellow" font="Regular;30" halign="center" valign="center" position="706,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
-        <widget name="blue" font="Regular;30" halign="center" valign="center" position="1006,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
+        <widget name="key_red" font="Regular;30" halign="center" valign="center" position="107,961" size="300,58" backgroundColor="#30000000" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
+        <widget name="key_green" font="Regular;30" halign="center" valign="center" position="406,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
+        <widget name="key_yellow" font="Regular;30" halign="center" valign="center" position="706,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
+        <widget name="key_blue" font="Regular;30" halign="center" valign="center" position="1006,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
         <widget source="global.CurrentTime" render="Label" position="1438,70" size="316,117" font="Regular; 84" halign="right" backgroundColor="#914167" transparent="1" valign="center" foregroundColor="#00ffffff">
             <convert type="ClockToText">Default</convert>
         </widget>

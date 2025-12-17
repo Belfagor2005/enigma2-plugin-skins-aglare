@@ -251,6 +251,32 @@ class radiom1(Screen):
         Screen.__init__(self, session)
         self.session = session
         self.list = []
+        sz_w = getDesktop(0).size().width()
+        if sz_w >= 1920:
+            self.skin = """
+            <screen name="radiom1" position="center,center" size="1000,600" title="Radio Stations">
+                <widget name="list" position="50,50" size="900,400" scrollbarMode="showOnDemand" />
+                <widget name="info" position="50,10" size="900,30" font="Regular;24" halign="center" />
+                <widget name="logo" position="50,470" size="100,100" />
+                <ePixmap name="red" position="50,560" size="140,40" pixmap="skin_default/buttons/red.png" />
+                <ePixmap name="green" position="200,560" size="140,40" pixmap="skin_default/buttons/green.png" />
+                <widget source="key_red" render="Label" position="50,560" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="red" foregroundColor="white" transparent="1" />
+                <widget source="key_green" render="Label" position="200,560" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="green" foregroundColor="white" transparent="1" />
+            </screen>
+            """
+        else:
+            self.skin = """
+            <screen name="radiom1" position="center,center" size="640,480" title="Radio Stations">
+                <widget name="list" position="30,50" size="580,300" scrollbarMode="showOnDemand" />
+                <widget name="info" position="30,10" size="580,30" font="Regular;18" halign="center" />
+                <widget name="logo" position="30,360" size="80,80" />
+                <ePixmap name="red" position="30,450" size="140,30" pixmap="skin_default/buttons/red.png" />
+                <ePixmap name="green" position="180,450" size="140,30" pixmap="skin_default/buttons/green.png" />
+                <widget source="key_red" render="Label" position="30,450" size="140,30" font="Regular;16" halign="center" valign="center" backgroundColor="red" foregroundColor="white" transparent="1" />
+                <widget source="key_green" render="Label" position="180,450" size="140,30" font="Regular;16" halign="center" valign="center" backgroundColor="green" foregroundColor="white" transparent="1" />
+            </screen>
+            """
+
         self['list'] = radioList([])
         self['info'] = Label('HOME RADIO VIEW')
         self['key_red'] = Button(_('Exit'))
@@ -347,12 +373,11 @@ class radiom1(Screen):
     def showback(self, picInfo=None):
         try:
             ptr = self.picload.getData()
-            if ptr is not None:
+            if ptr:
                 self["logo"].instance.setPixmap(ptr.__deref__())
                 self["logo"].instance.show()
-        except Exception as err:
+        except Exception:
             self["logo"].instance.hide()
-            print("ERROR showImage:", err)
 
     def up(self):
         self[self.currentList].up()
@@ -375,7 +400,34 @@ class radiom1(Screen):
 
 
 class radiom2(Screen):
+
     def __init__(self, session):
+        sz_w = getDesktop(0).size().width()
+        if sz_w >= 1920:
+            self.skin = """
+            <screen name="radiom2" position="center,center" size="1000,600" title="Playlists">
+                <widget name="list" position="50,50" size="900,400" scrollbarMode="showOnDemand" />
+                <widget name="info" position="50,10" size="900,30" font="Regular;24" halign="center" />
+                <widget name="logo" position="50,470" size="100,100" />
+                <ePixmap name="red" position="50,560" size="140,40" pixmap="skin_default/buttons/red.png" />
+                <ePixmap name="green" position="200,560" size="140,40" pixmap="skin_default/buttons/green.png" />
+                <widget source="key_red" render="Label" position="50,560" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="red" foregroundColor="white" transparent="1" />
+                <widget source="key_green" render="Label" position="200,560" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="green" foregroundColor="white" transparent="1" />
+            </screen>
+            """
+        else:
+            self.skin = """
+            <screen name="radiom2" position="center,center" size="640,480" title="Playlists">
+                <widget name="list" position="30,50" size="580,300" scrollbarMode="showOnDemand" />
+                <widget name="info" position="30,10" size="580,30" font="Regular;18" halign="center" />
+                <widget name="logo" position="30,360" size="80,80" />
+                <ePixmap name="red" position="30,450" size="140,30" pixmap="skin_default/buttons/red.png" />
+                <ePixmap name="green" position="180,450" size="140,30" pixmap="skin_default/buttons/green.png" />
+                <widget source="key_red" render="Label" position="30,450" size="140,30" font="Regular;16" halign="center" valign="center" backgroundColor="red" foregroundColor="white" transparent="1" />
+                <widget source="key_green" render="Label" position="180,450" size="140,30" font="Regular;16" halign="center" valign="center" backgroundColor="green" foregroundColor="white" transparent="1" />
+            </screen>
+            """
+
         Screen.__init__(self, session)
         self.list = []
         self['list'] = radioList([])
@@ -438,6 +490,32 @@ class radiom2(Screen):
 
 class radiom3(Screen):
     def __init__(self, session, name):
+        sz_w = getDesktop(0).size().width()
+        if sz_w >= 1920:
+            self.skin = """
+            <screen name="radiom3" position="center,center" size="1000,600" title="Playlist: %s">
+                <widget name="list" position="50,50" size="900,400" scrollbarMode="showOnDemand" />
+                <widget name="info" position="50,10" size="900,30" font="Regular;24" halign="center" />
+                <widget name="logo" position="50,470" size="100,100" />
+                <ePixmap name="red" position="50,560" size="140,40" pixmap="skin_default/buttons/red.png" />
+                <ePixmap name="green" position="200,560" size="140,40" pixmap="skin_default/buttons/green.png" />
+                <widget source="key_red" render="Label" position="50,560" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="red" foregroundColor="white" transparent="1" />
+                <widget source="key_green" render="Label" position="200,560" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="green" foregroundColor="white" transparent="1" />
+            </screen>
+            """ % name
+        else:
+            self.skin = """
+            <screen name="radiom3" position="center,center" size="640,480" title="Playlist: %s">
+                <widget name="list" position="30,50" size="580,300" scrollbarMode="showOnDemand" />
+                <widget name="info" position="30,10" size="580,30" font="Regular;18" halign="center" />
+                <widget name="logo" position="30,360" size="80,80" />
+                <ePixmap name="red" position="30,450" size="140,30" pixmap="skin_default/buttons/red.png" />
+                <ePixmap name="green" position="180,450" size="140,30" pixmap="skin_default/buttons/green.png" />
+                <widget source="key_red" render="Label" position="30,450" size="140,30" font="Regular;16" halign="center" valign="center" backgroundColor="red" foregroundColor="white" transparent="1" />
+                <widget source="key_green" render="Label" position="180,450" size="140,30" font="Regular;16" halign="center" valign="center" backgroundColor="green" foregroundColor="white" transparent="1" />
+            </screen>
+            """ % name
+
         Screen.__init__(self, session)
         self.name = name
         self.list = []
@@ -541,6 +619,48 @@ class radiom3(Screen):
 
 class radiom80(Screen):
     def __init__(self, session, name, url, pic):
+        sz_w = getDesktop(0).size().width()
+        if sz_w >= 1920:
+            self.skin = """
+            <screen name="radiom80" position="center,center" size="1200,700" title="%s">
+                <widget name="list" position="50,50" size="500,400" scrollbarMode="showOnDemand" />
+                <widget name="info" position="50,10" size="1100,30" font="Regular;24" halign="center" />
+                <widget name="current_song" position="600,50" size="550,92" font="Regular;22" />
+                <widget name="listeners" position="600,145" size="550,50" font="Regular;20" scrollbarMode="showNever" />
+                <widget name="format" position="600,200" size="550,50" font="Regular;20" />
+                <widget name="description" position="600,250" size="550,131" font="Regular;20" />
+                <widget name="djs" position="600,385" size="550,50" font="Regular;20" />
+                <widget name="logo" position="600,445" size="200,200" />
+                <widget name="back" position="600,445" size="200,200" />
+                <ePixmap name="red" position="50,560" size="140,40" pixmap="skin_default/buttons/red.png" />
+                <ePixmap name="green" position="200,560" size="140,40" pixmap="skin_default/buttons/green.png" />
+                <ePixmap name="blue" position="350,560" size="140,40" pixmap="skin_default/buttons/blue.png" />
+                <widget source="key_red" render="Label" position="50,560" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="red" foregroundColor="white" transparent="1" />
+                <widget source="key_green" render="Label" position="200,560" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="green" foregroundColor="white" transparent="1" />
+                <widget source="key_blue" render="Label" position="350,560" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="blue" foregroundColor="white" transparent="1" />
+            </screen>
+            """ % name
+        else:
+            self.skin = """
+            <screen name="radiom80" position="center,center" size="800,500" title="%s">
+                <widget name="list" position="10,50" size="330,250" scrollbarMode="showOnDemand" />
+                <widget name="info" position="30,10" size="740,30" font="Regular;18" halign="center" />
+                <widget name="current_song" position="350,45" size="440,52" font="Regular;16" />
+                <widget name="listeners" position="350,100" size="440,35" font="Regular;14" />
+                <widget name="format" position="350,136" size="440,50" font="Regular;14" />
+                <widget name="description" position="350,190" size="440,80" font="Regular;14" />
+                <widget name="djs" position="350,270" size="440,25" font="Regular;14" />
+                <widget name="logo" position="599,301" size="150,150" />
+                <widget name="back" position="599,301" size="150,150" />
+                <ePixmap name="red" position="30,420" size="140,30" pixmap="skin_default/buttons/red.png" />
+                <ePixmap name="green" position="180,420" size="140,30" pixmap="skin_default/buttons/green.png" />
+                <ePixmap name="blue" position="330,420" size="140,30" pixmap="skin_default/buttons/blue.png" />
+                <widget source="key_red" render="Label" position="30,420" size="140,30" font="Regular;16" halign="center" valign="center" backgroundColor="red" foregroundColor="white" transparent="1" />
+                <widget source="key_green" render="Label" position="180,420" size="140,30" font="Regular;16" halign="center" valign="center" backgroundColor="green" foregroundColor="white" transparent="1" />
+                <widget source="key_blue" render="Label" position="330,420" size="140,30" font="Regular;16" halign="center" valign="center" backgroundColor="blue" foregroundColor="white" transparent="1" />
+            </screen>
+            """ % name
+
         Screen.__init__(self, session)
         self.session = session
         self.name = name
