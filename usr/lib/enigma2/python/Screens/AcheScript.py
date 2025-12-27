@@ -34,33 +34,33 @@ version = 'v.1.2'
 
 class OpenScript(Screen):
     skin = """
-            <screen name="OpenScript" position="center,center" size="1920,1080" Title="Acherone Script" backgroundColor="transparent" flags="wfNoBorder">
-                <widget source="list" render="Listbox" position="56,151" size="838,695" font="Regular;34" itemHeight="50" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049">
-                    <convert type="TemplatedMultiContent">
-                        {"template": [
-                            MultiContentEntryText(pos=(0, 0), size=(800, 50), font=0, flags=RT_HALIGN_LEFT, text=1),  # Script name
-                        ],
-                        "fonts": [gFont("Regular", 34)],
-                        "itemHeight": 50}
-                    </convert>
-                </widget>
+        <screen name="OpenScript" position="center,center" size="1920,1080" Title="Acherone Script" backgroundColor="transparent" flags="wfNoBorder">
+            <widget source="list" render="Listbox" position="56,151" size="838,695" font="Regular;34" itemHeight="50" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049">
+                <convert type="TemplatedMultiContent">
+                    {"template": [
+                        MultiContentEntryText(pos=(0, 0), size=(800, 50), font=0, flags=RT_HALIGN_LEFT, text=1),  # Script name
+                    ],
+                    "fonts": [gFont("Regular", 34)],
+                    "itemHeight": 50}
+                </convert>
+            </widget>
 
-                <widget name="line1" position="134,34" size="776,80" font="Regular;42" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="1" />
-                <widget name="description" position="42,856" size="877,141" font="Regular; 36" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="1" />
-                <widget font="Regular; 30" halign="right" position="1401,20" render="Label" size="500,40" source="global.CurrentTime" transparent="1">
-                    <convert type="ClockToText">Format:%a %d.%m. | %H:%M</convert>
-                </widget>
-                <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="11" />
-                <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="11" />
-                <eLabel backgroundColor="yellow" cornerRadius="3" position="652,1064" size="300,6" zPosition="11" />
-                <widget name="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
-                <widget name="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
-                <widget name="key_yellow" render="Label" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
-                <eLabel backgroundColor="#002d3d5b" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99" />
-                <eLabel backgroundColor="#001a2336" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80" />
-                <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
-                <widget source="session.VideoPicture" render="Pig" position="997,100" zPosition="19" size="880,499" backgroundColor="transparent" transparent="0" cornerRadius="14" />
-            </screen>"""
+            <widget name="line1" position="134,34" size="776,80" font="Regular;42" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="1" />
+            <widget name="description" position="42,856" size="877,141" font="Regular; 36" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="1" />
+            <widget font="Regular; 30" halign="right" position="1401,20" render="Label" size="500,40" source="global.CurrentTime" transparent="1">
+                <convert type="ClockToText">Format:%a %d.%m. | %H:%M</convert>
+            </widget>
+            <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="11" />
+            <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="11" />
+            <eLabel backgroundColor="yellow" cornerRadius="3" position="652,1064" size="300,6" zPosition="11" />
+            <widget name="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+            <widget name="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+            <widget name="key_yellow" render="Label" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+            <eLabel backgroundColor="#002d3d5b" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99" />
+            <eLabel backgroundColor="#001a2336" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80" />
+            <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
+            <widget source="session.VideoPicture" render="Pig" position="997,100" zPosition="19" size="880,499" backgroundColor="transparent" transparent="0" cornerRadius="14" />
+        </screen>"""
 
     def __init__(self, session, args=None):
         Screen.__init__(self, session)
@@ -90,7 +90,7 @@ class OpenScript(Screen):
         try:
             if not exists('/usr/script'):
                 makedirs('/usr/script', 493)
-        except:
+        except BaseException:
             pass
 
         myscripts = listdir('/usr/script')
@@ -158,7 +158,7 @@ class OpenScript(Screen):
 
         def download_wrapper():
             self.getScrip(fps)
-        
+
         self.show_confirm(_("Download Script Pack?"), download_wrapper)
 
     def safe_select(self):
@@ -167,11 +167,10 @@ class OpenScript(Screen):
             mysel = self['list'].getCurrent()
             if mysel:
                 script_name = mysel[0]
-                
-                # Crea una funzione che esegue lo script selezionato
+
                 def execute_wrapper():
                     self.execute_current_script()
-                
+
                 self.show_confirm(_("Execute %s?") % script_name, execute_wrapper)
         else:
             self.show_temp_message(_("Please Download Script first!"), 3000)
@@ -231,19 +230,19 @@ class OpenScript(Screen):
         if hasattr(self, 'confirm_data'):
             self['line1'].setText(self.confirm_data['line1'])
             self['description'].setText(self.confirm_data['desc'])
-        
+
         # Restore original actions
         self["actions"].actions.update(self.original_actions)
-        
+
         # Stop timer if exists
         if hasattr(self, 'confirm_timer'):
             self.confirm_timer.stop()
-        
+
         # Clean attributes
         for attr in ['confirm_data', 'confirm_timer']:
             if hasattr(self, attr):
                 delattr(self, attr)
-        
+
         # Close plugin if requested
         if close_plugin:
             self.close()

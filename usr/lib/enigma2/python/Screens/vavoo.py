@@ -42,7 +42,6 @@ from requests import get, exceptions
 from shutil import rmtree
 from time import time
 from Components.MenuList import MenuList
-
 import json
 from os import listdir as os_listdir
 from random import choice
@@ -64,12 +63,10 @@ PY3 = version_info[0] == 3
 if PY3:
     from urllib.request import urlopen, Request
     ssl_context = ssl.create_default_context()
-    # Disabilita SSLv2, SSLv3, TLS1.0 e TLS1.1 esplicitamente
     ssl_context.options |= ssl.OP_NO_SSLv2
     ssl_context.options |= ssl.OP_NO_SSLv3
     ssl_context.options |= ssl.OP_NO_TLSv1
     ssl_context.options |= ssl.OP_NO_TLSv1_1
-    # unichr_func = unichr
 else:
     from urllib2 import urlopen, Request
     ssl_context = None
@@ -104,7 +101,7 @@ except ImportError:
 
 try:
     import pickle
-except:
+except BaseException:
     from six.moves import cPickle as pickle
 
 
@@ -532,9 +529,6 @@ class VavooScreen(Screen):
             getattr(config.plugins.vavoomaker, ch).cancel()
         self.close()
 
-    # def createSummary(self):
-        # return PluginSummary
-
 
 class SetupMaker(Screen):
 
@@ -694,7 +688,6 @@ class SetupMaker(Screen):
         if any([getattr(config.plugins.vavoomaker, choice).isChanged() for choice in choices]):
             self.session.openWithCallback(self.cancelConfirm, MessageBox, _("Really close without saving settings?"))
         else:
-            # self.close()
             self.cancelConfirm(True)
 
     def deleteBouquets(self):
@@ -902,23 +895,23 @@ def sanitizeFilename(filename):
 def get_external_ip():
     try:
         return popen('curl -s ifconfig.me').readline().strip()
-    except:
+    except BaseException:
         pass
     try:
         return requests.get('https://v4.ident.me').text.strip()
-    except:
+    except BaseException:
         pass
     try:
         return requests.get('https://api.ipify.org').text.strip()
-    except:
+    except BaseException:
         pass
     try:
         return requests.get('https://api.myip.com/').json().get("ip", "")
-    except:
+    except BaseException:
         pass
     try:
         return requests.get('https://checkip.amazonaws.com').text.strip()
-    except:
+    except BaseException:
         pass
     return None
 
@@ -932,7 +925,7 @@ def convert_to_unicode(data):
     if isinstance(data, bytes):
         return data.decode('utf-8')
     elif isinstance(data, str):
-        return data  # Già Unicode in Python 3
+        return data
     elif isinstance(data, dict):
         return {convert_to_unicode(k): convert_to_unicode(v) for k, v in data.items()}
     elif isinstance(data, list):
@@ -945,7 +938,6 @@ def set_cache(key, data, timeout):
     file_path = os_path.join('/usr/vavoo', key + '.json')
     try:
         with open(file_path, 'w', encoding='utf-8') as cache_file:
-            # Salviamo i dati convertiti in Unicode (in pratica, rimane invariato in Python 3)
             json.dump(convert_to_unicode(data), cache_file, indent=4)
     except Exception as e:
         print("Error saving cache:", e)
@@ -957,7 +949,6 @@ def get_cache(key):
         try:
             with open(file_path, 'r', encoding='utf-8') as cache_file:
                 data = json.load(cache_file)
-                # Verifica se il cache è ancora valido
                 if data.get('sigValidUntil', 0) > int(time.time()):
                     if data.get('ip', "") == get_external_ip():
                         return data.get('value')

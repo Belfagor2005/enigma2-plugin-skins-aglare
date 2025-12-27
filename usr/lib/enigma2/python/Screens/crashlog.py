@@ -13,18 +13,13 @@ import sys
 from os import remove
 from os.path import exists, isfile, getsize, getmtime, basename
 from datetime import datetime
-
 from enigma import getDesktop, eTimer
-
 from Components.ActionMap import ActionMap
 from Components.ScrollLabel import ScrollLabel
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
 from Components.config import config
-
-# from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-
 from Tools.Directories import SCOPE_SKIN, resolveFilename
 from Tools.LoadPixmap import LoadPixmap
 
@@ -119,7 +114,7 @@ def find_log_files():
                             'error' in filename or
                             'log' in filename):  # Accept all .log files
                         log_files.append(file_path)
-        except:
+        except BaseException:
             pass
 
     # Also check specific known files
@@ -153,86 +148,82 @@ class CrashLogScreen(Screen):
         self.session = session
         Screen.__init__(self, session)
 
-        # Determine skin based on screen size
         sz_w = getDesktop(0).size().width()
         if sz_w == 2560:
             self.skin = """
-            <screen name="CrashLogScreen" position="center,center" size="1280,1000" title="View or Remove Crashlog files">
-            <widget source="Redkey" render="Label" position="160,900" size="250,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <widget source="Greenkey" render="Label" position="415,900" size="250,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <widget source="Yellowkey" render="Label" position="670,900" size="250,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <widget source="Bluekey" render="Label" position="925,900" size="250,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <eLabel backgroundColor="#00ff0000" position="160,948" size="250,6" zPosition="12" />
-            <eLabel backgroundColor="#0000ff00" position="415,948" size="250,6" zPosition="12" />
-            <eLabel backgroundColor="#00ffff00" position="670,948" size="250,6" zPosition="12" />
-            <eLabel backgroundColor="#000000ff" position="925,948" size="250,6" zPosition="12" />
-            <eLabel name="" position="1194,901" size="52,52" backgroundColor="#003e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO" />
-            <widget source="menu" render="Listbox" position="80,67" size="1137,781" scrollbarMode="showOnDemand">
-            <convert type="TemplatedMultiContent">
-            {"template": [
-                MultiContentEntryText(pos = (80, 5), size = (580, 46), font=0, flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 0),
-                MultiContentEntryText(pos = (80, 55), size = (580, 38), font=1, flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 1),
-                MultiContentEntryPixmapAlphaTest(pos = (5, 35), size = (51, 40), png = 2),
-                    ],
-            "fonts": [gFont("Regular", 42),gFont("Regular", 34)],
-            "itemHeight": 100
-            }
-            </convert>
-            </widget>
-            </screen>
-            """
+                <screen name="CrashLogScreen" position="center,center" size="1280,1000" title="View or Remove Crashlog files">
+                    <widget source="Redkey" render="Label" position="160,900" size="250,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <widget source="Greenkey" render="Label" position="415,900" size="250,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <widget source="Yellowkey" render="Label" position="670,900" size="250,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <widget source="Bluekey" render="Label" position="925,900" size="250,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <eLabel backgroundColor="#00ff0000" position="160,948" size="250,6" zPosition="12" />
+                    <eLabel backgroundColor="#0000ff00" position="415,948" size="250,6" zPosition="12" />
+                    <eLabel backgroundColor="#00ffff00" position="670,948" size="250,6" zPosition="12" />
+                    <eLabel backgroundColor="#000000ff" position="925,948" size="250,6" zPosition="12" />
+                    <eLabel name="" position="1194,901" size="52,52" backgroundColor="#003e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO" />
+                    <widget source="menu" render="Listbox" position="80,67" size="1137,781" scrollbarMode="showOnDemand">
+                    <convert type="TemplatedMultiContent">
+                    {"template": [
+                        MultiContentEntryText(pos = (80, 5), size = (580, 46), font=0, flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 0),
+                        MultiContentEntryText(pos = (80, 55), size = (580, 38), font=1, flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 1),
+                        MultiContentEntryPixmapAlphaTest(pos = (5, 35), size = (51, 40), png = 2),
+                            ],
+                    "fonts": [gFont("Regular", 42),gFont("Regular", 34)],
+                    "itemHeight": 100
+                    }
+                    </convert>
+                    </widget>
+                </screen>"""
         elif sz_w == 1920:
             self.skin = """
-            <screen name="CrashLogScreen" position="center,center" size="1000,880" title="View or Remove Crashlog files">
-            <widget source="Redkey" render="Label" position="0,814" size="250,45" zPosition="11" font="Regular; 26" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <widget source="Greenkey" render="Label" position="252,813" size="250,45" zPosition="11" font="Regular; 26" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <widget source="Yellowkey" render="Label" position="499,814" size="250,45" zPosition="11" font="Regular; 26" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <widget source="Bluekey" render="Label" position="749,814" size="250,45" zPosition="11" font="Regular; 26" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <eLabel backgroundColor="#00ff0000" position="0,858" size="250,6" zPosition="12" />
-            <eLabel backgroundColor="#0000ff00" position="250,858" size="250,6" zPosition="12" />
-            <eLabel backgroundColor="#00ffff00" position="500,858" size="250,6" zPosition="12" />
-            <eLabel backgroundColor="#000000ff" position="750,858" size="250,6" zPosition="12" />
-            <eLabel name="" position="933,753" size="52,52" backgroundColor="#003e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO" />
-            <widget source="menu" render="Listbox" position="20,10" size="961,781" scrollbarMode="showOnDemand">
-            <convert type="TemplatedMultiContent">
-            {"template": [
-                MultiContentEntryText(pos = (70, 2), size = (580, 34), font=0, flags = RT_HALIGN_LEFT, text = 0),
-                MultiContentEntryText(pos = (80, 29), size = (580, 30), font=1, flags = RT_HALIGN_LEFT, text = 1),
-                MultiContentEntryPixmapAlphaTest(pos = (5, 15), size = (51, 40), png = 2),
-                    ],
-            "fonts": [gFont("Regular", 30),gFont("Regular", 26)],
-            "itemHeight": 70
-            }
-            </convert>
-            </widget>
-            </screen>
-            """
+                <screen name="CrashLogScreen" position="center,center" size="1000,880" title="View or Remove Crashlog files">
+                    <widget source="Redkey" render="Label" position="0,814" size="250,45" zPosition="11" font="Regular; 26" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <widget source="Greenkey" render="Label" position="252,813" size="250,45" zPosition="11" font="Regular; 26" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <widget source="Yellowkey" render="Label" position="499,814" size="250,45" zPosition="11" font="Regular; 26" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <widget source="Bluekey" render="Label" position="749,814" size="250,45" zPosition="11" font="Regular; 26" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <eLabel backgroundColor="#00ff0000" position="0,858" size="250,6" zPosition="12" />
+                    <eLabel backgroundColor="#0000ff00" position="250,858" size="250,6" zPosition="12" />
+                    <eLabel backgroundColor="#00ffff00" position="500,858" size="250,6" zPosition="12" />
+                    <eLabel backgroundColor="#000000ff" position="750,858" size="250,6" zPosition="12" />
+                    <eLabel name="" position="933,753" size="52,52" backgroundColor="#003e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO" />
+                    <widget source="menu" render="Listbox" position="20,10" size="961,781" scrollbarMode="showOnDemand">
+                    <convert type="TemplatedMultiContent">
+                    {"template": [
+                        MultiContentEntryText(pos = (70, 2), size = (580, 34), font=0, flags = RT_HALIGN_LEFT, text = 0),
+                        MultiContentEntryText(pos = (80, 29), size = (580, 30), font=1, flags = RT_HALIGN_LEFT, text = 1),
+                        MultiContentEntryPixmapAlphaTest(pos = (5, 15), size = (51, 40), png = 2),
+                            ],
+                    "fonts": [gFont("Regular", 30),gFont("Regular", 26)],
+                    "itemHeight": 70
+                    }
+                    </convert>
+                    </widget>
+                </screen>"""
         else:
             self.skin = """
-            <screen name="CrashLogScreen" position="center,center" size="640,586" title="View or Remove Crashlog files">
-            <widget source="Redkey" render="Label" position="6,536" size="160,35" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <widget source="Greenkey" render="Label" position="166,536" size="160,35" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <widget source="Yellowkey" render="Label" position="325,536" size="160,35" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <widget source="Bluekey" render="Label" position="485,536" size="160,35" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <eLabel backgroundColor="#00ff0000" position="5,570" size="160,6" zPosition="12" />
-            <eLabel backgroundColor="#0000ff00" position="165,570" size="160,6" zPosition="12" />
-            <eLabel backgroundColor="#00ffff00" position="325,570" size="160,6" zPosition="12" />
-            <eLabel backgroundColor="#000000ff" position="480,570" size="160,6" zPosition="12" />
-            <eLabel name="" position="586,495" size="42,35" backgroundColor="#003e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 14" zPosition="1" text="INFO" />
-            <widget source="menu" render="Listbox" position="13,6" size="613,517" scrollbarMode="showOnDemand">
-            <convert type="TemplatedMultiContent">
-            {"template": [
-                MultiContentEntryText(pos = (46, 1), size = (386, 22), font=0, flags = RT_HALIGN_LEFT, text = 0),
-                MultiContentEntryText(pos = (53, 19), size = (386, 20), font=1, flags = RT_HALIGN_LEFT, text = 1),
-                MultiContentEntryPixmapAlphaTest(pos = (3, 10), size = (34, 26), png = 2),
-                    ],
-            "fonts": [gFont("Regular", 18),gFont("Regular", 16)],
-            "itemHeight": 50
-            }
-            </convert>
-            </widget>
-            </screen>
-            """
+                <screen name="CrashLogScreen" position="center,center" size="640,586" title="View or Remove Crashlog files">
+                    <widget source="Redkey" render="Label" position="6,536" size="160,35" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <widget source="Greenkey" render="Label" position="166,536" size="160,35" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <widget source="Yellowkey" render="Label" position="325,536" size="160,35" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <widget source="Bluekey" render="Label" position="485,536" size="160,35" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <eLabel backgroundColor="#00ff0000" position="5,570" size="160,6" zPosition="12" />
+                    <eLabel backgroundColor="#0000ff00" position="165,570" size="160,6" zPosition="12" />
+                    <eLabel backgroundColor="#00ffff00" position="325,570" size="160,6" zPosition="12" />
+                    <eLabel backgroundColor="#000000ff" position="480,570" size="160,6" zPosition="12" />
+                    <eLabel name="" position="586,495" size="42,35" backgroundColor="#003e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 14" zPosition="1" text="INFO" />
+                    <widget source="menu" render="Listbox" position="13,6" size="613,517" scrollbarMode="showOnDemand">
+                    <convert type="TemplatedMultiContent">
+                    {"template": [
+                        MultiContentEntryText(pos = (46, 1), size = (386, 22), font=0, flags = RT_HALIGN_LEFT, text = 0),
+                        MultiContentEntryText(pos = (53, 19), size = (386, 20), font=1, flags = RT_HALIGN_LEFT, text = 1),
+                        MultiContentEntryPixmapAlphaTest(pos = (3, 10), size = (34, 26), png = 2),
+                            ],
+                    "fonts": [gFont("Regular", 18),gFont("Regular", 16)],
+                    "itemHeight": 50
+                    }
+                    </convert>
+                    </widget>
+                </screen>"""
 
         self["shortcuts"] = ActionMap(
             ["ShortcutActions", "OkCancelActions", "WizardActions", "EPGSelectActions"],
@@ -268,7 +259,7 @@ class CrashLogScreen(Screen):
         try:
             cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
             minipng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_SKIN, str(cur_skin) + "/mainmenu/crashlog.png"))
-        except:
+        except BaseException:
             minipng = None
 
         # Process each found file
@@ -414,12 +405,12 @@ class CrashLogScreen(Screen):
 
         try:
             red_img = LoadPixmap("/usr/share/enigma2/skin_default/buttons/red.png")
-        except:
+        except BaseException:
             red_img = None
 
         try:
             green_img = LoadPixmap("/usr/share/enigma2/skin_default/buttons/green.png")
-        except:
+        except BaseException:
             green_img = None
 
         self.list = [
@@ -535,10 +526,10 @@ class CrashLogScreen(Screen):
             "ok": self.returnFromInfo,
             "cancel": self.returnFromInfo,
             "red": self.returnFromInfo,
-            "green": lambda: None,  # Disabilita
-            "yellow": lambda: None,  # Disabilita
-            "blue": lambda: None,   # Disabilita
-            "info": lambda: None    # Disabilita
+            "green": lambda: None,      # Disabilita
+            "yellow": lambda: None,     # Disabilita
+            "blue": lambda: None,       # Disabilita
+            "info": lambda: None        # Disabilita
         })
 
     def returnFromInfo(self):
@@ -573,29 +564,25 @@ class LogScreen(Screen):
     def __init__(self, session, Crashfile):
         self.session = session
         self.crashfile = Crashfile
-
-        # Determine skin based on screen size
         sz_w = getDesktop(0).size().width()
         if sz_w == 1920:
             self.skin = """
-            <screen name="LogScreen" position="center,center" size="1880,980" title="View Crashlog file">
-            <widget source="Redkey" render="Label" position="16,919" size="250,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <widget source="Greenkey" render="Label" position="266,919" size="250,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <eLabel backgroundColor="#00ff0000" position="20,963" size="250,6" zPosition="12" />
-            <eLabel backgroundColor="#0000ff00" position="270,963" size="250,6" zPosition="12" />
-            <widget name="text" position="10,70" size="1860,830" font="Console; 24" text="text" />
-            </screen>
-            """
+                <screen name="LogScreen" position="center,center" size="1880,980" title="View Crashlog file">
+                    <widget source="Redkey" render="Label" position="16,919" size="250,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <widget source="Greenkey" render="Label" position="266,919" size="250,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <eLabel backgroundColor="#00ff0000" position="20,963" size="250,6" zPosition="12" />
+                    <eLabel backgroundColor="#0000ff00" position="270,963" size="250,6" zPosition="12" />
+                    <widget name="text" position="10,70" size="1860,830" font="Console; 24" text="text" />
+                </screen>"""
         else:
             self.skin = """
-            <screen name="LogScreen" position="center,center" size="1253,653" title="View Crashlog file">
-            <widget source="Redkey" render="Label" position="19,609" size="172,33" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <widget source="Greenkey" render="Label" position="191,609" size="172,33" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
-            <eLabel backgroundColor="#00ff0000" position="20,643" size="172,6" zPosition="12" />
-            <eLabel backgroundColor="#0000ff00" position="192,643" size="172,6" zPosition="12" />
-            <widget name="text" position="6,50" size="1240,550" font="Console; 16" text="text" />
-            </screen>
-            """
+                <screen name="LogScreen" position="center,center" size="1253,653" title="View Crashlog file">
+                    <widget source="Redkey" render="Label" position="19,609" size="172,33" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <widget source="Greenkey" render="Label" position="191,609" size="172,33" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+                    <eLabel backgroundColor="#00ff0000" position="20,643" size="172,6" zPosition="12" />
+                    <eLabel backgroundColor="#0000ff00" position="192,643" size="172,6" zPosition="12" />
+                    <widget name="text" position="6,50" size="1240,550" font="Console; 16" text="text" />
+                </screen>"""
 
         Screen.__init__(self, session)
         self.setTitle("View Crashlog file: " + basename(Crashfile))

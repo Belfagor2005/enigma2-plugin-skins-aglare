@@ -37,8 +37,6 @@ from Tools.Directories import (
 	SCOPE_GUISKIN,
 	SCOPE_CURRENT_SKIN,
 	resolveFilename,
-	# fileReadLines,
-	# fileWriteLines,
 )
 from Tools.LoadPixmap import LoadPixmap
 from base64 import b64encode
@@ -52,7 +50,7 @@ from enigma import (
 from glob import glob
 from os import listdir, remove, rename, system
 from os.path import (dirname, exists, isfile)
-from skin import getSkinFactor  # parameters
+from skin import getSkinFactor
 from urllib.parse import urlparse, urlunparse
 
 # add lululla
@@ -103,19 +101,8 @@ if sys.version_info >= (2, 7, 9):
 	try:
 		import ssl
 		sslContext = ssl._create_unverified_context()
-	except:
+	except BaseException:
 		sslContext = None
-
-
-# Compatibilità Python 2 e 3 per base64 encoding
-"""
-if sys.version_info[0] == 3:
-	def encodebytes(s):
-		return encodebytes(s.encode('utf-8')).decode('utf-8')
-else:
-	def encodebytes(s):
-		return encodestring(s.encode('utf-8')).decode('utf-8')
-"""
 
 
 def _parse(url):
@@ -225,7 +212,6 @@ def notBlackListed(entry):
 			blacklisted_entries = set(line.strip() for line in f)
 
 	except IOError as e:
-		# In caso di errore di lettura del file, logga l'errore e considera tutti gli entry come non blacklisted
 		print("Error reading blacklist file:", e)
 		blacklisted_entries = set()
 	return entry not in blacklisted_entries
@@ -352,7 +338,6 @@ class CCcamLineEdit(Setup):
 			self.username = mysel[3]
 			self.password = mysel[4]
 			if mysel[0] == "N:":
-				# self.deskey = mysel[5] + mysel[6] + mysel[7] + mysel[8] + mysel[9] + mysel[10] + mysel[11] + mysel[12] + mysel[13] + mysel[14] + mysel[15] + mysel[16] + mysel[17] + mysel[18]
 				self.deskey = "".join(mysel[5:19])
 			self.extras = mysel[19:]
 
@@ -513,9 +498,8 @@ def CCcamConfigListEntry(file):
 	try:
 		with open(CFG, "r") as f:
 			org = f.read()
-		# Verifica se il contenuto letto è in bytes (per Python 2)
 		if isinstance(org, bytes):
-			org = org.decode("utf-8")  # Decodifica per Python 2
+			org = org.decode("utf-8")
 	except (IOError, OSError) as e:
 		print(str(e))
 		org = ""
@@ -630,15 +614,12 @@ class CCcamInfoMain(Screen):
 		except IOError as e:
 			print("Errore nella lettura del file di configurazione:", e)
 			return
-		# Se username e password sono presenti, aggiorna l'URL con le credenziali
 		if username and password:
 			parsed_url = urlparse(self.url)
-			# Ricostruzione dell'URL con username e password
 			netloc = f"{username}:{password}@{parsed_url.hostname}"
 			if parsed_url.port:
 				netloc += f":{parsed_url.port}"
 			self.url = urlunparse((parsed_url.scheme, netloc, parsed_url.path, '', '', ''))
-		# Salva il profilo vuoto in config
 		config.cccaminfo.profiles.value = ""
 		config.cccaminfo.profiles.save()
 
@@ -733,7 +714,6 @@ class CCcamInfoMain(Screen):
 			cfgLines.append((_("Add new CCcam line"), "newC"))
 			cfgLines.append((_("Add new NewCamd line"), "newN"))
 			self.session.openWithCallback(self.showCfgSelectionCallback, MessageBox, _("Please select a line to edit or select add to create new line."), list=cfgLines)
-			# self.session.openWithCallback(self.showCfgSelectionCallback, MessageBox, _("Please select a line to edit or select add to create new line."), list=cfgLines, windowTitle=_("CCcam - Lines"))
 
 		else:
 			self.workingFinished()
@@ -789,7 +769,6 @@ class CCcamInfoMain(Screen):
 		try:
 			with open(file, "r") as f:
 				content = f.read()
-			# Verifica se il contenuto è in bytes (utile per Python 2)
 			if isinstance(content, bytes):
 				content = content.decode("utf-8")
 		except (IOError, OSError) as e:
@@ -806,7 +785,6 @@ class CCcamInfoMain(Screen):
 		start_tag = '<BR><BR>'
 		end_tag = '<BR></BODY>'
 		html_content = ""
-		# Verifica che html sia una stringa
 		if not isinstance(html, str):
 			self.showInfo(_("Invalid HTML content!"))
 			return
@@ -818,18 +796,14 @@ class CCcamInfoMain(Screen):
 			html_content = html[start_idx + len(start_tag):end_idx]
 			html_content = html_content.replace("<BR>", "\n").strip()
 
-		# Rimuovere righe vuote multiple
 		html_content = "\n".join(line for line in html_content.split("\n") if line.strip())
 
-		# html_content = "\n".join(line for line in html.split("\n") if line.strip())
 		self.infoToShow = html_content
 
-		# Assicurati che self.url sia una stringa
 		if not isinstance(self.url, str):
 			self.showInfo(_("Invalid URL!"))
 			return
 
-		# Verifica che getPage e showCCcamGeneral2 siano definiti correttamente
 		try:
 			# getPage(self.url + "/shares").addCallback(self.showCCcamGeneral2).addErrback(self.getWebpageError)
 			getPage(self.url + "/shares", self.showCCcamGeneral2, self.getWebpageError)
@@ -838,7 +812,6 @@ class CCcamInfoMain(Screen):
 			self.showInfo(_("Error reading webpage!"), _("Error"))
 
 	def showCCcamGeneral2(self, html):
-		# Extract CCcam version
 		version_start = "Welcome to CCcam"
 		version_start_idx = html.find(version_start)
 		if version_start_idx != -1:
@@ -848,7 +821,6 @@ class CCcamInfoMain(Screen):
 				version = html[version_start_idx:version_end_idx].strip()
 				self.infoToShow = "%s%s\n%s" % (_("Version: "), version, self.infoToShow)
 
-		# Extract available shares
 		shares_start = "Available shares:"
 		shares_start_idx = html.find(shares_start)
 
@@ -859,11 +831,9 @@ class CCcamInfoMain(Screen):
 				shares_info = html[shares_start_idx:shares_end_idx].strip()
 				self.showInfo(translateBlock("%s %s\n%s" % (_("Available shares:"), shares_info, self.infoToShow)), _("General"))
 			else:
-				# No newline found, use the rest of the HTML
 				shares_info = html[shares_start_idx:].strip()
 				self.showInfo(translateBlock("%s %s\n%s" % (_("Available shares:"), shares_info, self.infoToShow)), _("General"))
 		else:
-			# If "Available shares:" is not found, display the infoToShow
 			self.showInfo(translateBlock(self.infoToShow), _("General"))
 
 	def showCCcamClients(self, html):
@@ -948,7 +918,6 @@ class CCcamInfoMain(Screen):
 							share_type = fields[2].strip()
 							caid = fields[3].strip()
 							system = fields[4].strip()
-							# Elimina spazi bianchi e separa i valori di uphops e maxdown
 							share_info = fields[6].strip()
 							parts = share_info.split()
 							if len(parts) >= 2:
@@ -957,7 +926,6 @@ class CCcamInfoMain(Screen):
 							else:
 								uphops = ""
 								maxdown = ""
-							# Aggiusta il formato di caid se necessario
 							if len(caid) == 3:
 								caid = "0" + caid
 							info_list.append([
@@ -1368,7 +1336,7 @@ class CCcamInfoSubMenu(Screen):
 				info += x + "\n"
 
 			return info
-		except:
+		except BaseException:
 			return ""
 
 
@@ -1409,7 +1377,7 @@ class CCcamInfoServerMenu(Screen):
 				info += x + "\n"
 
 			return info
-		except:
+		except BaseException:
 			return ""
 
 	def okClicked(self):
@@ -1801,17 +1769,14 @@ class CCcamInfoConfigSwitcher(Screen):
 			except IOError:
 				self.session.open(MessageBox, _("Rename failed!"), MessageBox.TYPE_ERROR)
 				return
-			# Sostituisci i ritorni a capo e aggiorna il contenuto
+
 			content = content.replace("\r", "\n")
-			# Gestisci la riga di intestazione
 			if content.startswith("#CONFIGFILE NAME=") and "\n" in content:
 				idx = content.index("\n") + 1
 				content = content[idx:]
 
-			# Inserisci la nuova intestazione
 			content = "#CONFIGFILE NAME=%s\n%s" % (callback, content)
 			try:
-				# Scrivi il contenuto aggiornato nel file
 				with open(self.fileToRename, "w") as file:
 					file.write(content)
 				self.session.open(MessageBox, _("Renamed %s!") % self.fileToRename, MessageBox.TYPE_INFO)
@@ -1862,7 +1827,6 @@ class CCcamInfoMenuConfig(Screen):
 		try:
 			with open(config.cccaminfo.blacklist.value, "r") as f:
 				content = f.read()
-			# Gestione per Python 2 e Python 3 delle stringhe
 			if isinstance(content, bytes):
 				content = content.decode("utf-8")  # Decodifica per Python 2 se necessario
 			self.blacklisted = content.split("\n")
