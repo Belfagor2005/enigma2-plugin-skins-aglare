@@ -76,7 +76,7 @@ class AglareRunningText(Renderer):
 					x = min(limit, int(val))
 				else:
 					x = max(limit, int(val))
-			except:
+			except BaseException:
 				x = default
 			return x
 

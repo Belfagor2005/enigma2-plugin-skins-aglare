@@ -18,7 +18,7 @@ try:
 	import sys
 	if sys.version_info[0] == 3:
 		from builtins import range
-except:
+except BaseException:
 	pass
 
 
@@ -73,5 +73,5 @@ class AglareNxtEvnt(Renderer, VariableText):
 					return ''
 			else:
 				return ''
-		except:
+		except BaseException:
 			return ''

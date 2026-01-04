@@ -77,7 +77,7 @@ class AglareStreamInfo(Converter):
                         if http_index >= 0:
                             return stream_url[http_index:]
                         return stream_url
-                except:
+                except BaseException:
                     # If extraction fails, try to find http in the raw refstr
                     http_index = refstr.find('http')
                     if http_index >= 0:

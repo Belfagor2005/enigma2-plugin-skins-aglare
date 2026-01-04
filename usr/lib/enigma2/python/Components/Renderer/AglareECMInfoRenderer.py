@@ -113,7 +113,7 @@ class AglareECMInfoRenderer(Renderer, VariableText):
             if value.startswith("0x"):
                 value = value[2:]
             return "%0.4X" % int(value, 16)
-        except:
+        except BaseException:
             return value
             
     def format_provider(self, prov):
@@ -121,7 +121,7 @@ class AglareECMInfoRenderer(Renderer, VariableText):
             if prov.startswith("0x"):
                 prov = prov[2:]
             return "%0.6X" % int(prov, 16)
-        except:
+        except BaseException:
             return prov
             
     def changed(self, what):

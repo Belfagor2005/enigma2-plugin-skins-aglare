@@ -85,7 +85,7 @@ class AglareServName2(Converter, object):
         self.timer = eTimer()
         try:
             self.timer.callback.append(self.neededChange)
-        except:
+        except BaseException:
             self.timer_conn = self.timer.timeout.connect(self.neededChange)
 
     def _is_stream_service(self, refstr):
@@ -125,7 +125,7 @@ class AglareServName2(Converter, object):
             elif '://' in refstr:
                 stream_url = ' '.join(refstr.split(':')[10:])
                 return stream_url
-        except:
+        except BaseException:
             # If extraction fails, try to find http in the raw refstr
             http_index = refstr.find('http')
             if http_index >= 0:
@@ -143,7 +143,7 @@ class AglareServName2(Converter, object):
                 parsed_url = urlparse(stream_url)
                 if parsed_url.scheme and parsed_url.netloc:
                     return f"{parsed_url.scheme}://{parsed_url.netloc}"
-            except:
+            except BaseException:
                 # Fallback: try to extract host manually
                 if '://' in stream_url:
                     parts = stream_url.split('://', 1)
@@ -179,7 +179,7 @@ class AglareServName2(Converter, object):
                 return 0, 'N/A'
             try:
                 acount = config.plugins.NumberZapExt.enable.value and config.plugins.NumberZapExt.acount.value or config.usage.alternative_number_mode.value
-            except:
+            except BaseException:
                 acount = False
             rootstr = ''
             for x in lastpath.split(';'):
@@ -486,7 +486,7 @@ class AglareServName2(Converter, object):
                 try:
                     from Components.NimManager import nimmanager
                     return str(nimmanager.getSatDescription(orbpos))
-                except:
+                except BaseException:
                     dir = ref.flags & (eServiceReference.isDirectory | eServiceReference.isMarker)
                     if not dir:
                         refString = ref.toString().lower()
@@ -605,7 +605,7 @@ class AglareServName2(Converter, object):
             try:
                 service = self.source.serviceref
                 num = service and service.getChannelNum() or None
-            except:
+            except BaseException:
                 num = None
             if num:
                 return str(num)
@@ -718,7 +718,7 @@ class AglareServName2(Converter, object):
                     try:
                         service = self.source.serviceref
                         num = service and service.getChannelNum() or None
-                    except:
+                    except BaseException:
                         num = None
                     if num:
                         ret += str(num)
@@ -771,7 +771,7 @@ class AglareServName2(Converter, object):
                             elif '://' in refstr:
                                 stream_url = ' '.join(refstr.split(':')[10:])
                                 ret += stream_url
-                        except:
+                        except BaseException:
                             ret += refstr
                     else:
                         ret += ""

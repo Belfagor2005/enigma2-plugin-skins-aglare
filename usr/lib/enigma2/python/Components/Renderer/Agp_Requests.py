@@ -230,7 +230,7 @@ class RequestAgent:
 			if exists(dst_path):
 				try:
 					remove(dst_path)
-				except:
+				except BaseException:
 					pass
 			return False, f"Errore: {str(e)}"
 
@@ -239,7 +239,7 @@ class RequestAgent:
 		try:
 			with open(path, 'rb') as f:
 				return f.read(2) == b'\xFF\xD8'  # Magic number JPEG
-		except:
+		except BaseException:
 			return False
 
 	def convert_to_jpg(self, path):

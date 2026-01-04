@@ -78,7 +78,7 @@ def quoteEventName(eventName, safe="+"):
 	"""
 	try:
 		text = eventName.decode('utf8').replace(u'\x86', u'').replace(u'\x87', u'').encode('utf8')
-	except:
+	except BaseException:
 		text = eventName
 	return quote_plus(text, safe=safe)
 
