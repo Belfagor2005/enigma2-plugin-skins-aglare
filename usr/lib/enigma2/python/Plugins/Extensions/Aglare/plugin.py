@@ -223,7 +223,7 @@ class AglareSetup(ConfigListScreen, Screen):
     def createSetup(self):
         try:
             self.editListEntry = None
-                                                                                         
+
             is_ecm_on = (cfg.InfobarECM.value == 'infobar_ecm_on')
 
             # Handle InfobarPosterx choices based on ECM setting

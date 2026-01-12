@@ -416,7 +416,7 @@ config.plugins.Aglare.VolumeBar = ConfigSelection(default='volume1', choices=[
     ('volume2', _('volume2'))
 ])
 
-config.plugins.Aglare.E2iplayerskins = ConfigSelection(default='OFF', choices=[
+config.plugins.Aglare.E2iplayerskins = ConfigSelection(default='e2iplayer_skin_off', choices=[
     ('e2iplayer_skin_off', _('OFF')),
     ('e2iplayer_skin_on', _('ON'))
 ])
