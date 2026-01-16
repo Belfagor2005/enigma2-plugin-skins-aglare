@@ -515,62 +515,10 @@
         <widget name="green" font="Regular;30" halign="center" valign="center" position="472,995" size="297,59" backgroundColor="#30000000" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
         <eLabel backgroundColor="#00ff0000" position="153,1048" size="300,8" zPosition="4"/>
         <eLabel backgroundColor="#0000ff00" position="472,1048" size="300,8" zPosition="4"/>
-        <widget source="global.CurrentTime" render="Label" position="1438,70" size="316,117" font="Regular; 84" halign="right" backgroundColor="#914167" transparent="1" valign="center" foregroundColor="#00ffffff">
+        <widget source="global.CurrentTime" render="Label" position="1438,70" size="316,117" font="xLcd; 84" halign="right" backgroundColor="#914167" transparent="1" valign="center" foregroundColor="#00ffffff">
             <convert type="ClockToText">Default</convert>
         </widget>
     </screen>
-
-    <screen name="CategorySelector" position="center,center" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
-        <ePixmap position="0,0" size="1920,1080" pixmap="vavoo/main.png" alphatest="blend" zPosition="-1" />
-        <eLabel position="0,0" size="1920,1080" backgroundColor="#30000000" transparent="0" zPosition="-9" foregroundColor="#00ffffff" />
-       <eLabel name="" position="193,871" size="500,40" backgroundColor="#ff000000" halign="center" valign="center" transparent="1" cornerRadius="26" font="Regular; 28" zPosition="1" text="Select Cowntry for Export" foregroundColor="#fe00" />
-        <widget name="list" position="145,172" size="655,650" zPosition="1" font="Regular; 28" itemHeight="50" scrollbarMode="showNever" transparent="1" backgroundColor="#ffffff" foregroundColor="#ffccff" backgroundColorSelected="#743554" foregroundColorSelected="#ffffcc" />
-        <widget name="red" font="Regular;30" halign="center" valign="center" position="153,995" size="297,59" backgroundColor="#30000000" foregroundColor="#00ffffff" transparent="1" zPosition="1" />
-        <widget name="green" font="Regular;30" halign="center" valign="center" position="472,995" size="297,59" backgroundColor="#30000000" foregroundColor="#00ffffff" transparent="1" zPosition="1" />
-        <eLabel backgroundColor="#00ff0000" position="153,1048" size="300,8" zPosition="4" />
-        <eLabel backgroundColor="#0000ff00" position="472,1048" size="300,8" zPosition="4" />
-        <widget source="global.CurrentTime" render="Label" position="1438,70" size="316,117" font="Regular; 84" halign="right" backgroundColor="#914167" transparent="1" valign="center" foregroundColor="#00ffffff">
-            <convert type="ClockToText">Default</convert>
-        </widget>
-    </screen>
-
-    <screen name="SetupMaker" position="center,center" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
-        <ePixmap position="0,0" size="1920,1080" pixmap="vavoo/main.png" alphatest="blend" zPosition="-1"/>
-        <eLabel position="0,0" size="1920,1080" backgroundColor="#30000000" transparent="0" zPosition="-9" foregroundColor="#00ffffff"/>
-        <widget name="description" position="118,878" size="707,90" zPosition="1" backgroundColor="#30000000" transparent="1" font="Regular; 34" valign="center" halign="center" foregroundColor="#00ffffff"/>
-        <widget name="config" position="145,172" size="655,650" zPosition="1" font="Regular; 28" itemHeight="50" scrollbarMode="showNever" transparent="1" backgroundColor="#ffffff" foregroundColor="#ffccff" backgroundColorSelected="#743554" foregroundColorSelected="#ffffcc"/>
-        <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
-        <eLabel backgroundColor="#00ff0000" position="108,1020" size="300,6" zPosition="12"/>
-        <eLabel backgroundColor="#0000ff00" position="407,1020" size="300,6" zPosition="12"/>
-        <eLabel backgroundColor="#00ffff00" position="707,1020" size="300,6" zPosition="12"/>
-        <eLabel backgroundColor="#000000ff" position="1007,1020" size="300,6" zPosition="12"/>
-        <widget name="menulist" position="145,172" size="655,650" zPosition="1" scrollbarMode="showNever" transparent="1" backgroundColor="#ffffff" foregroundColor="#ffccff" backgroundColorSelected="#914167" foregroundColorSelected="#ffffcc"/>
-        <widget name="key_red" font="Regular;30" halign="center" valign="center" position="107,961" size="300,58" backgroundColor="#30000000" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
-        <widget name="key_green" font="Regular;30" halign="center" valign="center" position="406,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
-        <widget name="key_yellow" font="Regular;30" halign="center" valign="center" position="706,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
-        <widget name="key_blue" font="Regular;30" halign="center" valign="center" position="1006,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
-        <widget source="global.CurrentTime" render="Label" position="1438,70" size="316,117" font="Regular; 84" halign="right" backgroundColor="#914167" transparent="1" valign="center" foregroundColor="#00ffffff">
-            <convert type="ClockToText">Default</convert>
-        </widget>
-    </screen>
-
-    <screen name="vavoo_maker_config" position="center,center" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
-        <ePixmap position="0,0" size="1920,1080" pixmap="vavoo/main.png" alphatest="blend" zPosition="-1" />
-        <eLabel position="0,0" size="1920,1080" backgroundColor="#30000000" transparent="0" zPosition="-9" foregroundColor="#00ffffff" />
-        <widget name="description" position="118,878" size="707,90" zPosition="1" backgroundColor="#30000000" transparent="1" font="Regular; 34" valign="center" halign="center" foregroundColor="#00ffffff" />
-        <widget name="config" position="145,172" size="655,650" zPosition="1" font="Regular; 28" itemHeight="50" scrollbarMode="showNever" transparent="1" backgroundColor="#ffffff" foregroundColor="#ffccff" backgroundColorSelected="#743554" foregroundColorSelected="#ffffcc" />
-        <widget name="version" position="697,77" size="100,30" zPosition="9" backgroundColor="#30000000" transparent="1" font="Regular; 20" halign="center" foregroundColor="#ffffff" />
-        <widget name="statusbar" position="834,972" size="830,65" font="Regular; 28" foregroundColor="yellow" backgroundColor="#101010" transparent="1" zPosition="3" />
-        <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80" />
-        <eLabel backgroundColor="#00ff0000" position="108,1020" size="300,6" zPosition="12" />
-        <eLabel backgroundColor="#0000ff00" position="407,1020" size="300,6" zPosition="12" />
-        <widget name="red" font="Regular;30" halign="center" valign="center" position="107,961" size="300,58" backgroundColor="#30000000" foregroundColor="#00ffffff" transparent="1" zPosition="1" />
-        <widget name="green" font="Regular;30" halign="center" valign="center" position="406,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1" />
-        <widget source="global.CurrentTime" render="Label" position="1438,70" size="316,117" font="Regular; 84" halign="right" backgroundColor="#914167" transparent="1" valign="center" foregroundColor="#00ffffff">
-            <convert type="ClockToText">Default</convert>
-        </widget>
-    </screen>
-
     <!-- *************************************** -->
     <!--  RADIO M                              * -->
     <!-- *************************************** -->
@@ -589,10 +537,10 @@
         <eLabel name="" position="1704,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
     </screen>
-    <screen name="radiom2" position="center,center" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="radiom2" position="0,0" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="radiom1"/>
     </screen>
-    <screen name="radiom3" position="center,center" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="radiom3" position="0,0" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="radiom1"/>
     </screen>
     <screen name="radiom80" position="center,center" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
@@ -614,6 +562,7 @@
         <eLabel backgroundColor="#0000ff00" position="615,1055" size="210,6" zPosition="12"/>
         <eLabel backgroundColor="#000000ff" position="835,1055" size="210,6" zPosition="12"/>
     </screen>
+
     <!-- ************* NSS Panels ************* -->
     <screen name="menu_Menu" backgroundColor="transparent" flags="wfNoBorder" position="center,center" size="1920,1080" title="Menu Fenice">
         <panel name="titletemp"/>

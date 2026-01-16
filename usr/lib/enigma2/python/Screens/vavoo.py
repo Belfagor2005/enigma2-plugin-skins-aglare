@@ -362,10 +362,10 @@ class VavooScreen(Screen):
 
 			<eLabel name="" position="22,30" size="1244,690" zPosition="-90" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
 			<eLabel backgroundColor="#001a2336" position="34,90" size="1220,3" zPosition="10" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/key_red.png" position="619,386" size="30,30" alphatest="blend" transparent="1" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/key_green.png" position="619,434" size="30,30" alphatest="blend" transparent="1" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/key_yellow.png" position="620,486" size="30,30" alphatest="blend" transparent="1" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/key_blue.png" position="620,534" size="30,30" alphatest="blend" transparent="1" />
+			<ePixmap pixmap="buttons/redbutton.png" position="619,386" size="30,30" alphatest="blend" transparent="1" />
+			<ePixmap pixmap="buttons/greenbutton.png" position="619,434" size="30,30" alphatest="blend" transparent="1" />
+			<ePixmap pixmap="buttons/yellowbutton.png" position="620,486" size="30,30" alphatest="blend" transparent="1" />
+			<ePixmap pixmap="buttons/bluebutton.png" position="620,534" size="30,30" alphatest="blend" transparent="1" />
 			<widget backgroundColor="#9f1313" font="Regular;30" halign="left" position="660,380" size="250,40" render="Label" shadowColor="black" shadowOffset="-2,-2" source="key_red" transparent="1" valign="center" zPosition="1" />
 			<widget backgroundColor="#1f771f" font="Regular;30" halign="left" position="660,430" size="250,40" render="Label" shadowColor="black" shadowOffset="-2,-2" source="key_green" transparent="1" valign="center" zPosition="1" />
 			<widget backgroundColor="#a08500" font="Regular;30" halign="left" position="660,480" size="250,40" render="Label" shadowColor="black" shadowOffset="-2,-2" source="key_yellow" transparent="1" valign="center" zPosition="1" />
@@ -373,7 +373,7 @@ class VavooScreen(Screen):
 			<widget name="config" position="40,100" size="550,585" itemHeight="35" font="Regular; 30" enableWrapAround="1" transparent="0" zPosition="9" scrollbarMode="showOnDemand" />
 			<widget name="description" position="610,604" size="635,81" font="Regular; 32" halign="center" foregroundColor="#00ffffff" transparent="1" zPosition="3" />
 			<eLabel backgroundColor="#00fffffe" position="35,695" size="1200,3" zPosition="10" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/log.png" position="616,109" size="512,256" zPosition="5" />
+			<ePixmap pixmap="vavoo/logo_vavoo.png" position="616,109" size="512,256" zPosition="5" />
 			<widget source="session.CurrentService" render="Label" position="915,561" size="350,34" font="Regular;26" borderWidth="1" backgroundColor="background" transparent="1" halign="center" foregroundColor="white" zPosition="30" valign="center" noWrap="1">
 				<convert type="ServiceName">Name</convert>
 			</widget>
@@ -547,10 +547,10 @@ class SetupMaker(Screen):
 
 			<eLabel name="" position="22,30" size="1244,690" zPosition="-90" backgroundColor="#00171a1c" foregroundColor="#00171a1c" />
 			<eLabel backgroundColor="#001a2336" position="34,90" size="1220,3" zPosition="10" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/key_red.png" position="619,386" size="30,30" alphatest="blend" transparent="1" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/key_green.png" position="619,434" size="30,30" alphatest="blend" transparent="1" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/key_yellow.png" position="620,486" size="30,30" alphatest="blend" transparent="1" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/key_blue.png" position="620,534" size="30,30" alphatest="blend" transparent="1" />
+			<ePixmap pixmap="buttons/redbutton.png" position="619,386" size="30,30" alphatest="blend" transparent="1" />
+			<ePixmap pixmap="buttons/greenbutton.png" position="619,434" size="30,30" alphatest="blend" transparent="1" />
+			<ePixmap pixmap="buttons/yellowbutton.png" position="620,486" size="30,30" alphatest="blend" transparent="1" />
+			<ePixmap pixmap="buttons/bluebutton.png" position="620,534" size="30,30" alphatest="blend" transparent="1" />
 			<widget backgroundColor="#9f1313" font="Regular;30" halign="left" position="660,380" size="250,40" render="Label" shadowColor="black" shadowOffset="-2,-2" source="key_red" transparent="1" valign="center" zPosition="1" />
 			<widget backgroundColor="#1f771f" font="Regular;30" halign="left" position="660,430" size="250,40" render="Label" shadowColor="black" shadowOffset="-2,-2" source="key_green" transparent="1" valign="center" zPosition="1" />
 			<widget backgroundColor="#a08500" font="Regular;30" halign="left" position="660,480" size="250,40" render="Label" shadowColor="black" shadowOffset="-2,-2" source="key_yellow" transparent="1" valign="center" zPosition="1" />
@@ -558,7 +558,7 @@ class SetupMaker(Screen):
 			<widget name="config" position="40,100" size="550,585" itemHeight="35" font="Regular; 30" enableWrapAround="1" transparent="0" zPosition="9" scrollbarMode="showOnDemand" />
 			<widget name="description" position="610,604" size="635,81" font="Regular; 32" halign="center" foregroundColor="#00ffffff" transparent="1" zPosition="3" />
 			<eLabel backgroundColor="#00fffffe" position="35,695" size="1200,3" zPosition="10" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/log.png" position="616,109" size="512,256" zPosition="5" />
+			<ePixmap pixmap="vavoo/logo_vavoo.png" position="616,109" size="512,256" zPosition="5" />
 			<widget source="session.CurrentService" render="Label" position="915,561" size="350,34" font="Regular;26" borderWidth="1" backgroundColor="background" transparent="1" halign="center" foregroundColor="white" zPosition="30" valign="center" noWrap="1">
 				<convert type="ServiceName">Name</convert>
 			</widget>
@@ -722,12 +722,12 @@ class CategorySelector(Screen):
 		<screen position="center,center" size="800,650" title="Vavoo Main" flags="wfNoBorder">
 			<widget name="list" position="310,70" size="250,150" scrollbarMode="showNever" itemHeight="35" />
 			<eLabel name="" position="167,19" size="500,40" backgroundColor="#ff000000" halign="center" valign="center" transparent="1" cornerRadius="26" font="Regular; 28" zPosition="1" text="Select Cowntry for Export" foregroundColor="#fe00" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/kofi.png" position="40,270" size="250,250" zPosition="5" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/paypal.png" position="520,270" size="250,250" zPosition="5" />
+			<ePixmap pixmap="vavoo/kofi.png" position="40,270" size="250,250" zPosition="5" />
+			<ePixmap pixmap="vavoo/paypal.png" position="520,270" size="250,250" zPosition="5" />
 			<eLabel name="" position="161,528" size="500,40" backgroundColor="#ff000000" halign="center" valign="center" transparent="1" cornerRadius="26" font="Regular; 28" zPosition="1" text="Offer Coffe" foregroundColor="#fe00" />
 			<eLabel backgroundColor="#001a2336" position="7,578" size="777,4" zPosition="10" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/key_red.png" position="29,595" size="30,30" alphatest="blend" transparent="1" />
-			<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo-maker/icons/key_green.png" position="428,595" size="30,30" alphatest="blend" transparent="1" />
+			<ePixmap pixmap="buttons/redbutton.png" position="29,596" size="30,30" alphatest="blend" transparent="1" />
+			<ePixmap pixmap="buttons/greenbutton.png" position="424,594" size="30,30" alphatest="blend" transparent="1" />
 			<widget backgroundColor="#9f1313" font="Regular;30" halign="left" position="65,590" size="300,40" render="Label" shadowColor="black" shadowOffset="-2,-2" source="key_red" transparent="1" valign="center" zPosition="1" />
 			<widget backgroundColor="#1f771f" font="Regular;30" halign="left" position="465,590" size="300,40" render="Label" shadowColor="black" shadowOffset="-2,-2" source="key_green" transparent="1" valign="center" zPosition="1" />
 		</screen>
@@ -790,32 +790,6 @@ class CategorySelector(Screen):
 		) % (info["version"], info["author"], info["license"], ", ".join(info["credits"]))
 
 		self.session.open(MessageBox, about_text, MessageBox.TYPE_INFO)
-
-
-"""
-class PluginSummary(ScreenSummary):
-	def __init__(self, session, parent):
-		ScreenSummary.__init__(self, session, parent=parent)
-		self.skinName = "PluginBrowserSummary"
-		self["entry"] = StaticText("")
-		if self.addSelect not in self.onShow:
-			self.onShow.append(self.addSelect)
-		if self.removeSelect not in self.onHide:
-			self.onHide.append(self.removeSelect)
-
-	def addSelect(self):
-		if self.selectionChanged not in self.parent["config"].onSelectionChanged:
-			self.parent["config"].onSelectionChanged.append(self.selectionChanged)
-		self.selectionChanged()
-
-	def removeSelect(self):
-		if self.selectionChanged in self.parent["config"].onSelectionChanged:
-			self.parent["config"].onSelectionChanged.remove(self.selectionChanged)
-
-	def selectionChanged(self):
-		item = self.parent["config"].getCurrent()
-		self["entry"].text = item[0][0] if item else ""
-"""
 
 
 def decodeHtml(text):
