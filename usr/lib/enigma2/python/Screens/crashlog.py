@@ -586,6 +586,8 @@ class LogScreen(Screen):
 		self.current_view = "full"
 		self.full_text = ""
 		self.error_text = ""
+		self["text"].setText(self.full_text)
+		self["Greenkey"].setText(_("Error Only"))
 		self["actions"] = ActionMap(
 			["DirectionActions", "ColorActions", "OkCancelActions"],
 			{
