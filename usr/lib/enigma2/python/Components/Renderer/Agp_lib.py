@@ -161,45 +161,62 @@ def getCleanTitle(eventitle=""):
 	return eventitle.replace(' ^`^s', '').replace(' ^`^y', '')
 
 
+def remove_year_in_parentheses(title):
+    # Remove (2015) or [2015] only (with optional spaces)
+    title = sub(r"\s*[\(\[]\s*(?:19|20)\d{2}\s*[\)\]]\s*", " ", title)
+    # Clean extra spaces
+    title = sub(r"\s+", " ", title).strip()
+    return title
+
+
 def sanitize_filename(name):
 	"""
 	Sanitize strings to be safe for filenames.
 	Removes release-tag noise (quality tags, codecs, season/episode, etc.),
 	strips invalid filesystem characters, collapses whitespace, and truncates.
 	"""
-	# 1. Collapse multiple spaces
-	while "  " in name:
-		name = name.replace("  ", " ")
+    # 1) Normalize spaces
+    name = sub(r"\s+", " ", str(name)).strip()
 
-	# 2. Remove common release tags (case-insensitive, verbose)
-	name = sub(
-		r"\.(?=\D)|\(\d{4}\)|\b(?:720p|1080p|2160p|4k)\b|\b(?:HDTV|WEB[Rr]ip|WEB\-DL|HDRip|HDTC|HDTS|DVDScr|DVDRip)\b|\b(?:BRRip|BDRip|BDMV|CAMRip|Cam|TS|TC|SCR|R5)\b|\b(?:PROPER|REPACK|SUBBED|UNRATED|EXTENDED|INTERNAL|LIMITED|READNFO)\b|\b(?:AAC[\d\.]*|AC3[\d\.]*|DTS[\d\.]*|DD5\.1|TRUEHD|ATMOS)\b|\b(?:XviD|DivX|x264|H\.264|x265|HEVC|AVC|10bits)\b",
-		" ",
-		name,
-		flags=IGNORECASE
-	)
+    # 2) Remove common release tags (your existing big regex is fine)
+    name = sub(
+        r"\.(?=\D)|\(\d{4}\)|\b(?:720p|1080p|2160p|4k)\b|"
+        r"\b(?:HDTV|WEB[Rr]ip|WEB\-DL|HDRip|HDTC|HDTS|DVDScr|DVDRip)\b|"
+        r"\b(?:BRRip|BDRip|BDMV|CAMRip|Cam|TS|TC|SCR|R5)\b|"
+        r"\b(?:PROPER|REPACK|SUBBED|UNRATED|EXTENDED|INTERNAL|LIMITED|READNFO)\b|"
+        r"\b(?:AAC[\d\.]*|AC3[\d\.]*|DTS[\d\.]*|DD5\.1|TRUEHD|ATMOS)\b|"
+        r"\b(?:XviD|DivX|x264|H\.264|x265|HEVC|AVC|10bits)\b",
+        " ",
+        name,
+        flags=IGNORECASE
+    )
 
-	# 3. Remove standalone 4-digit year
-	name = sub(r"\b(19|20)\d{2}\b", "", name)
+    # 3A) Remove year ONLY if inside () or []
+    name = sub(r"\s*[\(\[]\s*(?:19|20)\d{2}\s*[\)\]]\s*", " ", name)
 
-	# 4. Remove SxxExx patterns (season/episode)
-	name = sub(r"(?i)\bs\d+e\d+\b", "", name)
+    # 3B) Remove trailing year " 2015" ONLY if there is other text before it
+    #     - "Point break 2015" -> "Point break"
+    #     - "2012" -> "2012" (unchanged)
+    name = sub(r"(?<!^)\s+(?:19|20)\d{2}\s*$", "", name)
 
-	# 5. Remove invalid filename characters
-	for char in '*?"<>|,':  # Add any other invalid characters for your filesystem
-		name = name.replace(char, "")
+    # 4) Remove SxxExx
+    name = sub(r"(?i)\bs\d+e\d+\b", "", name)
 
-	# 6. Replace any remaining non-word (except space, underscore, dash) with space
-	name = sub(r"[^\w\s\-_]", " ", name)
+    # 5) Remove invalid filename characters
+    for char in '*?"<>|,':
+        name = name.replace(char, "")
 
-	# 7. Collapse any leftover whitespace and trim
-	name = sub(r"\s+", " ", name).strip()
+    # 6) Replace any remaining non-word (except space, underscore, dash) with space
+    name = sub(r"[^\w\s\-_]", " ", name)
 
-	# 8. Truncate to 50 characters
-	if len(name) > 50:
-		name = name[:50].rstrip()
+    # 7) Final whitespace cleanup
+    name = sub(r"\s+", " ", name).strip()
 
-	return name
+    # 8) Truncate
+    if len(name) > 50:
+        name = name[:50].rstrip()
+
+    return name
 
 
 # Character replacement mapping for filename sanitization
