@@ -38,6 +38,7 @@
         <color name="#264103" value="#00264103"/>
         <color name="#283752" value="#00283752"/>
         <color name="#2a70a4" value="#002a70a4"/>
+        <color name="#2a79b8" value="#002a79b8"/>
         <color name="#30000000" value="#30000000"/>
         <color name="#303030" value="#00303030"/>
         <color name="#31000000" value="#31000000"/>
@@ -49,11 +50,13 @@
         <color name="#505050" value="#00505050"/>
         <color name="#555556" value="#00555556"/>
         <color name="#606060" value="#00606060"/>
+        <color name="#60d0d0d" value="#060d0d0d"/>
         <color name="#808080" value="#00808080"/>
         <color name="#8293b3" value="#008293b3"/>
         <color name="#90000000" value="#90000000"/>
         <color name="#90ff00ff" value="#90ff00ff"/>
         <color name="#92f1fc" value="#0092f1fc"/>
+        <color name="#9f1313" value="#009f1313"/>
         <color name="#a0a0a0" value="#00a0a0a0"/>
         <color name="#a64d79" value="#00a64d79"/>
         <color name="#aa001842" value="#aa001842"/>
@@ -67,7 +70,10 @@
         <color name="#ecbb41" value="#00ecbb41"/>
         <color name="#f3fc92" value="#00f3fc92"/>
         <color name="#f4b700" value="#00f4b700"/>
+        <color name="#fe00" value="#0000fe00"/>
+        <color name="#fe0000" value="#00fe0000"/>
         <color name="#ffb75b" value="#00ffb75b"/>
+        <color name="#ffc000" value="#00ffc000"/>
         <color name="#fffff4" value="#00fffff4"/>
         <color name="#fffffe" value="#00fffffe"/>
         <color name="babyblue" value="#0089cff0"/>
@@ -234,7 +240,7 @@
         <color name="ListboxSelectedForeground" color="white"/>
         <color name="ListboxMarkedBackground" color="yellow"/>
         <color name="ListboxMarkedForeground" color="green"/>
-        <color name="ListboxMarkedAndSelectedBackground" color="#3e91f6"/>
+        <color name="ListboxMarkedAndSelectedBackground" color="lmsb"/>
         <color name="ListboxMarkedAndSelectedForeground" color="green"/>
         <color name="WindowTitleForeground" color="chselfg"/>
         <color name="WindowTitleBackground" color="background"/>
@@ -275,6 +281,7 @@
     </fonts>
     <screen name="InfoBar" position="0,0" size="1920,1080" title="InfoBar" flags="wfNoBorder" backgroundColor="transparent">
         <panel name="infobartemp"/>
+        <!--ecm-->
         <!--posters-->
         <!--no xtraevent posters-->
         <!--no date-->
@@ -326,7 +333,7 @@
             <convert type="AglareServName2">StreamHost</convert>
             <convert type="ConverterRotator">3</convert>
         </widget>
-        <widget source="session.CurrentService" render="Label" position="1208,739" size="692,40" font="Regular; 24" backgroundColor="background" transparent="1" halign="center" zPosition="99" valign="center" noWrap="1">
+        <widget source="session.CurrentService" render="Label" position="1467,739" size="423,40" font="Regular; 24" backgroundColor="background" transparent="1" halign="right" zPosition="99" valign="center" noWrap="1">
             <convert type="AglareServName2">Reference</convert>
         </widget>
         <widget source="session.CurrentService" render="Label" position="30,739" size="558,40" font="Regular; 26" transparent="1" zPosition="5" foregroundColor="white" backgroundColor="background" halign="left" valign="center" noWrap="1" text="PidInfo">
@@ -519,56 +526,51 @@
         <eLabel name="" position="0,2" size="66,65" font="icomoon; 44" text="" transparent="1" valign="center" halign="center"/>
         <eLabel backgroundColor="wpmc" cornerRadius="30" position="0,0" size="704,70" zPosition="-99"/>
     </screen>
+    <!--e2iplayer /-->
     <screen name="ChannelSelection" position="0,0" size="1920,1080" title="Channel Selection" backgroundColor="black" flags="wfNoBorder">
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="timedate"/>
-        <widget source="Title" render="Label" position="36,32" size="890,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
-        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
-        <widget name="list" position="40,94" size="890,900" fieldMargins="15" nonplayableMargins="15" serviceItemHeight="50" serviceNumberFont="Regular;30" serviceNameFont="Regular;30" serviceInfoFont="Regular;28" foregroundColor="white" foregroundColorSelected="white" colorServiceDescription="white" colorServiceDescriptionSelected="white" foregroundColorServiceNotAvail="#444444" colorEventProgressbarBorderSelected="white" colorEventProgressbarBorder="white" zPosition="4" itemHeight="50" picServiceEventProgressbar="main/chprogressbar.png" progressbarHeight="6" progressBarWidth="100" progressbarBorderWidth="1" progressPercentWidth="60" backgroundColorMarked="#00131a1d" textSeparator="  •  " markerLine="1" markerTextAlignment="center" markerLineColor="fgcolor" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
+        <widget source="Title" render="Label" position="36,32" size="1106,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
+        <widget name="list" position="40,94" size="1106,900" fieldMargins="15" nonplayableMargins="15" serviceItemHeight="50" serviceNumberFont="Regular;30" serviceNameFont="Regular;30" serviceInfoFont="Regular;28" foregroundColor="white" foregroundColorSelected="#77ca5b" colorServiceDescription="#FFFAFA" colorServiceDescriptionSelected="#008080" foregroundColorServiceNotAvail="#444444" colorEventProgressbarBorderSelected="white" colorEventProgressbarBorder="white" zPosition="4" itemHeight="50" picServiceEventProgressbar="main/chprogressbar.png" progressbarHeight="6" progressBarWidth="100" progressbarBorderWidth="1" progressPercentWidth="60" backgroundColorMarked="#00131a1d" textSeparator="  •  " markerLine="1" markerTextAlignment="center" markerLineColor="fgcolor" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <widget source="session.CurrentService" render="Label" position="1188,88" size="700,34" font="Regular; 27" borderWidth="1" backgroundColor="background" transparent="1" halign="center" zPosition="30" valign="center" noWrap="1">
+            <convert type="ServiceName">Name</convert>
+        </widget>
+        <widget source="ServiceEvent" render="Progress" pixmap="main/progfg70010.png" cornerRadius="5" position="1188,525" size="700,10" zPosition="99" backgroundColor="progbg">
+            <convert type="EventTime">Progress</convert>
+        </widget>
+        <widget source="session.VideoPicture" render="Pig" position="1188,120" zPosition="20" size="700,394" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
+        <eLabel name="" position="31,30" size="1120,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2"/>
         <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
         <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EPG"/>
         <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
-        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="970,926" size="400,3" zPosition="99"/>
-        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1490,926" size="400,3" zPosition="99"/>
-        <eLabel name="" position="1368,911" size="132,40" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
-        <widget source="ServiceEvent" render="Picon" position="1655,740" size="230,132" transparent="1" alphatest="blend" zPosition="22">
-            <convert type="ServiceName">Reference</convert>
-        </widget>
-        <widget source="session.CurrentService" render="Label" position="954,70" size="932,32" font="Regular; 27" borderWidth="1" backgroundColor="background" transparent="1" halign="center" zPosition="30" valign="center" noWrap="1">
-            <convert type="ServiceName">Name</convert>
-        </widget>
-        <widget source="ServiceEvent" render="Progress" pixmap="main/progfg93010.png" cornerRadius="5" position="956,630" size="930,10" zPosition="99" backgroundColor="progbg">
-            <convert type="EventTime">Progress</convert>
-        </widget>
-        <widget source="ServiceEvent" render="Label" position="956,648" size="787,50" font="Bold; 27" transparent="1" zPosition="8" valign="center" halign="left" noWrap="1">
+        <widget source="ServiceEvent" render="Label" position="1188,544" size="570,40" font="Bold; 27" transparent="1" zPosition="8" valign="center" halign="left" noWrap="1">
             <convert type="AglareEventName2">CompactTime</convert>
         </widget>
-        <widget source="ServiceEvent" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="956,706" size="681,206" halign="left" font="Regular; 26" transparent="1" valign="top" zPosition="99">
-            <convert type="EventName">FullDescription</convert>
-        </widget>
-        <widget source="session.VideoPicture" render="Pig" position="956,110" zPosition="20" size="930,512" backgroundColor="transparent" transparent="0" cornerRadius="30"/>
-        <widget source="ServiceEvent" render="Label" position="1656,879" zPosition="1" size="230,32" font="Regular; 24" halign="center" backgroundColor="background" transparent="1" valign="center">
-            <convert type="AglareServName2">Provider</convert>
-        </widget>
-        <widget source="ServiceEvent" render="Label" position="1000,934" zPosition="1" size="424,40" font="Regular; 28" halign="left" backgroundColor="background" transparent="1" valign="center">
-            <convert type="AglareServName2">%O %F %p %Y %f</convert>
-        </widget>
-        <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2"/>
-        <widget source="ServiceEvent" render="Label" position="1750,648" size="135,50" halign="center" font="Regular; 27" backgroundColor="background" transparent="1" valign="center" zPosition="10">
+        <widget source="ServiceEvent" render="Label" position="1756,544" size="135,40" halign="right" font="Regular; 27" backgroundColor="background" transparent="1" valign="center" zPosition="10">
             <convert type="EventTime">Duration</convert>
             <convert type="ClockToText">InMinutes</convert>
         </widget>
-        <widget source="ServiceEvent" render="Label" position="1000,976" size="887,34" font="Bold; 28" backgroundColor="background" transparent="1" noWrap="1" zPosition="8" valign="top">
+        <widget source="ServiceEvent" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="1188,602" size="700,150" halign="left" font="Regular; 28" transparent="1" valign="top" zPosition="99">
+            <convert type="EventName">FullDescription</convert>
+        </widget>
+        <eLabel name="" position="1473,752" size="130,40" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
+        <widget source="ServiceEvent" render="AglareEventListDisplay" position="1188,788" size="700,130" backgroundColor="buttonsc" column0="10,100,yellow,Regular,30,0,0" column1="110,590,white,Regular,30,1,1" primetimeoffset="0" rowHeight="40" transparent="1" zPosition="50">
+            <convert type="AglareEventList">beginOnly=yes,primetime=yes,eventcount=3</convert>
+        </widget>
+        <widget source="ServiceEvent" render="Label" position="1230,932" zPosition="1" size="660,40" font="Regular; 28" halign="left" backgroundColor="background" transparent="1" valign="center">
+            <convert type="AglareServName2">%O %F %p %Y %f</convert>
+        </widget>
+        <widget source="ServiceEvent" render="Label" position="1220,976" size="670,34" font="Bold; 28" backgroundColor="background" transparent="1" noWrap="1" zPosition="8" valign="top">
             <convert type="AglareEventName2">PrimeTimeWithDuration</convert>
         </widget>
-        <eLabel name="" position="960,976" size="30,30" font="icomoon; 24" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
-        <eLabel name="" position="956,934" size="40,40" font="icomoon; 30" text="" halign="center" zPosition="99" transparent="1"/>
-        <widget source="ServiceEvent" render="Label" position="1424,934" zPosition="1" size="462,54" font="Regular; 28" noWrap="1" halign="right" backgroundColor="background" transparent="1" valign="center">
-            <convert type="AglareServName2">Reference</convert>
-        </widget>
+        <eLabel name="" position="1188,932" size="40,40" font="icomoon; 30" text="" halign="center" zPosition="99" transparent="1"/>
+        <eLabel name="" position="1188,976" size="30,30" font="icomoon; 24" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
+        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1188,767" size="300,3" zPosition="99"/>
+        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1590,767" size="300,3" zPosition="99"/>
     </screen>
     <include filename="skin_templates.xml"/>
     <include filename="skin_sf.xml"/>
@@ -641,26 +643,24 @@
     </screen>
     <screen name="TimeshiftState" position="610,10" size="700,90" flags="wfNoBorder" transparent="0" backgroundColor="transparent">
         <widget name="state" position="159,15" size="42,28" font="Regular; 26" backgroundColor="background" transparent="1" halign="center" foregroundColor="gold" zPosition="55"/>
-        <!--fix lululla -->
         <widget source="session.CurrentService" render="Label" position="452,10" size="100,40" font="Regular; 32" halign="left" transparent="1" backgroundColor="background" zPosition="55">
-            <convert type="ServicePosition">Position,ShowHours</convert>
+            <convert type="ServicePosition">Position</convert>
         </widget>
         <widget source="session.CurrentService" render="Label" position="21,10" size="127,40" font="Regular; 36" halign="center" transparent="1" backgroundColor="background" zPosition="55" foregroundColor="silver">
-            <convert type="ServicePosition">Remaining,Plus</convert>
+            <convert type="ServicePosition">Remaining</convert>
         </widget>
         <widget source="session.RecordState" render="Pixmap" pixmap="main/rec1.png" position="216,11" size="36,36" alphatest="on" zPosition="22">
             <convert type="ConditionalShowHide"/>
         </widget>
         <widget source="session.CurrentService" render="Label" position="580,10" size="100,40" font="Regular; 32" halign="right" transparent="1" backgroundColor="background" zPosition="55">
-            <convert type="ServicePosition">Length,ShowHours</convert>
+            <convert type="ServicePosition">Length</convert>
         </widget>
         <eLabel backgroundColor="wpmc" cornerRadius="30" position="0, 0" size="700,90" zPosition="-99"/>
-        <widget source="session.CurrentService" render="PositionGauge" position="21,60" size="656,14" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="7" zPosition="88">
+        <widget source="session.CurrentService" render="Progress" position="21,60" size="656,14" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="7" zPosition="88">
             <convert type="ServicePosition">Position</convert>
         </widget>
-        <!--fix lululla end -->
-        <!--         <widget name="PTSSeekPointer" position="0,0" size="0,0"/>
-        <widget name="eventname" position="0,0" size="0,0"/> -->
+        <!--widget name="PTSSeekPointer" position="0,0" size="0,0" /-->
+        <!--widget name="eventname" position="0,0" size="0,0" /-->
         <eLabel text="/" position="556,10" size="20,40" font="Regular;30" zPosition="1" halign="center" foregroundColor="white" backgroundColor="background" transparent="1"/>
     </screen>
     <screen name="AudioSelection" position="0,0" size="1920,1080" title="Audio" backgroundColor="background" flags="wfNoBorder">
@@ -730,7 +730,7 @@ MultiContentEntryText(pos = (830, 8), size = (30, 38),  font = 1, flags = RT_HAL
         <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
-        <ePixmap name="" position="1500,600" size="386,386" pixmap="imagelogo.png" alphatest="blend" zPosition="1" transparent="1"/>
+        <ePixmap name="" position="1500,570" size="386,386" pixmap="imagelogo.png" alphatest="blend" zPosition="1" transparent="1"/>
     </screen>
     <screen name="menu_system" position="0,0" size="1920,1080" title="Main menu" backgroundColor="black" flags="wfNoBorder">
         <panel name="titletemp"/>
@@ -984,7 +984,7 @@ MultiContentEntryText(pos = (650, 0), size = (220, 50), flags = RT_HALIGN_RIGHT|
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <widget source="introduction" render="Label" position="995,606" size="890,91" font="Regular; 26" halign="left" valign="top" transparent="1" zPosition="55" backgroundColor="background"/>
-        <widget source="description" render="Label" position="995,606" size="890,91" font="Regular; 26" halign="left" valign="top" transparent="1" zPosition="55" backgroundColor="background"/>
+        <widget source="description" render="Label" position="1095,637" size="890,91" font="Regular; 26" halign="left" valign="top" transparent="1" zPosition="55" backgroundColor="background"/>
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
     </screen>
@@ -1277,14 +1277,12 @@ MultiContentEntryText(pos = (0, 0), size = (890, 200), flags = RT_HALIGN_CENTER|
         <panel name="ScreenTemplateAllColorButtons_menu"/>
     </screen>
     <screen name="IpkgInstaller" position="0,0" size="1920,1080" title="..." backgroundColor="background" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="2menulist45"/>
-        <panel name="pigscreen885"/>
-        <widget source="introduction" render="Label" position="997,948" size="550,50" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center"/>
+        <panel name="menutemp2short"/>
+        <widget name="list" position="36,98" size="1210,900" halign="left" valign="center" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
+        <widget source="introduction" render="Label" position="1278,501" size="550,50" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center"/>
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
+        <panel name="pigscreen885"/>
     </screen>
     <screen name="OpkgInstaller" position="0,0" size="1920,1080" title="..." backgroundColor="background" flags="wfNoBorder">
         <panel name="titletemp"/>
@@ -1644,17 +1642,15 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
         <widget name="year" position="1293,720" size="624,38" font="Regular; 27" backgroundColor="background" foregroundColor="yellow" transparent="1"/>
         <widget name="genre" position="1293,770" size="624,38" font="Regular; 27" backgroundColor="background" foregroundColor="yellow" transparent="1"/>
         <widget name="titletext" position="1176,570" size="113,38" font="Regular;27" foregroundColor="white" backgroundColor="background" transparent="1"/>
-        <!-- fix lululla -->
         <widget source="session.CurrentService" render="Label" position="1214,422" size="148,45" zPosition="22" font="Regular;27" halign="left" backgroundColor="background" foregroundColor="white" noWrap="1" transparent="1">
-            <convert type="ServicePosition">Position,ShowHours,ShowNoSeconds</convert>
+            <convert type="ServicePosition">Position,ShowHours</convert>
         </widget>
         <widget source="session.CurrentService" render="Label" position="1691,422" size="143,45" zPosition="22" font="Regular;27" halign="right" backgroundColor="background" foregroundColor="white" noWrap="1" transparent="1">
-            <convert type="ServicePosition">Length,ShowHours,ShowNoSeconds</convert>
+            <convert type="ServicePosition">Length</convert>
         </widget>
-        <widget source="session.CurrentService" render="PositionGauge" position="1372,438" size="300,12" pixmap="main/progfg30012.png" cornerRadius="5" zPosition="99" backgroundColor="progbg">
+        <widget source="session.CurrentService" render="Progress" position="1372,438" size="300,12" pixmap="main/progfg30012.png" cornerRadius="5" zPosition="99" backgroundColor="progbg">
             <convert type="ServicePosition">Position</convert>
         </widget>
-        <!-- fix lululla  end -->
         <widget name="title" position="1293,570" size="624,38" font="Regular; 27" backgroundColor="background" foregroundColor="yellow" transparent="1" noWrap="1"/>
         <widget name="artisttext" position="1176,620" size="113,38" font="Regular;27" foregroundColor="white" backgroundColor="background" transparent="1"/>
         <widget name="albumtext" position="1176,670" size="113,38" font="Regular;27" foregroundColor="white" backgroundColor="background" transparent="1"/>
@@ -1718,19 +1714,15 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
         <widget source="session.CurrentService" render="Label" position="1162,700" size="740,38" font="Regular; 28" foregroundColor="green" transparent="1" halign="left" zPosition="88" valign="center" noWrap="1">
             <convert type="ServiceName">Name</convert>
         </widget>
-        <!-- fix lululla -->
         <widget source="session.CurrentService" render="Label" position="1335,744" size="135,38" backgroundColor="background" transparent="1" zPosition="88" font="Regular; 30" valign="center" halign="center">
             <convert type="ServicePosition">Position,ShowHours</convert>
-            <!-- 00:45:23 -->
         </widget>
         <widget source="session.CurrentService" render="Label" position="1484,744" size="160,38" backgroundColor="background" transparent="1" zPosition="88" font="Regular; 30" valign="center" halign="center" foregroundColor="yellow">
             <convert type="ServicePosition">Remaining,Plus,ShowHours</convert>
-            <!-- +01:15:00 -->
         </widget>
-        <widget source="session.CurrentService" render="PositionGauge" position="1162,837" size="740,14" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="7">
-            <convert type="ServicePosition">Position</convert>
+        <widget source="session.CurrentService" render="Progress" position="1162,837" size="740,14" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="7">
+            <convert type="ServicePosition">Progress</convert>
         </widget>
-        <!-- end fix lululla -->
         <widget source="Service" render="Label" position="1777,786" size="120,38" font="Regular;28" halign="center" backgroundColor="background" transparent="1" zPosition="88">
             <convert type="ServiceTime">Duration</convert>
             <convert type="ClockToText">AsLength</convert>
@@ -2433,15 +2425,15 @@ MultiContentEntryText(pos = (100, 0), size = (770, 100), font=0, flags = RT_HALI
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <widget source="list" render="Listbox" position="36,98" size="890,640" transparent="1" itemHeight="80" scrollbarMode="showNever">
-            <convert type="TemplatedMultiContent"> 
-			{"template": 
+            <convert type="TemplatedMultiContent">
+			{"template":
                                      [
-MultiContentEntryText(pos=(23,1), size=(698,50),font=0, flags=RT_HALIGN_LEFT, text=1), 
-# Title MultiContentEntryText(pos=(518,1), size=(338,50),  
+MultiContentEntryText(pos=(23,1), size=(698,50),font=0, flags=RT_HALIGN_LEFT, text=1),
+# Title MultiContentEntryText(pos=(518,1), size=(338,50),
 				font=0, flags=RT_HALIGN_RIGHT, text=2), # State
-MultiContentEntryProgress(pos=(878,9), size=(225,50), 
+MultiContentEntryProgress(pos=(878,9), size=(225,50),
 				percent=-3), # Progress
-MultiContentEntryText(pos=(1125,1), size=(180,50), 
+MultiContentEntryText(pos=(1125,1), size=(180,50),
 				font=0, flags=RT_HALIGN_LEFT, text=4), # Percentage],
 				"fonts": [gFont("Regular",45)],
 			"itemHeight": 80}
@@ -2458,7 +2450,7 @@ MultiContentEntryText(pos=(1125,1), size=(180,50),
         <widget name="config" position="36,98" size="890,45" itemHeight="45" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="10" scrollbarMode="showNever"/>
         <widget source="list" render="Listbox" position="36,168" size="890,650" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1">
             <convert type="TemplatedMultiContent">
-			{"template": 
+			{"template":
 [MultiContentEntryText(pos=(15,0), size=(870,50),font=0, flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER, text=0)],
 				"fonts": [gFont("Regular",30)],
 			"itemHeight": 50}
@@ -3205,7 +3197,7 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
         <widget source="menu" render="Listbox" position="0,0" size="1240,800" scrollbarMode="showNever">
             <convert type="TemplatedMultiContent">
             {"template": [
-                  MultiContentEntryText(pos=(5,48), size=(680, 1), border_width=1, border_color=0x282828 ), # border	
+                  MultiContentEntryText(pos=(5,48), size=(680, 1), border_width=1, border_color=0x282828 ), # border
                   MultiContentEntryText(pos = (10, 5), size = (39, 39), color = 0x00dddddd, color_sel = 0x0067b0c2, flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, text = 1), # number
                   MultiContentEntryText(pos = (70, 0), size = (620, 48), flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 2, color = 0x00dddddd, color_sel = 0x0067b0c2)  # chname
                   ],
@@ -3219,7 +3211,7 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
-                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border	
+                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border
                   MultiContentEntryText(pos = (80, 0), size = (70, 88), flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, color = 0x00dddddd, color_sel = 0x0067b0c2, text = 1), # number
                   MultiContentEntryText(pos = (160, 8), size = (400, 82), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 2, color = 0x00dddddd, color_sel = 0x0067b0c2), # chname
                   MultiContentEntryText(pos = (570, 0), size = (530, 88), flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 3, color = 0x00dddddd, color_sel = 0x0067b0c2), # eventname
@@ -3236,7 +3228,7 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
-                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border	
+                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border
                   MultiContentEntryText(pos = (80, 0), size = (70, 88), flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, color = 0x00dddddd, color_sel = 0x0067b0c2, text = 1), # number
                   MultiContentEntryText(pos = (160, 8), size = (400, 80), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 2, color = 0x00dddddd, color_sel = 0x0067b0c2), # chname
                   MultiContentEntryText(pos = (570, 0), size = (530, 88), flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 3, color = 0x00dddddd, color_sel = 0x0067b0c2), # eventname
@@ -3254,7 +3246,7 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
-                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border	 
+                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border
                   MultiContentEntryText(pos = (10, 0), size = (70, 88), flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, color = 0x00dddddd, color_sel = 0x0067b0c2, text = 1), # number
                   MultiContentEntryText(pos = (80, 8), size = (400, 80), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 2, color = 0x00dddddd, color_sel = 0x0067b0c2), # chname
                   MultiContentEntryText(pos = (500, 8), size = (600, 80), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 3, color = 0x00dddddd, color_sel = 0x0067b0c2), # eventname
@@ -3270,7 +3262,7 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
-                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border	
+                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border
                   MultiContentEntryText(pos = (10, 0), size = (70, 88), flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, color = 0x00dddddd, color_sel = 0x0067b0c2, text = 1), # number
                   MultiContentEntryText(pos = (80, 9), size = (400, 80), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 2, color = 0x00dddddd, color_sel = 0x0067b0c2), # chname
                   MultiContentEntryText(pos = (500, 9), size = (600, 80), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 3, color = 0x00dddddd, color_sel = 0x0067b0c2), # eventname
@@ -3287,7 +3279,7 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
-                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border	
+                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border
                   MultiContentEntryText(pos = (10, 0), size = (70, 88), flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, color = 0x00dddddd, color_sel = 0x0067b0c2, text = 1), # number
                   MultiContentEntryText(pos = (80, 9), size = (400, 81), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 2, color = 0x00dddddd, color_sel = 0x0067b0c2), # chname
                   MultiContentEntryText(pos = (500, 9), size = (600, 81), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 3, color = 0x00dddddd, color_sel = 0x0067b0c2), # eventname
@@ -3305,7 +3297,7 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
-                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border	
+                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border
                   MultiContentEntryText(pos = (80, 0), size = (70, 88), flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, color = 0x00dddddd, color_sel = 0x0067b0c2, text = 1), # number
                   MultiContentEntryText(pos = (160, 9), size = (400, 81), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 2, color = 0x00dddddd, color_sel = 0x0067b0c2), # chname
                   MultiContentEntryText(pos = (570, 9), size = (530, 81), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 3, color = 0x00dddddd, color_sel = 0x0067b0c2), # eventname
@@ -3322,12 +3314,12 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
-                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border	
+                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border
                   MultiContentEntryText(pos = (80, 0), size = (70, 88), flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, color = 0x00dddddd, color_sel = 0x0067b0c2, text = 1), # number
                   MultiContentEntryText(pos = (150, 9), size = (400, 81), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 2, color = 0x00dddddd, color_sel = 0x0067b0c2), # chname
                   MultiContentEntryText(pos = (570, 9), size = (530, 81), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 3, color = 0x00dddddd, color_sel = 0x0067b0c2), # eventname
                   MultiContentEntryText(pos = (570, 40), size = (530, 41), flags = RT_HALIGN_LEFT | RT_VALIGN_BOTTOM, text = 4, color = 0x00dddddd, color_sel = 0x0067b0c2), # eventdescr
-                  MultiContentEntryText(pos = (150, 40), size = (400, 41), flags = RT_HALIGN_LEFT | RT_VALIGN_BOTTOM, text = 5, color = 0x00dddddd, color_sel = 0x0067b0c2), # duration time     
+                  MultiContentEntryText(pos = (150, 40), size = (400, 41), flags = RT_HALIGN_LEFT | RT_VALIGN_BOTTOM, text = 5, color = 0x00dddddd, color_sel = 0x0067b0c2), # duration time
                   MultiContentEntryPixmapAlphaBlend(pos=(5, 23), size=(75, 45), png=6)
                   ],
                 "fonts": [gFont("Regular", 28)],
@@ -3340,13 +3332,13 @@ MultiContentEntryPixmap(pos = (20,6), size = (60,40), png = 2), # index 2 is the
         <widget source="menu" render="Listbox" position="2,5" size="1196,880" itemHeight="88" scrollbarMode="showNever" itemCornerRadius="10">
             <convert type="TemplatedMultiContent">
             {"template": [
-MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border	
+MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border
 MultiContentEntryText(pos = (80, 0), size = (70, 88), flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, color = 0x00dddddd, color_sel = 0x0067b0c2, text = 1), # number
 MultiContentEntryText(pos = (150, 9), size = (400, 81), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 2, color = 0x00dddddd, color_sel = 0x0067b0c2), # chname
 MultiContentEntryText(pos = (570, 9), size = (600, 81), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 3, color = 0x00dddddd, color_sel = 0x0067b0c2), # eventname
 MultiContentEntryText(pos = (570, 40), size = (600, 41), flags = RT_HALIGN_LEFT | RT_VALIGN_BOTTOM, text = 4, color = 0x00dddddd, color_sel = 0x0067b0c2), # eventdescr
 MultiContentEntryText(pos = (450, 0), size = (100, 80), flags = RT_HALIGN_LEFT | RT_VALIGN_BOTTOM, text = 7, color = 0x00dddddd, color_sel = 0x0067b0c2), # percent
-MultiContentEntryProgress(pos = (150, 57), size = (280, 15), percent = -5, borderWidth = 1, foreColor = 0x00dddddd, foreColorSelected = 0x0067b0c2), # progress 
+MultiContentEntryProgress(pos = (150, 57), size = (280, 15), percent = -5, borderWidth = 1, foreColor = 0x00dddddd, foreColorSelected = 0x0067b0c2), # progress
 MultiContentEntryPixmapAlphaBlend(pos=(5, 23), size=(75, 45), png=6)
                   ],
                 "fonts": [gFont("Regular", 28)],
@@ -3374,7 +3366,7 @@ MultiContentEntryPixmapAlphaBlend(pos=(5, 23), size=(75, 45), png=6)
         <widget source="menu" render="Listbox" position="0,0" size="1200,900" scrollbarMode="showNever">
             <convert type="TemplatedMultiContent">
             {"template": [
-                  MultiContentEntryText(pos=(5,48), size=(1100, 1), border_width=1, border_color=0x282828 ), # border	
+                  MultiContentEntryText(pos=(5,48), size=(1100, 1), border_width=1, border_color=0x282828 ), # border
                   MultiContentEntryText(pos = (15, 5), size = (39, 39), color = 0x00dddddd, color_sel = 0x0067b0c2, flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, text = 1), # number
                   MultiContentEntryText(pos = (70, 0), size = (390, 49), flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 2, color = 0x00dddddd, color_sel = 0x0067b0c2), # chname
                   MultiContentEntryText(pos = (470, 0), size = (630, 49), flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 3, color = 0x00dddddd, color_sel = 0x0067b0c2) # eventname
@@ -3405,7 +3397,7 @@ MultiContentEntryPixmapAlphaBlend(pos=(5, 23), size=(75, 45), png=6)
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
-                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border	
+                  MultiContentEntryText(pos=(5,87), size=(1100, 1), border_width=1, border_color=0x282828 ), # border
                   MultiContentEntryText(pos = (10, 23), size = (70, 39), color = 0x00dddddd, color_sel = 0x0067b0c2, flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, text = 1), # number
                   MultiContentEntryText(pos = (90, 8), size = (400, 82), flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 2, color = 0x00dddddd, color_sel = 0x0067b0c2), # chname
                   MultiContentEntryText(pos = (510, 0), size = (590, 88), flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 3, color = 0x00dddddd, color_sel = 0x0067b0c2), # eventname
@@ -3531,6 +3523,7 @@ self.instance.move(ePoint((FB_W - win_w) // 2,
         <widget name="list" position="14,199" size="1170,100" textOffset="10,6" itemHeight="50" font="Regular;30" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
         <applet type="onLayoutFinish">
 from enigma import eSize, ePoint
+
 # ── constants ───────────────────────────────────────────────
 LEFT_PAD, RIGHT_PAD, TOP_PAD = 108, 70, 12     # icon gap, right margin, top gap
 ROW_H                = 50                      # height of one list row
@@ -3546,7 +3539,7 @@ FB_W, FB_H           = 1920, 1080              # framebuffer size
 rows_real  = min(len(self.list), MAX_LIST_ROWS)      # 0 … 13
 rows_show  = 0 if rows_real == 0 else max(rows_real, MIN_LIST_ROWS)
 list_h     = rows_show * ROW_H                       # 0 or ≥ 100 px
-                   
+
 
 # ── 2) measure text at provisional max width ───────────────
 avail_w    = MAX_W - (LEFT_PAD + RIGHT_PAD)
@@ -4570,7 +4563,7 @@ MultiContentEntryText(pos = (1080,0), size = (120,45), font = 0, flags = RT_HALI
         <panel name="menutemp"/>
         <panel name="pigscreen885"/>
         <widget name="file_list" position="36,98" size="890,535" itemHeight="45" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10"/>
-        <widget name="menu_list" position="36,850" size="890,60" itemHeight="30" enableWrapAround="1" transparent="1" scrollbarMode="showNever"/>
+        <widget name="menu_list" position="36,850" size="890,120" itemHeight="30" enableWrapAround="1" transparent="1" scrollbarMode="showNever"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/subssupport.png" transparent="1" alphatest="on"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
@@ -4591,7 +4584,7 @@ MultiContentEntryText(pos = (1080,0), size = (120,45), font = 0, flags = RT_HALI
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <!--panel name="buttonicons" /-->
         <widget source="session.VideoPicture" render="Pig" position="1293,120" zPosition="1" size="590,280" backgroundColor="transparent" transparent="0"/>
-        <widget source="search_info" render="Listbox" position="34,128" size="1150,270" itemHeight="45" enableWrapAround="1" transparent="1" font="Regular; 28" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1">
+        <widget source="search_info" render="Listbox" position="34,128" size="950,270" itemHeight="45" enableWrapAround="1" transparent="1" font="Regular; 28" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1">
             <convert type="TemplatedMultiContent">
             {"templates":
                 {"default": (45, [
@@ -4615,10 +4608,10 @@ MultiContentEntryText(pos = (1080,0), size = (120,45), font = 0, flags = RT_HALI
             <convert type="TemplatedMultiContent">
             {"templates":
                 {"default": (45, [
-MultiContentEntryPixmapAlphaBlend(pos = (10,8),   size = (40,40), png=0), # key,
-MultiContentEntryText(pos = (55,0),   size = (200,45),  font = 0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,  text = 1), # language,
-MultiContentEntryText(pos = (260,0),  size = (1150,45),  font = 0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,  text = 2), # filename,
-MultiContentEntryText(pos = (1400,0), size = (270,45), font = 0, flags = RT_HALIGN_RIGHT|RT_VALIGN_CENTER,  text = 3), # size,
+MultiContentEntryPixmapAlphaBlend(pos = (2,8),   size = (40,40), png=0), # key,
+MultiContentEntryText(pos = (45,0),   size = (200,45),  font = 0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,  text = 1), # language,
+MultiContentEntryText(pos = (250,0),  size = (1150,45),  font = 0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,  text = 2), # filename,
+MultiContentEntryText(pos = (1434,0), size = (300,45), font = 0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,  text = 3), # size,
 MultiContentEntryPixmapAlphaBlend(pos = (1710,4),   size = (36,36), png=4), # syncPng,
                   ], True, "showOnDemand"),
                   },
@@ -4630,6 +4623,7 @@ MultiContentEntryPixmapAlphaBlend(pos = (1710,4),   size = (36,36), png=4), # sy
         <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
         <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <widget name="poster" position="1035,108" size="200,300" zPosition="2" scale="1"/>
     </screen>
     <screen name="SubsDownloadedSelection" position="0,0" size="1920,1080" title="Downloaded Subtitles" flags="wfNoBorder" backgroundColor="background">
         <panel name="menutemp3"/>
@@ -5244,7 +5238,7 @@ MultiContentEntryPixmapAlphaBlend(pos=(45, 14), size=(128, 77), png=6, flags = B
 	[
 	MultiContentEntryPixmapAlphaBlend(pos=(8, 10), size=(70, 55), png=6, flags=BT_SCALE),
 	MultiContentEntryText(pos=(105, 0), size=(1560, 75), font=0, flags=RT_VALIGN_CENTER, text=2),# Category
-	MultiContentEntryText(pos=(105, 2), size=(1560, 41), font=1, flags=RT_VALIGN_CENTER, text=11, color=0x00bbbbbb ,color_sel=0x00ffffff), # Name + Version					
+	MultiContentEntryText(pos=(105, 2), size=(1560, 41), font=1, flags=RT_VALIGN_CENTER, text=11, color=0x00bbbbbb ,color_sel=0x00ffffff), # Name + Version
 	MultiContentEntryText(pos=(105, 38), size=(1560, 30), font=2, flags=RT_VALIGN_CENTER, text=4, color=0x00ffc000 ,color_sel=0x00ffff00), # Description
 	MultiContentEntryPixmapAlphaBlend(pos=(1750, 15), size=(52, 52), png=7, flags=BT_SCALE)
 	 ],
@@ -5767,7 +5761,7 @@ MultiContentEntryPixmapAlphaTest(pos = (8, 87), size = (0, 0), png = 5), # index
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="text" position="36,428" size="890,60" zPosition="-1" halign="center" valign="center" font="Regular; 34" backgroundColor="background" transparent="1" foregroundColor="yellow"/>
-        <widget name="list" position="36,92" size="890,910" itemHeight="70" foregroundColor="white" foregroundColorSelected="yellow" transparent="1" zPosition="11" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="12" valign="center"/>
+        <widget name="list" position="36,92" size="890,910" itemHeight="70" foregroundColor="white" foregroundColorSelected="yellow" transparent="0" zPosition="11" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="12" valign="center"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
         <widget source="global.CurrentTime" position="997,950" size="605,56" render="Label" font="Regular; 30" transparent="1" halign="left" valign="center" zPosition="10">
             <convert type="AglareReceiverInfo">FlashInfo</convert>
@@ -6030,7 +6024,7 @@ MultiContentEntryText(pos = (10, 2), size = (870, 40), flags = RT_HALIGN_LEFT|RT
         <panel name="pigscreen885"/>
         <widget source="list" render="Listbox" enableWrapAround="1" position="36,98" size="890,880" zPosition="1" transparent="1" itemHeight="80" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10">
             <convert type="TemplatedMultiContent">
-{"template": [ 
+{"template": [
 MultiContentEntryText(pos = (80,0), size = (800,80), flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 0),
 MultiContentEntryPixmapAlphaBlend(pos = (10, 15), size = (50, 50), png = 1),
 ],
@@ -6515,7 +6509,7 @@ MultiContentEntryPixmapAlphaTest(pos = (8, 87), size = (0, 0), png = 5), # index
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
-        <widget name="filelist" position="36,98" size="890,900" itemHeight="50" transparent="1" font="Regular; 30" itemCornerRadius="8" textOffset="10,6"/>
+        <widget name="filelist" position="36,98" size="890,900" itemHeight="50" transparent="1" font="Regular; 30" itemCornerRadius="8" textOffset="10,6" scrollbarMode="showNever"/>
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
     </screen>
@@ -6624,12 +6618,9 @@ MultiContentEntryText(pos = (20,0),size = (800,75),flags = RT_HALIGN_LEFT|RT_VAL
         <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
     </screen>
     <screen name="VIXIPKInstaller" position="fill" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="pigscreen885"/>
-        <widget name="list" position="36,160" size="890,810" itemHeight="45" font="Regular;30" zPosition="3" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" textOffset="15,4"/>
-        <widget source="introduction" render="Label" position="36,100" size="890,50" backgroundColor="background" zPosition="1" transparent="1" font="Regular;33" halign="left"/>
+        <panel name="menutemp2short"/>
+        <widget name="list" position="36,98" size="1210,900" itemHeight="45" font="Regular;30" zPosition="3" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" textOffset="15,4"/>
+        <widget source="introduction" render="Label" position="1278,501" size="550,50" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center"/>
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
     </screen>
@@ -6643,7 +6634,7 @@ MultiContentEntryText(pos = (20,0),size = (800,75),flags = RT_HALIGN_LEFT|RT_VAL
 				{"template": [
 MultiContentEntryText(pos = (100,7),size = (775,39),font=0,flags = RT_HALIGN_LEFT,text = 0),# index 0 is the name
 MultiContentEntryText(pos = (100,52),size = (775,57),font=1,flags = RT_HALIGN_LEFT,text = 1),# index 1 is the state
-MultiContentEntryPixmapAlphaTest(pos = (20,30),size = (60,60),png = 2,flags=BT_SCALE),# index 2 is the status pixmap
+MultiContentEntryPixmapAlphaTest(pos = (10,20),size = (80,80),png = 2,flags=BT_SCALE),# index 2 is the status pixmap
 					],
 				"fonts": [gFont("Regular",33),gFont("Regular",25)],
 				"itemHeight": 120
@@ -6842,7 +6833,7 @@ MultiContentEntryPixmapAlphaTest(pos = (20,30),size = (60,60),png = 2,flags=BT_S
         <panel name="pigscreen885"/>
         <widget source="list" render="Listbox" enableWrapAround="1" position="36,100" size="890,900" zPosition="1" transparent="1" itemHeight="50" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10">
             <convert type="TemplatedMultiContent">
-{"template": 
+{"template":
 [ MultiContentEntryPixmapAlphaTest(pos = (15, 7), size = (40, 40), png = 0),
 MultiContentEntryText(pos = (70,0), size = (810,50), flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 1),
 ],
@@ -7423,7 +7414,7 @@ MultiContentEntryText(pos = (15, 0), size = (890, 50), flags = RT_HALIGN_LEFT|RT
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
         <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <!-- /* list -->
-        <!-- 
+        <!--
         <widget source="myMenu" render="Listbox" position="36,140" size="890,770" enableWrapAround="1" zPosition="44" itemHeight="70" scrollbarMode="showNever" itemCornerRadius="20">
             <convert type="TemplatedMultiContent">
                 {"template": [ MultiContentEntryText(pos = (30,0),size = (900,70),flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,text = 0) ],
@@ -7528,7 +7519,7 @@ MultiContentEntryText(pos = (15, 0), size = (890, 50), flags = RT_HALIGN_LEFT|RT
         <widget source="list" render="Listbox" position="56,161" size="840,430" scrollbarMode="showOnDemand" itemCornerRadius="10" enableWrapAround="1" transparent="1" zPosition="5">
             <convert type="TemplatedMultiContent">
                 {"template": [
-                        MultiContentEntryPixmapAlphaTest(pos=(5, 5), size=(70, 40), png=1), # index 1 is the pixmap   
+                        MultiContentEntryPixmapAlphaTest(pos=(5, 5), size=(70, 40), png=1), # index 1 is the pixmap
                         MultiContentEntryText(pos=(95, 5), size=(500, 40), flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER, text=0, color=0x72d000, color_sel=0xffffff), # index 0 is the text name,
                         MultiContentEntryText(pos=(595, 5), size=(200, 40), flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER, text=2, color_sel=0xffffff), # index 0 is the text name,
                         <!-- MultiContentEntryText(pos=(595, 0), size=(200, 45), flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER, text=2, color=0x72d000, color_sel=0xffffff, backcolor_sel=0x0066cc), # index 0 is the text name, -->

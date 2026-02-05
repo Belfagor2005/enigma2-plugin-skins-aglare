@@ -100,7 +100,7 @@ class AglareBoxInfo(Poll, Converter, object):
                 output = popen('/usr/bin/gst-launch-1.0 --version').read().strip()
                 if output:
                     return output.split()[-1] if 'gst-launch' in output else output
-            
+
             # Try alternative locations
             for cmd in ['/usr/bin/gst-launch', 'gst-launch-1.0', 'gst-launch']:
                 try:
@@ -109,7 +109,7 @@ class AglareBoxInfo(Poll, Converter, object):
                         return output.split()[-1] if 'gst-launch' in output else output
                 except (OSError, subprocess.CalledProcessError):
                     continue
-                    
+
             return _("Not available")
         except Exception as e:
             print("Error getting GStreamer version:", str(e))
@@ -134,7 +134,7 @@ class AglareBoxInfo(Poll, Converter, object):
                 output = popen('/usr/bin/openssl version').read().strip()
                 if output:
                     return output.split()[1]  # Usually returns "OpenSSL 1.x.x"
-            
+
             # Try alternative locations
             for cmd in ['/usr/bin/openssl', 'openssl']:
                 try:
@@ -143,14 +143,14 @@ class AglareBoxInfo(Poll, Converter, object):
                         return output.split()[1]
                 except (OSError, subprocess.CalledProcessError):
                     continue
-            
+
             # Try Python ssl module as fallback
             try:
                 import ssl
                 return ssl.OPENSSL_VERSION.split()[1]
             except ImportError:
                 pass
-                
+
             return _("Not available")
         except Exception as e:
             print("Error getting OpenSSL version:", str(e))
@@ -167,6 +167,7 @@ class AglareBoxInfo(Poll, Converter, object):
                 try:
                     with open("/proc/version", "r") as f:
                         enigma = f.read().split()[2]
+                        print("Enigma version:", str(enigma))
                 except Exception as e:
                     print("Error reading /proc/version:", str(e))
 
@@ -223,7 +224,7 @@ class AglareBoxInfo(Poll, Converter, object):
                         except ImportError:
                             pass
 
-                software = " : %s " % software.strip()
+                software = "%s " % software.strip()
 
             # Check vtiversion override
             if isfile("/etc/vtiversion.info"):
@@ -239,7 +240,28 @@ class AglareBoxInfo(Poll, Converter, object):
                     print("Error reading /etc/vtiversion.info:", str(e))
                     pass
 
-            return "%s%s" % (box, software)
+            # Force Pure2 , Egami"
+            try:
+                from Components.SystemInfo import BoxInfo
+                distro = (BoxInfo.getItem("displaydistro") or "").upper()
+
+                if distro == "PURE2":
+                    v = BoxInfo.getItem("imgversion") or ""
+                    b = BoxInfo.getItem("imagedevbuild") or ""
+                    software = " : %s %s-%s" % (distro, v, b)
+
+                elif distro == "EGAMI":
+                    v = BoxInfo.getItem("imgversion") or BoxInfo.getItem("imageversion") or ""
+                    software = "Egami %s" % v
+
+                elif distro == "OPENBH":
+                    v = BoxInfo.getItem("imgversion") or BoxInfo.getItem("imageversion") or ""
+                    b = BoxInfo.getItem("imagebuild") or BoxInfo.getItem("imgrevision") or ""
+                    software = "%s %s-%s" % (distro, v, b)
+
+            except Exception:
+                pass
+            return "%s : %s" % (box, software)
 
         elif self.type == self.PythonVersion:
             pythonversion = ''

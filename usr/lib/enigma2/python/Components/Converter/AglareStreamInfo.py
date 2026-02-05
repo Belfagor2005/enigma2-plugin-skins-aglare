@@ -33,7 +33,7 @@ class AglareStreamInfo(Converter):
                 if refstr.startswith('1:0:'):
                     if any(x in refstr for x in ('0.0.0.0:', '127.0.0.1:', 'localhost:')):
                         return 'Stream Relay'
-                    else:
+                    elif '%3a' in refstr:
                         return 'GStreamer'
                 elif refstr.startswith('4097:0:'):
                     return 'MediaPlayer'
@@ -43,57 +43,60 @@ class AglareStreamInfo(Converter):
                     return 'ExtePlayer3'
                 else:
                     # Generic stream type for other stream references
-                    return 'Stream'
+                    return 'Unknown'
         return ''
 
     def streamurl(self):
         playref = NavigationInstance.instance.getCurrentlyPlayingServiceReference()
-        if playref:
-            refstr = playref.toString()
-            if self._is_stream_service(refstr):
-                # Extract and decode the stream URL
-                try:
-                    # For all stream types, extract the URL part
-                    if '%3a//' in refstr:
-                        # Handle URL-encoded streams
-                        stream_url = ' '.join(refstr.split(':')[10:])
-                        decoded_url = urllib.unquote(stream_url).decode('utf-8')
-                        # Ensure it starts with http
-                        if decoded_url.startswith('http'):
-                            return decoded_url
-                        # If not, try to find the http part
-                        http_index = decoded_url.find('http')
-                        if http_index >= 0:
-                            return decoded_url[http_index:]
-                        return decoded_url
-                    elif '://' in refstr:
-                        # Handle already decoded streams
-                        stream_url = ' '.join(refstr.split(':')[10:])
-                        # Ensure it starts with http
-                        if stream_url.startswith('http'):
-                            return stream_url
-                        # If not, try to find the http part
-                        http_index = stream_url.find('http')
-                        if http_index >= 0:
-                            return stream_url[http_index:]
-                        return stream_url
-                except BaseException:
-                    # If extraction fails, try to find http in the raw refstr
-                    http_index = refstr.find('http')
-                    if http_index >= 0:
-                        return refstr[http_index:]
-                    return refstr
-        return ''
+        if not playref:
+            return 'No URL available'
+
+        refstr = self._parse_refstr(playref.toString())
+        if not refstr:
+            return 'No URL available'
+
+        try:
+            # Decodifica eventuale URL-encoding
+            decoded = urllib.unquote(refstr)
+
+            # Cerca l'inizio dell'URL
+            http_index = decoded.find('http://')
+            https_index = decoded.find('https://')
+
+            if http_index == -1 and https_index == -1:
+                return 'Invalid stream URL format'
+
+            start = http_index if http_index != -1 else https_index
+            url = decoded[start:]
+
+            # Taglia eventuali residui Enigma2
+            url = url.split('/1:0:')[0]
+
+            # Rimuove schema
+            if url.startswith('http://'):
+                url = url[len('http://'):]
+            elif url.startswith('https://'):
+                url = url[len('https://'):]
+
+            # Rimuove credenziali se presenti
+            if '@' in url:
+                url = url.split('@')[-1]
+
+            return url
+
+        except Exception:
+            return 'Invalid stream URL format'
 
     @cached
     def getText(self):
         service = self.source.service
-        if service:
+        info = service and service.info()
+        if info:
             if self.type == self.STREAMURL:
                 return str(self.streamurl())
             elif self.type == self.STREAMTYPE:
                 return str(self.streamtype())
-        return ''
+        return 'No information available'
 
     text = property(getText)
 

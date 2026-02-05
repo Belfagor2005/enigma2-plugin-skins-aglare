@@ -40,6 +40,10 @@ class AglareEventName2(Converter, object):
 	PRIME_TIME_NO_DURATION = 16
 	PRIME_TIME_ONLY_DURATION = 17
 	PRIME_TIME_WITH_DURATION = 18
+	COMPACT_TIME = 19
+	COMPACT_TIMELINE = 20
+	AGE_RATING = 21
+	NEXT_EVENT_LIST3 = 22
 
 	def __init__(self, type):
 		Converter.__init__(self, type)
@@ -65,8 +69,11 @@ class AglareEventName2(Converter, object):
 			'PrimeTimeNoDuration': self.PRIME_TIME_NO_DURATION,
 			'PrimeTimeOnlyDuration': self.PRIME_TIME_ONLY_DURATION,
 			'PrimeTimeWithDuration': self.PRIME_TIME_WITH_DURATION,
+			'CompactTime': self.COMPACT_TIME,
+			'CompactTimeline': self.COMPACT_TIMELINE,
+			'AgeRating': self.AGE_RATING,
+			'NextEventList3': self.NEXT_EVENT_LIST3,
 		}
-
 		self.type = event_types.get(type, self.NAME)
 
 	@cached
@@ -93,6 +100,16 @@ class AglareEventName2(Converter, object):
 			return self.getNextEventDetails()
 		elif self.type in [self.NEXT_EVENT_LIST, self.NEXT_EVENT_LISTWT, self.NEXT_EVENT_LIST2, self.NEXT_EVENT_LISTWT2]:
 			return self.getNextEventList()
+		elif self.type == self.COMPACT_TIME:
+			return self.getCompactTimeFormat(event)
+		elif self.type == self.COMPACT_TIMELINE:
+			return self.getCompactTimeline()
+		elif self.type == self.AGE_RATING:
+			return self.getAgeRating(event)
+		elif self.type in [self.NEXT_EVENT_LIST, self.NEXT_EVENT_LISTWT,
+						   self.NEXT_EVENT_LIST2, self.NEXT_EVENT_LISTWT2,
+						   self.NEXT_EVENT_LIST3]:
+			return self.getNextEventList()
 		return ''
 
 	def getTweakedEventName(self, event):
@@ -104,6 +121,91 @@ class AglareEventName2(Converter, object):
 		if text and text[-1] not in ['\n', ' ']:
 			text += ' '
 		return text + event.getExtendedDescription() or event.getEventName()
+
+	def getCompactTimeFormat(self, event):
+		start = strftime('%H:%M', localtime(event.getBeginTime()))
+		end = strftime('%H:%M', localtime(event.getBeginTime() + event.getDuration()))
+		return f"{start}→{end} {event.getEventName()}"
+
+	def getAgeRating(self, event):
+		if not event:
+			return ''
+
+		# Ensure we have valid methods to call
+		if not all(hasattr(event, method) for method in ['getParentalData', 'getEventName',
+														 'getShortDescription', 'getExtendedDescription']):
+			return ''
+		# First try official EPG rating data
+		rating = event.getParentalData()
+		if rating:
+			age = rating.getRating()
+			if age > 0:  # 0 means no rating
+				# Convert to standard format (+16, +18 etc)
+				if age <= 15:  # ETSI standard adds 3 to get actual age
+					age += 3
+				return f"(+{age})"
+
+		# Fallback to text parsing if no official rating
+		name = event.getEventName()
+		description = event.getShortDescription() + " " + event.getExtendedDescription()
+
+		# Check both name and description for age indicators
+		for text in [name, description]:
+			if not text:
+				continue
+
+			# Look for common age rating patterns
+			if '18+' in text or 'FSK18' in text or '18 rated' in text.lower():
+				return '(+18)'
+			if '16+' in text or 'FSK16' in text:
+				return '(+16)'
+			if '12+' in text or 'FSK12' in text:
+				return '(+12)'
+			if '6+' in text or 'FSK6' in text:
+				return '(+6)'
+			if '0+' in text or 'FSK0' in text:
+				return '(+0)'
+
+		return ''  # Return empty if no rating found
+
+	def getCompactTimeline(self):
+		reference = self.source.service
+		if not reference:
+			return ""
+
+		# Use same lookup method as getNextEventList()
+		events = self.epgcache.lookupEvent(['IBDCT', (reference.toString(), 0, -1, -1)])
+		if not events:
+			return ""
+
+		timeline = []
+		now = time()
+
+		for i, event in enumerate(events):
+			# Skip first event (current?) if needed
+			if i == 0:
+				continue
+
+			start = event[1]
+			end = start + event[2]
+			name = event[4]
+
+			if not name:  # Skip if no event name
+				continue
+
+			start_str = strftime('%H:%M', localtime(start))
+			end_str = strftime('%H:%M', localtime(end))
+
+			# Current event marker
+			prefix = "▶ " if start <= now <= end else ""
+
+			timeline.append(f"{prefix}{start_str}→{end_str} {name}")
+
+			# Limit to 5 events for display
+			if len(timeline) >= 10:
+				break
+
+		return "\n".join(timeline) if timeline else "No upcoming events"
 
 	def getFullDescription(self, event):
 		description = event.getShortDescription()
@@ -118,30 +220,18 @@ class AglareEventName2(Converter, object):
 		if current_event:
 			now = localtime(time())
 			dt = datetime(now.tm_year, now.tm_mon, now.tm_mday, 20, 15)
-			target_time = int(mktime(dt.timetuple()))
-			self.epgcache.startTimeQuery(eServiceReference(reference.toString()), target_time)
+			self.epgcache.startTimeQuery(eServiceReference(reference.toString()), int(mktime(dt.timetuple())))
 			next_event = self.epgcache.getNextTimeEntry()
-			if next_event:
-				begin_time = next_event.getBeginTime()
-				if begin_time is not None and begin_time <= target_time:
-					return self.formatPrimeTimeEvent(next_event)
+			if next_event and next_event.getBeginTime() <= int(mktime(dt.timetuple())):
+				return self.formatPrimeTimeEvent(next_event)
 		return ''
 
 	def formatPrimeTimeEvent(self, event):
-		begin_time = event.getBeginTime()
-		duration = event.getDuration()
-		if begin_time is None or duration is None:
-			return ''
-
-		end_time = begin_time + duration
-		title = event.getEventName() or ''
-
-		begin_str = strftime('%H:%M', localtime(begin_time))
-		end_str = strftime('%H:%M', localtime(end_time))
-		DURATION_FORMAT = _('%d min')
-		duration_str = DURATION_FORMAT % (duration // 60)
-
-		return "{} - {} ({}) {}".format(begin_str, end_str, duration_str, title)
+		begin = strftime('%H:%M', localtime(event.getBeginTime()))
+		end = strftime('%H:%M', localtime(event.getBeginTime() + event.getDuration()))
+		title = event.getEventName()
+		duration = _('%d min') % (event.getDuration() / 60)
+		return f"{begin} - {end} ({duration}) {title}"
 
 	def getNextEventDetails(self):
 		reference = self.source.service
@@ -163,14 +253,30 @@ class AglareEventName2(Converter, object):
 		reference = self.source.service
 		info = reference and self.source.info
 		if info:
-			eventNext = self.epgcache.lookupEvent(['IBDCT', (reference.toString(), 0, -1, -1)])
+			eventNext = self.epgcache.lookupEvent(['IBDCTSERNX', (reference.toString(), 0, -1, -1)])
 			if eventNext:
 				listEpg = []
 				for i, x in enumerate(eventNext):
 					if 0 < i < 10 and x[4]:
-						t = localtime(x[1])
+
 						duration = _('%d min') % (int(0 if x[2] is None else x[2]) / 60)
-						listEpg.append(f'{t[3]:02d}:{t[4]:02d} ({duration}) {x[4]}')
+						t = localtime(x[1])
+
+						# Get age rating using proper event object
+						ref = eServiceReference(reference.toString())
+						event = self.epgcache.lookupEventTime(ref, x[1])
+						age_rating = self.getAgeRating(event) if event else ""
+
+						if self.type == self.NEXT_EVENT_LISTWT:
+							listEpg.append(f'({duration}) {x[4]}')
+						elif self.type == self.NEXT_EVENT_LISTWT2:
+							listEpg.append(f'{x[4]} ({duration})')
+						elif self.type == self.NEXT_EVENT_LIST2:
+							listEpg.append(f'{t[3]:02d}:{t[4]:02d} - {x[4]} ({duration})')
+						elif self.type == self.NEXT_EVENT_LIST3:
+							listEpg.append(f'{t[3]:02d}:{t[4]:02d} - {x[4]}{" " + age_rating if age_rating else ""} ({duration})')
+						else:
+							listEpg.append(f'{t[3]:02d}:{t[4]:02d} ({duration}) {x[4]}')
 				return '\n'.join(listEpg)
 		return ''
 

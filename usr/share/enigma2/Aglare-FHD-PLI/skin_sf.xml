@@ -562,7 +562,6 @@
         <eLabel backgroundColor="#0000ff00" position="615,1055" size="210,6" zPosition="12"/>
         <eLabel backgroundColor="#000000ff" position="835,1055" size="210,6" zPosition="12"/>
     </screen>
-
     <!-- ************* NSS Panels ************* -->
     <screen name="menu_Menu" backgroundColor="transparent" flags="wfNoBorder" position="center,center" size="1920,1080" title="Menu Fenice">
         <panel name="titletemp"/>

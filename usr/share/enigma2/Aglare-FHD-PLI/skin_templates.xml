@@ -35,7 +35,7 @@
         </widget>
         <eLabel name="" position="997,846" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
         <eLabel name="" position="997,900" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
-        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,913" size="540,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,913" size="560,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
             <convert type="AglareBoxInfo">CpuInfo</convert>
         </widget>
         <eLabel name="" position="997,954" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 18" zPosition="1" text="UP"/>
@@ -359,7 +359,7 @@
             <convert type="AglareServName2">Provider</convert>
         </widget>
         <widget source="session.CurrentService" render="Label" position="640,1019" size="250,50" font="Regular; 22" backgroundColor="background" transparent="1" halign="center" noWrap="1" valign="center">
-            <convert type="AglareBase">ResCodec</convert>
+            <convert type="AglareServiceInfoEX">MediaInfoShort</convert>
         </widget>
         <eLabel backgroundColor="igsdt" cornerRadius="30" position="10,810" size="1900,200" zPosition="-99"/>
         <eLabel backgroundColor="igsd" cornerRadius="14" position="10,1010" size="1900,60" zPosition="-99"/>
@@ -457,7 +457,7 @@
             <convert type="AglareCpuUsage">Total</convert>
         </widget>
         <widget source="session.CurrentService" render="Label" position="320,1019" size="140,50" font="Regular; 22" halign="left" backgroundColor="background" zPosition="2" transparent="1" valign="center">
-            <convert type="AglareBitrate">VideoBitrateUnits</convert>
+            <convert type="AglareBitrate">Both</convert>
         </widget>
         <widget backgroundColor="background" font="Regular; 22" foregroundColor="white" halign="left" position="522,1019" render="Label" size="114,50" source="session.CurrentService" transparent="1" zPosition="99" text="88" valign="center">
             <convert type="AglareNetSpeedInfo">RC_MB</convert>
@@ -483,7 +483,7 @@
             <convert type="EventTime">Duration</convert>
             <convert type="ClockToText">InMinutes</convert>
         </widget>
-        <widget source="session.CurrentService" render="Label" position="895,1019" size="158,50" font="Regular; 22" backgroundColor="background" transparent="1" halign="left" zPosition="99" valign="center" noWrap="1">
+        <widget source="session.CurrentService" render="Label" position="897,1019" size="158,50" font="Regular; 22" backgroundColor="background" transparent="1" halign="left" zPosition="99" valign="center" noWrap="1">
             <convert type="AglareAudioInfo">AudioCodec</convert>
         </widget>
         <widget source="session.FrontendInfo" render="FixedLabel" text="E" position="1848,819" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Bold; 28" zPosition="2">
@@ -561,7 +561,7 @@
         <widget source="session.CurrentService" render="Label" position="1300,899" zPosition="1" size="590,32" font="Regular; 30" halign="left" backgroundColor="white" transparent="1" valign="center" foregroundColor="black">
             <convert type="AglareServName2">%s %O %F %p %Y %f %M</convert>
         </widget>
-        <widget source="session.CurrentService" render="Label" position="30,869" size="494,30" font="Regular; 24" backgroundColor="white" transparent="1" halign="left" noWrap="1" valign="center" foregroundColor="black">
+        <widget source="session.CurrentService" render="Label" position="30,870" size="494,30" font="Regular; 24" backgroundColor="white" transparent="1" halign="left" noWrap="1" valign="center" foregroundColor="black">
             <convert type="AglareServiceInfoEX">MediaInfo</convert>
         </widget>
         <eLabel name="" position="1300,812" size="100,36" backgroundColor="mcolor4" halign="left" valign="center" transparent="0" cornerRadius="10" font="icomoon; 26" text="" zPosition="1"/>
@@ -573,8 +573,8 @@
             <convert type="AglareCpuUsage">Total</convert>
         </widget>
         <eLabel name="" position="1520,812" size="170,36" backgroundColor="mcolor4" transparent="0" cornerRadius="10" zPosition="1"/>
-        <widget source="session.CurrentService" render="Label" position="1565,817" size="124,26" font="Regularn; 22" halign="center" backgroundColor="background" zPosition="99" transparent="1" text="25888" valign="center">
-            <convert type="AglareBitrate">VideoBitrateUnits</convert>
+        <widget source="session.CurrentService" render="Label" position="1565,817" size="124,26" font="Regularn; 20" halign="center" backgroundColor="background" zPosition="99" transparent="1" text="25888" valign="center">
+            <convert type="AglareBitrate">Video</convert>
         </widget>
         <widget source="session.CurrentService" render="FixedLabel" position="530,866" size="50,36" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="10" font="icomoon; 34" zPosition="12" text="">
             <convert type="AglareRouteInfo">Lan</convert>
@@ -995,14 +995,14 @@
             <convert type="AglareBase">IsSDR</convert>
             <convert type="ConditionalShowHide"/>
         </widget>
-        <widget source="session.CurrentService" render="Label" position="340,1019" size="120,50" font="Regular; 22" halign="left" backgroundColor="background" zPosition="2" transparent="1" text="25888" valign="center">
-            <convert type="AglareBitrate">VideoBitrateUnits</convert>
+        <widget source="session.CurrentService" render="Label" position="320,1019" size="140,50" font="Regular; 22" halign="left" backgroundColor="background" zPosition="2" transparent="1" valign="center">
+            <convert type="AglareBitrate">both</convert>
         </widget>
         <widget source="session.CurrentService" render="Label" position="55,959" zPosition="2" size="266,30" font="Regular; 24" halign="center" backgroundColor="background" transparent="1" valign="center">
             <convert type="AglareServName2">Provider</convert>
         </widget>
-        <widget source="session.CurrentService" render="Label" position="640,1018" size="250,50" font="Regular; 22" backgroundColor="background" transparent="1" halign="center" noWrap="1" valign="center">
-            <convert type="AglareBase">ResCodec</convert>
+        <widget source="session.CurrentService" render="Label" position="640,1019" size="250,50" font="Regular; 22" backgroundColor="background" transparent="1" halign="center" noWrap="1" valign="center">
+            <convert type="AglareServiceInfoEX">MediaInfoShort</convert>
         </widget>
         <widget source="session.Event_Now" render="Progress" position="60,1005" size="1800,10" pixmap="main/progfg180010.png" backgroundColor="progbg" cornerRadius="5" zPosition="88">
             <convert type="EventTime">Progress</convert>
@@ -1088,7 +1088,7 @@
         </widget>
         <eLabel name="" position="22,1018" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
         <eLabel name="" position="150,1018" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
-        <eLabel name="" position="290,1019" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 20" zPosition="1" text="BR"/>
+        <eLabel name="" position="270,1019" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 20" zPosition="1" text="BR"/>
         <widget source="session.CurrentService" render="Label" position="1640,1018" size="250,50" font="Regular; 26" backgroundColor="background" halign="left" valign="center" transparent="1" noWrap="1">
             <convert type="AglarePliExtraInfo">CryptoBar</convert>
         </widget>
@@ -1263,9 +1263,7 @@
     </screen>
     <!-- ################### -->
     <screen name="LocationBoxNew" flags="wfNoBorder" position="0,0" backgroundColor="transparent">
-        <panel name="titletemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="timedate"/>
+        <panel name="menutemp2"/>
         <eLabel name="" position="1000,196" size="900,800" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
@@ -1284,9 +1282,7 @@
         <widget name="bookmarklist" position="1000,336" size="900,630" itemHeight="45" font="Regular;30" enableWrapAround="1" transparent="1" selection="0" zPosition="3" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" textOffset="14,6"/>
     </screen>
     <screen name="LocationBoxOld" flags="wfNoBorder" position="0,0" backgroundColor="transparent">
-        <panel name="titletemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="timedate"/>
+        <panel name="menutemp2"/>
         <widget name="quickselect" position="45,290" size="1830,700" backgroundColor="background" foregroundColor="yellow" font="Regular;150" halign="center" transparent="1" valign="center" zPosition="88"/>
         <widget name="text" position="52,170" size="876,45" font="Regular;33" backgroundColor="background" foregroundColor="foreground" transparent="1" zPosition="2"/>
         <widget name="targetfreespace" position="1633,170" size="260,45" font="Regular;30" halign="right" backgroundColor="background" foregroundColor="green" transparent="1"/>

@@ -93,6 +93,7 @@ def isImageType(img_name=''):
 class AglareBitrate(Converter, object):
     def __init__(self, type):
         Converter.__init__(self, type)
+        self.mode = (type or "").strip().lower()
         self.clear_values()
         self.is_running = False
         self.is_suspended = False
@@ -115,20 +116,27 @@ class AglareBitrate(Converter, object):
 
     @cached
     def getText(self):
-        if DBG:
-            AGDEBUG(f"[AglareBitrate:getText] vcur {self.vcur} acur {self.acur}")
-        
-        # Filter out invalid bitrates
         vcur = self.vcur if 0 < self.vcur < 100000 else 0
         acur = self.acur if 0 < self.acur < 100000 else 0
-        
+        if self.mode in ("video", "v"):
+            return f"V: {vcur} Kb/s" if vcur > 0 else ""
+
+        if self.mode in ("audio", "a"):
+            return f"A: {acur} Kb/s" if acur > 0 else ""
+
+        # both inline (one line)
+        if self.mode in ("inline", "single", "oneline", "line"):
+            if vcur > 0 and acur > 0:
+                return f"V: {vcur} Kb/s A: {acur} Kb/s"
+            elif vcur > 0:
+                return f"V: {vcur} Kb/s"
+            elif acur > 0:
+                return f"A: {acur} Kb/s"
+            return ""
+
+        # both (default) = 2 lines
         if vcur > 0 and acur > 0:
-            return f'V: {vcur} Kb/s A: {acur} Kb/s'
-        elif vcur > 0:
-            return f'V: {vcur} Kb/s'
-        elif acur > 0:
-            return f'A: {acur} Kb/s'
-        return ''
+            return f"V: {vcur} Kb/s\nA: {acur} Kb/s"
 
     text = property(getText)
 
@@ -251,7 +259,7 @@ class AglareBitrate(Converter, object):
                 vparts = self.data_lines[0].split()
                 if len(vparts) >= 4:
                     self.vmin, self.vmax, self.vavg, self.vcur = map(int, vparts[:4])
-                
+
                 # Parse audio line
                 aparts = self.data_lines[1].split()
                 if len(aparts) >= 4:
