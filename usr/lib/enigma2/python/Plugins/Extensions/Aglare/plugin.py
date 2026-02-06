@@ -1193,7 +1193,11 @@ def main(session, **kwargs):
         fullurl = join(myurl, destr)
     else:
         # Just show the message and exit - no callback needed
-        session.open(MessageBox, "Skin not supported.\nPlugin closed.", MessageBox.TYPE_ERROR, timeout=5)
+        session.open(
+            MessageBox,
+            "Skin not supported.\nPlugin closed.",
+            MessageBox.TYPE_ERROR,
+            timeout=5)
         return
     session.open(AglareSetup)
 
