@@ -164,6 +164,7 @@ msgstr "Delete"
 msgid "Download error: {}"
 msgstr "Download error: {}"
 
+#, fuzzy
 msgid "Download in progress"
 msgstr "Download in progress"
 
@@ -479,6 +480,7 @@ msgstr "This operation remove all png from folder device (Poster-Backdrop)"
 msgid "Tomato"
 msgstr "Tomato"
 
+#, fuzzy
 msgid "Update URL not initialised  open the plugin once from the Plugins menu first."
 msgstr "Update URL not initialised  open the plugin once from the Plugins menu first."
 
