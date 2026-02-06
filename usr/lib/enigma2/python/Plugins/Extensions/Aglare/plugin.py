@@ -836,7 +836,6 @@ class AglareSetup(ConfigListScreen, Screen):
 
         try:
             # write server‐side version file into /tmp
-            destr = '/tmp/aglarepliversion.txt'
             tmp_file = f'/tmp/{destr}'
             req = Request(
                 fullurl,
@@ -1030,10 +1029,23 @@ def removePng():
 
 
 def main(session, **kwargs):
-    global destr, fullurl
-    destr = "aglarepliversion.txt"
-    myurl = "https://raw.githubusercontent.com/popking159/skins/main/aglarepli/"
-    fullurl = join(myurl, destr)
+    global skinversion, destr, fullurl
+    cur_skin = config.skin.primary_skin.value.replace("/skin.xml", "")
+
+    if cur_skin == "Aglare-FHD-PLI":
+        skinversion = join("/usr/share/enigma2", cur_skin, ".Aglare-FHD-PLI")
+        destr = "aglarepliversion.txt"
+        myurl = "https://raw.githubusercontent.com/popking159/skins/main/aglarepli/"
+        fullurl = join(myurl, destr)
+    elif cur_skin == "Aglare-FHD":
+        skinversion = join("/usr/share/enigma2", cur_skin, ".Aglare-FHD")
+        destr = "aglareatvversion.txt"
+        myurl = "https://raw.githubusercontent.com/popking159/skins/main/aglareatv/"
+        fullurl = join(myurl, destr)
+    else:
+        # Just show the message and exit - no callback needed
+        session.open(MessageBox, "Skin not supported.\nPlugin closed.", MessageBox.TYPE_ERROR, timeout=5)
+        return
     session.open(AglareSetup)
 
 
